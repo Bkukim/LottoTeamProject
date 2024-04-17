@@ -30,11 +30,22 @@ const routes = [
   {
     path: '/cart',
     component: () => import('../views/CartList.vue')
-  },// 즐겨찾기
+  },
+  // 즐겨찾기
   {
     path: '/wishlist',
     component: () => import('../views/WishList.vue')
   },
+  // 로그인 페이지
+  {
+    path: '/member/login',
+    component: () => import('../views/LoginView.vue')
+  },
+  // 회원가입 페이지
+  {
+    path: '/member/join',
+    component: () => import('../views/JoinView.vue')
+  }
 ]
 
 const router = createRouter({
