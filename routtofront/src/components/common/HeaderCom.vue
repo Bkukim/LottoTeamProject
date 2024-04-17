@@ -1,39 +1,121 @@
+
+import router from '@/router';
 <template>
   <!-- header 전체박스 -->
   <div class="kim-frame-14">
   <!-- header 중앙 정렬박스 -->
     <div class="container center">
-    <img class="kim-routto-logo" src="../../../src/assets/images/routto__4__1.png" />
-    <img class="kim-div" src="../../../src/assets/images/______1.png" />
-    <img class="kim-div2" src="../../../src/assets/images/b.png" />
-    <div class="navbar">
-      <div to="" class="kim-div3">BEST</div>
-      <div class="kim-div3">SKIN</div>
-      <div class="kim-div3">MAKE UP</div>
-      <div class="kim-div3">BODY</div>
-      <div class="kim-div3">NOTICE</div>
+
+    <!--로고이미지  -->
+    <router-link to="http://www.routoo.com/shop"><img class="kim-routto-logo" src="../../../src/assets/images/routto__4__1.png" /> </router-link>
+
+    <!-- 홈 아이콘 -->
+    <!-- <img class="kim-div" src="../../../src/assets/images/______1.png" /> -->
+
+    <!-- 햄버거 아이콘 -->
+    <img class="kim-div2" src="../../../src/assets/images/hb.png" />
+    
+    <!-- 메뉴 바 -->
+    <div class="kim-navbar">
+      <router-link to="#" class="kim-div3">BEST</router-link>
+      <router-link to="#" class="kim-div3">SKIN</router-link>
+      <router-link to="#" class="kim-div3">MAKE UP</router-link>
+      <router-link to="#" class="kim-div3">BODY</router-link>
+      <router-link to="#" class="kim-div3">NOTICE</router-link>
     </div>
+
+    <!-- 왼쪽 박스 -->
     <div class="kim-frame-142">
-      <div class="kim-div4">공지사항</div>
-      <div class="kim-div4">상품문의</div>
-      <div class="kim-faq">FAQ</div>
+      <router-link to="#" class="kim-div4">공지사항</router-link>
+      <router-link to="#" class="kim-div4">FAQ</router-link>
+
+      <!-- <div class="kim-div4">공지사항</div> -->
+      <!-- <div class="kim-faq">FAQ</div> -->
     </div>
+
+    <!-- 검색 아이콘 -->
     <img class="kim-vector-4" src="../../../src/assets/images/unederbar.png" />
     <img class="kim-_1" src="../../../src/assets/images/se.png" />
+
+    <!-- 오른쪽 박스 -->
     <div class="kim-frame-15">
+      <router-link to="http://www.routoo.com/member/login" class="kim-login">LOGIN</router-link>
+      <router-link to="http://www.routoo.com/member/join" class="kim-join">JOIN</router-link>
+      <router-link to="http://www.routoo.com/order/cart" class="kim-cart">CART</router-link>
+      <router-link to="http://www.routoo.com/member/mypage" class="kim-my-page">MY PAGE</router-link>
+<!-- 
       <div class="kim-login">LOGIN</div>
       <div class="kim-join">JOIN</div>
       <div class="kim-cart">CART</div>
-      <div class="kim-my-page">MY PAGE</div>
+      <div class="kim-my-page">MY PAGE</div> -->
     </div>
+
   <!-- header 중앙 정렬박스 -->
   </div>
   <!-- header 전체박스 -->
   </div>     
 </template>
 
+
+
+
 <style>
 /* @import '@/assets/css/IndexStyle.css'; */
+
+
+.router-link-exact-active {
+  color: #ffffff;
+  text-decoration: none; /* 언더라인 제거 */
+} 
+
+/* 호버 시 색상 변경 */
+.router-link-exact-active:hover {
+  color: rgba(248, 224, 178, 0.705); /* 원하는 호버 색상으로 변경 */
+}
+
+/* router-link가 렌더링하는 <a> 태그에 적용되는 스타일 */
+.kim-frame-15 a {
+  color: #ffffff;
+  text-decoration: none; /* 언더라인 제거 */
+}
+
+/* 호버 시 색상 변경 */
+.kim-frame-15 a:hover {
+  color: rgba(248, 224, 178, 0.705); /* 원하는 호버 색상으로 변경 */
+}
+
+
+.kim-frame-142 a {
+  color: #ffffff;
+  text-decoration: none; /* 언더라인 제거 */
+}
+
+/* 호버 시 색상 변경 */
+.kim-frame-142 a:hover {
+  color: rgba(248, 224, 178, 0.705); /* 원하는 호버 색상으로 변경 */
+}
+
+
+.kim-frame-15 > router-link{
+  text-decoration: none; /* 언더라인 제거 */
+}
+
+
+/* router-link가 렌더링하는 <a> 태그에 적용되는 스타일 */
+  .kim-navbar a {
+  color: #ffffff;
+  text-decoration: none; /* 언더라인 제거 */
+}
+
+/* 호버 시 색상 변경 */
+.kim-navbar a:hover {
+  color: rgba(248, 224, 178, 0.705); /* 원하는 호버 색상으로 변경 */
+}
+
+
+/* ------------- */
+
+
 .kim-frame-14 {
   background: #342a26;
   height: 333px;
@@ -75,26 +157,23 @@
   overflow: visible;
 }
 
-.navbar {
+.kim-navbar {
   display: flex;
   flex-direction: row;
-  gap: 5px;
+  gap: 70px;
   align-items: flex-start;
   justify-content: flex-start;
   position: absolute;
-  left: 111px;
+  left: 650px;
   top: 255px;
   align-items: flex-end;
   justify-content: flex-end;
 }
 
-/* .navbar > .div3 {
-  margin-right: -50px;
-}
 
-.div3:last-child {
+/* .div3:last-child {
   margin-right: 0;
-} */
+} */ 
 
 .kim-div3 {
   color: #ffffff;
@@ -113,7 +192,7 @@
   align-items: flex-start;
   justify-content: flex-start;
   position: absolute;
-  left: 16vw;
+  left: 12.7vw;
   top: 49px;
 }
 
@@ -128,30 +207,33 @@
 }
 
 .kim-vector-4 {
-  width: 8.78%;
-  height: 0%;
-  position: absolute;
-  right: 14.87%;
-  left: 76.35%;
-  bottom: 65.47%;
-  top: 34.53%;
-  overflow: visible;
-}
-
-.kim-_1 {
-  width: 30px;
-  height: 30px;
   display: flex;
   flex-direction: row;
   gap: 25px;
   align-items: flex-start;
   justify-content: flex-start;
   position: absolute;
-  left: calc(50% + 409px);
-  top: 45%;
+  left: calc(50% + 450px);
+  top: 125px;
   align-items: flex-end;
   justify-content: flex-end;
 }
+
+.kim-_1 {
+  width: 40px;
+  height: 40px;
+  display: flex;
+  flex-direction: row;
+  gap: 5px;
+  align-items: flex-start;
+  justify-content: flex-start;
+  position: absolute;
+  left: calc(50% + 625px);
+  top: 85px;
+  align-items: flex-end;
+  justify-content: flex-end;
+}
+
 
 .kim-frame-15 {
   display: flex;
