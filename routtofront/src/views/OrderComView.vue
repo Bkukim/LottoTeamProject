@@ -13,24 +13,22 @@
           </div>
           <div
             class="col-md-8 mt-2 container"
-            style="display: flex; justify-content: center; text-align:center;"
+            style="display: flex; justify-content: center; text-align: center"
           >
-          <p>고객님의 주문이
-            <br>정상적으로 완료되었습니다.</p>
+            <p>고객님의 주문이 <br />정상적으로 완료되었습니다.</p>
           </div>
           <div
             class="mb-3 row"
             style="
               display: flex;
               justify-content: space-between;
-              border: 1px solid black;"
+              border: 1px solid black;
+            "
           >
             <label class="col-md-3 col-form-label">주문번호 :</label>
-            <label
-              class="col-md-3 col-form-label"
-              style="text-align: right"
-              >{{ data.orderId }}</label
-            >
+            <label class="col-md-3 col-form-label" style="text-align: right">{{
+              data.orderId
+            }}</label>
           </div>
           <div
             class="mb-3 row"
@@ -48,9 +46,36 @@
               >{{ data.orderPrice }} 원</label
             >
           </div>
-          <div class="mb-3 row" style="border: 1px solid black;">
-            <label class="col-md-2 col-form-label">결제수단</label>
-            <label class="col-md-2 col-form-label">결제수단</label>
+          <div class="mb-3 row" style="border: 1px solid black">
+            <div class="col-md-2 mb-3" style="border-bottm: 1px solid black;">
+              결제수단
+            </div>
+            <!-- <label class="col-md-2 col-form-label" style="border-bottm: 1px solid black;">결제수단</label> -->
+            <div>
+              <label class="col-md-2 col-form-label">결제수단</label>
+              <label class="col-md-10 col-form-label">{{
+                data.paymentType
+              }}</label>
+            </div>
+            <!-- 결제수단 : 계좌이체 -->
+            <div class="mb-3 row" v-if="data.paymentType === '계좌이체'">
+              <label class="col-md-2 col-form-label">입금자명</label>
+              <label class="col-md-10 col-form-label">{{
+                data.depositor
+              }}</label>
+            </div>
+            <div class="mb-3 row" v-if="data.paymentType === '계좌이체'">
+              <label class="col-md-2 col-form-label">입금은행</label>
+              <label class="col-md-10 col-form-label">{{ data.bank }}</label>
+            </div>
+
+            <!-- 결제수단 : 카드 결제 -->
+            <div class="mb-3 row" v-if="data.paymentType === '카드 결제'">
+              <label class="col-md-3 col-form-label">카드사명</label>
+              <label class="col-md-9 col-form-label">{{
+                data.payPg
+              }}</label>
+            </div>
           </div>
           <div class="mb-3 row">
             <label class="col-md-3 col-form-label">결제 금액</label>
@@ -118,7 +143,8 @@ export default {
         orderPrice: "",
         paymentType: "",
         bank: "",
-        depositor: ""
+        depositor: "",
+        payPg: "",
       },
       OrderedList: [], // 주문 상품 객체 배열
       ordercompleteimg: require("../assets/images/ordercomplete_icon.png"),
@@ -131,11 +157,18 @@ export default {
       let retrievedData = {
         orderId: "123456789",
         orderPrice: "45000",
+        paymentType: "카드 결제",
+        bank: "국민은행",
+        depositor: "공민식",
+        payPg: "토스뱅크카드",
       };
 
       // 조회된 데이터를 data 객체에 저장
       this.data.orderId = retrievedData.orderId;
       this.data.orderPrice = retrievedData.orderPrice;
+      this.data.paymentType = retrievedData.paymentType;
+      this.data.bank = retrievedData.bank;
+      this.data.depositor = retrievedData.depositor;
     },
   },
   created() {
@@ -144,5 +177,4 @@ export default {
 };
 </script>
 
-<style>
-</style>
+<style></style>
