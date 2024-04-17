@@ -1,0 +1,134 @@
+/* .frame-14 {
+  background: #342a26;
+  height: 333px;
+  width: 100%;
+  position: relative;
+  overflow: hidden;
+}
+
+.routto-logo {
+  width: 317px;
+  height: 58.86%;
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  bottom: 28.83%;
+  top: 12.31%;
+  object-fit: cover;
+}
+
+.div {
+  width: 30px;
+  height: 30px;
+  position: absolute;
+  right: 85.73%;
+  left: 12.5%;
+  bottom: 77.48%;
+  top: 12.31%;
+  object-fit: cover;
+}
+
+.div2 {
+  width: 2.08%;
+  height: 8.41%;
+  position: absolute;
+  right: 85.36%;
+  left: 12.55%;
+  bottom: 12.61%;
+  top: 78.98%;
+  overflow: visible;
+}
+
+.navbar {
+  display: flex;
+  flex-direction: row;
+  gap: 5px;
+  align-items: flex-start;
+  justify-content: flex-start;
+  position: absolute;
+  left: calc(50% - 510px);
+  top: 255px;
+}
+
+.navbar > .div3 {
+  margin-right: 15px;
+}
+
+.div3:last-child {
+  margin-right: 0;
+}
+
+.div3 {
+  color: #ffffff;
+  text-align: left;
+  font-family: "Inter-Regular", sans-serif;
+  font-size: 20px;
+  font-weight: 400;
+  position: relative;
+}
+
+.frame-142 {
+  display: flex;
+  flex-direction: row;
+  gap: 22px;
+  align-items: flex-start;
+  justify-content: flex-start;
+  position: absolute;
+  left: 16vw;
+  top: 49px;
+}
+
+.div4,
+.faq {
+  color: #ffffff;
+  text-align: left;
+  font-family: "Inter-Regular", sans-serif;
+  font-size: 15px;
+  font-weight: 400;
+  position: relative;
+}
+
+.vector-4 {
+  width: 8.78%;
+  height: 0%;
+  position: absolute;
+  right: 14.87%;
+  left: 76.35%;
+  bottom: 65.47%;
+  top: 34.53%;
+  overflow: visible;
+}
+
+._1 {
+  width: 2.45%;
+  height: 14.11%;
+  position: absolute;
+  right: 12.45%;
+  left: 85.1%;
+  bottom: 65.47%;
+  top: 20.42%;
+  object-fit: cover;
+}
+
+.frame-15 {
+  display: flex;
+  flex-direction: row;
+  gap: 25px;
+  align-items: flex-start;
+  justify-content: flex-start;
+  position: absolute;
+  left: calc(50% + 409px);
+  top: 38px;
+}
+
+.login,
+.join,
+.cart,
+.my-page {
+  color: #ffffff;
+  text-align: left;
+  font-family: "Inter-Regular", sans-serif;
+  font-size: 15px;
+  font-weight: 400;
+  position: relative;
+} */
