@@ -21,8 +21,7 @@ const routes = [
   {
     path: '/faqList',
     component: () => import('../views/FaqListView.vue')
-  },
-  // 고객센터 문의글  
+  },// 고객센터 문의글  
   {
     path: '/inquiry',
     component: () => import('../views/InquiryView.vue')
