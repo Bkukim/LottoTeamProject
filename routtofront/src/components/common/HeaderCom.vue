@@ -7,7 +7,7 @@ import router from '@/router';
     <div class="container center">
 
     <!--로고이미지  -->
-    <router-link to="http://www.routoo.com/shop"><img class="kim-routto-logo" src="../../../src/assets/images/routto__4__1.png" /> </router-link>
+    <router-link to="/shop"><img class="kim-routto-logo" src="../../../src/assets/images/routto__4__1.png" /> </router-link>
 
     <!-- 홈 아이콘 -->
     <!-- <img class="kim-div" src="../../../src/assets/images/______1.png" /> -->
@@ -39,10 +39,10 @@ import router from '@/router';
 
     <!-- 오른쪽 박스 -->
     <div class="kim-frame-15">
-      <router-link to="http://www.routoo.com/member/login" class="kim-login">LOGIN</router-link>
-      <router-link to="http://www.routoo.com/member/join" class="kim-join">JOIN</router-link>
-      <router-link to="http://www.routoo.com/order/cart" class="kim-cart">CART</router-link>
-      <router-link to="http://www.routoo.com/member/mypage" class="kim-my-page">MY PAGE</router-link>
+      <router-link to="/member/login" class="kim-login">LOGIN</router-link>
+      <router-link to="/member/join" class="kim-join">JOIN</router-link>
+      <router-link to="/order/cart" class="kim-cart">CART</router-link>
+      <router-link to="/member/mypage" class="kim-my-page">MY PAGE</router-link>
 <!-- 
       <div class="kim-login">LOGIN</div>
       <div class="kim-join">JOIN</div>
