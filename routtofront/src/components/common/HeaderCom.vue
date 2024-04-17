@@ -1,6 +1,6 @@
 <template>
-    <div>
-       헤더
+    <div class="container" id="head">
+       Header
     </div>
   </template>
   <script>
@@ -9,4 +9,8 @@
   }
   </script>
   <style >
+   #head {
+      background-color: red;
+      clear: both;
+   }
   </style>
