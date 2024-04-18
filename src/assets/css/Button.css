@@ -1,0 +1,35 @@
+*{
+	text-decoration: none;
+  padding:0;
+  margin:0;
+}
+/* router-link{
+} */
+.button_div{
+padding: 0;
+}
+#button1 {
+  width: 10vw;
+  height: 3vw;
+  color: #fff;
+  margin-left: 1vw;
+  /* right: 22.2917vw; */
+  /* top: calc(50% - 3.8194vw/2 + 13.9236vw); */
+  font-size: 1.2vw; /* 부모 요소의 폰트 크기를 상속 */
+  font-weight: 2vw; /* 부모 요소의 폰트 두께를 상속 */
+  text-decoration: none; /* 밑줄 제거 */
+  background:  #342a26;
+
+}#button2 {
+  width: 10vw;
+  height: 3vw;
+  color: #342a26;
+  /* margin-left: 1vw; */
+  /* right: 22.2917vw; */
+  /* top: calc(50% - 3.8194vw/2 + 13.9236vw); */
+  font-family: inherit; /* 부모 요소의 폰트 서식을 상속 */
+  font-size: 1.2vw; /* 부모 요소의 폰트 크기를 상속 */
+  font-weight: 2vw; /* 부모 요소의 폰트 두께를 상속 */
+  text-decoration: none; /* 밑줄 제거 */
+  background:  #fff;
+}
