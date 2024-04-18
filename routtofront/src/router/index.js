@@ -30,11 +30,43 @@ const routes = [
   {
     path: '/cart',
     component: () => import('../views/CartList.vue')
-  },// 즐겨찾기
+  },
+  // 즐겨찾기
   {
     path: '/wishlist',
     component: () => import('../views/WishList.vue')
   },
+  // 로그인 페이지
+  {
+    path: '/member/login',
+    component: () => import('../views/LoginView.vue')
+  },
+  // 회원가입 페이지
+  {
+    path: '/member/join',
+    component: () => import('../views/JoinView.vue')
+  },
+    // 결제 페이지
+    {
+      path: '/order/payment',
+      component: () => import('../views/PaymentView.vue')
+    },
+    // 주문 완료 페이지
+    {
+      path: '/order/completed',
+      component: () => import('../views/OrderComView.vue')
+    },
+    // 주문자 환불 페이지
+    {
+      path: '/order/refund-request',
+      component: () => import('../views/UserRefundView.vue')
+    },
+    // 관리자 환불 페이지
+    {
+      path: '/shop/admin/refund',
+      component: () => import('../views/AdminRefundView.vue')
+    },
+    
 ]
 
 const router = createRouter({
