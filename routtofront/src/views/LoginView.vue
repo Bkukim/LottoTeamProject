@@ -8,7 +8,7 @@
         <!-- 로그인 시작 -->
         <div class="col log col-divider">
           <h5 class="mb-4 mt-4 log-form"><strong>회원 로그인</strong></h5>
-          <form action="login.jsp" method="post">
+          
             <div class="mb-3">
               <label class="insert-id log-form" for="id">아이디</label>
               <input
@@ -39,17 +39,17 @@
                 로그인
               </button>
             </div>
-          </form>
         </div>
         <!-- 회원가입 시작 -->
         <div class="col join">
           <h5 class="mb-1 mt-4 join-form"><strong>회원가입</strong></h5>
-          <form action="login.jsp" method="post">
+          
             <div class="mb-3 join-form">
               <button
                 class="btn text-light btn-sm mt-4"
                 id="login-bt"
                 type="submit"
+                @click="goJoin"
               >
                 회원가입
               </button>
@@ -58,14 +58,14 @@
               </div>
             </div>
             <div class="join-form mt-0">
-              <button class="btn btn-sm" id="find-idpw" type="submit">
+              <button class="btn btn-sm" id="find-idpw" type="button" @click="goFindId">
                 아이디 찾기
               </button>
-              <button class="btn btn-sm mt-4 mb-3" id="find-idpw" type="submit">
+              <button class="btn btn-sm mt-4 mb-3" id="find-idpw" type="button" @click="goFindPwd">
                 비밀번호 찾기
               </button>
             </div>
-          </form>
+          
         </div>
       </div>
       <!-- 소셜로그인 -->
@@ -87,7 +87,19 @@
   </div>
 </template>
 <script>
-export default {};
+export default {
+  methods: {
+    goFindId(){
+      this.$router.push("/member/find-id")
+    },
+    goJoin(){
+      this.$router.push("/member/join")
+    },
+    goFindPwd(){
+      this.$router.push("/member/find-pwd")
+    }
+  },
+};
 </script>
 <style>
 #id {
