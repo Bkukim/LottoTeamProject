@@ -81,7 +81,10 @@ const routes = [
     path: '/shop/admin',
     component: () => import('../views/admin/AdminHome')
   },
-  
+  {
+    path: '/member/userModify',
+    component: () => import('../views/userModify.vue')
+  },
 ]
 
 const router = createRouter({
