@@ -1,6 +1,6 @@
 <!-- /adimn-notice -->
 <template>
-  <div class="mt-5">
+  <div class="mt-5 mb-5 col-13">
     <!-- 카테고리 -->
     <h5 class="text-center">공지사항등록</h5>
     <br />
@@ -21,7 +21,7 @@
       <textarea
         class="form-control"
         id="exampleFormControlTextarea1"
-        rows="10"
+        rows="15"
       ></textarea>
     </div>
     <!-- 첨부파일 -->
@@ -43,12 +43,14 @@
     <!-- 관리자-공지사항 등록 버튼 -->
     <div class="d-grid gap-2 d-md-flex justify-content-md-end">
       <!-- 취소시 관리자 페이지로 이동 -->
-      <button id="button2" class="btn btn-primary me-md-2" type="button">
-        <router-link to="#">취소</router-link>
+      <button id="button2"
+       class="btn btn-primary me-md-2" 
+       type="button">
+        <router-link to="/admin" class="cencle router-link-exact-active">취소</router-link>
       </button>
       <!-- 등록시 공지사항 목록으로 재이동 -->
       <button id="button1" class="btn btn-primary" type="button">
-        <router-link to="notice">등록</router-link>
+        <router-link to="/notice" class="router-link-exact-active">등록</router-link>
       </button>
     </div>
   </div>
