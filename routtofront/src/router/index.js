@@ -82,7 +82,6 @@ const routes = [
     component: () => import('../views/admin/AdminHome')
   },
   
-
 ]
 
 const router = createRouter({
