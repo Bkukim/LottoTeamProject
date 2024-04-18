@@ -26,8 +26,8 @@
             "
           >
             <label class="col-md-3 col-form-label">주문번호 :</label>
-            <label class="col-md-3 col-form-label" style="text-align: right">{{
-              data.orderId
+            <label class="col-md-9 col-form-label" style="text-align: right">{{
+              odid.orderId
             }}</label>
           </div>
           <div
@@ -39,90 +39,184 @@
             "
           >
             <label class="col-md-3 col-form-label">주문금액 :</label>
-            <label
-              class="col-md-3 col-form-label"
-              style="text-align: right"
-              id="odid"
-              >{{ data.orderPrice }} 원</label
+            <label class="col-md-9 col-form-label" style="text-align: right"
+              >{{ odid.orderPrice }} 원</label
             >
           </div>
+
+          <!-- 결제수단 박스 시작 -->
           <div class="mb-3 row" style="border: 1px solid black">
-            <div class="col-md-2 mb-3" style="border-bottm: 1px solid black;">
-              결제수단
+            <div
+              class="col-md-12 mb-3 mt-3 pb-3"
+              style="border-bottom: 1px solid black"
+            >
+              <b>결제수단</b>
             </div>
-            <!-- <label class="col-md-2 col-form-label" style="border-bottm: 1px solid black;">결제수단</label> -->
             <div>
               <label class="col-md-2 col-form-label">결제수단</label>
               <label class="col-md-10 col-form-label">{{
-                data.paymentType
+                odid.paymentType
               }}</label>
             </div>
+
             <!-- 결제수단 : 계좌이체 -->
-            <div class="mb-3 row" v-if="data.paymentType === '계좌이체'">
+            <div class="mb-1 row" v-if="odid.paymentType === '계좌이체'">
               <label class="col-md-2 col-form-label">입금자명</label>
               <label class="col-md-10 col-form-label">{{
-                data.depositor
+                odid.depositor
               }}</label>
             </div>
-            <div class="mb-3 row" v-if="data.paymentType === '계좌이체'">
+            <div class="mb-1 row" v-if="odid.paymentType === '계좌이체'">
               <label class="col-md-2 col-form-label">입금은행</label>
-              <label class="col-md-10 col-form-label">{{ data.bank }}</label>
+              <label class="col-md-10 col-form-label">{{ odid.bank }}</label>
             </div>
 
             <!-- 결제수단 : 카드 결제 -->
-            <div class="mb-3 row" v-if="data.paymentType === '카드 결제'">
+            <div class="mb-3 row" v-if="odid.paymentType === '카드 결제'">
               <label class="col-md-3 col-form-label">카드사명</label>
-              <label class="col-md-9 col-form-label">{{
-                data.payPg
+              <label class="col-md-9 col-form-label">{{ odid.payPg }}</label>
+            </div>
+          </div>
+          <!-- 결제수단 박스 끝 -->
+
+          <!-- 배송지 박스 시작 -->
+          <div class="mb-3 row" style="border: 1px solid black">
+            <div
+              class="col-md-12 mb-3 mt-3 pb-3"
+              style="border-bottom: 1px solid black"
+            >
+              <b>배송 정보</b>
+            </div>
+            <!-- 받는 사람 -->
+            <div>
+              <label class="col-md-2 col-form-label">받는 사람</label>
+              <label class="col-md-10 col-form-label">{{
+                deliv.orederName
               }}</label>
             </div>
-          </div>
-          <div class="mb-3 row">
-            <label class="col-md-3 col-form-label">결제 금액</label>
-            <label class="col-md-9 col-form-label">원</label>
-          </div>
-          <div class="mb-3 row">
-            <label class="col-md-3 col-form-label">받으시는 분</label>
-            <label class="col-md-9 col-form-label"> </label>
-          </div>
-          <div class="mb-3 row">
-            <label class="col-md-3 col-form-label">배송지</label>
-            <label class="col-md-9 col-form-label"></label>
-          </div>
-          <div class="mb-3 row">
-            <label class="col-md-3 col-form-label">휴대폰번호</label>
-            <label class="col-md-9 col-form-label"></label>
-          </div>
-          <div class="mb-3 row">
-            <label class="col-md-3 col-form-label">요청사항</label>
-            <label class="col-md-9 col-form-label"></label>
-          </div>
-          <div class="mb-3 row">
-            <label class="col-md-3 col-form-label">주문처리상태</label>
-            <div class="col-md-9">
-              <select class="form-select">
-                <option :key="i" v-for="(status, i) in statusList">
-                  {{ status.status }}
-                </option>
-              </select>
+            <!-- 주소 -->
+            <div>
+              <label class="col-md-2 col-form-label">주소</label>
+              <label class="col-md-10 col-form-label">{{ deliv.addr }}</label>
+            </div>
+            <!-- 연락처 -->
+            <div>
+              <label class="col-md-2 col-form-label">연락처</label>
+              <label class="col-md-10 col-form-label">{{ deliv.phNum }}</label>
+            </div>
+            <!-- 배송 요청 사항 -->
+            <div>
+              <label class="col-md-2 col-form-label">배송 요청</label>
+              <!-- 배송 요청 사항이 있으면 출력 -->
+              <label
+                class="col-md-10 col-form-label"
+                v-if="deliv.orderRequest == true"
+                >{{ deliv.orderRequest }}</label
+              >
+              <!-- 배송 요청 사항이 없으면 출력 -->
+              <label
+                class="col-md-10 col-form-label"
+                v-if="deliv.orderRequest == false"
+              ></label>
             </div>
           </div>
-          <div class="mb-3 row">
-            <label class="col-md-3 col-form-label">운송장번호</label>
-            <div class="col-md-9">
-              <input type="text" class="form-control" />
+          <!-- 배송지 박스 끝 -->
+
+          <!-- 주문 상품 정보 박스 시작 -->
+          <div class="mb-3 row" style="border: 1px solid black">
+            <div
+              class="col-md-12 mb-3 mt-3 pb-3"
+              style="border-bottom: 1px solid black"
+            >
+              <b>주문 상품</b>
+            </div>
+            <!-- 주문 상품 사진 및 상품 정보 -->
+            <div style="display: flex; align-items: center">
+              <div class="col-md-2 col-form-label" style="min-width:100px">
+                <img
+                  src="https://via.placeholder.com/100"
+                  alt="상품 이미지"
+                  style="max-width: 100%"
+                />
+              </div>
+              <div class="col-md-10 col-form-label">
+                상품 정보
+                <br />
+                <label>상품명 :</label>
+                <br />
+                <label>수량 :</label>
+                <br />
+                <label>금액 :</label>
+                <br />
+                <label>할인 금액 :</label>                
+              </div>
             </div>
           </div>
-          <div class="row mt-5">
+          <!-- 주문 상품 정보 박스 끝 -->
+
+          <!-- 결제 정보 박스 시작 -->
+          <div class="mb-3 row" style="border: 1px solid black">
+            <div
+              class="col-md-12 mb-3 mt-3 pb-3"
+              style="border-bottom: 1px solid black"
+            >
+              <b>결제정보</b>
+            </div>
+            <!-- 주문 상품 금액 -->
+            <div style="display: flex; justify-content: space-between">
+              <label class="col-md-2 col-form-label">주문 상품</label>
+              <label class="col-md-10 col-form-label" style="text-align: right"
+                >원</label
+              >
+            </div>
+            <!-- 할인/부가결제 금액 -->
+            <div style="display: flex; justify-content: space-between">
+              <label class="col-md-2 col-form-label" style="min-width: 100px"
+                >할인/부가결제</label
+              >
+              <label class="col-md-10 col-form-label" style="text-align: right"
+                >원</label
+              >
+            </div>
+            <!-- 배송비 금액 -->
+            <div style="display: flex; justify-content: space-between">
+              <label
+                class="col-md-2 col-form-label pr-2"
+                style="min-width: 100px"
+                >배송비</label
+              >
+              <label class="col-md-10 col-form-label" style="text-align: right"
+                >원</label
+              >
+            </div>
+            <!-- 총 결제금액 -->
+            <div style="display: flex; justify-content: space-between">
+              <label class="col-md-2 col-form-label" style="min-width: 100px"
+                >결제금액</label
+              >
+              <label class="col-md-10 col-form-label" style="text-align: right"
+                >원</label
+              >
+            </div>
+          </div>
+          <!-- 결제 정보 박스 끝 -->
+
+          <!-- 버튼 div -->
+          <div class="row mt-5 mb-5">
             <div class="d-flex justify-content-between align-items-center">
+              <!-- 쇼핑 계속하기 버튼 -->
               <div class="col-6 d-grid p-1">
-                <button type="button" class="btn btn-lg btn-outline-dark">
-                  CANCEL
+                <button
+                  type="button"
+                  class="btn btn-lg keepShopBtn btn-outline-dark"
+                >
+                  쇼핑 계속하기
                 </button>
               </div>
-              <div class="col-6 d-grid p-1" id="sex">
+              <!-- 주문확인하기 버튼 -->
+              <div class="col-6 d-grid p-1">
                 <button type="button" class="btn btn-lg btn-outline-dark">
-                  SAVE
+                  주문 확인하기
                 </button>
               </div>
             </div>
@@ -137,7 +231,7 @@
 export default {
   data() {
     return {
-      data: {
+      odid: {
         // 주문 정보를 저장할 객체
         orderId: "",
         orderPrice: "",
@@ -145,6 +239,14 @@ export default {
         bank: "",
         depositor: "",
         payPg: "",
+      },
+
+      deliv: {
+        // 배송지 정보를 저장할 객체
+        orederName: "",
+        addr: "",
+        phNum: "",
+        orderRequest: "",
       },
       OrderedList: [], // 주문 상품 객체 배열
       ordercompleteimg: require("../assets/images/ordercomplete_icon.png"),
@@ -154,27 +256,64 @@ export default {
     retrieveOrder() {
       // API 요청 등을 통해 주문번호와 주문금액을 조회하는 로직 구현
       // 예시를 위해 임시 데이터 사용
-      let retrievedData = {
+      // 결제 정보 박스에 사용할 함수
+      let retrievedOdid = {
         orderId: "123456789",
         orderPrice: "45000",
-        paymentType: "카드 결제",
+        paymentType: "계좌이체",
         bank: "국민은행",
         depositor: "공민식",
         payPg: "토스뱅크카드",
       };
 
-      // 조회된 데이터를 data 객체에 저장
-      this.data.orderId = retrievedData.orderId;
-      this.data.orderPrice = retrievedData.orderPrice;
-      this.data.paymentType = retrievedData.paymentType;
-      this.data.bank = retrievedData.bank;
-      this.data.depositor = retrievedData.depositor;
+      // 조회된 데이터를 odid 객체에 저장
+      this.odid.orderId = retrievedOdid.orderId;
+      this.odid.orderPrice = retrievedOdid.orderPrice;
+      this.odid.paymentType = retrievedOdid.paymentType;
+      this.odid.bank = retrievedOdid.bank;
+      this.odid.depositor = retrievedOdid.depositor;
+    },
+
+    retrievedAddr() {
+      // 배송 정보 박스에 사용할 함수
+      let AddrBox = {
+        orederName: "홍길동",
+        addr: "부산광역시",
+        phNum: "010-0000-000",
+        orderRequest: "없음",
+      };
+
+      // 조회된 데이터를 deliv 객체에 저장
+      this.deliv.orederName = AddrBox.orederName;
+      this.deliv.addr = AddrBox.addr;
+      this.deliv.phNum = AddrBox.phNum;
+      this.deliv.orderRequest = AddrBox.orderRequest;
+    },
+
+    retrieveProd() {
+      // 주문 상품 정보 박스에 사용할 함수
+      // let ProdBox = {
+      //   prodImg: "",
+      //   prodName: "",
+      //   orderOpName: "",
+      // }
+    },
+
+    // 쇼핑 계속하기 버튼 클릭시 실행될 함수
+    backToPL() {
+      this.$router.push("");
     },
   },
   created() {
     this.retrieveOrder(); // 컴포넌트 생성 시 주문 정보 조회
+    this.retrievedAddr();
   },
 };
 </script>
 
-<style></style>
+<style>
+.keepShopBtn {
+  background-color: #342a26;
+  color: white;
+}
+</style>
