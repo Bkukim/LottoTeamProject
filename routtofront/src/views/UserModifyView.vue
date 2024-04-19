@@ -14,9 +14,7 @@
                 <th scope="col"></th>
               </tr>
             </thead>
-            <tbody>
-
-            </tbody>
+        
           </table>
           <!-- 회원정보수정 상단 끝 -->
           <br />
@@ -317,8 +315,7 @@
                 </td>
                 <td>주민번호 앞 6자리 ex ) 990115</td>
               </tr>
-            </thead>
-            <tbody></tbody>
+            </thead>         
           </table>
           <!-- 추가 정보 테이블 끝 -->
         </div>
