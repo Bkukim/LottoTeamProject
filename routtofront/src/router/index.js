@@ -1,7 +1,7 @@
 import { createRouter, createWebHistory } from 'vue-router'
 
 const routes = [
-  
+
   {
     path: '/',
     component: () => import('../views/HomeView.vue')
@@ -16,7 +16,7 @@ const routes = [
     path: '/adimn-notice',
     component: () => import('../views/AdimnNotice.vue')
   },
-  
+
   // 고객센터  shop//faqList
   {
     path: '/faqList',
@@ -81,9 +81,20 @@ const routes = [
     path: '/shop/admin',
     component: () => import('../views/admin/AdminHome')
   },
+  // 회원정보수정
   {
     path: '/member/userModify',
-    component: () => import('../views/userModify.vue')
+    component: () => import('../views/UserModifyView.vue')
+  },
+  // 마이페이지
+  {
+    path: '/member/mypage',
+    component: () => import('../views/MypageView.vue')
+  },
+  // 회원탈퇴
+  {
+    path: '/member/withdraw',
+    component: () => import('../views/WithDrawView.vue')
   },
 ]
 
