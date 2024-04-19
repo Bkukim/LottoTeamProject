@@ -71,14 +71,14 @@
       <!-- 소셜로그인 -->
       <div class="row text-center mt-5">
         <div>
-          <button class="btn btn-custom naver mt-4 mb-3" id="find-idpw" type="submit">
+          <button class="btn btn-custom naver mt-4 mb-3" id="naver-login-btn" type="submit">
             <img src="@/assets/img/N.png">     &nbsp;&nbsp;        네이버 로그인 / 회원가입
           </button>
         </div>
       </div>
       <div class="row text-center">
         <div>
-          <button class="btn btn-custom naver mt-4 mb-3" id="find-idpw" type="submit">
+          <button class="btn btn-custom naver mt-4 " id="kakao-login-btn" type="submit">
             <img src="@/assets/img/K.png">     &nbsp;&nbsp;        카카오 로그인 / 회원가입
           </button>
         </div>
@@ -121,6 +121,21 @@ export default {
   background-color: white;
   border-color: black;
   color: black;
+}
+#naver-login-btn{
+  width: 483px;
+  height: 65px;
+  background-color: white;
+  border-color: black;
+  color: black;
+}
+#kakao-login-btn{
+  width: 483px;
+  height: 65px;
+  background-color: white;
+  border-color: black;
+  color: black;
+  margin-bottom: 7vw;
 }
 .col-divider {
   border-right: 1px solid #ccc; /* 수직선 스타일 설정 */
