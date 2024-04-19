@@ -79,20 +79,7 @@ const routes = [
   // 관리자 홈 페이지
   {
     path: '/shop/admin',
-<<<<<<< HEAD
-    component: () => import('../views/admin/AdminHome.vue')
-  },
-  {
-    path: '/member/userModify',
-    component: () => import('../views/userModify.vue')
-  },
-   // 관리자 상품 등록 페이지
-   {
-    path: '/shop/admin/add-product',
-    component: () => import('../views/admin/AdminAddProd.vue')
-  },
 
-=======
     component: () => import('../views/admin/AdminHome')
   },
   // 회원정보수정
@@ -116,7 +103,7 @@ const routes = [
       component: () => import('../views/admin/AdminAddProd.vue')
     },
   
->>>>>>> main
+
 ]
 
 const router = createRouter({
