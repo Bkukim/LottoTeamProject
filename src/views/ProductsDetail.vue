@@ -1,7 +1,6 @@
 <template>
   <div class="container mt-5">
-
-        <h1 class="mt-4">Product</h1>
+    <h1 class="mt-4">Product</h1>
     <hr />
 
     <br />
@@ -23,7 +22,7 @@
         </div>
       </div>
 
-<div class="col-sm-1"></div>
+      <div class="col-sm-1"></div>
       <!-- 오른쪽 -->
       <div class="col-sm-5">
         <!-- 1. 상품 이름 -->
