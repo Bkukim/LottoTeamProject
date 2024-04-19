@@ -10,6 +10,7 @@
                 <table class="table">
                     <thead>
                         <tr>
+                            
                             <h1 scope="col">회원탈퇴</h1>                         
                         </tr>
                     </thead>
