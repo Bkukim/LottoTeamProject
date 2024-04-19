@@ -96,6 +96,10 @@ const routes = [
     path: '/member/withdraw',
     component: () => import('../views/WithDrawView.vue')
   },
+  {
+    path: '/member/test',
+    component: () => import('../views/WithDrawView.vue')
+  },
 ]
 
 const router = createRouter({
