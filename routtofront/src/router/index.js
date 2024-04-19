@@ -85,6 +85,12 @@ const routes = [
     path: '/member/userModify',
     component: () => import('../views/userModify.vue')
   },
+    // 관리자 상품 등록 페이지
+    {
+      path: '/shop/admin/add-product',
+      component: () => import('../views/admin/AdminAddProd.vue')
+    },
+  
 ]
 
 const router = createRouter({
