@@ -7,13 +7,16 @@
       <router-view />
     </div>
     <!-- 꼬리말 -->
+    <FoterView/>
   </div>
 </template>
 <script>
   import HeaderCom from '@/components/common/HeaderCom.vue'
+  import FoterView from '@/components/common/FoterView.vue'
 export default {
   components:{
-    HeaderCom
+    HeaderCom,
+    FoterView
   }
 }
 </script>
