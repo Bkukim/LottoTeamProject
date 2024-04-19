@@ -2,6 +2,7 @@
   <div class="container">
     <div class="row justify-content-end">
       <div class="col mt-5">
+<<<<<<< HEAD
         <!-- 오늘의 할일 -->
         <div>
           <h2>오늘의 할일</h2>
@@ -36,13 +37,26 @@
             </p>
           </div>
           <!-- 오른쪽 하단 박스 -->
+=======
+        <br>
+      
+        <h2>오늘의 할일</h2>
+        <hr>
+      </div>
+      <div class="col-auto mt-5">
+        <div class="btn-group-vertical">
+          <div id="right-box1"></div>
+>>>>>>> main
           <div id="right-box2"></div>
         </div>
       </div>
     </div>
   </div>
 </template>
+<<<<<<< HEAD
 
+=======
+>>>>>>> main
 <script>
 export default {};
 </script>
@@ -61,6 +75,7 @@ export default {};
   height: 16.875vw;
   color: white;
 }
+<<<<<<< HEAD
 
 #admin-name {
   font-size: 1.5625vw;
@@ -72,4 +87,6 @@ export default {};
 }
 #todo-link {
 }
+=======
+>>>>>>> main
 </style>
