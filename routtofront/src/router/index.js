@@ -110,7 +110,12 @@ const routes = [
   {
     path: "/member/withDraw",
     component: () => import("../views/WithDrawView.vue")
+  },
+  {
+    path: "/member/mypage",
+    component: () => import("../views/MypageView.vue")
   }
+
 ];
 
 const router = createRouter({
