@@ -96,10 +96,19 @@ const routes = [
     path: '/member/withdraw',
     component: () => import('../views/WithDrawView.vue')
   },
+<<<<<<< HEAD
   {    
     path: '/member/tehihihi',
     component: () => import('../views/WithDrawView.vue')
   },
+=======
+    // 관리자 상품 등록 페이지
+    {
+      path: '/shop/admin/add-product',
+      component: () => import('../views/admin/AdminAddProd.vue')
+    },
+  
+>>>>>>> cbf0860afd0f39e32516bdeee9e913341b55a65f
 ]
 
 const router = createRouter({
