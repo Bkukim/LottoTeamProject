@@ -57,7 +57,7 @@
         <!-- 기본 정보 테이블 시작-->
         <table class="table">
           <thead>
-            <tr>
+            <tr >
               <h3 scope="col">기본 정보</h3>
               <th scope="col"></th>
               <th scope="col"></th>
@@ -66,7 +66,7 @@
           </thead>
           <tbody>
             <!-- 아이디 tr -->
-
+            
             <tr>
               <th scope="row">
                 <label class="insert-id" for="id">아이디</label>
@@ -114,7 +114,9 @@
             <!-- 비밀번호 확인 질문 tr -->
             <tr>
               <th scope="row">
-                <label class="form-label" for="">비밀번호 확인 질문</label>
+                <label class="form-label" for="address"
+                  >비밀번호 확인 질문</label
+                >
               </th>
               <td>
                 <select class="form-select" aria-label="Default select example">
@@ -168,23 +170,13 @@
                 <div class="row mb-1">
                   <!-- 우편번호 -->
                   <div class="col">
-                    <input
-                      class="form-control"
-                      type="text"
-                      v-model="postcode"
-                      placeholder="우편번호"
-                      disabled
-                    />
+                    <input class="form-control" type="text" name="address" />
                   </div>
                   <!-- 주소검색 버튼 -->
                   <div class="col">
-                    <input
-                      class="btn"
-                      type="button"
-                      @click="execDaumPostcode()"
-                      value="우편번호 찾기"
-                      id="addressBtn"
-                    />
+                    <button class=" addressBtn btn-sm" type="submit">
+                      주소검색
+                    </button>
                   </div>
                 </div>
                 <div class="row mb-1">
@@ -192,8 +184,8 @@
                     <input
                       class="form-control"
                       type="text"
-                      v-model="address"
-                      placeholder="주소"
+                      name="address"
+                      id="address"
                       disabled
                     />
                   </div>
@@ -203,23 +195,11 @@
                     <input
                       class="form-control"
                       type="text"
-                      v-model="extraAddress"
-                      placeholder=""
-                      disabled
-                    />
-                  </div>
-                </div>
-                <div class="row mb-1">
-                  <div class="col">
-                    <input
-                      class="form-control"
-                      type="text"
-                      id="detailAddress"
+                      name="address"
                       placeholder="상세주소"
                     />
                   </div>
                 </div>
-                
               </td>
               <td></td>
             </tr>
@@ -369,7 +349,11 @@
   <div class="container text-center">
     <div class="row justify-content-md-center">
       <div class="col-md-auto">
-        <button class="text-light singUpBtn btn-sm mt-4" id="" type="submit">
+        <button
+          class="text-light singUpBtn btn-sm mt-4"
+          id=""
+          type="submit"
+        >
           회원가입
         </button>
       </div>
@@ -381,65 +365,16 @@
   <br />
 </template>
 <script>
-export default {
-  data() {
-    return {
-      postcode: "",
-      address: "",
-      extraAddress: "",
-    };
-  },
-  methods: {
-    execDaumPostcode() {
-      new window.daum.Postcode({
-        oncomplete: (data) => {
-          if (this.extraAddress !== "") {
-            this.extraAddress = "";
-          }
-          if (data.userSelectedType === "R") {
-            // 사용자가 도로명 주소를 선택했을 경우
-            this.address = data.roadAddress;
-          } else {
-            // 사용자가 지번 주소를 선택했을 경우(J)
-            this.address = data.jibunAddress;
-          }
-
-          // 사용자가 선택한 주소가 도로명 타입일때 참고항목을 조합한다.
-          if (data.userSelectedType === "R") {
-            // 법정동명이 있을 경우 추가한다. (법정리는 제외)
-            // 법정동의 경우 마지막 문자가 "동/로/가"로 끝난다.
-            if (data.bname !== "" && /[동|로|가]$/g.test(data.bname)) {
-              this.extraAddress += data.bname;
-            }
-            // 건물명이 있고, 공동주택일 경우 추가한다.
-            if (data.buildingName !== "" && data.apartment === "Y") {
-              this.extraAddress +=
-                this.extraAddress !== ""
-                  ? `, ${data.buildingName}`
-                  : data.buildingName;
-            }
-            // 표시할 참고항목이 있을 경우, 괄호까지 추가한 최종 문자열을 만든다.
-            if (this.extraAddress !== "") {
-              this.extraAddress = `(${this.extraAddress})`;
-            }
-          } else {
-            this.extraAddress = "";
-          }
-          // 우편번호를 입력한다.
-          this.postcode = data.zonecode;
-        },
-      }).open();
-    },
-  },
-};
+export default {};
 </script>
 <style>
-#addressBtn {
+.addressBtn {
   /* 주소 검색 버튼 */
   background-color: #342a26;
   color: white;
 }
 .singUpBtn {
+
   background-color: #342a26;
   color: white;
   font-size: 20px;
