@@ -94,7 +94,7 @@ const routes = [
   // 회원정보 수정
   {
     path: "/member/userModify",
-    component: () => import("../views/userModify.vue"),
+    component: () => import("../views/UserModifyView.vue"),
   },
   // 상품 페이지
   {
@@ -106,6 +106,11 @@ const routes = [
     path: "/order",
     component: () => import("../views/OrderView.vue"),
   },
+  // 회원탈퇴
+  {
+    path: "/member/withDraw",
+    component: () => import("../views/WithDrawView.vue")
+  }
 ];
 
 const router = createRouter({
