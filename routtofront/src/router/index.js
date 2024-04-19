@@ -96,9 +96,8 @@ const routes = [
     path: '/member/withdraw',
     component: () => import('../views/WithDrawView.vue')
   },
-  {
-    
-    path: '/member/test',
+  {    
+    path: '/member/te',
     component: () => import('../views/WithDrawView.vue')
   },
 ]
