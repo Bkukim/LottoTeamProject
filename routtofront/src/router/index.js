@@ -79,6 +79,7 @@ const routes = [
   // 관리자 홈 페이지
   {
     path: '/shop/admin',
+
     component: () => import('../views/admin/AdminHome')
   },
   // 회원정보수정
@@ -102,6 +103,7 @@ const routes = [
       component: () => import('../views/admin/AdminAddProd.vue')
     },
   
+
 ]
 
 const router = createRouter({
