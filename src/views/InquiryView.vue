@@ -1,6 +1,6 @@
 <!-- InquiryView.vue :: 문의 등록 form-->
 <template>
-  <div class="mt-5">
+  <div class="mt-5 mb-5  col-13">
     <!-- 카테고리 -->
     <h5 class="text-center">문의사항</h5>
     <br />
@@ -60,11 +60,11 @@
     <div class="d-grid gap-2 d-md-flex justify-content-md-end">
       <!-- 취소시 메인 페이지로 이동 -->
       <button id="button2" class="btn btn-primary me-md-2" type="button">
-        <router-link to="/">취소</router-link>
+        <router-link to="/" class="cencle router-link-exact-active">취소</router-link>
       </button>
       <!-- 등록시 고객센터 글 목록으로 재이동 -->
       <button id="button1" class="btn btn-primary" type="button">
-        <router-link to="/faqList">등록</router-link>
+        <router-link to="/faqList" class=" router-link-exact-active">등록</router-link>
       </button>
     </div>
   </div>

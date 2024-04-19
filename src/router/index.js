@@ -1,7 +1,7 @@
 import { createRouter, createWebHistory } from 'vue-router'
 
 const routes = [
-  
+
   {
     path: '/',
     component: () => import('../views/HomeView.vue')
@@ -16,7 +16,7 @@ const routes = [
     path: '/adimn-notice',
     component: () => import('../views/AdimnNotice.vue')
   },
-  
+
   // 고객센터  shop//faqList
   {
     path: '/faqList',
@@ -46,36 +46,64 @@ const routes = [
     path: '/member/join',
     component: () => import('../views/JoinView.vue')
   },
-    // 결제 페이지
+  // 아이디 찾기 페이지
+  {
+    path: '/member/find-id',
+    component: () => import('../views/FindId.vue')
+  },
+  // 비밀번호 찾기 페이지
+  {
+    path: '/member/find-pwd',
+    component: () => import('../views/FindPwd.vue')
+  },
+  // 결제 페이지
+  {
+    path: '/order/payment',
+    component: () => import('../views/PaymentView.vue')
+  },
+  // 주문 완료 페이지
+  {
+    path: '/order/completed',
+    component: () => import('../views/OrderComView.vue')
+  },
+  // 주문자 환불 페이지
+  {
+    path: '/order/refund-request',
+    component: () => import('../views/UserRefundView.vue')
+  },
+  // 관리자 환불 페이지
+  {
+    path: '/shop/admin/refund',
+    component: () => import('../views/AdminRefundView.vue')
+  },
+  // 관리자 홈 페이지
+  {
+    path: '/shop/admin',
+
+    component: () => import('../views/admin/AdminHome')
+  },
+  // 회원정보수정
+  {
+    path: '/member/userModify',
+    component: () => import('../views/UserModifyView.vue')
+  },
+  // 마이페이지
+  {
+    path: '/member/mypage',
+    component: () => import('../views/MypageView.vue')
+  },
+  // 회원탈퇴
+  {
+    path: '/member/withdraw',
+    component: () => import('../views/WithDrawView.vue')
+  },
+    // 관리자 상품 등록 페이지
     {
-      path: '/order/payment',
-      component: () => import('../views/PaymentView.vue')
+      path: '/shop/admin/add-product',
+      component: () => import('../views/admin/AdminAddProd.vue')
     },
-    // 주문 완료 페이지
-    {
-      path: '/order/completed',
-      component: () => import('../views/OrderComView.vue')
-    },
-    // 주문자 환불 페이지
-    {
-      path: '/order/refund-request',
-      component: () => import('../views/UserRefundView.vue')
-    },
-    // 관리자 환불 페이지
-    {
-      path: '/shop/admin/refund',
-      component: () => import('../views/AdminRefundView.vue')
-    },
-    // 검색창 페이지
-    {
-      path: '/search',
-      component: () => import('../views/SearchView.vue')
-    },
-    // 검색상세 페이지
-    {
-      path: '/search/example',
-      component: () => import('../views/SearchProduchView.vue')
-    },
+  
+
 ]
 
 const router = createRouter({

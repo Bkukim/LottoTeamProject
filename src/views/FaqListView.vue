@@ -1,25 +1,28 @@
+<!-- Notice view -->
 <template>
   <div class="container">
-    <div class="mt-3">
-      <router-link class="text-decoration-none fs-5" to="/faqList"
+    <div class="mt-5">
+      <router-link class="top_notice router-link-exact-active fs-5" to="/faqList"
         >고객센터</router-link
       >
       |
-      <router-link class="text-decoration-none" to="/notice"
+      <router-link class="top_notice2 text-decoration-none" to="/notice"
         >공지사항</router-link
       >
     </div>
-    <div class="mt-5">
+    <div class="mt-5 text-center">
       <!-- 서치 -->
-      <form class="d-flex mt-3 col-5" role="search">
-        <input
-          class="form-control me-2"
-          type="search"
-          placeholder="Search"
-          aria-label="Search"
-        />
-        <button class="btn btn-outline-success" type="submit">Search</button>
-      </form>
+      <div class="row justify-content-end">
+        <form class="d-flex mt-3 col-5" role="search">
+          <input
+            class="form-control me-2"
+            type="search"
+            placeholder="검색"
+            aria-label="Search"
+          />
+          <button class="btn btn-outline-success" type="submit">검색</button>
+        </form>
+      </div>
 
       <!-- 테이블 시작 -->
       <table class="table mt-5">
@@ -32,6 +35,7 @@
           </tr>
         </thead>
         <tbody>
+          <!-- 반복문 시작할 행 -->
           <tr>
             <th scope="row">1</th>
             <td>Mark</td>
@@ -40,18 +44,38 @@
           </tr>
         </tbody>
       </table>
-      <!--QNA 등록 버튼 -->
-      <button type="button" id="button1" class="mt-5 btn btn-primary">
-        <router-link to="/inquiry" class="text-decoration-none"
-          >질문하기</router-link
-        >
-      </button>
+
+      <!-- 페이징 -->
+      <!-- {/* paging 시작 */} -->
+      <!-- TODO: 1페이지당 화면에 보일 개수 조정(select태그) -->
+      <div class="row justify-content-center mt-4">
+        <div class="col-auto">
+          <b-pagination
+            class="col-12 mb-3"
+            v-model="page"
+            :total-rows="count"
+            :per-page="pageSize"
+            @click="retrieveSimpleProduct"
+          ></b-pagination>
+        </div>
+      </div>
+
+      <!-- 질문하기 등록-->
+      <div class="row justify-content-end">
+        <button type="button" id="button1" class="mt-5 btn">
+          <router-link to="/inquiry" class="router-link-exact-active"
+            >질문하기</router-link
+          >
+        </button>
+      </div>
     </div>
   </div>
 </template>
+
 <script>
 export default {};
 </script>
+
 <style>
 @import "@/assets/css/Button.css";
 </style>
