@@ -97,6 +97,7 @@ const routes = [
     component: () => import('../views/WithDrawView.vue')
   },
   {
+    
     path: '/member/test',
     component: () => import('../views/WithDrawView.vue')
   },
