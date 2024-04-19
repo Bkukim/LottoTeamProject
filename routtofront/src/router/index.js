@@ -97,7 +97,7 @@ const routes = [
     component: () => import('../views/WithDrawView.vue')
   },
   {    
-    path: '/member/te',
+    path: '/member/tehihihi',
     component: () => import('../views/WithDrawView.vue')
   },
 ]
