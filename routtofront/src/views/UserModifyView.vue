@@ -10,7 +10,7 @@
           <table class="table">
             <thead>
               <tr>
-                <h1 scope="col">회원정보수정 테스트</h1>
+                <h1 scope="col">회원정보수정 테스제발트</h1>
                 <th scope="col"></th>
               </tr>
             </thead>
