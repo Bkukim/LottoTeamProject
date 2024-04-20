@@ -90,6 +90,10 @@ const routes = [
   {
     path: "/shop/admin/add-product",
     component: () => import("../views/admin/AdminAddProd.vue"),
+  },  // 관리자 주문 확인 페이지
+  {
+    path: "/shop/admin/order",
+    component: () => import("../views/admin/AdminOrder.vue"),
   },
   // 회원정보 수정
   {
