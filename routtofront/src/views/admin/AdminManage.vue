@@ -298,7 +298,7 @@
       <table class="table table-bordered" style="border: 1px solid #342a26">
         <!-- 테이블 제목 행 -->
         <thead>
-          <tr>
+          <tr class="text-center">
             <th scope="col">
               <input
                 class="form-check-input"
@@ -307,7 +307,8 @@
                 id="flexCheckDefault"
               />
             </th>
-            <th scope="col">수정</th>
+            <th scope="col" id="modifyCol" >수정</th>
+            <th scope="col" id="modifyCol">복사</th>
             <th scope="col">상품번호</th>
             <th scope="col">상품명</th>
             <th scope="col">상세설명</th>
@@ -318,7 +319,7 @@
         </thead>
         <tbody>
           <!-- 1행 -->
-          <tr>
+          <tr class="text-center">
             <th scope="row">
               <label class="form-label" for="user"
                 ><input
@@ -328,7 +329,7 @@
                   id="flexCheckDefault"
               /></label>
             </th>
-            <td>
+                        <td>
               <button
                 type="button"
                 class="text-light updateBtn btn btn-success">
@@ -336,38 +337,45 @@
               </button>
             </td>
             <td>
-              <div class="col-6">
+              <button
+                type="button"
+                class="text-light updateBtn btn btn-success">
+                복사
+              </button>
+            </td>
+            <td>
+              <div >
                 <input class="form-control" type="text" name="user" />
               </div>
             </td>
             <td>
-              <div class="col-6">
+              <div >
                 <input class="form-control" type="text" name="user" />
               </div>
             </td>
             <td>
-              <div class="col-6">
+              <div >
                 <input class="form-control" type="text" name="user" />
               </div>
             </td>
             <td>
-              <div class="col-6">
+              <div >
                 <input class="form-control" type="text" name="user" />
               </div>
             </td>
             <td>
-              <div class="col-6">
+              <div>
                 <input class="form-control" type="text" name="user" />
               </div>
             </td>
             <td>
-              <div class="col-6">
+              <div >
                 <input class="form-control" type="text" name="user" />
               </div>
             </td>
           </tr>
           <!-- 2행 tr -->
-          <tr>
+          <tr class="text-center">
             <th scope="row">
               <label class="form-label" for="user"
                 ><input
@@ -377,7 +385,7 @@
                   id="flexCheckDefault"
               /></label>
             </th>
-            <td>
+                        <td>
               <button
                 type="button"
                 class="text-light updateBtn btn btn-success">
@@ -385,38 +393,45 @@
               </button>
             </td>
             <td>
-              <div class="col-6">
+              <button
+                type="button"
+                class="text-light updateBtn btn btn-success">
+                복사
+              </button>
+            </td>
+            <td>
+              <div >
                 <input class="form-control" type="text" name="user" />
               </div>
             </td>
             <td>
-              <div class="col-6">
+              <div >
                 <input class="form-control" type="text" name="user" />
               </div>
             </td>
             <td>
-              <div class="col-6">
+              <div >
                 <input class="form-control" type="text" name="user" />
               </div>
             </td>
             <td>
-              <div class="col-6">
+              <div >
                 <input class="form-control" type="text" name="user" />
               </div>
             </td>
             <td>
-              <div class="col-6">
+              <div>
                 <input class="form-control" type="text" name="user" />
               </div>
             </td>
             <td>
-              <div class="col-6">
+              <div >
                 <input class="form-control" type="text" name="user" />
               </div>
             </td>
           </tr>
           <!-- 3행 tr -->
-          <tr>
+          <tr class="text-center">
             <th scope="row">
               <label class="form-label" for="user"
                 ><input
@@ -426,7 +441,7 @@
                   id="flexCheckDefault"
               /></label>
             </th>
-            <td>
+                        <td>
               <button
                 type="button"
                 class="text-light updateBtn btn btn-success">
@@ -434,32 +449,39 @@
               </button>
             </td>
             <td>
-              <div class="col-6">
+              <button
+                type="button"
+                class="text-light updateBtn btn btn-success">
+                복사
+              </button>
+            </td>
+            <td>
+              <div >
                 <input class="form-control" type="text" name="user" />
               </div>
             </td>
             <td>
-              <div class="col-6">
+              <div >
                 <input class="form-control" type="text" name="user" />
               </div>
             </td>
             <td>
-              <div class="col-6">
+              <div >
                 <input class="form-control" type="text" name="user" />
               </div>
             </td>
             <td>
-              <div class="col-6">
+              <div >
                 <input class="form-control" type="text" name="user" />
               </div>
             </td>
             <td>
-              <div class="col-6">
+              <div>
                 <input class="form-control" type="text" name="user" />
               </div>
             </td>
             <td>
-              <div class="col-6">
+              <div >
                 <input class="form-control" type="text" name="user" />
               </div>
             </td>
@@ -479,6 +501,10 @@
       수정 항목 저장
     </button>
   </div>
+
+  <br>
+  <br>
+
 </template>
 
 <script>
@@ -540,4 +566,8 @@ export default {};
 #category {
   margin-right: 7vw;
 }
+#modifyCol{
+  width: 4vw;
+}
+
 </style>
