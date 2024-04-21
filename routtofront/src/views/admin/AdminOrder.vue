@@ -69,7 +69,7 @@
         <label id="category2"> 주문상태 </label>
         <label style="align-items: right" id="searchOpt">
           <!-- 주문번호/상품명 select box -->
-          <select class="form-select" aria-label="Default select example" >
+          <select class="form-select" aria-label="Default select example">
             <option selected>주문관리</option>
             <option value="1">상품명</option>
           </select>
@@ -169,7 +169,7 @@
     </div>
     <!-- 주문상태 끝 -->
 
-    <!-- 3) 결제수단 시작 -->
+    <!-- 3. 결제수단 시작 -->
     <div
       class="container mt-4"
       style="
@@ -283,16 +283,190 @@
     </div>
     <!-- 결제수단 끝 -->
 
-      <!-- 2. 검색/초기화 버튼 -->
-  <div class="container text-center">
-    <button
-      type="button"
-      class="text-light signUpBtn btn-sm mt-4"
-      style="margin-left: 10px"
-    >
-      검색
-    </button>
-  </div>
+    <!-- 4. 검색/초기화 버튼 -->
+    <div class="container text-center">
+      <button
+        type="button"
+        class="text-light signUpBtn btn-sm mt-4"
+        style="margin-left: 10px"
+      >
+        검색
+      </button>
+    </div>
+
+    <br />
+
+    <!-- 5. 테이블 시작-->
+    <table class="table table-bordered" style="border: 1px solid #342a26">
+      <!-- 테이블 제목 행 -->
+      <thead>
+        <tr class="text-center">
+          <th scope="col">
+            <input
+              class="form-check-input"
+              type="checkbox"
+              value=""
+              id="flexCheckDefault"
+            />
+          </th>
+          <th scope="col">주문번호</th>
+          <th scope="col">주문일</th>
+          <th scope="col">주문상품정보</th>
+          <th scope="col">주문자정보</th>
+          <th scope="col">결제정보</th>
+          <th scope="col">주문상태</th>
+        </tr>
+      </thead>
+      <tbody>
+        <!-- 1행 -->
+        <tr class="text-center">
+          <th scope="row">
+            <label class="form-label" for="user"
+              ><input
+                class="form-check-input"
+                type="checkbox"
+                value=""
+                id="flexCheckDefault"
+            /></label>
+          </th>
+          <td>
+            <div>
+              <input class="form-control" type="text" name="user" />
+            </div>
+          </td>
+          <td>
+            <div>
+              <input class="form-control" type="text" name="user" />
+            </div>
+          </td>
+          <td>
+            <div>
+              <input class="form-control" type="text" name="user" />
+            </div>
+          </td>
+          <td>
+            <div>
+              <input class="form-control" type="text" name="user" />
+            </div>
+          </td>
+          <td>
+            <div>
+              <input class="form-control" type="text" name="user" />
+            </div>
+          </td>
+          <td>
+        <label style="align-items: right">
+          <select class="form-select" aria-label="Default select example" id="orderStatus">
+            <option selected>상품준비중</option>
+            <option value="1">결제확인중</option>
+            <option value="2">결제확인</option>
+            <option value="3">배송준비중</option>
+            <option value="4">배송완료</option>
+            <option value="5">거래완료</option>
+          </select>
+        </label>
+          </td>
+        </tr>
+        <!-- 2행 tr -->
+        <tr class="text-center">
+          <th scope="row">
+            <label class="form-label" for="user"
+              ><input
+                class="form-check-input"
+                type="checkbox"
+                value=""
+                id="flexCheckDefault"
+            /></label>
+          </th>
+          <td>
+            <div>
+              <input class="form-control" type="text" name="user" />
+            </div>
+          </td>
+          <td>
+            <div>
+              <input class="form-control" type="text" name="user" />
+            </div>
+          </td>
+          <td>
+            <div>
+              <input class="form-control" type="text" name="user" />
+            </div>
+          </td>
+          <td>
+            <div>
+              <input class="form-control" type="text" name="user" />
+            </div>
+          </td>
+          <td>
+            <div>
+              <input class="form-control" type="text" name="user" />
+            </div>
+          </td>
+          <td>
+        <label style="align-items: right">
+          <select class="form-select" aria-label="Default select example" id="orderStatus">
+            <option selected>상품준비중</option>
+            <option value="1">결제확인중</option>
+            <option value="2">결제확인</option>
+            <option value="3">배송준비중</option>
+            <option value="4">배송완료</option>
+            <option value="5">거래완료</option>
+          </select>
+        </label>
+          </td>
+        </tr>
+        <!-- 3행 tr -->
+        <tr class="text-center">
+          <th scope="row">
+            <label class="form-label" for="user"
+              ><input
+                class="form-check-input"
+                type="checkbox"
+                value=""
+                id="flexCheckDefault"
+            /></label>
+          </th>
+          <td>
+            <div>
+              <input class="form-control" type="text" name="user" />
+            </div>
+          </td>
+          <td>
+            <div>
+              <input class="form-control" type="text" name="user" />
+            </div>
+          </td>
+          <td>
+            <div>
+              <input class="form-control" type="text" name="user" />
+            </div>
+          </td>
+          <td>
+            <div>
+              <input class="form-control" type="text" name="user" />
+            </div>
+          </td>
+          <td>
+            <div>
+              <input class="form-control" type="text" name="user" />
+            </div>
+          </td>
+          <td>
+        <label style="align-items: right">
+          <select class="form-select" aria-label="Default select example" id="orderStatus">
+            <option selected>상품준비중</option>
+            <option value="1">결제확인중</option>
+            <option value="2">결제확인</option>
+            <option value="3">배송준비중</option>
+            <option value="4">배송완료</option>
+            <option value="5">거래완료</option>
+          </select>
+        </label>
+          </td>
+        </tr>
+      </tbody>
+    </table>
   </div>
 </template>
 <script>
@@ -313,8 +487,8 @@ export default {};
   margin-right: 3vw;
 }
 
-#salaryStatus1{
-    margin-right:5vw;
+#salaryStatus1 {
+  margin-right: 5vw;
 }
 .signUpBtn {
   background-color: #342a26;
@@ -322,5 +496,8 @@ export default {};
   font-size: 20px;
   width: 200px;
   height: 50px;
+}
+#orderStatus {
+  width: 11vw;
 }
 </style>
