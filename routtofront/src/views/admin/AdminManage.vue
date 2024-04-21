@@ -164,7 +164,6 @@
             전체
           </label>
         </div>
-
         <!-- 판매중 버튼 -->
         <div class="form-check">
           <input
@@ -567,7 +566,7 @@ export default {};
   margin-right: 7vw;
 }
 #modifyCol{
-  width: 4vw;
+  width: 5vw;
 }
 
 </style>
