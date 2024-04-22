@@ -55,7 +55,7 @@
             v-model="page"
             :total-rows="count"
             :per-page="pageSize"
-            @click="retrieveSimpleProduct"
+            @click="retrieveProduct"
           ></b-pagination>
         </div>
       </div>
@@ -63,7 +63,7 @@
       <!-- 관리자 등록 버튼 :: 공지사항 글등록으로 이동-->
       <div class="row justify-content-end">
         <button type="button" id="button1" class="mt-5 btn">
-          <router-link to="/adimn-notice" class="router-link-exact-active"
+          <router-link to="/admin-notice" class="router-link-exact-active"
             >공지사항 등록</router-link
           >
         </button>
