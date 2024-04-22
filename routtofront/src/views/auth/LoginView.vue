@@ -17,6 +17,7 @@
                 placeholder="ID"
                 name="id"
                 id="id"
+                v-model="user.userId"
               />
             </div>
             <div class="mb-3">
@@ -27,6 +28,7 @@
                 placeholder="PASSWORD"
                 name="pwd"
                 id="pwd"
+                v-model="user.password"
               />
             </div>
 
@@ -35,6 +37,7 @@
                 class="btn text-light btn-sm mt-4 log-form"
                 id="login-bt"
                 type="submit"
+                @click="handleLogin"
               >
                 로그인
               </button>
@@ -87,7 +90,16 @@
   </div>
 </template>
 <script>
+import AuthService from '@/services/auth/AuthService';
 export default {
+  data() {
+    return {
+      user:{
+        userId: "",
+        password:"",
+      }
+    }
+  },
   methods: {
     goFindId(){
       this.$router.push("/member/find-id")
@@ -97,7 +109,23 @@ export default {
     },
     goFindPwd(){
       this.$router.push("/member/find-pwd")
-    }
+    },
+    async handleLogin(){
+        // 공통 로그인 서비스 함수
+        // 로그인 성고 =>
+        // 로그인 실해 => 로그인 실패 공유함수 실행
+        try {
+          let response = await AuthService.login(this.user);
+          console.log(response.data);
+          localStorage.setItem("user", JSON.stringify(response.data)); // fh칼호스트는 객체를 저장할 수 없기에 이걸 문자열러 바꿔서 진행해야한다.
+          this.$store.commit("loginSuccess", response.data);
+          this.$router.push("/");
+        } catch (e) {
+          // 로그인 실패시 에러가 뜨므로 로그인 실패 공유함수를 실행
+          this.$store.commit("loginFailure"); // 공유함수의 mutation함수는commit으로 실행한다.
+          console.log(e);
+        }
+      }
   },
 };
 </script>
