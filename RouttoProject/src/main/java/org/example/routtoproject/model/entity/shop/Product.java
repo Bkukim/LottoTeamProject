@@ -48,14 +48,9 @@ public class Product extends BaseTimeEntity {
     private Integer defaultPrice;
     private String prodCategory;
     private byte[] prodImg;
-    private byte[] prodImg2;
     private byte[] prodDetailPage;
     private Integer discountRate;
     private Integer prodStock;
-    private Date saleEnd;
-    private Date saleStart;
     private String prodStatus;
     private Integer soldCount;
-    private Date insertTime;
-    private Date updateTime;
 }
