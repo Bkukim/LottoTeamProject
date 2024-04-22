@@ -66,7 +66,7 @@
           align-items: center;
         "
       >
-        <label id="category2"> 주문상태 </label>
+        <label id="category1"> 주문상태 </label>
         <label style="align-items: right" id="searchOpt">
           <!-- 주문번호/상품명 select box -->
           <select class="form-select" aria-label="Default select example">
@@ -283,7 +283,7 @@
     </div>
     <!-- 결제수단 끝 -->
 
-    <!-- 4. 검색/초기화 버튼 -->
+    <!-- 4. 검색 버튼 -->
     <div class="container text-center">
       <button
         type="button"
@@ -294,6 +294,7 @@
       </button>
     </div>
 
+    <br />
     <br />
 
     <!-- 5. 테이블 시작-->
@@ -355,16 +356,20 @@
             </div>
           </td>
           <td>
-        <label style="align-items: right">
-          <select class="form-select" aria-label="Default select example" id="orderStatus">
-            <option selected>상품준비중</option>
-            <option value="1">결제확인중</option>
-            <option value="2">결제확인</option>
-            <option value="3">배송준비중</option>
-            <option value="4">배송완료</option>
-            <option value="5">거래완료</option>
-          </select>
-        </label>
+            <label style="align-items: right">
+              <select
+                class="form-select"
+                aria-label="Default select example"
+                id="orderStatus"
+              >
+                <option selected>상품준비중</option>
+                <option value="1">결제확인중</option>
+                <option value="2">결제확인</option>
+                <option value="3">배송준비중</option>
+                <option value="4">배송완료</option>
+                <option value="5">거래완료</option>
+              </select>
+            </label>
           </td>
         </tr>
         <!-- 2행 tr -->
@@ -404,16 +409,20 @@
             </div>
           </td>
           <td>
-        <label style="align-items: right">
-          <select class="form-select" aria-label="Default select example" id="orderStatus">
-            <option selected>상품준비중</option>
-            <option value="1">결제확인중</option>
-            <option value="2">결제확인</option>
-            <option value="3">배송준비중</option>
-            <option value="4">배송완료</option>
-            <option value="5">거래완료</option>
-          </select>
-        </label>
+            <label style="align-items: right">
+              <select
+                class="form-select"
+                aria-label="Default select example"
+                id="orderStatus"
+              >
+                <option selected>상품준비중</option>
+                <option value="1">결제확인중</option>
+                <option value="2">결제확인</option>
+                <option value="3">배송준비중</option>
+                <option value="4">배송완료</option>
+                <option value="5">거래완료</option>
+              </select>
+            </label>
           </td>
         </tr>
         <!-- 3행 tr -->
@@ -453,20 +462,38 @@
             </div>
           </td>
           <td>
-        <label style="align-items: right">
-          <select class="form-select" aria-label="Default select example" id="orderStatus">
-            <option selected>상품준비중</option>
-            <option value="1">결제확인중</option>
-            <option value="2">결제확인</option>
-            <option value="3">배송준비중</option>
-            <option value="4">배송완료</option>
-            <option value="5">거래완료</option>
-          </select>
-        </label>
+            <label style="align-items: right">
+              <select
+                class="form-select"
+                aria-label="Default select example"
+                id="orderStatus"
+              >
+                <option selected>상품준비중</option>
+                <option value="1">결제확인중</option>
+                <option value="2">결제확인</option>
+                <option value="3">배송준비중</option>
+                <option value="4">배송완료</option>
+                <option value="5">거래완료</option>
+              </select>
+            </label>
           </td>
         </tr>
       </tbody>
     </table>
+
+    <!-- 6. 저장 버튼 -->
+    <div class="container text-center">
+      <button
+        type="button"
+        class="text-light signUpBtn btn-sm mt-4"
+        style="margin-left: 10px"
+      >
+        저장
+      </button>
+    </div>
+
+    <br>
+    <br>
   </div>
 </template>
 <script>
@@ -476,9 +503,9 @@ export default {};
 #category1 {
   margin-right: 5vw;
 }
-#category2 {
-  margin-right: 5vw;
-}
+/* #category2 {
+  margin-right: 5.5vw;
+} */
 #searchOpt {
   margin-right: 1vw;
 }
@@ -488,7 +515,7 @@ export default {};
 }
 
 #salaryStatus1 {
-  margin-right: 5vw;
+  margin-right: 6vw;
 }
 .signUpBtn {
   background-color: #342a26;
