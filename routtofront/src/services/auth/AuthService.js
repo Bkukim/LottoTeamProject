@@ -17,20 +17,9 @@ class AuthService{
         localStorage.removeItem("user");
     }
 
-    register(user){
-        let data = {
-            userId : user.userId,
-            password: user.password,
-            name: user.userName,
-            birthday: user.birthday,
-            phoneNum: user.phoneNum,
-            callNum: user.callNum,
-            email: user.email,
-            role: user.role,
-            normalAddress: user.normalAddress,
-            detailAddress: user.detailAddress,
-        }
-        return http.post("/autg/register", data);
+    register(data){
+        
+        return http.post("/auth/register", data);
     }
 }
 
