@@ -31,7 +31,7 @@ public class ProductService {
         return product;
     }
 
-    // 상품 저장함수
+    // TODO: 상품 저장함수
     public Product save(Product product){
         Product product1 = productRepository.save(product);
         return product1;

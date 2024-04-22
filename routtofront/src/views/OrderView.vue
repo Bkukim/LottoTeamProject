@@ -58,12 +58,12 @@
             <div class="row">
               <div class="col-2">
                 <select class="form-select" aria-label="Default select example">
-                  <option selected>010</option>
-                  <option value="1">011</option>
-                  <option value="2">016</option>
-                  <option value="3">017</option>
-                  <option value="3">018</option>
-                  <option value="3">019</option>
+                  <option selected value="010">010</option>
+                  <option value="011">011</option>
+                  <option value="016">016</option>
+                  <option value="017">017</option>
+                  <option value="018">018</option>
+                  <option value="019">019</option>
                 </select>
               </div>
               _
@@ -130,70 +130,69 @@
           <td></td>
         </tr>
 
-<!-- 주소 tr -->
-            <tr>
-              <th scope="row">
-                <label class="form-label" for="address">주소</label>
-              </th>
-              <td>
-                <div class="row mb-1">
-                  <!-- 우편번호 -->
-                  <div class="col">
-                    <input
-                      class="form-control"
-                      type="text"
-                      v-model="postcode"
-                      placeholder="우편번호"
-                      disabled
-                    />
-                  </div>
-                  <!-- 주소검색 버튼 -->
-                  <div class="col">
-                    <input
-                      class="btn"
-                      type="button"
-                      @click="execDaumPostcode()"
-                      value="우편번호 찾기"
-                      id="addressBtn"
-                    />
-                  </div>
-                </div>
-                <div class="row mb-1">
-                  <div class="col">
-                    <input
-                      class="form-control"
-                      type="text"
-                      v-model="address"
-                      placeholder="주소"
-                      disabled
-                    />
-                  </div>
-                </div>
-                <div class="row mb-1">
-                  <div class="col">
-                    <input
-                      class="form-control"
-                      type="text"
-                      v-model="extraAddress"
-                      placeholder=""
-                      disabled
-                    />
-                  </div>
-                </div>
-                <div class="row mb-1">
-                  <div class="col">
-                    <input
-                      class="form-control"
-                      type="text"
-                      id="detailAddress"
-                      placeholder="상세주소"
-                    />
-                  </div>
-                </div>
-                
-              </td>
-              <td></td>
-            </tr>
+        <!-- 주소 tr -->
+        <tr>
+          <th scope="row">
+            <label class="form-label" for="address">주소</label>
+          </th>
+          <td>
+            <div class="row mb-1">
+              <!-- 우편번호 -->
+              <div class="col">
+                <input
+                  class="form-control"
+                  type="text"
+                  v-model="postcode"
+                  placeholder="우편번호"
+                  disabled
+                />
+              </div>
+              <!-- 주소검색 버튼 -->
+              <div class="col">
+                <input
+                  class="btn"
+                  type="button"
+                  @click="execDaumPostcode()"
+                  value="우편번호 찾기"
+                  id="addressBtn"
+                />
+              </div>
+            </div>
+            <div class="row mb-1">
+              <div class="col">
+                <input
+                  class="form-control"
+                  type="text"
+                  v-model="address"
+                  placeholder="주소"
+                  disabled
+                />
+              </div>
+            </div>
+            <div class="row mb-1">
+              <div class="col">
+                <input
+                  class="form-control"
+                  type="text"
+                  v-model="extraAddress"
+                  placeholder=""
+                  disabled
+                />
+              </div>
+            </div>
+            <div class="row mb-1">
+              <div class="col">
+                <input
+                  class="form-control"
+                  type="text"
+                  id="detailAddress"
+                  placeholder="상세주소"
+                />
+              </div>
+            </div>
+          </td>
+          <td></td>
+        </tr>
       </tbody>
     </table>
 
@@ -225,7 +224,7 @@
             <div class="row mb-3">
               <div class="col-12">
                 <select class="form-select" aria-label="Default select example">
-                  <option selected>배송메세지를 선택해주세요</option>
+                  <option selected value="0">배송메세지를 선택해주세요</option>
                   <option value="1">배송전 미리 연락해주세요.</option>
                   <option value="2">부재 시 경비실에 맡겨주세요.</option>
                   <option value="3">부재 시 문 앞에 놓아주세요.</option>
@@ -427,59 +426,58 @@
           </thead> -->
           <tbody>
             <div id="payinfo">
-            <!-- 총 상품 금액 -->
-            <tr id="paymentTr">
-              <th scope="row" class="col-sm-6">
-                <p>총 상품 금액</p>
-              </th>
-              <td>
-                <div>
-                  <p>00 원</p>
-                </div>
-              </td>
-            </tr>
-            <!-- 쿠폰 할인 금액 -->
-            <tr id="paymentTr">
-              <th scope="row" class="col-sm-6">
-                <p>쿠폰 할인 금액</p>
-              </th>
-              <td>
-                <div>
-                  <p>00 원</p>
-                </div>
-              </td>
-            </tr>
-
-            <!-- 총 배송비 tr -->
-            <tr id="paymentTr">
-              <th scope="row" class="col-sm-6">
-                <p>총 배송비</p>
-              </th>
-              <td>
-                <div>
-                  <p>00 원</p>
-                </div>
-              </td>
-            </tr>
-
-            <!-- 최종 결제 금액 tr -->
-            <tr id="paymentTr">
-              <th scope="row" class="col-sm-6">
-                <p>최종 결제 금액</p>
-              </th>
-              <td>
-                <div class="row">
+              <!-- 총 상품 금액 -->
+              <tr id="paymentTr">
+                <th scope="row" class="col-sm-6">
+                  <p>총 상품 금액</p>
+                </th>
+                <td>
                   <div>
                     <p>00 원</p>
                   </div>
-                </div>
-              </td>
-              <td></td>
-            </tr>
+                </td>
+              </tr>
+              <!-- 쿠폰 할인 금액 -->
+              <tr id="paymentTr">
+                <th scope="row" class="col-sm-6">
+                  <p>쿠폰 할인 금액</p>
+                </th>
+                <td>
+                  <div>
+                    <p>00 원</p>
+                  </div>
+                </td>
+              </tr>
+
+              <!-- 총 배송비 tr -->
+              <tr id="paymentTr">
+                <th scope="row" class="col-sm-6">
+                  <p>총 배송비</p>
+                </th>
+                <td>
+                  <div>
+                    <p>00 원</p>
+                  </div>
+                </td>
+              </tr>
+
+              <!-- 최종 결제 금액 tr -->
+              <tr id="paymentTr">
+                <th scope="row" class="col-sm-6">
+                  <p>최종 결제 금액</p>
+                </th>
+                <td>
+                  <div class="row">
+                    <div>
+                      <p>00 원</p>
+                    </div>
+                  </div>
+                </td>
+                <td></td>
+              </tr>
             </div>
           </tbody>
         </table>
-
       </div>
     </div>
   </div>
