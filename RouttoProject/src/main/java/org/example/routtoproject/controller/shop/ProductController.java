@@ -8,6 +8,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.Optional;
 
@@ -47,14 +48,31 @@ public class ProductController {
     }
 
     @PostMapping("/product")
-    public ResponseEntity<Object> createProduct(@RequestBody Product product){
+    public ResponseEntity<Object> createProduct(@RequestParam(defaultValue = "") String prodName,
+                                                @RequestParam (defaultValue = "0")int defaultPrice,
+                                                @RequestParam (defaultValue = "")String prodCategory,
+                                                @RequestParam MultipartFile prodImg,
+                                                @RequestParam MultipartFile prodDetailPage,
+                                                @RequestParam (defaultValue = "0")int discountRate,
+                                                @RequestParam (defaultValue = "0")int prodStock,
+                                                @RequestParam (defaultValue = "0")String prodImgUrl,
+                                                @RequestParam (defaultValue = "0")String prodDetailPageUrl
+                                                ){
         try {
-            if (product == null) {
-                return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-            }else {
-                Product product1 = productService.save(product);
+
+
+                Product product1 = productService.save(
+                        prodName,
+                        defaultPrice,
+                        prodCategory,
+                        prodImg,
+                        prodDetailPage,
+                        discountRate,
+                        prodStock,
+                        prodImgUrl,
+                        prodDetailPageUrl);
                 return new ResponseEntity<>(product1, HttpStatus.OK);
-            }
+
 
         }catch (Exception e){
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
