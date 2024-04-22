@@ -27,7 +27,7 @@
       <div class="col-sm-5">
         <!-- 1. 상품 이름 -->
         <div id="name">
-          <h2>상품 이름</h2>
+          <h2>{{prodName}}</h2>
         </div>
 
         <!-- 2. 상품 설명 -->
@@ -98,11 +98,29 @@
 </template>
 
 <script>
+import ProductService from "@/services/ProductService";
+
 export default {
   data() {
     return {
+      product: null, // product 초기값
       image: require("@/assets/images/skincare.jpg"),
+      prodName: this.product.prodName
     };
+  },
+  methods: {
+    async getProd(prodId) {
+      try {
+        let response = await ProductService.get(prodId);
+        this.product = response.data;
+        console.log(response.data);
+      } catch (e) {
+        console.log(e);
+      }
+    },
+  },
+  mounted() {
+    this.getProd(this.$route.params.prodId);  // 상세조회 함수 실행
   },
 };
 </script>
