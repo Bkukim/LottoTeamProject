@@ -57,7 +57,7 @@
         <!-- 기본 정보 테이블 시작-->
         <table class="table">
           <thead>
-            <tr >
+            <tr>
               <h3 scope="col">기본 정보</h3>
               <th scope="col"></th>
               <th scope="col"></th>
@@ -66,7 +66,7 @@
           </thead>
           <tbody>
             <!-- 아이디 tr -->
-            
+
             <tr>
               <th scope="row">
                 <label class="insert-id" for="id">아이디</label>
@@ -174,7 +174,7 @@
                   </div>
                   <!-- 주소검색 버튼 -->
                   <div class="col">
-                    <button class=" addressBtn btn-sm" type="submit">
+                    <button class="addressBtn btn-sm" type="submit">
                       주소검색
                     </button>
                   </div>
@@ -349,11 +349,7 @@
   <div class="container text-center">
     <div class="row justify-content-md-center">
       <div class="col-md-auto">
-        <button
-          class="text-light singUpBtn btn-sm mt-4"
-          id=""
-          type="submit"
-        >
+        <button class="text-light singUpBtn btn-sm mt-4" id="" type="submit">
           회원가입
         </button>
       </div>
@@ -365,7 +361,40 @@
   <br />
 </template>
 <script>
-export default {};
+import AuthService from '@/services/auth/AuthService';
+export default {
+  data() {
+    return {
+      user: {
+        userId: "",
+        password: "",
+        userName: "",
+        birthday: "",
+        phoneNum: "",
+        callNum: "",
+        email: "",
+        role: "",
+        normalAddress: "",
+        detailAddress: ""
+      },
+    };
+  },
+  methods: {
+    async handleRegister(){
+            try {
+                let response = await AuthService.register(this.user);
+                console.log(response.data);
+                this.$store.commit("registerSuccess")
+                this.message = " 사용자가 등록되었습니다."
+            } catch (e) {
+                // 공유 저장소의 register 실해함수 실행
+                this.$store.commit("registerFailure");
+                this.message = "에러 :" + e;
+                console.log(e); // 에러 출력
+            }
+        }
+  },
+};
 </script>
 <style>
 .addressBtn {
@@ -374,7 +403,6 @@ export default {};
   color: white;
 }
 .singUpBtn {
-
   background-color: #342a26;
   color: white;
   font-size: 20px;
