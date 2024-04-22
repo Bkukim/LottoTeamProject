@@ -1,5 +1,7 @@
 package org.example.routtoproject.repository.shop.product;
 
+import org.example.routtoproject.model.entity.shop.Cart;
+import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 /**
@@ -16,5 +18,5 @@ import org.springframework.stereotype.Repository;
  * 2024-04-22(022)         hayj6          최초 생성
  */
 @Repository
-public interface CartRepository {
+public interface CartRepository extends JpaRepository<Cart, Integer> {
 }

@@ -27,23 +27,29 @@
       <div class="col-sm-5">
         <!-- 1. 상품 이름 -->
         <div id="name">
-          <h2>{{prodName}}</h2>
+          <h2>{{ product.prodName }}</h2>
         </div>
 
         <!-- 2. 상품 설명 -->
-        <h4 class="mt-3">
+        <!-- <h4 class="mt-3">
           상품 설명 : 피부에 완벽 밀착되는 내추럴 에어핏 피팅으로 자연스럽고
           매끄러운 피부 연출이 가능한 스틱 파운데이션
-        </h4>
+        </h4> -->
 
         <!-- 3. 상품 원가 -->
         <div class="mt-4">
-          <h4><del>원가</del></h4>
+          <h4><del>원가 : </del></h4>
         </div>
 
         <!-- 4. 상품 최종가 -->
         <div id="price">
-          <h4>상품 가격 :</h4>
+          <h4>
+            상품 가격 :
+            {{
+              product.defaultPrice -
+              (product.defaultPrice * product.discountRate) / 100
+            }}
+          </h4>
         </div>
 
         <hr />
@@ -75,12 +81,19 @@
 
         <!-- 6. 총 상품 금액 -->
         <div id="total">
-          <h4>총 상품 금액 :</h4>
+          <h4>
+            총 상품 금액 :
+            {{
+              product.defaultPrice -
+              (product.defaultPrice * product.discountRate) / 100 -
+              3000
+            }}
+          </h4>
         </div>
 
         <!-- 7. 버튼 -->
         <div class="mt-5">
-          <button type="button" id="btn2">장바구니</button>
+          <button type="button" id="btn2" @click="saveCart">장바구니</button>
 
           <button type="button" id="btn3">주문하기</button>
         </div>
@@ -99,59 +112,104 @@
 
 <script>
 import ProductService from "@/services/ProductService";
+import CartService from "@/services/CartService";
 
 export default {
   data() {
     return {
-      product: null, // product 초기값
       image: require("@/assets/images/skincare.jpg"),
-      prodName: this.product.prodName
+      product: {
+        // prodId: this.$route.params.prodId,
+        // prodName: "",
+        // defaultPrice: "",
+        // prodCategory: "",
+        // prodImg: "",
+        // prodImg2: "",
+        // prodDetailPage: "",
+        // discountRate: "",
+        // prodStock: "",
+        // saleEnd: "",
+        // saleStart: "",
+        // prodStatus: "",
+        // soldCount:""
+      },
+      message: "", // 장바구니 추가 성공메세지(화면에 출력)
+            // cartCount: 0, // 장바구니 개수
     };
   },
   methods: {
+    // TODO: 상품 상세조회 : 상품ID(prodId)
+    // 비동기 코딩
     async getProd(prodId) {
       try {
         let response = await ProductService.get(prodId);
-        this.product = response.data;
+        this.product = response.data;   // spring 전송 객체 넣기
         console.log(response.data);
       } catch (e) {
         console.log(e);
       }
     },
+    // TODO: 장바구니 담기(저장)
+    async saveCart() {
+      // 임시 객체
+      try {
+        let data = {
+          prodId: this.product.prodId, // 상품번호
+          // cartCount: this.cartCount, // 장바구니 개수
+        };
+        // TODO: 공통 저장 서비스 함수 실행, async ~ await
+        let response = await CartService.create(data);
+        // 로깅
+        console.log(response.data);
+        // 장바구니 담기 성공 메세지 출력
+        this.message = "장바구니에 잘 담겼습니다.";
+      } catch (e) {
+        console.log(e);
+      }
+    },
+    // TODO: 장바구니 전체 조회페이지 이동함수
+    goCart() {
+      this.$router.push("/order/cart");
+    },
+    // TODO: 주문하기 이동함수
+    goOrder() {},
   },
   mounted() {
-    this.getProd(this.$route.params.prodId);  // 상세조회 함수 실행
+    this.getProd(this.$route.params.prodId); // 상세조회 함수 실행
   },
 };
 </script>
 
 <style>
 .box {
-  background-color: antiquewhite;
+  background-color: white;
   max-width: 100%;
   height: 3vw;
-  border: 5px solid #342a26;
+  border: 1px solid black;
   /* padding: 1vw; */
 }
 
 #name {
-  background-color: antiquewhite;
+  background-color: white;
   height: 5vw;
-  border: 5px solid #342a26;
+  border: 1px solid black;
 }
 
 #page {
-  background-color: #342a26;
-  color: white;
+  background-color: white;
+  border-color: black;
+  color: black;
   height: 40vw;
+  border-radius: 5px; /* 모서리 둥글게 : 5px로 설정 */
 }
 
 #price {
-  background-color: antiquewhite;
+  background-color: white;
   width: 16vw;
   height: vw;
-  border: 5px solid #342a26;
+  border: 1px solid black;
   padding: 0.5vx;
+  border-radius: 5px; /* 모서리 둥글게 : 5px로 설정 */
 }
 
 .dropdown {
@@ -163,35 +221,45 @@ export default {
   display: none;
   min-width: 100%; /* 드롭다운 메뉴의 최소 너비를 100%로 설정 */
   z-index: 1000;
+  border-radius: 5px; /* 모서리 둥글게 : 5px로 설정 */
 }
 
 #total {
-  background-color: antiquewhite;
+  background-color: white;
   height: 5vw;
-  border: 5px solid #342a26;
+  border: 1px solid black;
   padding: 0.5vw;
   z-index: 0;
+  border-radius: 5px; /* 모서리 둥글게 : 5px로 설정 */
 }
 
 #btn1 {
   background-color: antiquewhite;
   width: 100%;
   height: 3vw;
-  border: 5px solid #342a26;
+  background-color: white;
+  border-color: black;
+  color: black;
+  border-radius: 5px; /* 모서리 둥글게 : 5px로 설정 */
 }
 
 #btn2 {
   background-color: antiquewhite;
   width: 12vw;
   height: 4vw;
-  border: 5px solid #342a26;
   margin-right: 1.5vw;
+  background-color: white;
+  border: 1px solid black;
+  color: black;
+  border-radius: 5px; /* 모서리 둥글게 : 5px로 설정 */
 }
 
 #btn3 {
   background-color: antiquewhite;
   width: 12vw;
   height: 4vw;
-  border: 5px solid #342a26;
+  background-color: #342a26;
+  color: white;
+  border-radius: 5px; /* 모서리 둥글게 : 5px로 설정 */
 }
 </style>

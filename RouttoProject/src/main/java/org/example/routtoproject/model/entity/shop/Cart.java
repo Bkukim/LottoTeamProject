@@ -5,6 +5,8 @@ import lombok.*;
 import org.example.routtoproject.model.common.BaseTimeEntity;
 import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
+import org.hibernate.annotations.SQLDelete;
+import org.hibernate.annotations.Where;
 
 /**
  * packageName : org.example.routtoproject.model.entity.shop
@@ -44,5 +46,5 @@ public class Cart extends BaseTimeEntity {
     private Integer userId;
     private Integer prodId;
     private Integer cartProdCount;
-    private Integer insertTime;
+    private String insertTime;
 }
