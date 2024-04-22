@@ -13,7 +13,11 @@
   >
     <label><b>카테고리</b></label
     ><label style="display: flex; align-items: center; height: 100%">
-      <select class="" aria-label="Default select example">
+      <select
+        class=""
+        aria-label="Default select example"
+        v-model="product.prodCategory"
+      >
         <option selected>스킨케어</option>
         <option value="1">메이크업</option>
         <option value="2">바디</option>
@@ -40,6 +44,7 @@
         type="text"
         placeholder="상품명을 입력하세요"
         style="height: 35px; margin-right: 10px"
+        v-model="product.prodName"
       />
     </label>
   </div>
@@ -62,6 +67,7 @@
         type="text"
         placeholder="판매가를 입력하세요"
         style="height: 35px; margin-right: 10px"
+        v-model="product.defaultPrice"
       />원
     </label>
   </div>
@@ -84,6 +90,7 @@
         type="text"
         placeholder="할인율을 입력하세요"
         style="height: 35px; margin-right: 10px"
+        v-model="product.discountRate"
       />%
     </label>
   </div>
@@ -102,7 +109,7 @@
   >
     <label><b>할인율 적용가</b></label
     ><label style="display: flex; align-items: center; height: 100%">
-      원
+      <p v-if="product.defaultPrice">{{product.defaultPrice-(product.defaultPrice*product.discountRate/100)}}원</p>
     </label>
   </div>
   <!-- 할인가 배너 끝 -->
@@ -124,6 +131,7 @@
         type="text"
         placeholder="재고 수량을 입력하세요"
         style="height: 35px; margin-right: 10px"
+        v-model="product.prodStock"
       />개
     </label>
   </div>
@@ -162,12 +170,14 @@
     "
   >
     <label><b>사진 추가</b> </label>
+    
     <div>
       <div id="img-add">
         <label class="mt-3 mb-3">이미지를 추가해주세요</label>
         <br />
         <div class="text-center">
           <button id="img-btn">
+            <input type="file" id="upload-image" hidden/>
             <div class="text-center mb-2">
               <b>+</b>
             </div>
@@ -206,11 +216,11 @@
       </div>
     </div>
   </div>
-  <!-- 이미지 추가 배너 끝 -->
+  <!-- 상세페이지 추가 배너 끝 -->
   <div class="container text-center mt-5 mb-5">
     <div class="row">
       <div class="col"></div>
-      
+
       <div class="col">
         <button class="btn text-light btn-sm mt-4 log-form" id="addFile-btn">
           저장
@@ -224,7 +234,22 @@
 </template>
 
 <script>
-export default {};
+export default {
+  data() {
+    return {
+      product: {
+        prodName:"",
+        defaultPrice:"",
+        prodCategory:"",
+        prodImg:"",
+        prodDetailPage:"",
+        discountRate:"",
+        prodStock:"",
+      },
+    };
+  },
+  methods: {},
+};
 </script>
 
 <style>

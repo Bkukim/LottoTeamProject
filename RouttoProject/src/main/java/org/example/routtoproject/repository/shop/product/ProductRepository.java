@@ -2,7 +2,6 @@ package org.example.routtoproject.repository.shop.product;
 
 import org.example.routtoproject.model.entity.shop.Product;
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 /**
