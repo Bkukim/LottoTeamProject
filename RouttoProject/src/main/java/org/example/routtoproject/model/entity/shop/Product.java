@@ -44,7 +44,7 @@ public class Product extends BaseTimeEntity {
             , generator = "SQ_LOTTO_PRODUCT_GENERATOR"
     )
     private Integer prodId;     // 기본키, 시퀀스, 상품id
-    private String prodName;    
+    private String prodName;
     private Integer defaultPrice;
     private String prodCategory;
     private byte[] prodImg;
@@ -56,6 +56,6 @@ public class Product extends BaseTimeEntity {
     private Date saleStart;
     private String prodStatus;
     private Integer soldCount;
-    private Date insertTime;
-    private Date updateTime;
+    private String insertTime;
+    private String updateTime;
 }
