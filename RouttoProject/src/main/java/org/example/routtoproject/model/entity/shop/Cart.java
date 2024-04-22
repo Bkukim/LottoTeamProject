@@ -44,5 +44,4 @@ public class Cart extends BaseTimeEntity {
     private Integer userId;
     private Integer prodId;
     private Integer cartProdCount;
-    private Integer insertTime;
 }

@@ -98,7 +98,7 @@
 </template>
 
 <script>
-import ProductService from "@/services/ProductService";
+import ProductService from "@/services/product/ProductService";
 
 export default {
   data() {
