@@ -37,7 +37,6 @@ public class ProductService {
         return product;
     }
 
-
     // 상품 저장함수
 
     public Product save(String prodName,
@@ -52,7 +51,6 @@ public class ProductService {
     ) { // 파일을 만들때는 예외처리가 필요하다. 그리고 매개변수를 객체로 받으면 복잡할 수 있어서 변수로 받는다.
         Product product2 = null;
         try {
-
             if (prodImgUrl == null &&  prodDetailPageUrl == null) {
                 // todo : 기본키가 없을때 : insert
                 //      1-1) uuid 생성하기
