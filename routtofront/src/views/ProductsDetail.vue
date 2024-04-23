@@ -139,7 +139,7 @@ export default {
         point: 5,
       },
       message: "", // 장바구니 추가 성공메세지(화면에 출력)
-      // cartCount: 0, // 장바구니 개수
+            // cartCount: 0, // 장바구니 개수
     };
   },
   methods: {
@@ -148,7 +148,7 @@ export default {
     async getProd(prodId) {
       try {
         let response = await ProductService.get(prodId);
-        this.product = response.data; // spring 전송 객체 넣기
+        this.product = response.data;   // spring 전송 객체 넣기
         console.log(response.data);
       } catch (e) {
         console.log(e);
