@@ -45,19 +45,19 @@ public class ProductController {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
-
-    @PostMapping("/product")
-    public ResponseEntity<Object> createProduct(@RequestBody Product product){
-        try {
-            if (product == null) {
-                return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-            }else {
-                Product product1 = productService.save(product);
-                return new ResponseEntity<>(product1, HttpStatus.OK);
-            }
-
-        }catch (Exception e){
-            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
-        }
-    }
+//
+//    @PostMapping("/product")
+//    public ResponseEntity<Object> createProduct(@RequestBody Product product){
+//        try {
+//            if (product == null) {
+//                return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+//            }else {
+//                Product product1 = productService.save(product);
+//                return new ResponseEntity<>(product1, HttpStatus.OK);
+//            }
+//
+//        }catch (Exception e){
+//            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+//        }
+//    }
 }

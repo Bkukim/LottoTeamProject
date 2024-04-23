@@ -1,12 +1,12 @@
-package org.example.routtoproject.repository.shop.product;
+package org.example.routtoproject.repository.shop;
 
-import org.example.routtoproject.model.entity.shop.Product;
+import org.example.routtoproject.model.entity.shop.Cart;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 /**
  * packageName : org.example.routtoproject.repository.shop.product
- * fileName : ProductRepository
+ * fileName : CartRepository
  * author : hayj6
  * date : 2024-04-22(022)
  * description :
@@ -18,6 +18,5 @@ import org.springframework.stereotype.Repository;
  * 2024-04-22(022)         hayj6          최초 생성
  */
 @Repository
-public interface ProductRepository extends JpaRepository<Product, Integer> {
-
+public interface CartRepository extends JpaRepository<Cart, Integer> {
 }

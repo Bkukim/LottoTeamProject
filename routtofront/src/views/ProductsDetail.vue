@@ -117,7 +117,7 @@
 <script>
 
 import ProductService from "@/services/product/ProductService";
-import CartService from "@/services/CartService";
+import CartService from "@/services/product/CartService";
 
 export default {
   data() {
@@ -137,6 +137,8 @@ export default {
         // saleStart: "",
         // prodStatus: "",
         // soldCount:""
+        point: 0,
+        reviewContent: "만족스럽습니다."
       },
       message: "", // 장바구니 추가 성공메세지(화면에 출력)
             // cartCount: 0, // 장바구니 개수

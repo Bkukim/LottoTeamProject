@@ -10,7 +10,7 @@
     <br />
     <br />
 
-    <!-- 주문자 정보 -->
+    <!-- 1. 주문자 정보 -->
     <div>
       <h2>주문자 정보</h2>
     </div>
@@ -85,7 +85,7 @@
     <br />
     <br />
 
-    <!-- 배송지 정보 -->
+    <!-- 2. 배송지 정보 -->
     <div>
       <h2>배송지 정보</h2>
     </div>
@@ -102,7 +102,7 @@
         <!-- 주문자 tr -->
         <tr>
           <th scope="row">
-            <label class="insert-receiver" for="receiver">받는분</label>
+            <label for="receiver">받는분</label>
           </th>
           <td>
             <div class="col-4">
@@ -200,7 +200,7 @@
     <br />
     <br />
 
-    <!-- 배송 요청사항 -->
+    <!-- 3. 배송 요청사항 -->
     <div>
       <h2>배송 요청사항</h2>
     </div>
@@ -217,7 +217,7 @@
         <!-- 배송 요청사항 tr -->
         <tr>
           <th scope="row">
-            <label class="insert-receiver" for="receiver">배송 요청사항</label>
+            <label for="receiver">배송 요청사항</label>
           </th>
           <td>
             <!-- 배송 메세지 선택 옵션 -->
@@ -255,7 +255,7 @@
     <br />
     <br />
 
-    <!-- 배송 상품 -->
+    <!-- 4. 배송 상품 -->
     <div>
       <h2>배송 상품</h2>
     </div>
@@ -272,15 +272,15 @@
       </thead>
       <tbody>
         <tr>
-          <!-- 1. 배송 상품 -->
-          <th scope="row">
-            <label class="insert-receiver" for="receiver">배송상품</label>
-          </th>
-          <!-- 2. 판매가 -->
+          <!-- 1) 배송 상품 -->
+          <td scope="row">
+            <label for="receiver">배송상품</label>
+          </td>
+          <!-- 2) 판매가 -->
           <td>판매가</td>
-          <!-- 3. 수량 -->
+          <!-- 3) 수량 -->
           <td>수량</td>
-          <!-- 4. 구매가 -->
+          <!-- 4) 구매가 -->
           <td>구매가</td>
         </tr>
       </tbody>
@@ -290,8 +290,8 @@
     <br />
     <br />
 
+    <!-- 5. 결제 수단 -->
     <div style="display: flex">
-      <!-- 결제 수단 -->
       <div class="col-sm-8">
         <div>
           <h2>결제 수단</h2>
@@ -302,7 +302,7 @@
         </div>
         <!-- 결제 수단 시작-->
         <div>
-          <table class="table">
+          <table class="table" id="payMethod">
             <tbody>
               <tr>
                 <th scope="row">
@@ -413,10 +413,11 @@
           </table>
         </div>
       </div>
-      <!-- 최종 결제 정보 -->
+
+      <!-- 6. 최종 결제 정보 -->
       <div class="col-sm-4" style="text-align: right; align-item: center">
         <h2>최종 결제 정보</h2>
-        <table border="1" class="paymentInfo col-sm-12">
+        <table class="paymentInfo">
           <!-- <thead>
             <tr>
                 <th scope="col"></th>
@@ -428,22 +429,22 @@
             <div id="payinfo">
               <!-- 총 상품 금액 -->
               <tr id="paymentTr">
-                <th scope="row" class="col-sm-6">
-                  <p>총 상품 금액</p>
+                <th scope="row">
+                  <p id="payTitle">총 상품 금액</p>
                 </th>
                 <td>
                   <div>
-                    <p>00 원</p>
+                    <p id="price">00 원</p>
                   </div>
                 </td>
               </tr>
               <!-- 쿠폰 할인 금액 -->
               <tr id="paymentTr">
-                <th scope="row" class="col-sm-6">
-                  <p>쿠폰 할인 금액</p>
+                <th scope="row" >
+                  <p id="payTitle">쿠폰 할인 금액</p>
                 </th>
                 <td>
-                  <div>
+                  <div id="price">
                     <p>00 원</p>
                   </div>
                 </td>
@@ -451,11 +452,11 @@
 
               <!-- 총 배송비 tr -->
               <tr id="paymentTr">
-                <th scope="row" class="col-sm-6">
-                  <p>총 배송비</p>
+                <th scope="row">
+                  <p id="payTitle">총 배송비</p>
                 </th>
                 <td>
-                  <div>
+                  <div id="price">
                     <p>00 원</p>
                   </div>
                 </td>
@@ -463,14 +464,12 @@
 
               <!-- 최종 결제 금액 tr -->
               <tr id="paymentTr">
-                <th scope="row" class="col-sm-6">
-                  <p>최종 결제 금액</p>
+                <th scope="row">
+                  <p id="payTitle">최종 결제 금액</p>
                 </th>
                 <td>
-                  <div class="row">
-                    <div>
-                      <p>00 원</p>
-                    </div>
+                  <div id="price">
+                    <p>00 원</p>
                   </div>
                 </td>
                 <td></td>
@@ -478,6 +477,11 @@
             </div>
           </tbody>
         </table>
+        <!-- 7. 결제 버튼 -->
+        <div class="mt-4">
+          <button type="button" id="btnPay" @click="goPayment">결제하기</button>
+        </div>
+        <br />
       </div>
     </div>
   </div>
@@ -490,9 +494,11 @@ export default {
       postcode: "",
       address: "",
       extraAddress: "",
+      
     };
   },
   methods: {
+    // 주소 함수
     execDaumPostcode() {
       new window.daum.Postcode({
         oncomplete: (data) => {
@@ -533,6 +539,10 @@ export default {
         },
       }).open();
     },
+    // 결제하기로 가는 함수
+    goPayment() {
+      this.$router.push("/order/payment");
+    },
   },
 };
 </script>
@@ -561,13 +571,30 @@ ul {
 }
 .paymentInfo {
   margin: 20px;
-  /* padding: 10px; */
+  border: 1px solid #cccccc;
+  /* width: 27vw; */
+  height: 11vw;
+  /* padding: 50px; */
   /* background-color: #342a26; */
   /* color: white; */
 }
-#paymentTr {
-  /* padding: 90px; */
-  padding: 50px;
-  /* background-color: #342a26; */
+/* #paymentTr { */
+/* padding: 90px; */
+/* padding: 50px; */
+/* background-color: #342a26; */
+/* } */
+#payMethod {
+  height: 11vw;
 }
+#btnPay {
+  width: 12vw;
+  height: 3vw;
+  background-color: #342a26;
+  color: white;
+  border-radius: 5px; /* 모서리 둥글게 : 5px로 설정 */
+}
+#payTitle{
+  margin-right: 5vw;
+}
+
 </style>
