@@ -187,20 +187,20 @@ export default {
 .box {
   background-color: white;
   max-width: 100%;
-  height: 3vw;
-  border: 1px solid black;
+  height: 5vw;
+  border: 1px solid #E2E2E2;
   /* padding: 1vw; */
 }
 
 #name {
   background-color: white;
   height: 5vw;
-  border: 1px solid black;
+  border: 1px solid #E2E2E2;
 }
 
 #page {
   background-color: white;
-  border-color: black;
+  border: 1px solid #E2E2E2;
   color: black;
   height: 40vw;
   border-radius: 5px; /* 모서리 둥글게 : 5px로 설정 */
@@ -210,59 +210,59 @@ export default {
   background-color: white;
   width: 16vw;
   height: vw;
-  border: 1px solid black;
+  border: 1px solid #E2E2E2;
   padding: 0.5vx;
   border-radius: 5px; /* 모서리 둥글게 : 5px로 설정 */
 }
 
-.dropdown {
+/* .dropdown {
   position: relative;
-}
+} */
 
-.dropdown-menu {
-  position: absolute;
-  display: none;
-  min-width: 100%; /* 드롭다운 메뉴의 최소 너비를 100%로 설정 */
-  z-index: 1000;
+#selectOption {
+  /* position: absolute; */
+  /* display: none; */
+   min-width: 100%; /* 드롭다운 메뉴의 최소 너비를 100%로 설정 */
+  /* z-index: 1000; */
   border-radius: 5px; /* 모서리 둥글게 : 5px로 설정 */
 }
 
 #total {
   background-color: white;
   height: 5vw;
-  border: 1px solid black;
+  border: 1px solid #E2E2E2;
   padding: 0.5vw;
   z-index: 0;
   border-radius: 5px; /* 모서리 둥글게 : 5px로 설정 */
 }
 
 #btn1 {
-  background-color: antiquewhite;
   width: 100%;
   height: 3vw;
   background-color: white;
-  border-color: black;
+  border-color: #E2E2E2;
   color: black;
   border-radius: 5px; /* 모서리 둥글게 : 5px로 설정 */
 }
 
 #btn2 {
-  background-color: antiquewhite;
   width: 12vw;
   height: 4vw;
   margin-right: 1.5vw;
   background-color: white;
-  border: 1px solid black;
+  border: 1px solid #E2E2E2;
   color: black;
   border-radius: 5px; /* 모서리 둥글게 : 5px로 설정 */
 }
 
 #btn3 {
-  background-color: antiquewhite;
   width: 12vw;
   height: 4vw;
   background-color: #342a26;
   color: white;
   border-radius: 5px; /* 모서리 둥글게 : 5px로 설정 */
+}
+#star {
+  color: red;
 }
 </style>
