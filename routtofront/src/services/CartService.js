@@ -11,4 +11,4 @@ class CartService{
         return http.post("/shop/cart", data);
     }
 }
-
+export default new CartService;
