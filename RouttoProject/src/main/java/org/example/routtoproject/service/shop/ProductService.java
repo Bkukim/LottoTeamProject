@@ -5,6 +5,9 @@ import lombok.extern.slf4j.Slf4j;
 import org.example.routtoproject.model.entity.shop.Product;
 import org.example.routtoproject.repository.shop.product.ProductRepository;
 import org.springframework.stereotype.Service;
+
+import org.springframework.web.bind.annotation.RequestParam;
+
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
@@ -35,6 +38,7 @@ public class ProductService {
         Optional<Product> product = productRepository.findById(prodId);
         return product;
     }
+
     public Product save(String prodName,
                         int defaultPrice,
                         String prodCategory,
@@ -47,7 +51,7 @@ public class ProductService {
     ) { // 파일을 만들때는 예외처리가 필요하다. 그리고 매개변수를 객체로 받으면 복잡할 수 있어서 변수로 받는다.
         Product product2 = null;
         try {
-            if (prodImgUrl == null &&  prodDetailPageUrl == null) {
+            if (prodImgUrl == null && prodDetailPageUrl == null) {
                 // todo : 기본키가 없을때 : insert
                 //      1-1) uuid 생성하기
                 String prodImgUuid = UUID.randomUUID().toString().replace("-", ""); // uuid 만드는 방법T
