@@ -170,10 +170,12 @@ export default {
     },
     // TODO: 장바구니 전체 조회페이지 이동함수
     goCart() {
-      this.$router.push("/order/cart");
+      this.$router.push("/cart");
     },
     // TODO: 주문하기 이동함수
-    goOrder() {},
+    goOrder() {
+      this.$router.push("/order");
+    },
   },
   mounted() {
     this.getProd(this.$route.params.prodId); // 상세조회 함수 실행
