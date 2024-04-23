@@ -1,6 +1,6 @@
 package org.example.routtoproject.repository.shop;
 
-import org.example.routtoproject.model.entity.shop.OrderDetail;
+import org.example.routtoproject.model.entity.shop.OrderProd;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
@@ -18,5 +18,5 @@ import org.springframework.stereotype.Repository;
  * 2024-04-23(023)         hayj6          최초 생성
  */
 @Repository
-public interface OrderDetailRepository extends JpaRepository<OrderDetail, Integer> {
+public interface OrderProdRepository extends JpaRepository<OrderProd, Integer> {
 }
