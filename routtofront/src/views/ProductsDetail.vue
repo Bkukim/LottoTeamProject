@@ -12,13 +12,17 @@
       <div class="col-sm-6">
         <img :src="image" alt="example" />
 
-        <!-- 1. 평점 별점 -->
+        <!-- 1. 리뷰 평점 -->
         <div class="box mt-5 text-center">
-          <h2>평점 별점</h2>
+          <h2>리뷰 평점 : {{ product.point }}</h2>
+          <h2 id="star"> ★★★★★
+            <!-- 별점 표시를 위한 반복문 -->
+            <!-- <template v-for="★ in product.point"> ★ </template> -->
+          </h2>
         </div>
         <!-- 2. 리뷰 -->
         <div class="box mt-5 text-center">
-          <h2>리뷰</h2>
+          <h2>리뷰 : {{product.reviewContent}}</h2>
         </div>
       </div>
 
@@ -55,25 +59,25 @@
         <hr />
 
         <!-- 5. 드롭다운 시작 -->
-        <div class="dropdown mt-3">
+        <div class="dropdown mt-3" id="selectOption">
           <!-- 1) 드롭다운 이름 -->
-          <button
-            class="btn dropdown-toggle btn-lg"
-            type="button"
-            data-bs-toggle="dropdown"
-            id="btn1"
-          >
-            Choose option
-          </button>
+              <div class="col-12" >
+                <select class="form-select" aria-label="Default select example">
+                  <option selected>옵션을 선택해주세요.</option>
+                  <option value="스킨+립밤">스킨+립밤</option>
+                  <option value="스킨+선크림">스킨+선크림</option>
+                  <option value="선크림+립밤">선크림+립밤</option>
+                </select>
+              </div>
 
           <!-- 2) 드롭다운 메뉴 -->
-          <ul class="dropdown-menu">
+          <!-- <ul class="dropdown-menu">
             <li><a class="dropdown-item">option 1</a></li>
             <li><hr class="dropdown-divider" /></li>
             <li><a class="dropdown-item">option 2</a></li>
             <li><hr class="dropdown-divider" /></li>
             <li><a class="dropdown-item">option 3</a></li>
-          </ul>
+          </ul> -->
         </div>
         <!-- 드롭다운 끝 -->
 
@@ -95,7 +99,7 @@
         <div class="mt-5">
            <button type="button" id="btn2" @click="goCart">장바구니</button>
 
-          <button type="button" id="btn3">주문하기</button>
+          <button type="button" id="btn3" @click="goOrder">주문하기</button>
         </div>
       </div>
     </div>
