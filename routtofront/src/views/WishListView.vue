@@ -54,14 +54,14 @@
         <!-- 다른 상품들도 이와 같은 형식으로 추가할 수 있습니다 -->
       </tbody>
     </table>
-    <!-- 아래 버튼 3개 -->
+    <!-- 아래 버튼 4개 -->
     <div class="row justify-content-end mt-5">
       <div class="col">
         <button type="button" id="button2" class="btn btn-primary">
           선택상품 삭제하기
         </button>
       </div>
-      <div class="col-auto mb-5">
+      <div class="col-auto">
         <button type="button" id="button2" class="btn btn-secondary">
           선택 장바구니담기
         </button>
@@ -69,23 +69,49 @@
           전체 장바구니담기
         </button>
       </div>
+      <div class="clearfix"></div>
+      <div class="col-auto mb-5">
+        <button type="button" id="button1" class="btn btn-secondary"
+        @click="goCart">
+          장바구니 바로가기
+        </button>
+      </div>
     </div>
   </div>
 </template>
 <script>
-import CartService from "@/service/cart-notice-ect-/CartService";
+import CartService from "@/services/cart/CartService";
 
 export default {
   // TODO: 바인딩 속성
   data() {
     return {
-      favorite: null, //상품객체
+      favorite: [], //상품객체
       message: "", // 장바구니 완료 성공메세지
-      cartCount: 0, //장바구니 개수
+
+      cartCount: 0, //장바구니 갯수
+
+      // 공통 페이징 속성 정의
+      page: 1, // 현재페이지번호
+      count: 0, // 전체 데이터개수
+      pageSize: 3, // 화면에 보여질 개수
+
+      // 전체선택 함수
+      selectAll: false,
     };
   },
   // TODO: 함수정의
   methods: {
+    // 전체선택
+    // 전체선택함수
+    selectAllItems() {
+      // 전체 선택 체크박스가 선택되면 모든 상품의 selected 값을 true로 설정
+      // 선택 해제되면 false로 설정
+      // 반복문의 data랑 같다고 생각하기
+      this.favorite.forEach((data) => {
+        data.selected = this.selectAll;
+      });
+    },
     // TODO: 장바구니 담기(저장)
     async retrieveCart() {
       try {
@@ -105,10 +131,11 @@ export default {
         console.log(e);
       }
     },
+    // 장바구니 담기 함수
     async saveCart() {
       try {
         let data = {
-          spno: this.Product.spno, //상품번호
+          prodId: this.favorite.prodId, //상품번호
           cartCount: this.cartCount, //장바구니 개수
         };
         // todo: 공통 저장 서비스 함수
@@ -123,6 +150,9 @@ export default {
       }
       // 임시객체
     },
+    goCart() {
+      this.$router.push("/cart");
+    },
   },
   // TODO: 화면이뜰때 자동 실행
   mounted() {
@@ -134,3 +164,4 @@ export default {
 @import "@/assets/css/Cart.css";
 @import "@/assets/css/Button.css";
 </style>
+@/services/cart/CartService

@@ -1,4 +1,4 @@
-<!-- Notice view -->
+<!-- 고객센터 faq view -->
 <template>
   <div class="container">
     <div class="mt-5">
