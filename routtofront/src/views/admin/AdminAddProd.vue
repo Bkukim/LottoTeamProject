@@ -195,11 +195,18 @@
             />
           </label> -->
           <div class="file-upload-form mb-3">
-            <input type="file" @change="previewProdImage" accept="image/*" />
+            <!-- TODO: file01 추가 -->
+            <input
+              type="file"
+              @change="previewProdImage"
+              accept="image/*"
+              ref="file01"
+            />
           </div>
-          <div class="image-preview mb-3" v-if="prodImage.length > 0">
+          <!-- TODO: 막기 -->
+          <!-- <div class="image-preview mb-3" v-if="prodImage.length > 0">
             <img class="preview" :src="prodImage" @change="selectProdImage" />
-          </div>
+          </div> -->
         </div>
       </div>
     </div>
@@ -218,6 +225,8 @@
         <div class="col-10" id="detailFile">
           <!-- 첨부파일 -->
           <div id="file">
+            <!-- <input type="file" ref="fileInput" style="display: none" /> -->
+            <!-- TODO: 아래 ref 변수가 사용되지 않음 -->
             <input type="file" ref="fileInput" style="display: none" />
           </div>
           <div class="text-center">
@@ -235,15 +244,18 @@
             />
           </label> -->
             <div class="file-upload-form mb-3">
+              <!-- TODO: file02 추가 -->
               <input
                 type="file"
                 @change="previewProdDetailPage"
                 accept="image/*"
+                ref="file02"
               />
             </div>
-            <div class="image-preview mb-3" v-if="prodDetailPage.length > 0">
+            <!-- TODO: 막기 -->
+            <!-- <div class="image-preview mb-3" v-if="prodDetailPage.length > 0">
               <img class="preview" :src="prodDetailPage" />
-            </div>
+            </div> -->
           </div>
           <!-- <dvi class="container text-center">
             <button
@@ -287,15 +299,16 @@ export default {
     return {
       product: {
         prodName: "",
-        defaultPrice: "",
+        defaultPrice: 0,
         prodCategory: "",
-        discountRate: "",
-        prodStock: "",
+        discountRate: 0,
+        prodStock: 0,
         prodImgUrl: "",
         prodDetailPageUrl: "",
       },
-      prodImage: "",
-      prodDetailPage: "",
+      // TODO: 수정 , 파일은 "" 초기화하면 안됨(문자열이므로)
+      prodImage: undefined,
+      prodDetailPage: undefined,
     };
   },
   methods: {
@@ -321,56 +334,61 @@ export default {
     // },
 
     /* 상품이미지 preview 함수 */
-    previewProdImage: function (event) {
-      // Reference to the DOM input element
-      var input = event.target;
-      // Ensure that you have a file before attempting to read it
-      if (input.files && input.files[0]) {
-        // create a new FileReader to read this image and convert to base64 format
-        var reader = new FileReader();
-        // Define a callback function to run, when FileReader finishes its job
-        reader.onload = (e) => {
-          // Note: arrow function used here, so that "this.imageData" refers to the imageData of Vue component
-          // Read image as base64 and set to imageData
-          this.prodImage = e.target.result;
-        };
-        // Start the reader job - read file as a data url (base64 format)
-        reader.readAsDataURL(input.files[0]);
-        this.selectImage;
-        console.log(this.product.prodImg);
-      }
+    previewProdImage: function () {
+      // // Reference to the DOM input element
+      // var input = event.target;
+      // // Ensure that you have a file before attempting to read it
+      // if (input.files && input.files[0]) {
+      //   // create a new FileReader to read this image and convert to base64 format
+      //   var reader = new FileReader();
+      //   // Define a callback function to run, when FileReader finishes its job
+      //   reader.onload = (e) => {
+      //     // Note: arrow function used here, so that "this.imageData" refers to the imageData of Vue component
+      //     // Read image as base64 and set to imageData
+      //     this.prodImage = e.target.result;
+      //   };
+      //   // Start the reader job - read file as a data url (base64 format)
+      //   reader.readAsDataURL(input.files[0]);
+      //   this.selectImage;
+      //   console.log(this.product.prodImg);
+      // }
+      // TODO: 아래 코드로 변경 : this.$refs.file01.files[0]
+      this.prodImage = this.$refs.file01.files[0];
     },
 
     /* 상세페이지 preview함수 */
-    previewProdDetailPage: function (event) {
-      // Reference to the DOM input element
-      var input = event.target;
-      // Ensure that you have a file before attempting to read it
-      if (input.files && input.files[0]) {
-        // create a new FileReader to read this image and convert to base64 format
-        var reader = new FileReader();
-        // Define a callback function to run, when FileReader finishes its job
-        reader.onload = (e) => {
-          // Note: arrow function used here, so that "this.imageData" refers to the imageData of Vue component
-          // Read image as base64 and set to imageData
-          this.prodDetailPage = e.target.result;
-        };
-        // Start the reader job - read file as a data url (base64 format)
-        reader.readAsDataURL(input.files[0]);
-        this.selectImage;
-        console.log(this.product.prodImg);
-      }
+    previewProdDetailPage: function () {
+      // // Reference to the DOM input element
+      // var input = event.target;
+      // // Ensure that you have a file before attempting to read it
+      // if (input.files && input.files[0]) {
+      //   // create a new FileReader to read this image and convert to base64 format
+      //   var reader = new FileReader();
+      //   // Define a callback function to run, when FileReader finishes its job
+      //   reader.onload = (e) => {
+      //     // Note: arrow function used here, so that "this.imageData" refers to the imageData of Vue component
+      //     // Read image as base64 and set to imageData
+      //     this.prodDetailPage = e.target.result;
+      //   };
+      //   // Start the reader job - read file as a data url (base64 format)
+      //   reader.readAsDataURL(input.files[0]);
+      //   this.selectImage;
+      //   console.log(this.product.prodImg);
+      // }
+      // TODO: 아래 코드로 변경 : this.$refs.file02.files[0]
+      this.prodDetailPage = this.$refs.file02.files[0];
     },
-    selectProdImage() {
-      //1) 파일 선택 상자에서 첫 번째로 선택한 이미지를 변수에 저장해야한다.
-      // ref="file"로 해놧으므로 file로 접근해야한다.
-      this.product.prodImg = this.$refs.file.files[0]; // 배열의 특징을 가지므로 file0을 해주어야한다. 아니면 배열에서 몇번째를 가져오는 지를 모름
-    },
-    selectProdDetailPage() {
-      //1) 파일 선택 상자에서 첫 번째로 선택한 이미지를 변수에 저장해야한다.
-      // ref="file"로 해놧으므로 file로 접근해야한다.
-      this.product.prodDetailPage = this.$refs.file.files[0]; // 배열의 특징을 가지므로 file0을 해주어야한다. 아니면 배열에서 몇번째를 가져오는 지를 모름
-    },
+    // TODO: 아래 주석 막음 , 사용하지 않는 코드
+    // selectProdImage() {
+    //   //1) 파일 선택 상자에서 첫 번째로 선택한 이미지를 변수에 저장해야한다.
+    //   // ref="file"로 해놧으므로 file로 접근해야한다.
+    //   this.product.prodImg = this.$refs.file.files[0]; // 배열의 특징을 가지므로 file0을 해주어야한다. 아니면 배열에서 몇번째를 가져오는 지를 모름
+    // },
+    // selectProdDetailPage() {
+    //   //1) 파일 선택 상자에서 첫 번째로 선택한 이미지를 변수에 저장해야한다.
+    //   // ref="file"로 해놧으므로 file로 접근해야한다.
+    //   this.product.prodDetailPage = this.$refs.file.files[0]; // 배열의 특징을 가지므로 file0을 해주어야한다. 아니면 배열에서 몇번째를 가져오는 지를 모름
+    // },
     async saveSimpleCart() {
       try {
         // 임시 객체

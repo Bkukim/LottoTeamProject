@@ -49,26 +49,26 @@ public class ProductController {
 
     @PostMapping("/product")
     public ResponseEntity<Object> createProduct(@RequestParam(defaultValue = "") String prodName,
-                                                @RequestParam (defaultValue = "0")int defaultPrice,
+                                                @RequestParam (defaultValue = "0") String defaultPrice,
                                                 @RequestParam (defaultValue = "")String prodCategory,
                                                 @RequestParam MultipartFile prodImg,
                                                 @RequestParam MultipartFile prodDetailPage,
-                                                @RequestParam (defaultValue = "0")int discountRate,
-                                                @RequestParam (defaultValue = "0")int prodStock,
-                                                @RequestParam (defaultValue = "0")String prodImgUrl,
-                                                @RequestParam (defaultValue = "0")String prodDetailPageUrl
+                                                @RequestParam (defaultValue = "0")String discountRate,
+                                                @RequestParam (defaultValue = "0")String prodStock,
+                                                @RequestParam (defaultValue = "")String prodImgUrl,
+                                                @RequestParam (defaultValue = "")String prodDetailPageUrl
                                                 ){
         try {
 
 
                 Product product1 = productService.save(
                         prodName,
-                        defaultPrice,
+                        Integer.parseInt(defaultPrice), // TODO: 정수로 변경
                         prodCategory,
                         prodImg,
                         prodDetailPage,
-                        discountRate,
-                        prodStock,
+                        Integer.parseInt(discountRate), // TODO: 정수로 변경
+                        Integer.parseInt(prodStock),    // TODO: 정수로 변경
                         prodImgUrl,
                         prodDetailPageUrl);
                 return new ResponseEntity<>(product1, HttpStatus.OK);
