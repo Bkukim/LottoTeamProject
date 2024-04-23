@@ -99,9 +99,7 @@
 
 <script>
 
-import ProductService from "@/services/ProductService";
-import CartService from "@/services/CartService";
-
+import ProductService from "@/services/product/ProductService";
 export default {
   data() {
     return {
@@ -122,7 +120,6 @@ export default {
     },
   },
   mounted() {
-    this.getProd(this.$route.params.prodId);  // 상세조회 함수 실행
   },
 };
 </script>

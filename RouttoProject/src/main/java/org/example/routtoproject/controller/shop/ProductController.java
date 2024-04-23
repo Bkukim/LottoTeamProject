@@ -55,12 +55,13 @@ public class ProductController {
                                                 @RequestParam MultipartFile prodDetailPage,
                                                 @RequestParam (defaultValue = "0")int discountRate,
                                                 @RequestParam (defaultValue = "0")int prodStock,
-                                                @RequestParam (defaultValue = "0")String prodImgUrl,
-                                                @RequestParam (defaultValue = "0")String prodDetailPageUrl
+                                                @RequestParam (defaultValue = "")String prodImgUrl,
+                                                @RequestParam (defaultValue = "")String prodDetailPageUrl
                                                 ){
         try {
-
-
+//
+//                log.debug("확인용" + prodImg);
+//                log.debug("확인용" + prodDetailPage);
                 Product product1 = productService.save(
                         prodName,
                         defaultPrice,
@@ -71,7 +72,7 @@ public class ProductController {
                         prodStock,
                         prodImgUrl,
                         prodDetailPageUrl);
-                return new ResponseEntity<>(product1, HttpStatus.OK);
+                return new ResponseEntity<>(/*product1,*/ HttpStatus.OK);
 
 
         }catch (Exception e){

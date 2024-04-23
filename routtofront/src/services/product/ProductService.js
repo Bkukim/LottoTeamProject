@@ -10,16 +10,15 @@ class ProductService{
         return http.get(`/shop/product/${prodId}`);
     }
     create(data){
+        console.log(data);
         let formData = new FormData();
         formData.append("prodName", data.prodName);
         formData.append("defaultPrice", data.defaultPrice);
-        formData.append("prodCategory", data.prodCategory);
         formData.append("prodCategory", data.prodCategory);
         formData.append("prodImg", data.prodImg);
         formData.append("prodDetailPage", data.prodDetailPage);
         formData.append("discountRate", data.discountRate);
         formData.append("prodStock", data.prodStock);
-        formData.append("soldCount", data.soldCount);
         formData.append("prodImgUrl", data.prodImgUrl);
         formData.append("prodDetailPageUrl", data.prodDetailPageUrl);
         return http.post("/shop/product", formData, {

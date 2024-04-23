@@ -287,10 +287,10 @@ export default {
     return {
       product: {
         prodName: "",
-        defaultPrice: "",
+        defaultPrice: 0,
         prodCategory: "",
-        discountRate: "",
-        prodStock: "",
+        discountRate: 0,
+        prodStock: 0,
         prodImgUrl: "",
         prodDetailPageUrl: "",
       },

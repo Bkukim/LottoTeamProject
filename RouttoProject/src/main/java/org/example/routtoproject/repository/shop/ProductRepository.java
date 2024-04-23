@@ -1,4 +1,4 @@
-package org.example.routtoproject.repository.shop.product;
+package org.example.routtoproject.repository.shop;
 
 import org.example.routtoproject.model.entity.shop.Product;
 import org.springframework.data.jpa.repository.JpaRepository;

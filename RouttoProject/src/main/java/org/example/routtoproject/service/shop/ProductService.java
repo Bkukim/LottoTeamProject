@@ -3,9 +3,8 @@ package org.example.routtoproject.service.shop;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.example.routtoproject.model.entity.shop.Product;
-import org.example.routtoproject.repository.shop.product.ProductRepository;
+import org.example.routtoproject.repository.shop.ProductRepository;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 

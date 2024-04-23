@@ -1,4 +1,4 @@
-package org.example.routtoproject.repository.shop.product;
+package org.example.routtoproject.repository.shop;
 
 import org.springframework.stereotype.Repository;
 
