@@ -12,13 +12,17 @@
       <div class="col-sm-6">
         <img :src="image" alt="example" />
 
-        <!-- 1. 평점 별점 -->
+        <!-- 1. 리뷰 평점 -->
         <div class="box mt-5 text-center">
-          <h2>평점 별점</h2>
+          <h2>리뷰 평점 : {{ product.point }}</h2>
+          <h2 id="star"> ★★★★★
+            <!-- 별점 표시를 위한 반복문 -->
+            <!-- <template v-for="★ in product.point"> ★ </template> -->
+          </h2>
         </div>
         <!-- 2. 리뷰 -->
         <div class="box mt-5 text-center">
-          <h2>리뷰</h2>
+          <h2>리뷰 : {{product.reviewContent}}</h2>
         </div>
       </div>
 
@@ -55,25 +59,25 @@
         <hr />
 
         <!-- 5. 드롭다운 시작 -->
-        <div class="dropdown mt-3">
+        <div class="dropdown mt-3" id="selectOption">
           <!-- 1) 드롭다운 이름 -->
-          <button
-            class="btn dropdown-toggle btn-lg"
-            type="button"
-            data-bs-toggle="dropdown"
-            id="btn1"
-          >
-            Choose option
-          </button>
+              <div class="col-12" >
+                <select class="form-select" aria-label="Default select example">
+                  <option selected>옵션을 선택해주세요.</option>
+                  <option value="스킨+립밤">스킨+립밤</option>
+                  <option value="스킨+선크림">스킨+선크림</option>
+                  <option value="선크림+립밤">선크림+립밤</option>
+                </select>
+              </div>
 
           <!-- 2) 드롭다운 메뉴 -->
-          <ul class="dropdown-menu">
+          <!-- <ul class="dropdown-menu">
             <li><a class="dropdown-item">option 1</a></li>
             <li><hr class="dropdown-divider" /></li>
             <li><a class="dropdown-item">option 2</a></li>
             <li><hr class="dropdown-divider" /></li>
             <li><a class="dropdown-item">option 3</a></li>
-          </ul>
+          </ul> -->
         </div>
         <!-- 드롭다운 끝 -->
 
@@ -93,9 +97,9 @@
 
         <!-- 7. 버튼 -->
         <div class="mt-5">
-          <button type="button" id="btn2" @click="saveCart">장바구니</button>
+           <button type="button" id="btn2" @click="goCart">장바구니</button>
 
-          <button type="button" id="btn3">주문하기</button>
+          <button type="button" id="btn3" @click="goOrder">주문하기</button>
         </div>
       </div>
     </div>
@@ -111,7 +115,8 @@
 </template>
 
 <script>
-import ProductService from "@/services/ProductService";
+
+import ProductService from "@/services/product/ProductService";
 import CartService from "@/services/CartService";
 
 export default {
@@ -169,10 +174,12 @@ export default {
     },
     // TODO: 장바구니 전체 조회페이지 이동함수
     goCart() {
-      this.$router.push("/order/cart");
+      this.$router.push("/cart");
     },
     // TODO: 주문하기 이동함수
-    goOrder() {},
+    goOrder() {
+      this.$router.push("/order");
+    },
   },
   mounted() {
     this.getProd(this.$route.params.prodId); // 상세조회 함수 실행
@@ -184,20 +191,20 @@ export default {
 .box {
   background-color: white;
   max-width: 100%;
-  height: 3vw;
-  border: 1px solid black;
+  height: 5vw;
+  border: 1px solid #E2E2E2;
   /* padding: 1vw; */
 }
 
 #name {
   background-color: white;
   height: 5vw;
-  border: 1px solid black;
+  border: 1px solid #E2E2E2;
 }
 
 #page {
   background-color: white;
-  border-color: black;
+  border: 1px solid #E2E2E2;
   color: black;
   height: 40vw;
   border-radius: 5px; /* 모서리 둥글게 : 5px로 설정 */
@@ -207,59 +214,59 @@ export default {
   background-color: white;
   width: 16vw;
   height: vw;
-  border: 1px solid black;
+  border: 1px solid #E2E2E2;
   padding: 0.5vx;
   border-radius: 5px; /* 모서리 둥글게 : 5px로 설정 */
 }
 
-.dropdown {
+/* .dropdown {
   position: relative;
-}
+} */
 
-.dropdown-menu {
-  position: absolute;
-  display: none;
-  min-width: 100%; /* 드롭다운 메뉴의 최소 너비를 100%로 설정 */
-  z-index: 1000;
+#selectOption {
+  /* position: absolute; */
+  /* display: none; */
+   min-width: 100%; /* 드롭다운 메뉴의 최소 너비를 100%로 설정 */
+  /* z-index: 1000; */
   border-radius: 5px; /* 모서리 둥글게 : 5px로 설정 */
 }
 
 #total {
   background-color: white;
   height: 5vw;
-  border: 1px solid black;
+  border: 1px solid #E2E2E2;
   padding: 0.5vw;
   z-index: 0;
   border-radius: 5px; /* 모서리 둥글게 : 5px로 설정 */
 }
 
 #btn1 {
-  background-color: antiquewhite;
   width: 100%;
   height: 3vw;
   background-color: white;
-  border-color: black;
+  border-color: #E2E2E2;
   color: black;
   border-radius: 5px; /* 모서리 둥글게 : 5px로 설정 */
 }
 
 #btn2 {
-  background-color: antiquewhite;
   width: 12vw;
   height: 4vw;
   margin-right: 1.5vw;
   background-color: white;
-  border: 1px solid black;
+  border: 1px solid #E2E2E2;
   color: black;
   border-radius: 5px; /* 모서리 둥글게 : 5px로 설정 */
 }
 
 #btn3 {
-  background-color: antiquewhite;
   width: 12vw;
   height: 4vw;
   background-color: #342a26;
   color: white;
   border-radius: 5px; /* 모서리 둥글게 : 5px로 설정 */
+}
+#star {
+  color: red;
 }
 </style>
