@@ -31,7 +31,13 @@
           </th>
           <td>
             <div class="col-6">
-              <input class="form-control" type="text" name="user" />
+              <input
+                class="form-control"
+                type="text"
+                name="user"
+                v-model="user.userName"
+                disabled
+              />
             </div>
           </td>
         </tr>
@@ -43,7 +49,14 @@
           </th>
           <td>
             <div class="col-6">
-              <input class="form-control" type="text" name="email" id="email" />
+              <input
+                class="form-control"
+                type="text"
+                name="email"
+                id="email"
+                v-model="user.email"
+                disabled
+              />
             </div>
           </td>
           <td></td>
@@ -55,25 +68,14 @@
             <label class="form-label" for="address">휴대폰 번호</label>
           </th>
           <td>
-            <div class="row">
-              <div class="col-2">
-                <select class="form-select" aria-label="Default select example">
-                  <option selected value="010">010</option>
-                  <option value="011">011</option>
-                  <option value="016">016</option>
-                  <option value="017">017</option>
-                  <option value="018">018</option>
-                  <option value="019">019</option>
-                </select>
-              </div>
-              _
-              <div class="col-2">
-                <input class="form-control" type="text" name="call" />
-              </div>
-              _
-              <div class="col-2">
-                <input class="form-control" type="text" name="call" />
-              </div>
+            <div class="col-6">
+              <input
+                class="form-control"
+                type="text"
+                name="call"
+                v-model="user.phoneNum"
+                disabled
+              />
             </div>
           </td>
           <td></td>
@@ -440,7 +442,7 @@
               </tr>
               <!-- 쿠폰 할인 금액 -->
               <tr id="paymentTr">
-                <th scope="row" >
+                <th scope="row">
                   <p id="payTitle">쿠폰 할인 금액</p>
                 </th>
                 <td>
@@ -488,16 +490,35 @@
 </template>
 
 <script>
+import UserService from "@/services/user/UserService";
 export default {
   data() {
     return {
       postcode: "",
       address: "",
       extraAddress: "",
-      
+      user: {
+        userName: "",
+        email: "",
+        phoneNum: "",
+      },
     };
   },
   methods: {
+    // 상세조회 함수
+    async retrieveUser(userId) {
+      console.log(userId);
+      try {
+        let response = await UserService.get(userId);
+        console.log(response.data);
+
+        this.user.userName = response.data.userName;
+        this.user.email = response.data.email;
+        this.user.phoneNum = response.data.phoneNum;
+      } catch (error) {
+        console.log(error);
+      }
+    },
     // 주소 함수
     execDaumPostcode() {
       new window.daum.Postcode({
@@ -543,6 +564,9 @@ export default {
     goPayment() {
       this.$router.push("/order/payment");
     },
+  },
+  mounted() {
+    this.retrieveUser(this.$route.params.userId);
   },
 };
 </script>
@@ -593,8 +617,7 @@ ul {
   color: white;
   border-radius: 5px; /* 모서리 둥글게 : 5px로 설정 */
 }
-#payTitle{
+#payTitle {
   margin-right: 5vw;
 }
-
 </style>

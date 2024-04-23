@@ -1,7 +1,7 @@
 package org.example.routtoproject.repository.member;
 
 import lombok.extern.slf4j.Slf4j;
-import org.example.routtoproject.model.entity.member.User;
+import org.example.routtoproject.model.entity.auth.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -24,7 +24,14 @@ import org.springframework.stereotype.Service;
 @Repository
 public interface UserRepository extends JpaRepository<User, String> {
 
-    @Query(value = "SELECT USER_ID FROM LOTTO_USER\n" +
-            "WHERE ROLE =  :dname AND USER_NAME = :userName AND PHONE_NUM = :phoneNum")
-    public User findByRoleAndUserNameAndPhoneNum(@Param("role") String role, @Param("userName") String userName, @Param("phoneNum") String phoneNum);
+    @Query(value = "   select * from lotto_user\n" +
+            "   where user_Id = :userId"
+    ,nativeQuery = true)
+    public User findByUserId(@Param("userId") String userId);
+
+//    @Query(value = "SELECT USER_ID FROM LOTTO_USER\n" +
+//            "WHERE ROLE =  :dname AND USER_NAME = :userName AND PHONE_NUM = :phoneNum")
+//    public User findByRoleAndUserNameAndPhoneNum(@Param("role") String role, @Param("userName") String userName, @Param("phoneNum") String phoneNum);
+
+
 }
