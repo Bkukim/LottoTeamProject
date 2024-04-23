@@ -38,7 +38,6 @@ public class ProductService {
     }
 
     // 상품 저장함수
-
     public Product save(String prodName,
                         int defaultPrice,
                         String prodCategory,
