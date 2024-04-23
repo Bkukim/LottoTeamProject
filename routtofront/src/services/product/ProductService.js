@@ -11,6 +11,7 @@ class ProductService{
     }
     create(data){
       // TODO: formData 는 무조건 문자열로 전송됨 -> 벡엔드에서 문자열로 받고 정수로 형변환하면 됨
+
         console.log(data);
         let formData = new FormData();
         formData.append("prodName", data.prodName);

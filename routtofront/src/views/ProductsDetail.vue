@@ -183,6 +183,7 @@ export default {
   },
   mounted() {
     this.getProd(this.$route.params.prodId); // 상세조회 함수 실행
+
   },
 };
 </script>
