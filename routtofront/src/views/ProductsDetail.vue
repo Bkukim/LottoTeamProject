@@ -93,7 +93,7 @@
 
         <!-- 7. 버튼 -->
         <div class="mt-5">
-          <button type="button" id="btn2" @click="saveCart">장바구니</button>
+           <button type="button" id="btn2" @click="goCart">장바구니</button>
 
           <button type="button" id="btn3">주문하기</button>
         </div>
