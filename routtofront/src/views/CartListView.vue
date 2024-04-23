@@ -123,12 +123,12 @@
       <tbody>
         <!-- 합산해야할 tr -->
         <tr>
-          <td class="text-center">{{calculateTotalPrice.defaultPrice}}</td>
+          <td class="text-center">{{ calculateTotalPrice.defaultPrice }}</td>
           <td class="text-center small_td"></td>
-          <td class="text-center">{{calculateTotalPrice.discountPrice}}</td>
+          <td class="text-center">{{ calculateTotalPrice.discountPrice }}</td>
           <td class="text-center small_td"></td>
           <td class="text-center">0원</td>
-          <td class="text-center">{{calculateTotalPrice + 0}}</td>
+          <td class="text-center">{{ calculateTotalPrice + 0 }}</td>
         </tr>
         <!-- 다른 상품들도 이와 같은 형식으로 추가할 수 있습니다 -->
       </tbody>
@@ -136,15 +136,30 @@
     <!-- 아래 버튼 3개 -->
     <div class="row justify-content-end mt-5">
       <div class="col">
-        <button type="button" id="button2" class="btn btn-primary" @click="deleteCart">
+        <button
+          type="button"
+          id="button2"
+          class="btn btn-primary"
+          @click="deleteCart"
+        >
           선택상품 삭제하기
         </button>
       </div>
       <div class="col-auto mb-5">
-        <button type="button" id="button2" class="btn btn-secondary" @click="goOrder">
+        <button
+          type="button"
+          id="button2"
+          class="btn btn-secondary"
+          @click="goOrder"
+        >
           선택상품 주문하기
         </button>
-        <button type="button" id="button1" class="btn btn-secondary" @click="goOrder">
+        <button
+          type="button"
+          id="button1"
+          class="btn btn-secondary"
+          @click="goOrder"
+        >
           전체상품 주문하기
         </button>
       </div>
@@ -152,7 +167,7 @@
   </div>
 </template>
 <script>
-import CartService from "@/service/cart-notice-ect-/CartService";
+import CartService from "@/services/cart/CartService";
 export default {
   // TODO: 데이터
   data() {
@@ -166,12 +181,24 @@ export default {
       pageSize: 3, // 화면에 보여질 개수
 
       // 가격 계산함수
-      defaultPrice: 0,  //원가격
+      defaultPrice: 0, //원가격
       discountRate: 0, //할인률
+
+      // 전체선택 함수
+      selectAll: false,
     };
   },
   // TODO: 함수
   methods: {
+    // 전체선택함수
+    selectAllItems() {
+      // 전체 선택 체크박스가 선택되면 모든 상품의 selected 값을 true로 설정
+      // 선택 해제되면 false로 설정
+      // 반복문의 data랑 같다고 생각하기
+      this.cart.forEach((data) => {
+        data.selected = this.selectAll;
+      });
+    },
 
     // TODO: 장바구니 개수 증가 함수
     increaseCount() {
@@ -183,8 +210,8 @@ export default {
         this.cartCount -= 1;
       }
     },
-// 계산함수
-calculateTotalPrice() {
+    // 계산함수
+    calculateTotalPrice() {
       // 데이터베이스에서 정보를 가져와서 가격 계산
       // 아래는 예시 코드
       // axios.get('/api/product/price')
@@ -198,12 +225,10 @@ calculateTotalPrice() {
       //     });
 
       // 임시로 하드코딩한 예시 코드
-      let discountPrice=(this.defaultPrice * this.discountRate)
-      const totalPrice = this.cartCount * (this.defaultPrice- discountPrice);
+      let discountPrice = this.defaultPrice * this.discountRate;
+      const totalPrice = this.cartCount * (this.defaultPrice - discountPrice);
       return totalPrice;
-    }
-  ,
-
+    },
     // TODO: 전체조회(장바구니) 함수 : 검색어 버튼, 화면이뜰때 자동 실행
     async retrieveCart() {
       try {
@@ -259,3 +284,4 @@ calculateTotalPrice() {
 @import "@/assets/css/Cart.css";
 @import "@/assets/css/Button.css";
 </style>
+@/services/cart/CartService

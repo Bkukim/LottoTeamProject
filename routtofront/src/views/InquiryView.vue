@@ -1,12 +1,21 @@
-<!-- InquiryView.vue :: 문의 등록 form-->
+<!-- InquiryView.vue :: Add문의 등록 form-->
 <template>
   <div class="mt-5 mb-5  col-13">
     <!-- 카테고리 -->
     <h5 class="text-center">문의사항</h5>
     <br />
-    <div class="col-4">
+    <div class="col-4 mb-3">
       <label class="mb-3 text-left">제목 </label>
-      <select
+      <input
+        type="text"
+        class="form-control"
+        id="exampleFormControlInput1"
+        placeholder="제목 적어주세요"
+      />
+    </div>
+  <div class="col-4">
+    <label class="mb-3 text-left">문의 유형 </label>
+    <select
         class="form-control form-select"
         aria-label="Default select example"
       >
@@ -15,18 +24,18 @@
         <option value="2">배송문의</option>
         <option value="3">기타문의</option>
       </select>
-    </div>
+  </div>
 
     <div class="mb-3">
       <!-- 이메일 주소 -->
       <label for="exampleFormControlInput1" class="form-label mt-3 text-left"
-        >이메일주소/작성자</label
+        > ID</label
       >
       <input
-        type="email"
+        type="text"
         class="form-control"
         id="exampleFormControlInput1"
-        placeholder="name@example.com"
+        placeholder="id를 적어주세요"
       />
     </div>
     <!-- 본문적는곳 -->
@@ -71,7 +80,43 @@
 </template>
 
 <script>
-export default {};
+import FaqListService from "@/services/noticeQnA/FaqListService"
+export default {
+  // 바인딩속성정의
+data() {
+  return {
+    faq: [], //빈객체
+    submitted: false,
+ // TODO: 저장(추가:insert) 함수 : CRUD (비동기)
+        // TODO: 비동기 코딩 : async ~ await 
+        async saveFaq() {
+            try {
+                // 임시 객체 변수 , 제목, 아이디, 내용, 첨부파일, 패스워드
+                let data = {
+                  faqId: this.faq.faqId,
+                  faqTitle: this.faq.faqTitle,
+                  faqContent: this.faq.faqContent,
+                  faqImg: this.faq.faqImg,
+                  faqPassword: this.faq.faqPassword,
+
+                };
+
+                // TODO: 벡엔드로 객체 추가 요청
+                let response = await FaqListService.create(data);
+                // TODO: 콘솔에 결과 출력
+                console.log(response);
+                this.submitted = true; // 저장유무변수=true 변경
+            } catch(e) {
+                console.log(e);
+            }
+        },
+  }
+},
+methods: {
+  
+},
+  
+};
 </script>
 
 <style>
