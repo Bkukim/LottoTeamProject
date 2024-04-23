@@ -36,6 +36,7 @@ public class ProductService {
         return product;
     }
 
+
     // 상품 저장함수
     public Product save(String prodName,
                         int defaultPrice,
@@ -87,4 +88,5 @@ public class ProductService {
         }
         return product2;
     }
+
 }

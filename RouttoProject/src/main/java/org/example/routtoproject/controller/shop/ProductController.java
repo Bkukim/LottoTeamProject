@@ -47,6 +47,7 @@ public class ProductController {
         }
     }
 
+
     @PostMapping("/product")
     public ResponseEntity<Object> createProduct(@RequestParam(defaultValue = "") String prodName,
                                                 @RequestParam (defaultValue = "0") String defaultPrice,
@@ -81,4 +82,5 @@ public class ProductController {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
+
 }
