@@ -1,7 +1,6 @@
-// 유저 환불 페이지
 <template>
     <div>
-        환불 페이지
+        환불신청 완료 페이지입니다.
     </div>
 </template>
 <script>

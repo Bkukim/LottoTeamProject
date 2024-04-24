@@ -259,26 +259,28 @@
           </div>
           <!-- 결제 정보 박스 끝 -->
 
-          <!-- 버튼 div -->
+          <!-- 버튼 div 시작 -->
           <div class="row mt-5 mb-5">
             <div class="d-flex justify-content-between align-items-center">
               <!-- 주문확인하기 버튼 -->
               <div class="col-6 d-grid p-1">
-                <button type="button" class="btn btn-lg btn-outline-dark">
+                <button type="button" class="btn btn-lg btn-outline-dark" @click="goToMyPage">
                   주문 확인하기
                 </button>
               </div>
               <!-- 쇼핑 계속하기 버튼 -->
               <div class="col-6 d-grid p-1">
-                <button
-                  type="button"
-                  class="btn btn-lg keepShopBtn btn-outline-dark"
-                >
+      <button
+        type="button"
+        class="btn btn-lg keepShopBtn btn-outline-dark"
+        @click="goToHome"
+      >
                   쇼핑 계속하기
                 </button>
               </div>
             </div>
           </div>
+          <!-- 버튼 div 끝 -->
         </div>
       </div>
     </div>
@@ -363,9 +365,13 @@ export default {
         });
     },
 
+    // 주문 확인하기 버튼 클릭시 실행될 함수
+    goToMyPage() {
+      this.$router.push('/mypage');
+    },
     // 쇼핑 계속하기 버튼 클릭시 실행될 함수
-    backToPL() {
-      this.$router.push("");
+    goToHome() {
+      this.$router.push('/');
     },
   },
   created() {

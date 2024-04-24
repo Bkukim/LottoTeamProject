@@ -11,6 +11,8 @@ export default createStore({
   state: {
     loggedIn: user ? true : false, // 로그인 여부
     user: user ? user : null,    //  로그인 정보 (웹토큰 속성 있음)
+
+    selectedOption: '' // 라디오 버튼에서 선택된 옵션
   }, 
 
   // 공유 속성의 값을 조회하는 함수 
@@ -46,10 +48,19 @@ export default createStore({
     registerFailure(state){
       state.loggedIn = false;
     },
+
+    // 라디오 버튼 선택 옵션 저장
+    setSelectedOption(state, option) {
+    state.selectedOption = option;
+    },
   },
 
   // 비동기 함수들을 정의하는 곳
   actions: {
+        // 라디오 버튼 선택 옵션 업데이트 액션
+        updateSelectedOption({ commit }, option) {
+          commit('setSelectedOption', option);
+        },
   },
 
   // 공유 저장소를 여러개 사용할 경우 모듈로 정의해서 분리가능하다. 모듈 정의하는 곳
