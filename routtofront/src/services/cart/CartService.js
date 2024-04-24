@@ -13,7 +13,7 @@ class CartService {
   create(data) {
     return http.post("/shop/cart", data);
   }
-  // todo: 장바구니 삭제함수 : 장바구니 번호(scno)
+  // todo: 장바구니 삭제함수 : 상품 번호(prodId)
   remove(prodId){ //simple cart number
     return http.delete(`/shop/cart/deletion/${prodId}`);
   }

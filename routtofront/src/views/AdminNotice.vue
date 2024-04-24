@@ -30,15 +30,6 @@
       <input class="form-control" id="formFileSm" type="file" />
     </div>
 
-    <!-- 비밀번호 등록 -->
-    <div class="mb-3 row">
-      <label for="inputPassword" class="col-sm-2 col-form-label"
-        >Password</label
-      >
-      <div class="col-sm-10">
-        <input type="password" class="form-control" id="inputPassword" />
-      </div>
-    </div>
 
     <!-- 관리자-공지사항 등록 버튼 -->
     <div class="d-grid gap-2 d-md-flex justify-content-md-end">
@@ -57,7 +48,24 @@
 </template>
 
 <script>
-export default {};
+export default {
+  // 바인딩속성들
+data() {
+  return {
+    message: "",
+    notice: {
+      
+    }
+  }
+},
+// 함수
+methods: {
+  
+},
+mounted() {
+  
+},
+};
 </script>
 
 <style>

@@ -17,19 +17,19 @@
             <div class="col-11">
               <p>회원 유형</p>
 
-              <select class="form-select" aria-label="Default select example">
-                <option selected>회원</option>
-                <option value="1">관리자</option>
+              <select class="form-select" aria-label="Default select example" v-model="role">
+                <option selected value="user">회원</option>
+                <option value="admin">관리자</option>
               </select>
             </div>
             <div class="mt-4 col-11">
               <label class="form-label" for="userName">이름</label>
-              <input class="form-control" type="text" name="userName" />
+              <input class="form-control" type="text" name="userName" v-model="userName"/>
             </div>
             <div class="row mt-4">
               <label class="form-label" for="address">휴대폰 번호</label>
               <div class="col-3">
-                <select class="form-select" aria-label="Default select example">
+                <select class="form-select" aria-label="Default select example" v-model="phoneNum.first">
                   <option selected>010</option>
                   <option value="1">011</option>
                   <option value="2">016</option>
@@ -40,13 +40,14 @@
               </div>
               _
               <div class="col-4">
-                <input class="form-control" type="text" name="call" />
+                <input class="form-control" type="text" name="call" v-model="phoneNum.second"/>
               </div>
               _
               <div class="col-4">
-                <input class="form-control" type="text" name="call" />
+                <input class="form-control" type="text" name="call" v-model="phoneNum.third"/>
               </div>
             </div>
+            <p v-if="message">{{message}}</p>
           </div>
         </div>
       </div>
@@ -62,6 +63,7 @@
           class="text-light FindIdBtn btn-sm mt-4"
           id=""
           type="submit"
+          @click="findId"
         >
         확인
         </button>
@@ -73,7 +75,40 @@
   <br />
 </template>
 <script>
-export default {};
+import UserService from '@/services/user/UserService';
+export default {
+  data() {
+    return {
+      phoneNum: {
+        first: "", // 폰 번호 첫자리
+        second: "",
+        third: "",
+      },
+      userName:"",
+      role:"",
+
+      // 결과가 나오면 id를, 결과가 없으면 "존재하지 않는 회원입니다."를 보여줄 메세지
+      message:"",
+    }
+  },
+  methods: {
+    async findId(){
+      try {
+        let data = {
+          role : this.role,
+          userName : this.userName,
+          phoneNum : this.phoneNum.first + this.phoneNum.second + this.phoneNum.third
+        }
+        let response = UserService.findId(data.role,data.userName,data.phoneNum);
+        console.log(response.data);
+        this.message = response.data;
+        console.log(this.message);
+      } catch (e) {
+        console.log(e);
+      }
+    }
+  },
+};
 </script>
 <style>
 #box {
