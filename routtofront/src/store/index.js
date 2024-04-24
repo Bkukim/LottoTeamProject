@@ -11,6 +11,7 @@ export default createStore({
   state: {
     loggedIn: user ? true : false, // 로그인 여부
     user: user ? user : null,    //  로그인 정보 (웹토큰 속성 있음)
+    userId:"김의현",
   }, 
 
   // 공유 속성의 값을 조회하는 함수 
@@ -20,10 +21,13 @@ export default createStore({
   // 공유 속성의 값을 저장하는 함수, java의 setter이다.
   mutations: {
     // todo 로그인 성공함수
-    loginSuccess(state, user){
+    loginSuccess(state, user, userId){
       state.loggedIn = true;
       state.user = user;
+      state.userId = userId;
     },
+
+    // todo 
 
     // todo 로그인 실패함수
     loginFailure(state){

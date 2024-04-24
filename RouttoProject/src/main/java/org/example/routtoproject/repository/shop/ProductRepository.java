@@ -4,6 +4,8 @@ import org.example.routtoproject.model.entity.shop.Product;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
+import java.util.Optional;
+
 /**
  * packageName : org.example.routtoproject.repository.shop.product
  * fileName : ProductRepository
@@ -20,4 +22,6 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface ProductRepository extends JpaRepository<Product, Integer> {
 
+    Optional<Product> findByProdImgUuid(String prodImgUuid);
+    Optional<Product> findByProdDetailPageUuid(String prodDetailPageUuid);
 }

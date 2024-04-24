@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.example.routtoproject.model.entity.shop.Product;
 import org.example.routtoproject.service.shop.ProductService;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -47,7 +48,25 @@ public class ProductController {
         }
     }
 
+//    TODO: 파일 다운로드 함수
+@GetMapping("/product/img/{uuid}")
+public ResponseEntity<byte[]> findImg(@PathVariable String uuid) {
+    Product product = productService.findImgByUuid(uuid).get();
 
+    return ResponseEntity.ok()
+//           Todo : attachment: => attachment;
+            .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + product.getProdName() + "\"")
+            .body(product.getProdImg());
+}
+@GetMapping("/product/page/{uuid}")
+public ResponseEntity<byte[]> findPage(@PathVariable String uuid) {
+    Product product = productService.findPageByUuid(uuid).get();
+
+    return ResponseEntity.ok()
+//           Todo : attachment: => attachment;
+            .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + product.getProdName() + "\"")
+            .body(product.getProdImg());
+}
     @PostMapping("/product")
     public ResponseEntity<Object> createProduct(@RequestParam(defaultValue = "") String prodName,
                                                 @RequestParam (defaultValue = "0") String defaultPrice,
