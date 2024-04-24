@@ -54,18 +54,48 @@
   /* 헤더 전체 */
   .kim-frame-14 {
     background: #342a26;
-    height: 333px;
-    width: 100%;
+    height: 210px;
+    width: 1920px;
     position: relative;
     overflow: hidden;
+    position:  fixed; 
+    top: 0; 
+    left: 0; 
+    z-index: 1000;
   }
   
+
+  
+
+  .search-popup {
+    display: none; /* 초기에는 숨김 */
+    position: absolute;
+    top: 50px; /* 헤더 아래에 나타나도록 조절 */
+    left: 0;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    padding: 10px;
+}
+
   /* 헤더고정 */
   /* position:  fixed; 헤더를 상단에 고정
     top: 0; 상단에 고정될 위치 지정
     left: 0; 좌측에 고정될 위치 지정
     z-index: 1000; 다른 요소 위에 나타나도록 z-index 설정 */
   
+    .kim-frame-14-in{
+      width: 1320px;
+      margin: 0 auto;
+    }
+/* 검색 필드를 나타내기 위한 스타일 */
+.kim-search-field {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 200px; /* 필요에 따라 너비 조정 */
+  height: 30px; /* 필요에 따라 높이 조정 */
+}
+
   .kim-routto-logo {
     width: 317px;
     height: 58.86%;
@@ -102,12 +132,12 @@
   .kim-navbar {
     display: flex;
     flex-direction: row;
-    gap: 70px;
+    gap: 87px;
     align-items: flex-start;
     justify-content: flex-start;
     position: absolute;
-    left: 650px;
-    top: 255px;
+    left: 475px;
+    top: 177px;
     align-items: flex-end;
     justify-content: flex-end;
   }
@@ -121,7 +151,7 @@
     color: #ffffff;
     text-align: left;
     font-family: "Inter-Regular", sans-serif;
-    font-size: 20px;
+    font-size: 15px;
     font-weight: 400;
     position: relative;
     margin-right: 5vw;
@@ -134,7 +164,7 @@
     align-items: flex-start;
     justify-content: flex-start;
     position: absolute;
-    left: 12.7vw;
+    left: 17.5vw;
     top: 49px;
   }
   

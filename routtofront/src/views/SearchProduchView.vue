@@ -1,7 +1,7 @@
 <template>
     <div class="container text-center">
       <div>
-        <h3 mt-3>Routto Search</h3>
+        <h3 class="search mt-5" >Routto Search</h3>
   
         <div class="container text-center">
           <!-- Stack the columns on mobile by making one full-width and the other half-width -->
@@ -52,9 +52,16 @@
   export default {};
   </script>
   <style>
+  .container{
+    height: 1000px;
+    margin-top: 250px;
+  }
+  .search{
+    margin-top: 250px
+  }
   h3 {
-    margin-top: 100px;
-    margin-bottom: 100px;
+    /* margin-top: 10px; */
+    margin-bottom: 80px;
   }
 
   .search_input{
