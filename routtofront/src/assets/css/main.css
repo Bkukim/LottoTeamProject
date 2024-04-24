@@ -1,3 +1,19 @@
+.main_all {
+  max-width: 1920px;
+  margin: 0 auto; /* 가운데 정렬을 위해 추가 */
+  overflow: hidden; /* 스크롤 생기지 않도록 설정 */
+}
+
+/* 작은 화면에 대한 스타일 */
+@media (max-width: 1920px) {
+  .main_all {
+    max-width: 100%; /* 작은 화면에서는 최대 넓이를 부모 요소에 맞추기 */
+    padding: 0 20px; /* 옆에 여백을 추가하여 콘텐츠가 너무 가까이 붙지 않도록 함 */
+  }
+}
+
+
+
 .frame-22,
 .frame-22 * {
   box-sizing: border-box;
@@ -6,7 +22,7 @@
 .frame-22 {
   background: #ffffff;
   width: 1320px;
-  height: 5500px;
+  height: 5200px;
   position: relative;
   overflow: hidden;
   /* background-color: cadetblue; */
@@ -19,9 +35,9 @@
 /* 메인배너 */
 .baner_divbox {
   width: 1320px;
-  height: 600px;
+  height: 500px;
   position: absolute;
-  top: 50px;
+  top: 250px;
   background-color: #342a26;
   /* left: 305.05px; */
   overflow: visible;
@@ -173,12 +189,15 @@
     top: 1876.84px;
   }
   ._24 {
-    background: #535353;
+    /* background: #535353; */
     width: 116.64px;
     height: 13.29px;
     position: absolute;
     left: 423px;
     top: 2362.87px;
+    color: rgb(212, 38, 38);
+    font-weight: bolder;
+    letter-spacing: -3px;
   }
   .abcdefghijklm {
     color: #535353;
@@ -234,12 +253,15 @@
     top: 1876.84px;
   }
   ._26 {
-    background: #535353;
+    /* background: #535353; */
     width: 116.64px;
     height: 13.29px;
     position: absolute;
     left: 732.42px;
     top: 2362.87px;
+    color: rgb(212, 38, 38);
+    font-weight: bolder;
+    letter-spacing: -3px;
   }
   .abcdefghijklm3 {
     color: #535353;
@@ -295,12 +317,15 @@
     top: 1876.84px;
   }
   ._28 {
-    background: #535353;
+    /* background: #535353; */
     width: 116.64px;
     height: 13.29px;
     position: absolute;
     left: 1041.84px;
     top: 2362.87px;
+    color: rgb(212, 38, 38);
+    font-weight: bolder;
+    letter-spacing: -3px;
   }
   .abcdefghijklm5 {
     color: #535353;
@@ -356,12 +381,15 @@
     top: 1876.84px;
   }
   ._210 {
-    background: #535353;
+    /* background: #535353; */
     width: 116.64px;
     height: 13.29px;
     position: absolute;
     left: 1351.26px;
     top: 2362.87px;
+    color: rgb(212, 38, 38);
+    font-weight: bolder;
+    letter-spacing: -3px;
   }
   .abcdefghijklm7 {
     color: #535353;
@@ -536,6 +564,17 @@
     top: 2860px;
     background-color: #342a26;
     overflow: visible;
+  }
+
+  ._3 {
+    width: 345px;
+    height: 345px;
+    position: absolute;
+    left: 823px;
+    top: 3992px;
+    /* background-color: #342a26; */
+    overflow: visible;
+    opacity: 50%;
   }
   
   

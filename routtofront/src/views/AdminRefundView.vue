@@ -1,4 +1,4 @@
-<!-- // 관리자 환불 페이지
+// 관리자 환불 페이지
 <template>
   <!-- 반품관리 배너 시작 -->
   <div
@@ -554,4 +554,4 @@ export default {
   padding-right: 10px;
 }
 
-</style> -->
+</style>
