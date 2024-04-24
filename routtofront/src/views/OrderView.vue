@@ -31,22 +31,14 @@
           </th>
           <td>
             <div class="col-6">
-              <input class="form-control" type="text" name="user" />
+              <input
+                class="form-control"
+                type="text"
+                name="user"
+                v-model="user.userName"
+              />
             </div>
           </td>
-        </tr>
-
-        <!-- 이메일 확인 tr -->
-        <tr>
-          <th scope="row">
-            <label class="form-label" for="email">이메일</label>
-          </th>
-          <td>
-            <div class="col-6">
-              <input class="form-control" type="text" name="email" id="email" />
-            </div>
-          </td>
-          <td></td>
         </tr>
 
         <!-- 연락처 tr -->
@@ -55,25 +47,13 @@
             <label class="form-label" for="address">휴대폰 번호</label>
           </th>
           <td>
-            <div class="row">
-              <div class="col-2">
-                <select class="form-select" aria-label="Default select example">
-                  <option selected value="010">010</option>
-                  <option value="011">011</option>
-                  <option value="016">016</option>
-                  <option value="017">017</option>
-                  <option value="018">018</option>
-                  <option value="019">019</option>
-                </select>
-              </div>
-              _
-              <div class="col-2">
-                <input class="form-control" type="text" name="call" />
-              </div>
-              _
-              <div class="col-2">
-                <input class="form-control" type="text" name="call" />
-              </div>
+            <div class="col-6">
+              <input
+                class="form-control"
+                type="text"
+                name="call"
+                v-model="user.phoneNum"
+              />
             </div>
           </td>
           <td></td>
@@ -106,26 +86,14 @@
           </th>
           <td>
             <div class="col-4">
-              <input class="form-control" type="text" name="receiver" />
-            </div>
-            <!-- <div class="col"></div> -->
-          </td>
-          <td></td>
-        </tr>
-        <!-- 배송지명 tr -->
-        <tr>
-          <th scope="row">
-            <label class="form-label" for="alias">배송지명</label>
-          </th>
-          <td>
-            <div class="col-4">
               <input
-                class="form-control log-form"
+                class="form-control"
                 type="text"
-                name="alias"
-                id="alias"
+                name="receiver"
+                v-model="order.receiver"
               />
             </div>
+            <!-- <div class="col"></div> -->
           </td>
           <td></td>
         </tr>
@@ -142,7 +110,7 @@
                 <input
                   class="form-control"
                   type="text"
-                  v-model="postcode"
+                  v-model="order.zipcode"
                   placeholder="우편번호"
                   disabled
                 />
@@ -163,7 +131,7 @@
                 <input
                   class="form-control"
                   type="text"
-                  v-model="address"
+                  v-model="orderAddress"
                   placeholder="주소"
                   disabled
                 />
@@ -186,6 +154,7 @@
                   class="form-control"
                   type="text"
                   id="detailAddress"
+                  v-model="orderDetailAddress"
                   placeholder="상세주소"
                 />
               </div>
@@ -265,6 +234,7 @@
         <tr>
           <!-- 제목 : 상품정보, 판매가, 수량, 구매가 -->
           <th scope="col">상품정보</th>
+          <th scope="col"></th>
           <th scope="col">판매가</th>
           <th scope="col">수량</th>
           <th scope="col">구매가</th>
@@ -274,14 +244,27 @@
         <tr>
           <!-- 1) 배송 상품 -->
           <td scope="row">
-            <label for="receiver">배송상품</label>
+            <img
+              :src="product.prodImgUrl"
+              style="width: 100px; height: 100px"
+            />
+          </td>
+          <td>
+            <p style="margin-top: 35px">{{ product.prodName }}</p>
           </td>
           <!-- 2) 판매가 -->
-          <td>판매가</td>
+          <td>
+            <p style="margin-top: 35px">
+              {{
+                product.defaultPrice -
+                (product.defaultPrice * product.discountRate) / 100
+              }}
+            </p>
+          </td>
           <!-- 3) 수량 -->
-          <td>수량</td>
+          <td><p style="margin-top: 35px"></p></td>
           <!-- 4) 구매가 -->
-          <td>구매가</td>
+          <td><p style="margin-top: 35px"></p></td>
         </tr>
       </tbody>
     </table>
@@ -417,7 +400,7 @@
       <!-- 6. 최종 결제 정보 -->
       <div class="col-sm-4" style="text-align: right; align-item: center">
         <h2>최종 결제 정보</h2>
-        <table class="paymentInfo">
+        <div class="paymentInfo">
           <!-- <thead>
             <tr>
                 <th scope="col"></th>
@@ -425,58 +408,57 @@
                 <th scope="col"></th>
               </tr>
           </thead> -->
-          <tbody>
-            <div id="payinfo">
-              <!-- 총 상품 금액 -->
-              <tr id="paymentTr">
-                <th scope="row">
-                  <p id="payTitle">총 상품 금액</p>
-                </th>
-                <td>
-                  <div>
-                    <p id="price">00 원</p>
-                  </div>
-                </td>
-              </tr>
-              <!-- 쿠폰 할인 금액 -->
-              <tr id="paymentTr">
-                <th scope="row" >
-                  <p id="payTitle">쿠폰 할인 금액</p>
-                </th>
-                <td>
-                  <div id="price">
-                    <p>00 원</p>
-                  </div>
-                </td>
-              </tr>
 
-              <!-- 총 배송비 tr -->
-              <tr id="paymentTr">
-                <th scope="row">
-                  <p id="payTitle">총 배송비</p>
-                </th>
-                <td>
-                  <div id="price">
-                    <p>00 원</p>
-                  </div>
-                </td>
-              </tr>
+          <div id="payinfo">
+            <!-- 총 상품 금액 -->
+            <tr id="paymentTr">
+              <th scope="row">
+                <p id="payTitle">총 상품 금액</p>
+              </th>
+              <td>
+                <div>
+                  <p id="price">00 원</p>
+                </div>
+              </td>
+            </tr>
+            <!-- 쿠폰 할인 금액 -->
+            <tr id="paymentTr">
+              <th scope="row">
+                <p id="payTitle">쿠폰 할인 금액</p>
+              </th>
+              <td>
+                <div id="price">
+                  <p>00 원</p>
+                </div>
+              </td>
+            </tr>
 
-              <!-- 최종 결제 금액 tr -->
-              <tr id="paymentTr">
-                <th scope="row">
-                  <p id="payTitle">최종 결제 금액</p>
-                </th>
-                <td>
-                  <div id="price">
-                    <p>00 원</p>
-                  </div>
-                </td>
-                <td></td>
-              </tr>
-            </div>
-          </tbody>
-        </table>
+            <!-- 총 배송비 tr -->
+            <tr id="paymentTr">
+              <th scope="row">
+                <p id="payTitle">총 배송비</p>
+              </th>
+              <td>
+                <div id="price">
+                  <p>00 원</p>
+                </div>
+              </td>
+            </tr>
+
+            <!-- 최종 결제 금액 tr -->
+            <tr id="paymentTr">
+              <th scope="row">
+                <p id="payTitle">최종 결제 금액</p>
+              </th>
+              <td>
+                <div id="price">
+                  <p>00 원</p>
+                </div>
+              </td>
+              <td></td>
+            </tr>
+          </div>
+        </div>
         <!-- 7. 결제 버튼 -->
         <div class="mt-4">
           <button type="button" id="btnPay" @click="goPayment">결제하기</button>
@@ -488,16 +470,59 @@
 </template>
 
 <script>
+import UserService from "@/services/user/UserService";
+import ProductService from "@/services/product/ProductService";
+// import OrderService from "@/services/product/OrderService";
+
 export default {
   data() {
     return {
-      postcode: "",
       address: "",
+      orderAddress:"",
       extraAddress: "",
-      
+      user: {
+        userName: "",
+        // email: "",
+        phoneNum: "",
+      },
+      product: {},
+      order: {
+        userId: this.$store.state.userId,
+        // orderName: this.user.userName,
+        orderName:"",
+        orderPrice: 0,
+        shoppingFee: 0,
+        zipcode: "",
+        orderAddress: this.orderAddress + "," + this.extraAddress,
+        orderDetailAddress: "",
+        orderRequest: "",
+        receiver: "",
+      },
     };
   },
   methods: {
+    // userID로 상세조회하는 함수
+    async retrieveUser(userId) {
+      console.log(userId);
+      try {
+        let response = await UserService.get(userId);
+        console.log(response.data);
+        this.user.userName = response.data.userName;
+        this.user.phoneNum = response.data.phoneNum;
+      } catch (error) {
+        console.log(error);
+      }
+    },
+    // prodId로 상세조회하는 함수
+    async retrieveProduct(prodId) {
+      try {
+        let response = await ProductService.get(prodId);
+        console.log(response.data);
+        this.product = response.data;
+      } catch (error) {
+        console.log(error);
+      }
+    },
     // 주소 함수
     execDaumPostcode() {
       new window.daum.Postcode({
@@ -539,11 +564,29 @@ export default {
         },
       }).open();
     },
-    // 결제하기로 가는 함수
+    // 결제하기로 이동하는 함수
     goPayment() {
       this.$router.push("/order/payment");
     },
+    // 주문/결제 페이지 정보를 저장하는 함수
+    // async saveOrder() {
+    //   try {
+    //     let data = {
+
+    //     };
+    //     let response = await OrderService.create(data);
+    //   } catch (error) {
+    //     console.log(error);
+    //   }
+    // },
   },
+mounted() {
+  this.retrieveUser(this.$store.state.userId)
+    .then(() => {
+      this.order.orderName = this.user.userName; // retrieveUser 완료 후에 호출
+    });
+  this.retrieveProduct(this.$route.params.prodId);
+}
 };
 </script>
 
@@ -593,8 +636,7 @@ ul {
   color: white;
   border-radius: 5px; /* 모서리 둥글게 : 5px로 설정 */
 }
-#payTitle{
+#payTitle {
   margin-right: 5vw;
 }
-
 </style>
