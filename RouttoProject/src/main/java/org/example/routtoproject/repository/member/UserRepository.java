@@ -28,19 +28,24 @@ public interface UserRepository extends JpaRepository<User, String> {
 
     @Query(value = "   select * from lotto_user\n" +
             "   where user_Id = :userId"
-                ,nativeQuery = true)
+            , nativeQuery = true)
     public User findByUserId(@Param("userId") String userId);
 
     /**
      * 아이디 찾기를 위해 아래 변수를 받아서 일치하는 user반환
+     *
      * @param role
      * @param userName
      * @param phoneNum
      * @return User
      */
     @Query(value = "select * from lotto_user where role = :role and USER_NAME = :userName and PHONE_NUM = :phoneNum"
-            ,nativeQuery = true)
+            , nativeQuery = true)
     public User findId(@Param("role") String role, @Param("userName") String userName, @Param("phoneNum") String phoneNum);
+
+    @Query(value = "select * from lotto_user where role = :role and USER_NAME = :userName and PHONE_NUM = :phoneNum"
+            , nativeQuery = true)
+    public User findPwd(@Param("userId") String userId, @Param("userName") String userName, @Param("phoneNum") String phoneNum);
 
 
 }
