@@ -36,30 +36,9 @@
                 type="text"
                 name="user"
                 v-model="user.userName"
-                disabled
               />
             </div>
           </td>
-        </tr>
-
-        <!-- 이메일 확인 tr -->
-        <tr>
-          <th scope="row">
-            <label class="form-label" for="email">이메일</label>
-          </th>
-          <td>
-            <div class="col-6">
-              <input
-                class="form-control"
-                type="text"
-                name="email"
-                id="email"
-                v-model="user.email"
-                disabled
-              />
-            </div>
-          </td>
-          <td></td>
         </tr>
 
         <!-- 연락처 tr -->
@@ -74,7 +53,6 @@
                 type="text"
                 name="call"
                 v-model="user.phoneNum"
-                disabled
               />
             </div>
           </td>
@@ -108,26 +86,14 @@
           </th>
           <td>
             <div class="col-4">
-              <input class="form-control" type="text" name="receiver" />
-            </div>
-            <!-- <div class="col"></div> -->
-          </td>
-          <td></td>
-        </tr>
-        <!-- 배송지명 tr -->
-        <tr>
-          <th scope="row">
-            <label class="form-label" for="alias">배송지명</label>
-          </th>
-          <td>
-            <div class="col-4">
               <input
-                class="form-control log-form"
+                class="form-control"
                 type="text"
-                name="alias"
-                id="alias"
+                name="receiver"
+                v-model="order.receiver"
               />
             </div>
+            <!-- <div class="col"></div> -->
           </td>
           <td></td>
         </tr>
@@ -144,7 +110,7 @@
                 <input
                   class="form-control"
                   type="text"
-                  v-model="postcode"
+                  v-model="order.zipcode"
                   placeholder="우편번호"
                   disabled
                 />
@@ -165,7 +131,7 @@
                 <input
                   class="form-control"
                   type="text"
-                  v-model="address"
+                  v-model="orderAddress"
                   placeholder="주소"
                   disabled
                 />
@@ -188,6 +154,7 @@
                   class="form-control"
                   type="text"
                   id="detailAddress"
+                  v-model="orderDetailAddress"
                   placeholder="상세주소"
                 />
               </div>
@@ -267,6 +234,7 @@
         <tr>
           <!-- 제목 : 상품정보, 판매가, 수량, 구매가 -->
           <th scope="col">상품정보</th>
+          <th scope="col"></th>
           <th scope="col">판매가</th>
           <th scope="col">수량</th>
           <th scope="col">구매가</th>
@@ -276,14 +244,27 @@
         <tr>
           <!-- 1) 배송 상품 -->
           <td scope="row">
-            <label for="receiver">배송상품</label>
+            <img
+              :src="product.prodImgUrl"
+              style="width: 100px; height: 100px"
+            />
+          </td>
+          <td>
+            <p style="margin-top: 35px">{{ product.prodName }}</p>
           </td>
           <!-- 2) 판매가 -->
-          <td>판매가</td>
+          <td>
+            <p style="margin-top: 35px">
+              {{
+                product.defaultPrice -
+                (product.defaultPrice * product.discountRate) / 100
+              }}
+            </p>
+          </td>
           <!-- 3) 수량 -->
-          <td>수량</td>
+          <td><p style="margin-top: 35px"></p></td>
           <!-- 4) 구매가 -->
-          <td>구매가</td>
+          <td><p style="margin-top: 35px"></p></td>
         </tr>
       </tbody>
     </table>
@@ -293,8 +274,8 @@
     <br />
 
     <!-- 5. 결제 수단 -->
-    <div style="display: flex">
-      <div class="col-sm-8">
+    <div style="display: flex;justify-content: space-between;">
+      <div class="col-md-8">
         <div>
           <h2>결제 수단</h2>
         </div>
@@ -416,105 +397,116 @@
         </div>
       </div>
 
-      <!-- 6. 최종 결제 정보 -->
-      <div class="col-sm-4" style="text-align: right; align-item: center">
-        <h2>최종 결제 정보</h2>
-        <table class="paymentInfo">
-          <!-- <thead>
-            <tr>
-                <th scope="col"></th>
-                <th scope="col"></th>
-                <th scope="col"></th>
-              </tr>
-          </thead> -->
-          <tbody>
-            <div id="payinfo">
-              <!-- 총 상품 금액 -->
-              <tr id="paymentTr">
-                <th scope="row">
-                  <p id="payTitle">총 상품 금액</p>
-                </th>
-                <td>
-                  <div>
-                    <p id="price">00 원</p>
-                  </div>
-                </td>
-              </tr>
-              <!-- 쿠폰 할인 금액 -->
-              <tr id="paymentTr">
-                <th scope="row">
-                  <p id="payTitle">쿠폰 할인 금액</p>
-                </th>
-                <td>
-                  <div id="price">
-                    <p>00 원</p>
-                  </div>
-                </td>
-              </tr>
+      <div class="payment-container">
+  <!-- 최종 결제 정보 -->
+  <div class="col-md-4 payment-section">
+    <h2>최종 결제 정보</h2>
+    <div class="paymentInfo">
+      <div id="payinfo">
+        <!-- 총 상품 금액 -->
+        <div class="paymentTr">
+          <div class="payTitle">총 상품 금액</div>
+          <div class="price">00 원</div>
+        </div>
+        <!-- 쿠폰 할인 금액 -->
+        <div class="paymentTr">
+          <div class="payTitle">쿠폰 할인 금액</div>
+          <div class="price">00 원</div>
+        </div>
+        <!-- 총 배송비 -->
+        <div class="paymentTr">
+          <div class="payTitle">총 배송비</div>
+          <div class="price">00 원</div>
+        </div>
+        <!-- 최종 결제 금액 -->
+        <div class="paymentTr">
+          <div class="payTitle">최종 결제 금액</div>
+          <div class="price">00 원</div>
 
-              <!-- 총 배송비 tr -->
-              <tr id="paymentTr">
-                <th scope="row">
-                  <p id="payTitle">총 배송비</p>
-                </th>
-                <td>
-                  <div id="price">
-                    <p>00 원</p>
-                  </div>
-                </td>
-              </tr>
-
-              <!-- 최종 결제 금액 tr -->
-              <tr id="paymentTr">
-                <th scope="row">
-                  <p id="payTitle">최종 결제 금액</p>
-                </th>
-                <td>
-                  <div id="price">
-                    <p>00 원</p>
-                  </div>
-                </td>
-                <td></td>
-              </tr>
-            </div>
-          </tbody>
-        </table>
+                </div>
+          </div>
+        </div>
         <!-- 7. 결제 버튼 -->
         <div class="mt-4">
           <button type="button" id="btnPay" @click="goPayment">결제하기</button>
+
         </div>
-        <br />
       </div>
     </div>
   </div>
+  <!-- 결제 버튼 -->
+  <div class="payment-button">
+    <button type="button" id="btnPay" @click="togglePaymentModal" style="width: 100%;">
+      결제하기
+    </button>
+  </div>
+</div>
+
+<div>
+<div>
+          <!-- 결제 모달 -->
+          <CheckoutViewVue v-if="isModalVisible" @close="isModalVisible = false"></CheckoutViewVue>
+        </div>
+        <br />
+      </div>
 </template>
 
 <script>
+import CheckoutViewVue from './payment/CheckoutView.vue';
 import UserService from "@/services/user/UserService";
+import ProductService from "@/services/product/ProductService";
+// import OrderService from "@/services/product/OrderService";
+
 export default {
+  components: {
+    CheckoutViewVue,
+  },
   data() {
     return {
-      postcode: "",
       address: "",
+      orderAddress:"",
       extraAddress: "",
+
+      isModalVisible: false,
       user: {
         userName: "",
-        email: "",
+        // email: "",
         phoneNum: "",
+      },
+      product: {},
+      order: {
+        userId: this.$store.state.userId,
+        // orderName: this.user.userName,
+        orderName:"",
+        orderPrice: 0,
+        shoppingFee: 0,
+        zipcode: "",
+        orderAddress: this.orderAddress + "," + this.extraAddress,
+        orderDetailAddress: "",
+        orderRequest: "",
+        receiver: "",
       },
     };
   },
   methods: {
-    // 상세조회 함수
+    // userID로 상세조회하는 함수
     async retrieveUser(userId) {
       console.log(userId);
       try {
         let response = await UserService.get(userId);
         console.log(response.data);
-
         this.user.userName = response.data.userName;
-        this.user.email = response.data.email;
         this.user.phoneNum = response.data.phoneNum;
+      } catch (error) {
+        console.log(error);
+      }
+    },
+    // prodId로 상세조회하는 함수
+    async retrieveProduct(prodId) {
+      try {
+        let response = await ProductService.get(prodId);
+        console.log(response.data);
+        this.product = response.data;
       } catch (error) {
         console.log(error);
       }
@@ -560,14 +552,32 @@ export default {
         },
       }).open();
     },
-    // 결제하기로 가는 함수
+    // 결제하기로 이동하는 함수
     goPayment() {
-      this.$router.push("/order/payment");
+      this.$router.push("/order/tosspay");
     },
+    togglePaymentModal() {
+      this.isModalVisible = !this.isModalVisible; // 결제하기 버튼 클릭 시 모달 상태 토글
+    },
+    // 주문/결제 페이지 정보를 저장하는 함수
+    // async saveOrder() {
+    //   try {
+    //     let data = {
+
+    //     };
+    //     let response = await OrderService.create(data);
+    //   } catch (error) {
+    //     console.log(error);
+    //   }
+    // },
   },
-  mounted() {
-    this.retrieveUser(this.$route.params.userId);
-  },
+mounted() {
+  this.retrieveUser(this.$store.state.userId)
+    .then(() => {
+      this.order.orderName = this.user.userName; // retrieveUser 완료 후에 호출
+    });
+  this.retrieveProduct(this.$route.params.prodId);
+}
 };
 </script>
 
@@ -593,29 +603,59 @@ ul {
   border: 1px solid #cccccc;
   height: 10vw;
 }
+.payment-container {
+  width: 100%; /* 전체 컨테이너의 가로 길이를 화면 전체로 설정 */
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* 내부 요소들을 가운데 정렬 */
+}
+.payment-section h2 {
+  text-align: center; /* 텍스트를 중앙 정렬합니다 */
+  margin: 0 auto; /* 상하 마진을 0으로 설정하고 좌우 마진을 자동으로 설정하여 중앙 정렬 효과를 줍니다 */
+  width: 100%; /* h2 태그의 너비를 부모 요소의 전체 너비로 설정합니다 */
+}
+.payment-section {
+  width: 80%; /* 최종 결제 정보 섹션의 가로 길이를 넓혀줍니다 */
+  margin-bottom: 20px; /* 아래쪽 여백 추가 */
+}
+.payment-button {
+  width: 80%; /* 결제 버튼의 가로 길이를 넓혀줍니다 */
+}
 .paymentInfo {
   margin: 20px;
   border: 1px solid #cccccc;
-  /* width: 27vw; */
-  height: 11vw;
-  /* padding: 50px; */
-  /* background-color: #342a26; */
-  /* color: white; */
+  display: flex;
+  flex-direction: column;
 }
-/* #paymentTr { */
-/* padding: 90px; */
-/* padding: 50px; */
-/* background-color: #342a26; */
-/* } */
+.paymentTr {
+  display: flex;
+  justify-content: space-between;
+  font-size: 15px;
+  margin-bottom: 30px; /* 원하는 간격으로 조정하세요. */
+}
+.paymentTr:last-child {
+  margin-bottom: 0;
+}
+.paymentTr + .paymentTr {
+  margin-top: 15px; /* 항목 사이의 간격을 조절합니다. 필요에 따라 값을 조정하세요. */
+}
 #payMethod {
   height: 11vw;
 }
 #btnPay {
-  width: 12vw;
+  display: block; /* 버튼을 블록 요소로 만들어 전체 너비를 차지하게 합니다. */
+  width: 100%; /* 버튼의 너비를 조정합니다. */
+  margin-top: 20px; /* 버튼과 최종 결제 정보 사이의 간격을 조절합니다. */
   height: 3vw;
   background-color: #342a26;
   color: white;
   border-radius: 5px; /* 모서리 둥글게 : 5px로 설정 */
+}
+.payTitle {
+  text-align: left;
+}
+.price {
+  text-align: right;
 }
 #payTitle {
   margin-right: 5vw;

@@ -4,10 +4,13 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.example.routtoproject.model.entity.shop.Product;
 import org.example.routtoproject.repository.shop.ProductRepository;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -29,6 +32,25 @@ import java.util.UUID;
 @RequiredArgsConstructor
 public class ProductService {
     private final ProductRepository productRepository;       // DI
+
+    // todo 전체조회
+    public List<Product> findAll(){
+        List<Product> product = productRepository.findAll();
+        return product;
+    }
+
+    // todo : page 전체조회
+    public Page<Product> findAllByProdNameContaining(
+            String prodName,
+            Pageable pageable
+    ) {
+        Page<Product> page
+                = productRepository.findAllByProdNameContaining(
+                prodName,
+                pageable
+        );
+        return page;
+    }
 
     //    TODO: 상세조회
     public Optional<Product> findById(int prodId) {
@@ -61,12 +83,12 @@ public class ProductService {
                 // todo  1-2) 다운로드 url 생성 -> 자바함수를 이용 ※여기서 다운로드란 jsp이 spring에서 이미지를 다운받아 가져오는 것.
                 String prodImgDownload = ServletUriComponentsBuilder
                         .fromCurrentContextPath()// 스프링 서버 기본 주소 : localhost:8000
-                        .path("/api/shop/product/") // 추가 경로 넣기 : /advanced/fileDb
+                        .path("/api/shop/product/img/") // 추가 경로 넣기 : /advanced/fileDb
                         .path(prodImgUuid) // uuid를 url 제일 마지막에 넣어주기
                         .toUriString(); // 위의 url을 하나로 합쳐주는 함수 http://localhost:8000/advanced/fileDb/xxxx 가 된다.
                 String prodDetailPageDownload = ServletUriComponentsBuilder
                         .fromCurrentContextPath()// 스프링 서버 기본 주소 : localhost:8000
-                        .path("/api/shop/product/") // 추가 경로 넣기 : /advanced/fileDb
+                        .path("/api/shop/product/page/") // 추가 경로 넣기 : /advanced/fileDb
                         .path(prodDetailPageUuid) // uuid를 url 제일 마지막에 넣어주기
                         .toUriString(); // 위의 url을 하나로 합쳐주는 함수 http://localhost:8000/advanced/fileDb/xxxx 가 된다.
 
@@ -79,7 +101,9 @@ public class ProductService {
                         discountRate,
                         prodStock,
                         prodImgDownload,
-                        prodDetailPageDownload); // 우리가 만든 url
+                        prodDetailPageDownload,
+                        prodImgUuid,
+                        prodDetailPageUuid); // 우리가 만든 url
                 product2 = productRepository.save(product);
             }
         } catch (Exception e) {
@@ -89,4 +113,12 @@ public class ProductService {
         return product2;
     }
 
+    public Optional<Product> findImgByUuid(String uuid){
+        Optional<Product> product = productRepository.findByProdImgUuid(uuid);
+        return product;
+    }
+    public Optional<Product> findPageByUuid(String uuid){
+        Optional<Product> product = productRepository.findByProdDetailPageUuid(uuid);
+        return product;
+    }
 }

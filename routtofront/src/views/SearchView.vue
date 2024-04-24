@@ -29,9 +29,12 @@
 export default {};
 </script>
 <style>
+.container{
+  height: 1300px;
+}
 
 h3 {
-  margin-top: 100px;
+  margin-top: 300px;
 }
 
 
@@ -47,7 +50,7 @@ h3 {
 .search_box {
   width: 1320px;
   height: 800px;
-  background-color: #342a26;
+  background-color: #342a2646;
   margin-top: 80px;
 }
 
