@@ -554,4 +554,6 @@ export default {
   padding-right: 10px;
 }
 
+
+</style>
 </style>

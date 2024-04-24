@@ -1,8 +1,8 @@
-// noticeQna/FaqListService.js
+// NoticeListService.js
 // 목적 : 부서 CRUD 공통 함수들 정의
 import http from "@/utils/http-common"; // spring 통신 정의 파일
 
-class FaqListService {
+class NoticeListService {
     // 속성(x), 생성자(x), 공통함수
     // TODO: 전체 조회
     getAll(userId, faqId, page, size) {
@@ -60,4 +60,4 @@ class FaqListService {
 
 // 내보내기 : 다른 js 에서 사용하기 위해
 // 사용법 : 자바 같음 : 객체.함수명()
-export default new FaqListService();
+export default new NoticeListService();
