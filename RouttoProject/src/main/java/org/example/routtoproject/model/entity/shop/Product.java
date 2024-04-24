@@ -55,8 +55,10 @@ public class Product extends BaseTimeEntity {
     private Integer soldCount;
     private String prodImgUrl;
     private String prodDetailPageUrl;
+    private String prodImgUuid;
+    private String prodDetailPageUuid;
 
-    public Product(String prodName, Integer defaultPrice, String prodCategory, byte[] prodImg, byte[] prodDetailPage, Integer discountRate, Integer prodStock, String prodImgUrl, String prodDetailPageUrl) {
+    public Product(String prodName, Integer defaultPrice, String prodCategory, byte[] prodImg, byte[] prodDetailPage, Integer discountRate, Integer prodStock, String prodImgUrl, String prodDetailPageUrl, String prodImgUuid, String prodDetailPageUuid) {
         this.prodName = prodName;
         this.defaultPrice = defaultPrice;
         this.prodCategory = prodCategory;
@@ -66,5 +68,9 @@ public class Product extends BaseTimeEntity {
         this.prodStock = prodStock;
         this.prodImgUrl = prodImgUrl;
         this.prodDetailPageUrl = prodDetailPageUrl;
+        this.prodImgUuid = prodImgUuid;
+        this.prodDetailPageUuid = prodDetailPageUuid;
     }
+
+
 }
