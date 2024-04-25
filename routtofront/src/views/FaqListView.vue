@@ -2,7 +2,9 @@
 <template>
   <div class="container">
     <div class="mt-5">
-      <router-link class="top_notice router-link-exact-active fs-5" to="/faqList"
+      <router-link
+        class="top_notice router-link-exact-active fs-5"
+        to="/faqList"
         >고객센터</router-link
       >
       |
@@ -36,11 +38,11 @@
         </thead>
         <tbody>
           <!-- 반복문 시작할 행 -->
-          <tr>
-            <th scope="row">1</th>
-            <td>Mark</td>
-            <td>Otto</td>
-            <td>@mdo</td>
+          <tr v-for="(data, index) in faqList" :key="index">
+            <th scope="row">{{data.faqId}}</th>
+            <td>{{data.faqTitle}}</td>
+            <td>{{data.userId}}</td>
+            <td>{{ created }}</td>
           </tr>
         </tbody>
       </table>
@@ -55,7 +57,7 @@
             v-model="page"
             :total-rows="count"
             :per-page="pageSize"
-            @click="retrieveSimpleProduct"
+            @click="retrieveFaq"
           ></b-pagination>
         </div>
       </div>
@@ -73,7 +75,53 @@
 </template>
 
 <script>
-export default {};
+import FaqListService from '@/services/noticeQnA/FaqListService';
+export default {
+  data() {
+    return {
+      faqList: [],
+      faqTitle: "",
+
+      // 공통 속성(현재페이지, 전체데이터개수,1페이지당개수)
+      page: 1, // 현재페이지번호
+      count: 0, // 전체데이터개수
+      pageSize: 10, // 1페이지당개수(select태그)
+
+      // 날짜함수
+      currentDate: '',
+    };
+  },
+  methods: {
+    // 전체조회 함수
+    async retrieveFaq() {
+      try {
+        // TODO: 1) 공통 전체조회 함수 실행
+        let response = await FaqListService.getAll(
+          this.faqTitle, // 검색어
+          this.page - 1, // 현재페이지번호-1
+          this.pageSize // 1페이지당개수(size)
+        );
+        // TODO: 복습 : 2) 객체분할 할당
+        const { faqList, totalItems } = response.data; // 부서배열(벡엔드 전송)
+        // TODO: 3) 바인딩변수(속성)에 저장
+        this.faqList = faqList; // 부서배열(벡엔드 전송)
+        this.count = totalItems; // 전체페이지수(벡엔드 전송)
+        // TODO: 4) 프론트 로깅 : console.log
+        console.log(response.data);
+      } catch (e) {
+        console.log(e);
+      }
+    },
+    created(){
+    //  이걸 백엔드에 전해주려면 어캐함?
+     this.currentDate = new Date().toLocaleDateString();
+
+    },
+  },
+  mounted() {
+    this.retrieveFaq();
+  },
+};
 </script>
 
 <style>
