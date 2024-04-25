@@ -3,26 +3,23 @@
     <div class="mt-5 mb-5 col-13">
       <!-- 카테고리 -->
       <div class="container">
-        <h2 class="mb-5">문의사항</h2>
+        <h2 class="mb-5">공지사항</h2>
         <table class="table table-bordered">
           <tbody>
             <tr>
               <th scope="row" class="col-2">제목</th>
-              <td>{{notice.faqTitle}}</td>
+              <td>{{notice.title}}</td>
             </tr>
-            <tr>
-              <th scope="row">문의유형</th>
-              <td>{{notice.faqType}}</td>
-            </tr>
+            
             <tr>
               <th scope="row">내용</th>
               <td>
-                {{notice.faqContent}}
+                {{notice.content}}
               </td>
             </tr>
             <tr>
               <th scope="row">첨부파일</th>
-              <td><a href="#">{{ notice.faqImg }}</a></td>
+              <td><a href="#">{{ notice.noticeImg }}</a></td>
             </tr>
             <!-- Add more rows as needed -->
           </tbody>
@@ -43,7 +40,7 @@
   </template>
   
   <script>
-  import FaqListService from "@/services/noticeQnA/FaqListService";
+  import NoticeListService from "@/services/noticeQnA/NoticeListService";
   export default {
     data() {
       return {
@@ -54,12 +51,12 @@
       async getPost() {
       try {
         // 특정 fnqID에 해당하는 문의사항 데이터 받아오기
-        let faqId = this.$route.params.faqId; // 라우터의 fnqID 파라미터 가져오기
+        let announcementId = this.$route.params.announcementId; // 라우터의 fnqID 파라미터 가져오기
         // 상세조회 2 fnq id
-        let response = await FaqListService.getFaqId(faqId); // 백엔드에서 해당 ID에 해당하는 문의사항 데이터 받아오기
-        this.inquiry = response.data; // 받아온 데이터를 inquiry 객체에 저장
-      } catch (error) {
-        console.error(error);
+        let response = await NoticeListService.getNoticeId(announcementId); // 백엔드에서 해당 ID에 해당하는 문의사항 데이터 받아오기
+        this.notice = response.data; // 받아온 데이터를 inquiry 객체에 저장
+      } catch (e) {
+        console.error(e);
       }
     }
     },

@@ -1,209 +1,223 @@
-.footer_all{
+.footer_all {
   background: #342a26;
-  padding: 50px;
-  width: 1920px;
-  height: 375px;
+  padding: 2.6042vw; /* 화면 너비에 따른 padding 값 조정 */
+  width: 100vw; /* 화면 너비에 따른 너비 값 조정 */
+  height: 19.5313vw; /* 화면 너비에 따른 높이 값 조정 */
   position: absolute;
-  left: 0px;
+  left: 0;
   /* top: 309px; */
   overflow: hidden;
   margin: 0 auto;
+  /* position: fixed;
+  bottom: 0;
+  left: 0; */
+  
 }
 
-
 .footer {
-  background: #342a26;
-  padding: 20px;
-  width: 1320px;
+  /* background: #d82a0c; */
+  padding: 1.0417vw; /* 화면 너비에 따른 padding 값 조정 */
+  width: 68.75vw; /* 화면 너비에 따른 너비 값 조정 */
   position: absolute;
   left: 50%; /* 왼쪽으로 이동 */
   top: 50%;
   transform: translate(-50%, -50%); /* 중앙 정렬 */
   overflow: hidden;
+}
 
-  }
 
-  .footer-in {
-    position: absolute;
-    inset: 0;
-  }
-  .e-commerce-permit-registration-2017-seoul-gangnam-04392-fax-02-6952-3376-personal-information-manager-jeon-yong-kweon-i-mail-cs-adaptkorea-com-copyright-obge-all-right-reserved-hosting-by-cafe-24 {
-    color: #d1ccbd;
-    text-align: left;
-    font-family: "ZcoolXiaoWei-Regular", sans-serif;
-    font-size: 12px;
-    line-height: 18px;
-    font-weight: 400;
-    position: absolute;
-    left: 412px;
-    top: 53px;
-    width: 593.77px;
-    height: 90px;
-    display: flex;
-    align-items: center;
-    justify-content: flex-start;
-  }
-  .link {
-    color: #d1ccbd;
-    text-align: left;
-    font-family: "-", sans-serif;
-    font-size: 12px;
-    line-height: 18px;
-    font-weight: 400;
-    position: absolute;
-    left: -11px;
-    top: 112.72px;
-    width: 197.54px;
-    height: 18px;
-    display: flex;
-    align-items: center;
-    justify-content: flex-start;
-  }
-  .link-span {
-    color: #d1ccbd;
-    font-family: "NotoSansKr-DemiLight", sans-serif;
-    font-size: 12px;
-    line-height: 18px;
-    font-weight: 400;
-  }
-  .link-span2 {
-    color: #d1ccbd;
-    font-family: "NotoSansKr-Bold", sans-serif;
-    font-size: 12px;
-    line-height: 18px;
-    font-weight: 700;
-  }
+.footer-in {
+  position: absolute;
+  inset: 0;
+}
 
-  .afe-24{
-    color: #d1ccbd;
-    text-align: left;
-    font-family: "-", sans-serif;
-    font-size: 12px;
-    line-height: 18px;
-    font-weight: 400;
-    position: absolute;
-    left: -11px;
-    top: 43.72px;
-    width: 70px;
-    height: 18px;
-    display: flex;
-    align-items: center;
-    justify-content: flex-start;
-  }
-  .group-20 {
-    width: 204.99px;
-    height: 266.69px;
-    position: left;
-  }
-  .group-19 {
-    width: 204.72px;
-    height: 266.69px;
-    position: left;
-  }
-  ._02-1234-5678 {
-    color: #d1ccbd;
-    text-align: left;
-    font-family: "ZcoolXiaoWei-Regular", sans-serif;
-    font-size: 30px;
-    line-height: 45px;
-    font-weight: 400;
-    position: absolute;
-    left: 1111px;
-    top: 5px;
-    width: 300px;
-    height: 45px;
-    display: flex;
-    align-items: center;
-    justify-content: flex-start;
-  }
-  ._10-00-17-00-lunch-time-12-30-14-00 {
-    color: #d1ccbd;
-    text-align: left;
-    font-family: "ZcoolXiaoWei-Regular", sans-serif;
-    font-size: 18px;
-    line-height: 27px;
-    font-weight: 400;
-    position: absolute;
-    left: 1111px;
-    top: 70.5px;
-    width: 208.33px;
-    height: 54px;
-    display: flex;
-    align-items: center;
-    justify-content: flex-start;
-  }
-  .div11 {
-    color: #d1ccbd;
-    text-align: left;
-    font-family: "NotoSansKr-DemiLight", sans-serif;
-    font-size: 12px;
-    line-height: 18px;
-    font-weight: 400;
-    position: absolute;
-    left: 1111px;
-    top: 123px;
-    width: 165.6px;
-    height: 18px;
-    display: flex;
-    align-items: center;
-    justify-content: flex-start;
-  }
-  .bank-info {
-    color: #d1ccbd;
-    text-align: left;
-    font-family: "ZcoolXiaoWei-Regular", sans-serif;
-    font-size: 24px;
-    line-height: 36px;
-    font-weight: 400;
-    position: absolute;
-    left: 1166px;
-    top: 239.69000000000005px;
-    width: 121.94px;
-    height: 36px;
-    display: flex;
-    align-items: center;
-    justify-content: flex-start;
-  }
-  .div12 {
-    color: #d1ccbd;
-    text-align: left;
-    font-family: "NotoSansKr-DemiLight", sans-serif;
-    font-size: 18px;
-    line-height: 27px;
-    font-weight: 400;
-    position: absolute;
-    left: 1111px;
-    top: 179.60000000000002px;
-    width: 217.72px;
-    height: 27px;
-    height: 27px;
-    display: flex;
-    align-items: center;
-    justify-content: flex-start;
-  }
-  ._1005-112-000000 {
-    color: #d1ccbd;
-    text-align: left;
-    font-family: "ZcoolXiaoWei-Regular", sans-serif;
-    font-size: 25px;
-    line-height: 37.5px;
-    font-weight: 400;
-    position: absolute;
-    left: 1111px;
-    top: 205.60000000000002px;
-    width: 222.99px;
-    height: 37.5px;
-    display: flex;
-    align-items: center;
-    justify-content: flex-start;
-  }
-  .routto-3-4 {
-    width: 500px;
-    height: 500;
-    position: absolute;
-    left: 132px;
-    top: -45px;
-    object-fit: cover;
-  }
-  
-  
+.e-commerce-permit-registration-2017-seoul-gangnam-04392-fax-02-6952-3376-personal-information-manager-jeon-yong-kweon-i-mail-cs-adaptkorea-com-copyright-obge-all-right-reserved-hosting-by-cafe-24 {
+  color: #d1ccbd;
+  text-align: left;
+  font-family: "ZcoolXiaoWei-Regular", sans-serif;
+  font-size: 0.625vw; /* 화면 너비에 따른 폰트 크기 조정 */
+  line-height: 0.9375vw; /* 화면 너비에 따른 줄 간격 조정 */
+  font-weight: 400;
+  position: absolute;
+  left: 21.4583vw; /* 화면 너비에 따른 위치 조정 */
+  top: 3.5313vw; /* 화면 너비에 따른 위치 조정 */
+  width: 30.8594vw; /* 화면 너비에 따른 너비 조정 */
+  height: 4.6875vw; /* 화면 너비에 따른 높이 조정 */
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+.link {
+  color: #d1ccbd;
+  text-align: left;
+  font-family: "-", sans-serif;
+  font-size: 0.625vw; /* 화면 너비에 따른 폰트 크기 조정 */
+  line-height: 0.9375vw; /* 화면 너비에 따른 줄 간격 조정 */
+  font-weight: 400;
+  position: absolute;
+  left: -0.5729vw; /* 화면 너비에 따른 위치 조정 */
+  top: 5.9896vw; /* 화면 너비에 따른 위치 조정 */
+  width: 10.2969vw; /* 화면 너비에 따른 너비 조정 */
+  height: 1.4063vw; /* 화면 너비에 따른 높이 조정 */
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+.link-span {
+  color: #d1ccbd;
+  font-family: "NotoSansKr-DemiLight", sans-serif;
+  font-size: 0.625vw; /* 화면 너비에 따른 폰트 크기 조정 */
+  line-height: 0.9375vw; /* 화면 너비에 따른 줄 간격 조정 */
+  font-weight: 400;
+}
+
+.link-span2 {
+  color: #d1ccbd;
+  font-family: "NotoSansKr-Bold", sans-serif;
+  font-size: 0.625vw; /* 화면 너비에 따른 폰트 크기 조정 */
+  line-height: 0.9375vw; /* 화면 너비에 따른 줄 간격 조정 */
+  font-weight: 700;
+}
+
+.afe-24 {
+  color: #d1ccbd;
+  text-align: left;
+  font-family: "-", sans-serif;
+  font-size: 0.625vw; /* 화면 너비에 따른 폰트 크기 조정 */
+  line-height: 0.9375vw; /* 화면 너비에 따른 줄 간격 조정 */
+  font-weight: 400;
+  position: absolute;
+  left: -0.5729vw; /* 화면 너비에 따른 위치 조정 */
+  top: 3.4322999999999997vw; /* 화면 너비에 따른 위치 조정 */
+  width: 3.6458vw; /* 화면 너비에 따른 너비 조정 */
+  height: 1.4063vw; /* 화면 너비에 따른 높이 조정 */
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+.group-20 {
+  width: 13.5417vw; /* 화면 너비에 따른 너비 조정 */
+  height: 17.7083vw; /* 화면 너비에 따른 높이 조정 */
+  position: left;
+}
+
+.group-19 {
+  width: 13.5313vw; /* 화면 너비에 따른 너비 조정 */
+  height: 17.7083vw; /* 화면 너비에 따른 높이 조정 */
+  position: left;
+}
+
+._02-1234-5678 {
+  color: #d1ccbd;
+  text-align: left;
+  font-family: "ZcoolXiaoWei-Regular", sans-serif;
+  font-size: 1.5625vw; /* 화면 너비에 따른 폰트 크기 조정 */
+  line-height: 2.3438vw; /* 화면 너비에 따른 줄 간격 조정 */
+  font-weight: 500;
+  position: absolute;
+  left: 57.8125vw; /* 화면 너비에 따른 위치 조정 */
+  top: 1.7604vw; /* 화면 너비에 따른 위치 조정 */
+  width: 15.625vw; /* 화면 너비에 따른 너비 조정 */
+  height: 2.3438vw; /* 화면 너비에 따른 높이 조정 */
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+._10-00-17-00-lunch-time-12-30-14-00 {
+  color: #d1ccbd;
+  text-align: left;
+  font-family: "ZcoolXiaoWei-Regular", sans-serif;
+  font-size: 0.9375vw; /* 화면 너비에 따른 폰트 크기 조정 */
+  line-height: 1.4063vw; /* 화면 너비에 따른 줄 간격 조정 */
+  font-weight: 400;
+  position: absolute;
+  left: 57.8125vw; /* 화면 너비에 따른 위치 조정 */
+  top: 5.3958vw; /* 화면 너비에 따른 위치 조정 */
+  width: 11.4167vw; /* 화면 너비에 따른 너비 조정 */
+  height: 2.8125vw; /* 화면 너비에 따른 높이 조정 */
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+.div11 {
+  color: #d1ccbd;
+  text-align: left;
+  font-family: "NotoSansKr-DemiLight", sans-serif;
+  font-size: 0.625vw; /* 화면 너비에 따른 폰트 크기 조정 */
+  line-height: 0.9375vw; /* 화면 너비에 따른 줄 간격 조정 */
+  font-weight: 400;
+  position: absolute;
+  left: 57.8125vw; /* 화면 너비에 따른 위치 조정 */
+  top: 7.8906vw; /* 화면 너비에 따른 위치 조정 */
+  width: 8.2031vw; /* 화면 너비에 따른 너비 조정 */
+  height: 1.4063vw; /* 화면 너비에 따른 높이 조정 */
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+.bank-info {
+  color: #d1ccbd;
+  text-align: left;
+  font-family: "ZcoolXiaoWei-Regular", sans-serif;
+  font-size: 1.25vw; /* 화면 너비에 따른 폰트 크기 조정 */
+  line-height: 1.875vw; /* 화면 너비에 따른 줄 간격 조정 */
+  font-weight: 400;
+  position: absolute;
+  left: 60.7292vw; /* 화면 너비에 따른 위치 조정 */
+  top: 14vw; /* 화면 너비에 따른 위치 조정 */
+  width: 6.3854vw; /* 화면 너비에 따른 너비 조정 */
+  height: 1.875vw; /* 화면 너비에 따른 높이 조정 */
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+.div12 {
+  color: #d1ccbd;
+  text-align: left;
+  font-family: "NotoSansKr-DemiLight", sans-serif;
+  font-size: 0.9375vw; /* 화면 너비에 따른 폰트 크기 조정 */
+  line-height: 1.4063vw; /* 화면 너비에 따른 줄 간격 조정 */
+  font-weight: 400;
+  position: absolute;
+  left: 57.8125vw; /* 화면 너비에 따른 위치 조정 */
+  top: 10.375vw; /* 화면 너비에 따른 위치 조정 */
+  width: 11.4583vw; /* 화면 너비에 따른 너비 조정 */
+  height: 1.4063vw; /* 화면 너비에 따른 높이 조정 */
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+._1005-112-000000 {
+  color: #d1ccbd;
+  text-align: left;
+  font-family: "ZcoolXiaoWei-Regular", sans-serif;
+  font-size: 1.0417vw; /* 화면 너비에 따른 폰트 크기 조정 */
+  line-height: 1.5625vw; /* 화면 너비에 따른 줄 간격 조정 */
+  font-weight: 400;
+  position: absolute;
+  left: 58.8125vw; /* 화면 너비에 따른 위치 조정 */
+  top: 12.7vw; /* 화면 너비에 따른 위치 조정 */
+  width: 11.9792vw; /* 화면 너비에 따른 너비 조정 */
+  height: 1.5625vw; /* 화면 너비에 따른 높이 조정 */
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+
+.routto-3-4 {
+  width: 30.0208vw; /* 화면 너비에 따른 너비 조정 */
+  height: 17.0208vw; /* 화면 너비에 따른 높이 조정 */
+  position: absolute;
+  left: 3.5938vw; /* 화면 너비에 따른 위치 조정 */
+  top: 4.3542vw; /* 화면 너비에 따른 위치 조정 */
+  object-fit: cover;
+}

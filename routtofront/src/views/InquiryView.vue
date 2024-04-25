@@ -108,12 +108,12 @@ export default {
       // TODO: 비동기 코딩 : async ~ await
       // 그외의걸 담을 객체
       faq: {
-        userId: this.faq.userId, //유저 아이디 입력
-        faqId: this.faq.faqId, //faqID 자동으로 매겨져야하는데 이건 나중에 백엔드에서 알아보기
-        faqTitle: this.faq.faqTitle, // 제목
-        faqType: this.faq.faqType, //유형
-        faqContent: this.faq.faqContent, //내용
-        faqPassword: this.faq.faqPassword, //게시글 패스워드
+        userId: "", //유저 아이디 입력
+        faqId: null, //faqID 자동으로 매겨져야하는데 이건 나중에 백엔드에서 알아보기
+        faqTitle: "", // 제목
+        faqType: "", //유형
+        faqContent: "", //내용
+        faqPassword: "", //게시글 패스워드
       },
       faqImg: undefined, // 이미지 담을 빈객체
     };
@@ -128,7 +128,7 @@ export default {
       // 성공메세지 변수 초기화
       this.message = "";
     },
-    // 이미지 제외 전체 객체 전달 하기(생성하기) :::: addfileDB참고
+    // 전체 객체 전달 하기(생성하기) :::: addfileDB참고
     async createFaq() {
       try {
         // TODO: 벡엔드로 객체 추가 요청
