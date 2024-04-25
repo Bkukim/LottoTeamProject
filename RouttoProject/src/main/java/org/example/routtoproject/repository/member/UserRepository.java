@@ -43,9 +43,9 @@ public interface UserRepository extends JpaRepository<User, String> {
             , nativeQuery = true)
     public User findId(@Param("role") String role, @Param("userName") String userName, @Param("phoneNum") String phoneNum);
 
-    @Query(value = "select * from lotto_user where role = :role and USER_NAME = :userName and PHONE_NUM = :phoneNum"
-            , nativeQuery = true)
-    public User findPwd(@Param("userId") String userId, @Param("userName") String userName, @Param("phoneNum") String phoneNum);
+//    @Query(value = "select * from lotto_user where role = :role and USER_NAME = :userName and PHONE_NUM = :phoneNum"
+//            , nativeQuery = true)
+//    public User findPwd(@Param("userId") String userId, @Param("userName") String userName, @Param("phoneNum") String phoneNum);
 
 
 }
