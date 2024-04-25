@@ -274,8 +274,8 @@
     <br />
 
     <!-- 5. 결제 수단 -->
-    <div style="display: flex">
-      <div class="col-sm-8">
+    <div style="display: flex; justify-content: space-between">
+      <div class="col-md-8">
         <div>
           <h2>결제 수단</h2>
         </div>
@@ -397,89 +397,84 @@
         </div>
       </div>
 
-      <!-- 6. 최종 결제 정보 -->
-      <div class="col-sm-4" style="text-align: right; align-item: center">
-        <h2>최종 결제 정보</h2>
-        <div class="paymentInfo">
-          <!-- <thead>
-            <tr>
-                <th scope="col"></th>
-                <th scope="col"></th>
-                <th scope="col"></th>
-              </tr>
-          </thead> -->
-
-          <div id="payinfo">
-            <!-- 총 상품 금액 -->
-            <tr id="paymentTr">
-              <th scope="row">
-                <p id="payTitle">총 상품 금액</p>
-              </th>
-              <td>
-                <div>
-                  <p id="price">00 원</p>
-                </div>
-              </td>
-            </tr>
-            <!-- 쿠폰 할인 금액 -->
-            <tr id="paymentTr">
-              <th scope="row">
-                <p id="payTitle">쿠폰 할인 금액</p>
-              </th>
-              <td>
-                <div id="price">
-                  <p>00 원</p>
-                </div>
-              </td>
-            </tr>
-
-            <!-- 총 배송비 tr -->
-            <tr id="paymentTr">
-              <th scope="row">
-                <p id="payTitle">총 배송비</p>
-              </th>
-              <td>
-                <div id="price">
-                  <p>00 원</p>
-                </div>
-              </td>
-            </tr>
-
-            <!-- 최종 결제 금액 tr -->
-            <tr id="paymentTr">
-              <th scope="row">
-                <p id="payTitle">최종 결제 금액</p>
-              </th>
-              <td>
-                <div id="price">
-                  <p>00 원</p>
-                </div>
-              </td>
-              <td></td>
-            </tr>
+      <div class="payment-container">
+        <!-- 최종 결제 정보 -->
+        <div class="col-md-4 payment-section">
+          <h2>최종 결제 정보</h2>
+          <div class="paymentInfo">
+            <div id="payinfo">
+              <!-- 총 상품 금액 -->
+              <div class="paymentTr">
+                <div class="payTitle">총 상품 금액</div>
+                <div class="price">00 원</div>
+              </div>
+              <!-- 쿠폰 할인 금액 -->
+              <div class="paymentTr">
+                <div class="payTitle">쿠폰 할인 금액</div>
+                <div class="price">00 원</div>
+              </div>
+              <!-- 총 배송비 -->
+              <div class="paymentTr">
+                <div class="payTitle">총 배송비</div>
+                <div class="price">00 원</div>
+              </div>
+              <!-- 최종 결제 금액 -->
+              <div class="paymentTr">
+                <div class="payTitle">최종 결제 금액</div>
+                <div class="price">00 원</div>
+              </div>
+            </div>
+          </div>
+          <!-- 7. 결제 버튼 -->
+          <div class="mt-4">
+            <button type="button" id="btnPay" @click="goPayment">
+              결제하기
+            </button>
           </div>
         </div>
-        <!-- 7. 결제 버튼 -->
-        <div class="mt-4">
-          <button type="button" id="btnPay" @click="goPayment">결제하기</button>
-        </div>
-        <br />
       </div>
     </div>
+    <!-- 결제 버튼 -->
+    <div class="payment-button">
+      <button
+        type="button"
+        id="btnPay"
+        @click="togglePaymentModal"
+        style="width: 100%"
+      >
+        결제하기
+      </button>
+    </div>
+  </div>
+
+  <div>
+    <div>
+      <!-- 결제 모달 -->
+      <CheckoutViewVue
+        v-if="isModalVisible"
+        @close="isModalVisible = false"
+      ></CheckoutViewVue>
+    </div>
+    <br />
   </div>
 </template>
 
 <script>
+import CheckoutViewVue from "./payment/CheckoutView.vue";
 import UserService from "@/services/user/UserService";
 import ProductService from "@/services/product/ProductService";
 // import OrderService from "@/services/product/OrderService";
 
 export default {
+  components: {
+    CheckoutViewVue,
+  },
   data() {
     return {
       address: "",
-      orderAddress:"",
+      orderAddress: "",
       extraAddress: "",
+      isModalVisible: false,
       user: {
         userName: "",
         // email: "",
@@ -489,7 +484,7 @@ export default {
       order: {
         userId: this.$store.state.userId,
         // orderName: this.user.userName,
-        orderName:"",
+        orderName: "",
         orderPrice: 0,
         shoppingFee: 0,
         zipcode: "",
@@ -566,7 +561,10 @@ export default {
     },
     // 결제하기로 이동하는 함수
     goPayment() {
-      this.$router.push("/order/payment");
+      this.$router.push("/order/tosspay");
+    },
+    togglePaymentModal() {
+      this.isModalVisible = !this.isModalVisible; // 결제하기 버튼 클릭 시 모달 상태 토글
     },
     // 주문/결제 페이지 정보를 저장하는 함수
     // async saveOrder() {
@@ -580,13 +578,12 @@ export default {
     //   }
     // },
   },
-mounted() {
-  this.retrieveUser(this.$store.state.userId)
-    .then(() => {
+  mounted() {
+    this.retrieveUser(this.$store.state.userId).then(() => {
       this.order.orderName = this.user.userName; // retrieveUser 완료 후에 호출
     });
-  this.retrieveProduct(this.$route.params.prodId);
-}
+    this.retrieveProduct(this.$route.params.prodId);
+  },
 };
 </script>
 
@@ -612,29 +609,59 @@ ul {
   border: 1px solid #cccccc;
   height: 10vw;
 }
+.payment-container {
+  width: 100%; /* 전체 컨테이너의 가로 길이를 화면 전체로 설정 */
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* 내부 요소들을 가운데 정렬 */
+}
+.payment-section h2 {
+  text-align: center; /* 텍스트를 중앙 정렬합니다 */
+  margin: 0 auto; /* 상하 마진을 0으로 설정하고 좌우 마진을 자동으로 설정하여 중앙 정렬 효과를 줍니다 */
+  width: 100%; /* h2 태그의 너비를 부모 요소의 전체 너비로 설정합니다 */
+}
+.payment-section {
+  width: 80%; /* 최종 결제 정보 섹션의 가로 길이를 넓혀줍니다 */
+  margin-bottom: 20px; /* 아래쪽 여백 추가 */
+}
+.payment-button {
+  width: 80%; /* 결제 버튼의 가로 길이를 넓혀줍니다 */
+}
 .paymentInfo {
   margin: 20px;
   border: 1px solid #cccccc;
-  /* width: 27vw; */
-  height: 11vw;
-  /* padding: 50px; */
-  /* background-color: #342a26; */
-  /* color: white; */
+  display: flex;
+  flex-direction: column;
 }
-/* #paymentTr { */
-/* padding: 90px; */
-/* padding: 50px; */
-/* background-color: #342a26; */
-/* } */
+.paymentTr {
+  display: flex;
+  justify-content: space-between;
+  font-size: 15px;
+  margin-bottom: 30px; /* 원하는 간격으로 조정하세요. */
+}
+.paymentTr:last-child {
+  margin-bottom: 0;
+}
+.paymentTr + .paymentTr {
+  margin-top: 15px; /* 항목 사이의 간격을 조절합니다. 필요에 따라 값을 조정하세요. */
+}
 #payMethod {
   height: 11vw;
 }
 #btnPay {
-  width: 12vw;
+  display: block; /* 버튼을 블록 요소로 만들어 전체 너비를 차지하게 합니다. */
+  width: 100%; /* 버튼의 너비를 조정합니다. */
+  margin-top: 20px; /* 버튼과 최종 결제 정보 사이의 간격을 조절합니다. */
   height: 3vw;
   background-color: #342a26;
   color: white;
   border-radius: 5px; /* 모서리 둥글게 : 5px로 설정 */
+}
+.payTitle {
+  text-align: left;
+}
+.price {
+  text-align: right;
 }
 #payTitle {
   margin-right: 5vw;

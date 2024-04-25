@@ -13,6 +13,12 @@ class ProductService {
     // TODO: 사용법 : http.get(`/컨트롤러함수url/${부서번호}`)
     return http.get(`/shop/product/img/${prodId}`);
   }
+
+  // TODO: 조회(select) -> get 방식 -> @GetMapping
+  getAll() {
+    return http.get("/shop/product/all");
+  }
+
   create(data) {
     // TODO: formData 는 무조건 문자열로 전송됨 -> 벡엔드에서 문자열로 받고 정수로 형변환하면 됨
 
