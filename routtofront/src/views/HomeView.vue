@@ -42,7 +42,7 @@
             <div class="abcdefghijklm2">
               <p>완벽밀착! 자연스럽고 매끄러운 피부</p>
             </div>
-            <div class="abcdef">36,800 won</div>
+            <div class="abcdef">{{data.defaultPrice*(100-data.discountRate)/100 + " won"}}</div>
             <!-- 상품이미지 -->
             <img
               class="frame-11"
