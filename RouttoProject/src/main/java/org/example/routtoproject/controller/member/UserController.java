@@ -56,8 +56,10 @@ public class UserController {
                                          @PathVariable String phoneNum){
         try {
             User user = userService.findId(role, userName, phoneNum);
+            FindId findId = new FindId("존재하지 않는 회원입니다.");
+            log.debug("asdfa" + user);
             if (user == null) {
-                return new ResponseEntity<>("존재하지 않는 회원입니다.", HttpStatus.NO_CONTENT);
+                return new ResponseEntity<>(findId, HttpStatus.OK);
             }else {
                 return new ResponseEntity<>(user, HttpStatus.OK);
             }

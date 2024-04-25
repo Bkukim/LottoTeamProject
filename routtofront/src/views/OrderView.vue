@@ -274,7 +274,7 @@
     <br />
 
     <!-- 5. 결제 수단 -->
-    <div style="display: flex;justify-content: space-between;">
+    <div style="display: flex; justify-content: space-between">
       <div class="col-md-8">
         <div>
           <h2>결제 수단</h2>
@@ -398,32 +398,38 @@
       </div>
 
       <div class="payment-container">
-  <!-- 최종 결제 정보 -->
-  <div class="col-md-4 payment-section">
-    <h2>최종 결제 정보</h2>
-    <div class="paymentInfo">
-      <div id="payinfo">
-        <!-- 총 상품 금액 -->
-        <div class="paymentTr">
-          <div class="payTitle">총 상품 금액</div>
-          <div class="price">00 원</div>
-        </div>
-        <!-- 쿠폰 할인 금액 -->
-        <div class="paymentTr">
-          <div class="payTitle">쿠폰 할인 금액</div>
-          <div class="price">00 원</div>
-        </div>
-        <!-- 총 배송비 -->
-        <div class="paymentTr">
-          <div class="payTitle">총 배송비</div>
-          <div class="price">00 원</div>
-        </div>
-        <!-- 최종 결제 금액 -->
-        <div class="paymentTr">
-          <div class="payTitle">최종 결제 금액</div>
-          <div class="price">00 원</div>
-
-                </div>
+        <!-- 최종 결제 정보 -->
+        <div class="col-md-4 payment-section">
+          <h2>최종 결제 정보</h2>
+          <div class="paymentInfo">
+            <div id="payinfo">
+              <!-- 총 상품 금액 -->
+              <div class="paymentTr">
+                <div class="payTitle">총 상품 금액</div>
+                <div class="price">00 원</div>
+              </div>
+              <!-- 쿠폰 할인 금액 -->
+              <div class="paymentTr">
+                <div class="payTitle">쿠폰 할인 금액</div>
+                <div class="price">00 원</div>
+              </div>
+              <!-- 총 배송비 -->
+              <div class="paymentTr">
+                <div class="payTitle">총 배송비</div>
+                <div class="price">00 원</div>
+              </div>
+              <!-- 최종 결제 금액 -->
+              <div class="paymentTr">
+                <div class="payTitle">최종 결제 금액</div>
+                <div class="price">00 원</div>
+              </div>
+            </div>
+          </div>
+          <!-- 7. 결제 버튼 -->
+          <div class="mt-4">
+            <button type="button" id="btnPay" @click="goPayment">
+              결제하기
+            </button>
           </div>
         </div>
         <!-- 7. 결제 버튼 -->
@@ -433,19 +439,33 @@
         </div>
       </div>
     </div>
+    <!-- 결제 버튼 -->
+    <div class="payment-button">
+      <button
+        type="button"
+        id="btnPay"
+        @click="togglePaymentModal"
+        style="width: 100%"
+      >
+        결제하기
+      </button>
+    </div>
   </div>
-</div>
-<div>
-<div>
-          <!-- 결제 모달 -->
-          <CheckoutViewVue v-if="isModalVisible" @close="isModalVisible = false"></CheckoutViewVue>
-        </div>
-        <br />
-      </div>
+
+  <div>
+    <div>
+      <!-- 결제 모달 -->
+      <CheckoutViewVue
+        v-if="isModalVisible"
+        @close="isModalVisible = false"
+      ></CheckoutViewVue>
+    </div>
+    <br />
+  </div>
 </template>
 
 <script>
-import CheckoutViewVue from './payment/CheckoutView.vue';
+import CheckoutViewVue from "./payment/CheckoutView.vue";
 import UserService from "@/services/user/UserService";
 import ProductService from "@/services/product/ProductService";
 // import OrderService from "@/services/product/OrderService";
@@ -457,9 +477,8 @@ export default {
   data() {
     return {
       address: "",
-      orderAddress:"",
+      orderAddress: "",
       extraAddress: "",
-
       isModalVisible: false,
       user: {
         userName: "",
@@ -470,7 +489,7 @@ export default {
       order: {
         userId: this.$store.state.userId,
         // orderName: this.user.userName,
-        orderName:"",
+        orderName: "",
         orderPrice: 0,
         shoppingFee: 0,
         zipcode: "",
@@ -564,13 +583,12 @@ export default {
     //   }
     // },
   },
-mounted() {
-  this.retrieveUser(this.$store.state.userId)
-    .then(() => {
+  mounted() {
+    this.retrieveUser(this.$store.state.userId).then(() => {
       this.order.orderName = this.user.userName; // retrieveUser 완료 후에 호출
     });
-  this.retrieveProduct(this.$route.params.prodId);
-}
+    this.retrieveProduct(this.$route.params.prodId);
+  },
 };
 </script>
 

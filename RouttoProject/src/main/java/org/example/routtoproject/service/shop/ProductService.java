@@ -4,10 +4,13 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.example.routtoproject.model.entity.shop.Product;
 import org.example.routtoproject.repository.shop.ProductRepository;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -29,6 +32,25 @@ import java.util.UUID;
 @RequiredArgsConstructor
 public class ProductService {
     private final ProductRepository productRepository;       // DI
+
+    // todo 전체조회
+    public List<Product> findAll(){
+        List<Product> product = productRepository.findAll();
+        return product;
+    }
+
+    // todo : page 전체조회
+    public Page<Product> findAllByProdNameContaining(
+            String prodName,
+            Pageable pageable
+    ) {
+        Page<Product> page
+                = productRepository.findAllByProdNameContaining(
+                prodName,
+                pageable
+        );
+        return page;
+    }
 
     //    TODO: 상세조회
     public Optional<Product> findById(int prodId) {
