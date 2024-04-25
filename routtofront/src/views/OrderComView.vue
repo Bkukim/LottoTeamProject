@@ -367,7 +367,7 @@ export default {
 
     // 주문 확인하기 버튼 클릭시 실행될 함수
     goToMyPage() {
-      this.$router.push('/mypage');
+      this.$router.push('/member/mypage');
     },
     // 쇼핑 계속하기 버튼 클릭시 실행될 함수
     goToHome() {

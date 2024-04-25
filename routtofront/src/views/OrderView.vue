@@ -428,20 +428,13 @@
         </div>
         <!-- 7. 결제 버튼 -->
         <div class="mt-4">
-          <button type="button" id="btnPay" @click="goPayment">결제하기</button>
+          <button type="button" id="btnPay" @click="togglePaymentModal">결제하기</button>
 
         </div>
       </div>
     </div>
   </div>
-  <!-- 결제 버튼 -->
-  <div class="payment-button">
-    <button type="button" id="btnPay" @click="togglePaymentModal" style="width: 100%;">
-      결제하기
-    </button>
-  </div>
 </div>
-
 <div>
 <div>
           <!-- 결제 모달 -->
@@ -604,23 +597,21 @@ ul {
   height: 10vw;
 }
 .payment-container {
-  width: 100%; /* 전체 컨테이너의 가로 길이를 화면 전체로 설정 */
+  width: 100%;
   display: flex;
   flex-direction: column;
-  align-items: center; /* 내부 요소들을 가운데 정렬 */
+  align-items: center;
 }
 .payment-section h2 {
-  text-align: center; /* 텍스트를 중앙 정렬합니다 */
-  margin: 0 auto; /* 상하 마진을 0으로 설정하고 좌우 마진을 자동으로 설정하여 중앙 정렬 효과를 줍니다 */
-  width: 100%; /* h2 태그의 너비를 부모 요소의 전체 너비로 설정합니다 */
+  text-align: center; 
+  margin: 0 auto;
+  width: 100%;
 }
 .payment-section {
-  width: 80%; /* 최종 결제 정보 섹션의 가로 길이를 넓혀줍니다 */
-  margin-bottom: 20px; /* 아래쪽 여백 추가 */
+  width: 80%;
+  margin-bottom: 20px; 
 }
-.payment-button {
-  width: 80%; /* 결제 버튼의 가로 길이를 넓혀줍니다 */
-}
+
 .paymentInfo {
   margin: 20px;
   border: 1px solid #cccccc;
@@ -631,25 +622,25 @@ ul {
   display: flex;
   justify-content: space-between;
   font-size: 15px;
-  margin-bottom: 30px; /* 원하는 간격으로 조정하세요. */
+  margin-bottom: 30px;
 }
 .paymentTr:last-child {
   margin-bottom: 0;
 }
 .paymentTr + .paymentTr {
-  margin-top: 15px; /* 항목 사이의 간격을 조절합니다. 필요에 따라 값을 조정하세요. */
+  margin-top: 15px;
 }
 #payMethod {
   height: 11vw;
 }
 #btnPay {
-  display: block; /* 버튼을 블록 요소로 만들어 전체 너비를 차지하게 합니다. */
-  width: 100%; /* 버튼의 너비를 조정합니다. */
-  margin-top: 20px; /* 버튼과 최종 결제 정보 사이의 간격을 조절합니다. */
+  display: block;
+  width: 100%;
+  margin-top: 20px;
   height: 3vw;
   background-color: #342a26;
   color: white;
-  border-radius: 5px; /* 모서리 둥글게 : 5px로 설정 */
+  border-radius: 5px;
 }
 .payTitle {
   text-align: left;
