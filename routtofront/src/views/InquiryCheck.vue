@@ -27,6 +27,7 @@
           <!-- Add more rows as needed -->
         </tbody>
       </table>
+      
     </div>
 
 
@@ -34,9 +35,7 @@
     <div class="d-grid gap-2 d-md-flex justify-content-md-end">
       <!-- 등록시 고객센터 글 목록으로 재이동 -->
       <button id="button1" class="btn btn-primary" type="button">
-        <router-link to="/faqList" class="router-link-exact-active"
-          >수정</router-link
-        >
+        수정
       </button>
     </div>
   </div>
