@@ -22,7 +22,5 @@ import lombok.*;
 @NoArgsConstructor
 public class FindId {
 
-    private String role;
-    private String userName;
-    private String phoneNum;
+   private String message ;
 }
