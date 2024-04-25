@@ -43,9 +43,21 @@ public interface UserRepository extends JpaRepository<User, String> {
             , nativeQuery = true)
     public User findId(@Param("role") String role, @Param("userName") String userName, @Param("phoneNum") String phoneNum);
 
-    @Query(value = "select * from lotto_user where role = :role and USER_NAME = :userName and PHONE_NUM = :phoneNum"
+
+    /**
+     * 비밀번호 찾기 위한 회원 조회
+     * @param role
+     * @param userId
+     * @param pwQuestion
+     * @param pwAnswer
+     * @return
+     */
+    @Query(value = "select * from lotto_user where role = :role and USER_ID= :userId and PW_QUESTION = :pwQuestion and PW_ANSWER = :pwAnswer"
             , nativeQuery = true)
-    public User findPwd(@Param("userId") String userId, @Param("userName") String userName, @Param("phoneNum") String phoneNum);
+    public User getForPw(@Param("role") String role, @Param("userId") String userId, @Param("pwQuestion") String pwQuestion, @Param("pwAnswer") String pwAnswer);
 
 
+    @Query(value = "UPDATE LOTTO_USER SET PASSWORD = :newPw WHERE USER_ID = :userId "
+            ,nativeQuery = true)
+    public void updatePw(@Param("newPw") String newPw, @Param("userId") String userId);
 }
