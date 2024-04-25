@@ -61,6 +61,7 @@ public class Product extends BaseTimeEntity {
     private String prodDetailPageUuid; // 상품 상세 이미지 uuid
 
 
+    // TODO 상품 등록시 상품들의 정보를 저장하기위한 생성자
     public Product(String prodName, Integer defaultPrice, String prodCategory, byte[] prodImg, byte[] prodDetailPage, Integer discountRate, Integer prodStock, String prodImgUrl, String prodDetailPageUrl, String prodImgUuid, String prodDetailPageUuid) {
         this.prodName = prodName;
         this.defaultPrice = defaultPrice;
