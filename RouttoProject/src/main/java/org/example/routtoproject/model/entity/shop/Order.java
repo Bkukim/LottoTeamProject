@@ -6,7 +6,9 @@ import org.example.routtoproject.model.common.BaseTimeEntity;
 import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 /**
  * packageName : org.example.routtoproject.model.entity.shop
@@ -37,21 +39,12 @@ import java.util.Date;
 @AllArgsConstructor
 @DynamicInsert
 @DynamicUpdate
-public class Order extends BaseTimeEntity {
-//    order_id	number
-//    user_id	varchar2(255 byte)
-//    order_name	varchar2(255 byte)
-//    order_price	number
-//    shopping_fee	number
-//    zip_code	number
-//    order_address	varchar2(255 byte)
-//    order_detail_address	varchar2(255 byte)
-//    order_time	date
-//    order_request	varchar2(1000 byte)
+public class Order {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE
             , generator = "SQ_LOTTO_ORDER_GENERATOR"
     )
+
     private Integer orderId;
     private String userId;
     private String orderName;
@@ -60,7 +53,11 @@ public class Order extends BaseTimeEntity {
     private Integer zipCode;
     private String orderAddress;
     private String orderDetailAddress;
-    private Date orderTime;
+    private String orderTime;
     private String orderRequest;
     private String receiver;
+    private String orderStatus;
+    private String orderChangeTime;
+    private String orderChangeReason;
+
 }

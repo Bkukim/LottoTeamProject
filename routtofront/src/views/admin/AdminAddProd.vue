@@ -280,7 +280,7 @@
         <button
           class="btn text-light btn-sm mt-4 log-form"
           id="addFile-btn"
-          @click="saveSimpleCart"
+          @click="saveProduct"
         >
           저장
         </button>
@@ -389,7 +389,7 @@ export default {
     //   // ref="file"로 해놧으므로 file로 접근해야한다.
     //   this.product.prodDetailPage = this.$refs.file.files[0]; // 배열의 특징을 가지므로 file0을 해주어야한다. 아니면 배열에서 몇번째를 가져오는 지를 모름
     // },
-    async saveSimpleCart() {
+    async saveProduct() {
       try {
         // 임시 객체
         let data = {

@@ -38,6 +38,12 @@ dependencies {
     implementation 'io.jsonwebtoken:jjwt-impl:0.11.5'
     implementation 'io.jsonwebtoken:jjwt-jackson:0.11.5'
 
+    //  TODO: apache kafka 라이브러리 : 메세징 서버
+    implementation 'org.springframework.kafka:spring-kafka'
+
+//  TODO: model mapper : entity 에서 dto 로 변환하는 라이브러리 (entity <-> dto)
+    implementation 'org.modelmapper:modelmapper:2.4.2'
+
     // Spring boot 3.x이상에서 QueryDSL 패키지를 정의하는 방법
     implementation 'com.querydsl:querydsl-jpa:5.0.0:jakarta'
     annotationProcessor "com.querydsl:querydsl-apt:5.0.0:jakarta"
