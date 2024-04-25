@@ -5,55 +5,52 @@ import http from "@/utils/http-common"; // spring 통신 정의 파일
 class NoticeListService {
     // 속성(x), 생성자(x), 공통함수
     // TODO: 전체 조회
-    getAll(userId, faqId, page, size) {
+    getAll(title, page, size) {
         // TODO: 조회(select) : get 방식 -> @GetMapping
         // TODO: 사용법 : http.get("스프링_컨트롤러함수_url")
         // 예) axios_기본주소 + 추가 url 
             // => http://localhost:8000/api + /basic/dept?dname=SALES&page=0&size=3
             // => http://localhost:8000/api/basic/dept?dname=SALES&page=0&size=3
-        return http.get(`/shop/faq/${userId}/${faqId}?page=${page}&size=${size}`);
+        return http.get(`/shop/notice/${title}/${title}?page=${page}&size=${size}`);
     }
-    // TODO: 추가(insert) 함수 -> post 방식 -> @PostMapping
-    create(data) {
-        // TODO: 사용법 : http.post("컨트롤러함수url", 생성할객체)
-        return http.post("/shop/faq", data);
-    }
-    createImg(fileImg){
+    // // TODO: 추가(insert) 함수 -> post 방식 -> @PostMapping
+    // create(data) {
+    //     // TODO: 사용법 : http.post("컨트롤러함수url", 생성할객체)
+    //     return http.post("/shop/notice", data);
+    // }
+    create(notice, noticeImg){
         let formData= new FormData();
-        formData.append("fileImg", fileImg);
-        return http.post("/faq/uploadImg", formData, {
+        formData.append("title", notice.title);
+        formData.append("content", notice.content); //문자열
+        formData.append("noticeImg", noticeImg); //이미지 
+        
+        return http.post("/notice/uploadImg", formData, {
             headers: {
                 "Content-Type" : "multipart/form-data",
             },
         })
     }
 
-    // TODO: 상세조회 함수1 : 내가쓴글 확인하기? : 회원번호 userId
+    // TODO: 상세조회 함수1 : 공지사항 :announcementId
     // TODO: 조회(select) -> get 방식 -> @GetMapping
-    getUserId(userId) {
+    getNoticeId(announcementId) {
         // TODO: 사용법 : http.get(`/컨트롤러함수url/${부서번호}`)
-        return http.get(`/shop/faq/${userId}`);
+        return http.get(`/shop/notice/${announcementId}`);
     }
 
-    // TODO: 상세조회 함수2 : 쓴 글 조회 후 수정할때 상세조회용
-    // TODO: 조회(select) -> get 방식 -> @GetMapping
-    getFaqId(faqId) {
-        // TODO: 사용법 : http.get(`/컨트롤러함수url/${부서번호}`)
-        return http.get(`/shop/faq/${faqId}`);
-    }
 
-    // TODO: 수정함수 : qnaId, 수정할객체(data)
-    update(qnaId, data) {
+    // TODO: 수정함수 : announcementId, 수정할객체(data)
+    update(announcementId, data) {
         // TODO: 수정(update) -> put 방식 -> @PutMapping
         // TODO: 사용법 : http.put(`/컨트롤러함수url/${dno}`, 수정할객체)
-        return http.put(`/shop/faq/${qnaId}`, data);
+        return http.put(`/shop/notice/${announcementId}`, data);
     }
 
-    // TODO: 삭제함수 : 부서번호(dno)
+    // TODO: 삭제함수 : announcementId
     // TODO: 삭제(delete) -> delete 방식 -> @DeleteMapping
     // TODO: 사용법 : http.delete(`/컨트롤러함수url/${dno}`)
-    delete(qnaId) {
-        return http.delete(`/shop/faq/deletion/${qnaId}`);
+    delete(announcementId) {
+        return http.delete(`/shop/notice/deletion/${announcementId}`);
     }
 
 }

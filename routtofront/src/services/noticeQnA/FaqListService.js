@@ -14,12 +14,14 @@ class FaqListService {
         return http.get(`/shop/faq/${userId}/${faqId}?page=${page}&size=${size}`);
     }
     // TODO: 추가(insert) 함수 -> post 방식 -> @PostMapping
-    create(data) {
-        // TODO: 사용법 : http.post("컨트롤러함수url", 생성할객체)
-        return http.post("/shop/faq", data);
-    }
-    createImg(fileImg){
+     create(faq, fileImg){
         let formData= new FormData();
+        formData.append("userId", faq.userId);
+        formData.append("faqId", faq.faqId);
+        formData.append("faqTitle", faq.faqTitle);
+        formData.append("faqType", faq.faqType);
+        formData.append("faqContent", faq.faqContent);
+        formData.append("faqPassword", faq.faqPassword);
         formData.append("fileImg", fileImg);
         return http.post("/faq/uploadImg", formData, {
             headers: {

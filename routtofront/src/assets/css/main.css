@@ -35,13 +35,14 @@
 /* 메인배너 */
 .baner_divbox {
   width: 1320px;
-  height: 500px;
+  height:600px;
   position: absolute;
-  top: 250px;
+  top: 77px;
   background-color: #342a26;
-  /* left: 305.05px; */
   overflow: visible;
 }
+
+
 
 /* product */
 
@@ -180,14 +181,14 @@
     height: 100px;
     position: static;
   }
-  ._23 {
+  /* ._23 {
     background: #e5e5e5;
     width: 270.16px;
     height: 332.24px;
     position: absolute;
     left: 423px;
     top: 1876.84px;
-  }
+  } */
   ._24 {
     /* background: #535353; */
     width: 116.64px;

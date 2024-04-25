@@ -22,29 +22,36 @@
       </thead>
       <tbody>
         <!-- 반복문시작할 tr -->
-        <tr class="align-middle">
+        <tr
+        v-for="(data, index) in favorite" :key="index"
+         class="align-middle"
+        >
           <!-- 체크박스 -->
           <td class="check_td text-center"><input type="checkbox" /></td>
           <!-- 상품이미지 -->
           <td class="text-center col-2">
-            <img src="https://via.placeholder.com/100" />
+            {{data.prodImg}}
           </td>
           <!-- 상품정보 -->
-          <td class="text-center">헤어토닉</td>
+          <td class="text-center">
+            {{data.prodName}}
+          </td>
           <!-- 금액 -->
-          <td class="text-center">20,000원</td>
+          <td class="text-center">
+            {{ data.defaultPrice }}
+          </td>
           <!-- 선택 :: 버튼 -->
           <td class="text-center">
             <div class="row mb-1">
               <div class="col">
-                <button id="button_bg1" class="btn btn-primary btn-block">
+                <button id="button_bg1" class="btn btn-primary btn-block" @click="saveWishList">
                   장바구니
                 </button>
               </div>
             </div>
             <div class="row">
               <div class="col">
-                <button id="button_bg2" class="btn btn-secondary btn-block">
+                <button id="button_bg2" class="btn btn-secondary btn-block" @click="deleteWish">
                   삭제하기
                 </button>
               </div>
@@ -57,7 +64,7 @@
     <!-- 아래 버튼 4개 -->
     <div class="row justify-content-end mt-5">
       <div class="col">
-        <button type="button" id="button2" class="btn btn-primary">
+        <button type="button" id="button2" class="btn btn-primary" @click="deleteSelectedItems">
           선택상품 삭제하기
         </button>
       </div>
@@ -80,7 +87,8 @@
   </div>
 </template>
 <script>
-import CartService from "@/services/cart/CartService";
+import wishService from "@/services/cart/WishService"
+import CartService from '@/services/cart/CartService';
 
 export default {
   // TODO: 바인딩 속성
@@ -89,7 +97,7 @@ export default {
       favorite: [], //상품객체
       message: "", // 장바구니 완료 성공메세지
 
-      cartCount: 0, //장바구니 갯수
+      wishCount: 0, //장바구니 갯수
 
       // 공통 페이징 속성 정의
       page: 1, // 현재페이지번호
@@ -112,18 +120,19 @@ export default {
         data.selected = this.selectAll;
       });
     },
-    // TODO: 장바구니 담기(저장)
-    async retrieveCart() {
+
+    // TODO: 장바구니 조회
+    async retrieveWishList() {
       try {
         // todo: 공통 장바구니 전체 조회 서비스 함수 실행
         //   todo: 비동기 코딩 : async~await
-        let response = await CartService.getAll(
+        let response = await wishService.getAll(
           this.searchTitle,
           this.page - 1,
           this.pageSize
         );
-        const { cart, totalItems } = response.data;
-        this.cart = cart;
+        const { favorite, totalItems } = response.data;
+        this.favorite = favorite;
         this.count = totalItems;
         // 로깅
         console.log(response); //웹브라우저 콘솔탭에 백엔드 데이터 표시
@@ -132,11 +141,11 @@ export default {
       }
     },
     // 장바구니 담기 함수
-    async saveCart() {
+    async saveWishList() {
       try {
         let data = {
           prodId: this.favorite.prodId, //상품번호
-          cartCount: this.cartCount, //장바구니 개수
+          wishCount: this.wishList, //위시 카운트
         };
         // todo: 공통 저장 서비스 함수
         // todo: async ~await
@@ -150,13 +159,29 @@ export default {
       }
       // 임시객체
     },
+    // 장바구니 삭제 함수
+      // TODO: 장바구니 삭제 함수 : delete 버튼 태그
+      async deleteWish(favoriteId) {
+      try {
+        // todo: 공통 장바구니 삭제 서비스 함수 실행
+        let response = await wishService.remove(favoriteId);
+        // 로깅
+        console.log(response.data);
+        // alert 대화상자
+        alert("정상적으로 삭제되었습니다.");
+        // 삭제후 재조회
+        this.retrieveWishList();
+      } catch (e) {
+        console.log(e);
+      }
+    },
     goCart() {
       this.$router.push("/cart");
     },
   },
   // TODO: 화면이뜰때 자동 실행
   mounted() {
-    this.retrieveCart();
+    this.retrieveWishList();
   },
 };
 </script>
@@ -164,4 +189,4 @@ export default {
 @import "@/assets/css/Cart.css";
 @import "@/assets/css/Button.css";
 </style>
-@/services/cart/CartService
+<!-- @/services/cart/CartService -->
