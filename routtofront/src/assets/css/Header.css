@@ -1,92 +1,97 @@
 .router-link-exact-active {
-    color: #ffffff;
-    text-decoration: none; /* 언더라인 제거 */
-  } 
-  
-  /* 호버 시 색상 변경 */
-  .router-link-exact-active:hover {
-    color: rgba(248, 224, 178, 0.705); /* 원하는 호버 색상으로 변경 */
-  }
-  
-  /* router-link가 렌더링하는 <a> 태그에 적용되는 스타일 */
-  .kim-frame-15 a {
-    color: #ffffff;
-    text-decoration: none; /* 언더라인 제거 */
-  }
-  
-  /* 호버 시 색상 변경 */
-  .kim-frame-15 a:hover {
-    color: rgba(248, 224, 178, 0.705); /* 원하는 호버 색상으로 변경 */
-  }
-  
-  
-  
-  .kim-frame-142 a {
-    color: #ffffff;
-    text-decoration: none; /* 언더라인 제거 */
-  }
-  
-  /* 호버 시 색상 변경 */
-  .kim-frame-142 a:hover {
-    color: rgba(248, 224, 178, 0.705); /* 원하는 호버 색상으로 변경 */
-  }
-  
-  
-  .kim-frame-15 > router-link{
-    text-decoration: none; /* 언더라인 제거 */
-  }
-  
-  
-  /* router-link가 렌더링하는 <a> 태그에 적용되는 스타일 */
-    .kim-navbar a {
-    color: #ffffff;
-    text-decoration: none; /* 언더라인 제거 */
-  }
-  
-  /* 호버 시 색상 변경 */
-  .kim-navbar a:hover {
-    color: rgba(248, 224, 178, 0.705); /* 원하는 호버 색상으로 변경 */
-  }
-  
-  
-  /* ------------- */
-  
-  /* 헤더 전체 */
-  .kim-frame-14 {
-    background: #342a26;
-    height: 210px;
-    width: 1920px;
-    position: relative;
-    overflow: hidden;
-    position:  fixed; 
-    top: 0; 
-    left: 0; 
-    z-index: 1000;
-  }
-  
-
-  
-
-  .search-popup {
-    display: none; /* 초기에는 숨김 */
-    position: absolute;
-    top: 50px; /* 헤더 아래에 나타나도록 조절 */
-    left: 0;
-    background-color: #fff;
-    border: 1px solid #ccc;
-    padding: 10px;
+  color: #ffffff;
+  text-decoration: none; /* 언더라인 제거 */
 }
 
-  /* 헤더고정 */
-  /* position:  fixed; 헤더를 상단에 고정
+/* 호버 시 색상 변경 */
+.router-link-exact-active:hover {
+  color: rgba(248, 224, 178, 0.705); /* 원하는 호버 색상으로 변경 */
+}
+
+/* router-link가 렌더링하는 <a> 태그에 적용되는 스타일 */
+.kim-frame-15 a,
+.kim-frame-142 a,
+.kim-navbar a {
+  color: #ffffff;
+  text-decoration: none; /* 언더라인 제거 */
+}
+
+/* 호버 시 색상 변경 */
+.kim-frame-15 a:hover,
+.kim-frame-142 a:hover,
+.kim-navbar a:hover {
+  color: rgba(248, 224, 178, 0.705); /* 원하는 호버 색상으로 변경 */
+}
+
+/* 헤더 전체 */
+.kim-frame-14 {
+  background: #342a26;
+  height: 11.5vw; /* 화면 높이에 따른 높이 조정 */
+  width: 100vw; /* 화면 너비에 따른 너비 조정 */
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 1000;
+}
+
+/* 검색팝업? 검색아이콘 클릭시 검색창이 내려오는 거 */
+.header_search {
+  position: absolute;
+  top: 40.7202%; /* 헤더 높이에 따른 위치 조정 */
+  left: 81.6667vw; /* 화면 너비에 따른 위치 조정 */
+  /* background-color: royalblue; */
+  width: 4.1667vw; /* 화면 너비에 따른 크기 조정 */
+}
+
+/* .header_search > img {
+  width: 20px;
+  height: 20px;
+} */
+
+#searchIcon {
+  width: 1.6042vw; /* 화면 너비에 따른 크기 조정 */
+  height: 1.6042vw; /* 화면 너비에 따른 크기 조정 */
+  /* background-color: rebeccapurple; */
+}
+
+#searchIcon > img {
+  width: 1.6042vw; /* 화면 너비에 따른 크기 조정 */
+  height:1.6042vw; /* 화면 너비에 따른 크기 조정 */
+  /* background-color: rebeccapurple; */
+}
+
+
+
+.search-popup {
+  display: none; /* 초기에는 숨김 */
+  position: absolute;
+  top: 1.5625vw; /* 화면 높이에 따른 위치 조정 */
+  left: 0;
+  background-color: #fff;
+  border: 0.026vw solid #ccc; /* 화면 너비에 따른 border 크기 조정 */
+  padding: 0.2604vw; /* 화면 너비에 따른 padding 크기 조정 */
+}
+
+/* 헤더고정 */
+/* position:  fixed; 헤더를 상단에 고정
     top: 0; 상단에 고정될 위치 지정
     left: 0; 좌측에 고정될 위치 지정
     z-index: 1000; 다른 요소 위에 나타나도록 z-index 설정 */
-  
-    .kim-frame-14-in{
-      width: 1320px;
-      margin: 0 auto;
-    }
+
+/* 스크롤 될 때 헤더의 스타일 */
+.kim-frame-14.scrolled {
+  height: 8vw; /* 줄어든 높이 설정 */
+  transition: height 0.3s; /* 부드러운 애니메이션 효과를 위한 transition 설정 */
+}
+
+/* 헤더 중앙 정렬박스 */
+.kim-frame-14-in {
+  width: 68.75vw; /* 화면 너비에 따른 너비 조정 */
+  height: 100%;
+  margin: 0 auto;
+  /* background-color: red; */
+}
+
 /* 검색 필드를 나타내기 위한 스타일 */
 .kim-search-field {
   position: absolute;
@@ -96,138 +101,127 @@
   height: 30px; /* 필요에 따라 높이 조정 */
 }
 
-  .kim-routto-logo {
-    width: 317px;
-    height: 58.86%;
-    position: absolute;
-    left: 50%;
-    transform: translateX(-50%);
-    bottom: 28.83%;
-    top: 12.31%;
-    object-fit: cover;
-  }
-  
-  .kim-div {
-    width: 2.0833vw;
-    height: 2.0833vw;
-    position: absolute;
-    right: 85.73%;
-    left: 12.5%;
-    bottom: 77.48%;
-    top: 12.31%;
-    object-fit: cover;
-  }
-  
-  .kim-div2 {
-    width: 2.0833vw;
-    height: 2.0833vw;
-    position: absolute;
-    right: 85.36%;
-    left: 12.55%;
-    bottom: 12.61%;
-    top: 78.98%;
-    overflow: visible;
-  }
-  
-  .kim-navbar {
-    display: flex;
-    flex-direction: row;
-    gap: 87px;
-    align-items: flex-start;
-    justify-content: flex-start;
-    position: absolute;
-    left: 475px;
-    top: 177px;
-    align-items: flex-end;
-    justify-content: flex-end;
-  }
-  
-  
-  /* .div3:last-child {
-    margin-right: 0;
-  } */ 
-  
-  .kim-div3 {
-    color: #ffffff;
-    text-align: left;
-    font-family: "Inter-Regular", sans-serif;
-    font-size: 15px;
-    font-weight: 400;
-    position: relative;
-    margin-right: 5vw;
-  }
-  
-  .kim-frame-142 {
-    display: flex;
-    flex-direction: row;
-    gap: 22px;
-    align-items: flex-start;
-    justify-content: flex-start;
-    position: absolute;
-    left: 17.5vw;
-    top: 49px;
-  }
-  
-  .kim-div4,
-  .kim-faq {
-    color: #ffffff;
-    text-align: left;
-    font-family: "Inter-Regular", sans-serif;
-    font-size: 15px;
-    font-weight: 400;
-    position: relative;
-  }
-  
-  .kim-vector-4 {
-    display: flex;
-    flex-direction: row;
-    gap: 25px;
-    align-items: flex-start;
-    justify-content: flex-start;
-    position: absolute;
-    left: calc(50% + 450px);
-    top: 125px;
-    align-items: flex-end;
-    justify-content: flex-end;
-  }
-  
-  .kim-_1 {
-    width: 40px;
-    height: 40px;
-    display: flex;
-    flex-direction: row;
-    gap: 5px;
-    align-items: flex-start;
-    justify-content: flex-start;
-    position: absolute;
-    left: calc(50% + 625px);
-    top: 85px;
-    align-items: flex-end;
-    justify-content: flex-end;
-  }
-  
-  
-  .kim-frame-15 {
-    display: flex;
-    flex-direction: row;
-    gap: 25px;
-    align-items: flex-start;
-    justify-content: flex-start;
-    position: absolute;
-    left: calc(50% + 409px);
-    top: 38px;
-    align-items: flex-end;
-    justify-content: flex-end;
-  }
-  
-  .kim-login,
-  .kim-join,
-  .kim-cart,
-  .kim-my-page {
-    color: #ffffff;
-    text-align: left;
-    font-family: "Inter-Regular", sans-serif;
-    font-size: 15px;
-    font-weight: 400;
-    position: relative;
-  }
+.kim-routto-logo {
+  width: 16.5104vw; /* 화면 너비에 따른 크기 조정 */
+  height: auto; /* 비율에 따른 자동 높이 조정 */
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  bottom: 3.125vw; /* 헤더 높이에 따른 위치 조정 */
+  top: -3.4375vw; /* 헤더 높이에 따른 위치 조정 */
+  object-fit: cover;
+}
+
+.kim-div {
+  width: 2.0833vw;
+  height: 2.0833vw;
+  position: absolute;
+  right: 85.73%;
+  left: 12.5%;
+  bottom: 77.48%;
+  top: 12.31%;
+  object-fit: cover;
+}
+.kim-div2 {
+  width: 2.0833vw;
+  height: 2.0833vw;
+  position: absolute;
+  right: 85.36%;
+  left: 12.55%;
+  bottom: 12.61%;
+  top: 78.98%;
+  overflow: visible;
+}
+
+.kim-navbar {
+  display: flex;
+  flex-direction: row;
+  gap: 3.1353999999999997vw; /* 화면 너비에 따른 간격 조정 */
+  align-items: flex-start;
+  justify-content: flex-start;
+  position: absolute;
+  left: 25.7396vw; /* 화면 너비에 따른 위치 조정 */
+  top: 9.4vw; /* 화면 너비에 따른 위치 조정 */
+  align-items: flex-end;
+  justify-content: flex-end;
+}
+
+.kim-div3 {
+  color: #ffffff;
+  text-align: left;
+  font-family: "Inter-Regular", sans-serif;
+  font-size: 1vw; /* 화면 너비에 따른 폰트 크기 조정 */
+  font-weight: 300;
+  position: relative;
+  margin-right: 5vw;
+}
+
+.kim-frame-142 {
+  display: flex;
+  flex-direction: row;
+  gap: 1.1042vw; /* 화면 너비에 따른 간격 조정 */
+  align-items: center;
+  position: absolute;
+  left: 16.0781vw; /* 화면 너비에 따른 위치 조정 */
+  top: 0.9792vw; /* 헤더 높이에 따른 위치 조정 */
+}
+.kim-div4,
+.kim-faq {
+  color: #ffffff;
+  text-align: left;
+  font-family: "Inter-Regular", sans-serif;
+  font-size: 0.8vw; /* 화면 너비에 따른 폰트 크기 조정 */
+  font-weight: lighter;
+  position: relative;
+}
+
+.kim-vector-4 {
+  display: flex;
+  flex-direction: row;
+  gap: 1.3021vw; /* 화면 너비에 따른 간격 조정 */
+  align-items: flex-start;
+  justify-content: flex-start;
+  position: absolute;
+  left: calc(50% + 23.4375vw); /* 화면 너비에 따른 위치 조정 */
+  top: 6.5104vw; /* 헤더 높이에 따른 위치 조정 */
+}
+
+.kim-_1 {
+  width: 2.0833vw; /* 화면 너비에 따른 크기 조정 */
+  height: 2.0833vw; /* 화면 너비에 따른 크기 조정 */
+  display: flex;
+  flex-direction: row;
+  gap: 0.5208vw; /* 화면 너비에 따른 간격 조정 */
+  align-items: flex-start;
+  justify-content: flex-start;
+  position: absolute;
+  left: calc(50% + 32.5521vw); /* 화면 너비에 따른 위치 조정 */
+  top: 4.4271vw; /* 헤더 높이에 따른 위치 조정 */
+  align-items: flex-end;
+  justify-content: flex-end;
+}
+
+.kim-frame-15 {
+  display: flex;
+  flex-direction: row;
+  gap: 1.3021vw; /* 화면 너비에 따른 간격 조정 */
+  align-items: flex-start;
+  justify-content: flex-start;
+  position: absolute;
+  left: calc(50% + 21vw); /* 화면 너비에 따른 위치 조정 */
+  top: 0.9792vw; /* 헤더 높이에 따른 위치 조정 */
+  align-items: flex-end;
+  justify-content: flex-end;
+}
+
+.kim-login,
+.kim-join,
+.kim-cart,
+.kim-my-page {
+  color: #ffffff;
+  text-align: left;
+  font-family: "Inter-Regular", sans-serif;
+  font-size: 0.8vw; /* 화면 너비에 따른 폰트 크기 조정 */
+  font-weight: lighter;
+  position: relative;
+}

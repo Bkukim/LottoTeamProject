@@ -21,4 +21,7 @@ export default {
 }
 </script>
 <style >
+.container{
+  height: auto;
+}
 </style>

@@ -6,6 +6,8 @@
       <img class="baner_divbox" src="@/assets/images/main_banner.jpg" />
       <!-- src="@/assets/images/main_banner.jpg -->
 
+
+
       <!-- product -->
       <div class="product">
         <!--  product 메뉴 버튼-->
@@ -31,37 +33,44 @@
       <div class="product2_all">
         <!-- product 왼쪽 문구 -->
         <div class="product2">product</div>
-        <div class="product2_in" v-for="(data, index) in product"
-        :key="index">
-          <div class="div10" >
-            <div class="_23"></div>
-            <div class="_24">★ ★ ★ ★ ★</div>
+        <div class="product2_in" v-for="(data, index) in product" :key="index">
+          <!-- {{ data.index }} -->
+
+          <!-- 상품박스 -->
+          <div class="div10">
+            <!-- <div class="_23"></div> -->
+            <!-- 상품이미지 -->
+            <img class="frame-11" :src="data.prodImgUrl" />
+
             <div class="abcdefghijklm">
-              <p>{{data.prodName}}</p>
+              <p>{{ data.prodName }}</p>
             </div>
+
             <div class="abcdefghijklm2">
               <p>완벽밀착! 자연스럽고 매끄러운 피부</p>
             </div>
-            <div class="abcdef">{{data.defaultPrice*(100-data.discountRate)/100 + " won"}}</div>
-            <!-- 상품이미지 -->
-            <img
-              class="frame-11"
-              :src="data.prodImgUrl"
-            />
-            <!-- <div class="frame-11"></div> -->
+
+            <div class="_24">★ ★ ★ ★ ★</div>
+
+            <div class="abcdef">
+              {{
+                (data.defaultPrice * (100 - data.discountRate)) / 100 + " won"
+              }}
+            </div>
           </div>
+
           <!-- <div class="div10">
             <div class="_25"></div>
             <div class="_26">★ ★ ★ ★ ★</div>
             <div class="abcdefghijklm3">루또 체인지 립밤 2종</div>
             <div class="abcdefghijklm4">보습과 생기 컬러 립밤</div>
             <div class="abcdef2">11,900 won</div> -->
-            <!-- 상품이미지 -->
-            <!-- <img
+          <!-- 상품이미지 -->
+          <!-- <img
               class="frame-112"
               src="../../src/assets/images/02_main_image410_pc.jpg"
             /> -->
-            <!-- <div class="frame-112"></div> -->
+          <!-- <div class="frame-112"></div> -->
           <!-- </div>
           <div class="div10">
             <div class="_27"></div>
@@ -69,12 +78,12 @@
             <div class="abcdefghijklm5">페이스 라인 스틱</div>
             <div class="abcdefghijklm6">얼굴을 또렷하고 슬림하게</div>
             <div class="abcdef3">15,900 won</div> -->
-            <!-- 상품이미지 -->
-            <!-- <img
+          <!-- 상품이미지 -->
+          <!-- <img
               class="frame-113"
               src="../../src/assets/images/02_main_image1_pc_v2.png"
             /> -->
-            <!-- <div class="frame-113"></div> -->
+          <!-- <div class="frame-113"></div> -->
           <!-- </div>
           <div class="div10">
             <div class="_29"></div>
@@ -82,12 +91,12 @@
             <div class="abcdefghijklm7">멜로우 클레이 포마드</div>
             <div class="abcdefghijklm8">자연스러운 헤어 포마드</div>
             <div class="abcdef4">16,900 won</div> -->
-            <!-- 상품이미지 -->
-            <!-- <img
+          <!-- 상품이미지 -->
+          <!-- <img
               class="frame-114"
               src="../../src/assets/images/02_main_image411_pc.jpg"
             /> -->
-            <!-- <div class="frame-114"></div> -->
+          <!-- <div class="frame-114"></div> -->
           <!-- </div> -->
         </div>
       </div>
@@ -152,13 +161,16 @@
   </div>
 </template>
 <script>
-import ProductService from '@/services/product/ProductService';
+import ProductService from "@/services/product/ProductService";
 
 export default {
   data() {
     return {
       product: [],
       searchTitle: "", // 검색어
+
+      // currentSlideIndex: 0,
+      // slides: document.querySelectorAll('.slide') ,// 슬라이드 요소들을 선택합니다.
 
       // 공통 페이징 속성
       page: 1, // 현재페이지번호
@@ -174,12 +186,11 @@ export default {
       try {
         // TODO: 공통 전체조회 서비스 함수 실행
         // TODO: spring 통신 : 비동기 코딩 : async ~ await
-        let response = await ProductService.getAll(
-                                                    );
+        let response = await ProductService.getAll();
         this.product = response.data; // spring 전달 객체배열
-           // 전체페이지개수
+        // 전체페이지개수
         // 로깅(디버깅)
-        console.log(response.data);         // 웹브라우저 콘솔탭에 spring 전달 객체배열이 표시됨
+        console.log(response.data); // 웹브라우저 콘솔탭에 spring 전달 객체배열이 표시됨
       } catch (e) {
         console.log(e); // 웹브라우저 콘솔탭에 에러메세지가 표시됨
       }
@@ -195,7 +206,11 @@ export default {
     // TODO: 전체 조회 자동 실행
     this.retrieveSimpleProduct();
   },
+
+  
 };
+
+
 </script>
 <style>
 @import "@/assets/css/main.css";
