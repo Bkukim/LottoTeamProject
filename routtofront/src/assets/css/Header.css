@@ -32,44 +32,44 @@
   top: 0;
   left: 0;
   z-index: 1000;
+
 }
 
-/* 검색팝업? 검색아이콘 클릭시 검색창이 내려오는 거 */
-.header_search {
+.search_header{
   position: absolute;
-  top: 40.7202%; /* 헤더 높이에 따른 위치 조정 */
-  left: 81.6667vw; /* 화면 너비에 따른 위치 조정 */
-  /* background-color: royalblue; */
-  width: 4.1667vw; /* 화면 너비에 따른 크기 조정 */
+  top: 2.5vw;
+  left: 72.5vw;
+  color: #ffffff;
 }
 
-/* .header_search > img {
-  width: 20px;
-  height: 20px;
-} */
-
-#searchIcon {
-  width: 1.6042vw; /* 화면 너비에 따른 크기 조정 */
-  height: 1.6042vw; /* 화면 너비에 따른 크기 조정 */
-  /* background-color: rebeccapurple; */
+/* 검색창 글자 색상 설정 */
+.search_header input[type="text"]:focus {
+  color: #ffffff; /* 원하는 색상으로 변경 */
 }
 
-#searchIcon > img {
-  width: 1.6042vw; /* 화면 너비에 따른 크기 조정 */
-  height:1.6042vw; /* 화면 너비에 따른 크기 조정 */
-  /* background-color: rebeccapurple; */
+input{
+  background: none;
+  border-bottom: 1px solid #ffffff;
+  border-top: none;
+  border-left: none;
+  border-right: none;
+  color: #ffffff;
+
+}
+.se_button {
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
 }
 
-
-
-.search-popup {
-  display: none; /* 초기에는 숨김 */
-  position: absolute;
-  top: 1.5625vw; /* 화면 높이에 따른 위치 조정 */
-  left: 0;
-  background-color: #fff;
-  border: 0.026vw solid #ccc; /* 화면 너비에 따른 border 크기 조정 */
-  padding: 0.2604vw; /* 화면 너비에 따른 padding 크기 조정 */
+.se_button > img{
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  width: 50px;
+  height: 50px;
 }
 
 /* 헤더고정 */
@@ -136,11 +136,11 @@
 .kim-navbar {
   display: flex;
   flex-direction: row;
-  gap: 3.1353999999999997vw; /* 화면 너비에 따른 간격 조정 */
+  gap: 2.1353999999999997vw; /* 화면 너비에 따른 간격 조정 */
   align-items: flex-start;
   justify-content: flex-start;
   position: absolute;
-  left: 25.7396vw; /* 화면 너비에 따른 위치 조정 */
+  left: 23.7396vw; /* 화면 너비에 따른 위치 조정 */
   top: 9.4vw; /* 화면 너비에 따른 위치 조정 */
   align-items: flex-end;
   justify-content: flex-end;
