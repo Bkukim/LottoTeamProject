@@ -553,4 +553,8 @@ export default {
   border-right: 1px solid #8D6E63; /* 짙은 브라운 계열의 경계선 */
   padding-right: 10px;
 }
+<<<<<<< HEAD:routtofront/src/views/AdminRefundView.vue
+=======
+
+>>>>>>> main:routtofront/src/views/admin/AdminRefundView.vue
 </style>

@@ -1,4 +1,4 @@
-<!-- /adimn-notice -->
+<!-- /adimn-notice ::공지사항 등록폼ADD -->
 <template>
   <div class="mt-5 mb-5 col-13">
     <!-- 카테고리 -->
@@ -66,6 +66,7 @@ export default {
       noticeImg: undefined,
       // 공지사항 넘겨주기
       notice: {
+        announcementId: null, //기본키
         title: "",
         content: "",
       },
