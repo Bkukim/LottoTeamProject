@@ -1,75 +1,185 @@
-// vue 의 공유 저장소 : 공유속성, 공유함수 등을 정의
-//  => 모든 컴포넌트가 사용가능
-import { createStore } from "vuex";
-
-// TODO: 로그인 정보 + 로그인상태 를 정의
-// 1) 로컬스토리지에서 user 객체 가져오기
-const user = JSON.parse(localStorage.getItem("user"));
-
-export default createStore({
-  // state : 공유 속성이나 공유 함수 정의
-  state: {
-    loggedIn: user ? true : false, // 로그인 여부
-    user: user ? user : null, //  로그인 정보 (웹토큰 속성 있음)
+0426_routerindex수정본
 
 
-    selectedOption: "", // 라디오 버튼에서 선택된 옵션
 
+import { createRouter, createWebHistory } from "vue-router";
 
-    userId: "qick12", // userId
+const routes = [
+  {
+    path: "/",
+    component: () => import("../views/HomeView.vue"),
+  },
+  // 공지사항 shop/notice
+  {
+    path: "/notice",
+    component: () => import("../views/notice/NoticeView.vue"),
+  },
+  // 공지사항 관리자 //adimn-notice
+  {
+    path: "/adimn-notice",
+    component: () => import("../views/admin/AdminNotice.vue"),
   },
 
-  // 공유 속성의 값을 조회하는 함수
-  getters: {},
-
-  // 공유 속성의 값을 저장하는 함수, java의 setter이다.
-  mutations: {
-    // todo 로그인 성공함수
-    loginSuccess(state, user, userId) {
-      state.loggedIn = true;
-      state.user = user;
-      state.userId = userId;
+  // 고객센터  shop//faqList
+  {
+    path: "/faqList",
+    component: () => import("../views/faq/FaqListView.vue"),
+  },
+  // 고객센터 문의글
+  {
+    path: "/inquiry",
+    component: () => import("../views/faq/InquiryView.vue"),
+  },
+  
+// 고객센터 문의글 작성한거 확인하기
+{
+  path: "/inquiry-check",
+  component: () => import("../views/faq/InquiryCheck.vue"),
+},
+  // 장바구니
+  {
+    path: "/cart",
+    component: () => import("../views/cart_wish/CartListView.vue"),
+  },
+  // 즐겨찾기
+  {
+    path: "/wishlist",
+    component: () => import("../views/cart_wish/WishListView.vue"),
+  },
+  // 로그인 페이지
+  {
+    path: "/member/login",
+    component: () => import("../views/auth/LoginView.vue"),
+  },
+  // 회원가입 페이지
+  {
+    path: "/member/join",
+    component: () => import("../views/auth/JoinView.vue"),
+  },
+  // 회원가입 환영 페이지
+  // {
+  //   path: "/member/join/welcome",
+  //   component: () => import("../views/auth/WelcomeView.vue"),
+  // },
+  // 아이디 찾기 페이지
+  {
+    path: "/member/find-id",
+    component: () => import("../views/find/FindId.vue"),
+  },
+  // 비밀번호 찾기 페이지
+  {
+    path: "/member/find-pwd",
+    component: () => import("../views/find/FindPwd.vue"),
+  },
+  // 결제 페이지
+  {
+    path: "/order/payment",
+    component: () => import("../views/payment/PaymentView.vue"),
+  },
+  // 주문 완료 페이지
+  {
+    path: "/order/completed",
+    component: () => import("../views/order/OrderComView.vue"),
+  },
+  // 주문자 환불 페이지
+  {
+    path: "/order/refund-request",
+    component: () => import("../views/user_refund/UserRefundView.vue"),
+  },
+  // 관리자 환불 페이지
+  {
+    path: "/shop/admin/refund",
+    component: () => import("../views/admin/AdminRefundView.vue"),
+  },
+  // 관리자 홈 페이지
+  {
+    path: "/shop/admin",
+    component: () => import("../views/admin/AdminHome.vue"),
+  },
+  // 관리자 조회/수정 페이지
+  {
+    path: "/shop/admin/manage",
+    component: () => import("../views/admin/AdminManage.vue"),
+  },
+  // 관리자 상품 등록 페이지
+  {
+    path: "/shop/admin/add-product",
+    component: () => import("../views/admin/AdminAddProd.vue"),
+  },
+  // 회원정보 수정
+  {
+    path: "/member/userModify",
+    component: () => import("../views/UserModifyView.vue"),
+  },
+  // 상품 페이지
+  {
+    path: "/product/example",
+    component: () => import("../views/ProductsDetail.vue"),
+  },
+  // 주문 페이지
+  {
+    path: "/order",
+    component: () => import("../views/order/OrderView.vue"),
+  },
+  // 관리자 주문 확인 페이지
+  {
+    path: "/shop/admin/order",
+    component: () => import("../views/admin/AdminOrder.vue"),
+  },
+    // 주문자 환불 정보 확인 페이지
+    {
+      path: "/order/refund-info",
+      name: 'refund-info',
+      component: () => import("../views/user_refund/UserRefundInfoView.vue"),
     },
-
-    // todo
-
-    // todo 로그인 실패함수
-    loginFailure(state) {
-      state.loggedIn = false;
-      state.user = null;
+    // 주문자 환불 완료 페이지
+    {
+      path: "/order/refund-success",
+      component: () => import("../views/user_refund/UserRefundSuccessView.vue")
+    }, 
+   // 결제 위젯 컴포넌트
+    {
+      path: "/order/tosspay",
+      component: () => import('../views/payment/CheckoutView.vue')
     },
-
-    // todo 로그아웃 함수
-    logout(state) {
-      state.loggedIn = false;
-      state.user = null;
-      state.userId = "";
+    // 결제 성공 페이지
+    {
+      path: '/order/success',
+      component: () => import('../views/payment/SuccessView.vue')
     },
-
-    // todo 회원가입 성공함수
-    registerSuccess(state) {
-      state.loggedIn = false;
+    // 결제 실패 페이지
+    {
+      path: '/order/fail',
+      component: () => import('../views/payment/FailView.vue')
     },
-
-    // todo 회원가입 실패함수
-    registerFailure(state) {
-      state.loggedIn = false;
+    // 마이 페이지
+    {
+      path: "/member/mypage",
+      component: () => import('../views/MypageView.vue')
     },
-
-    // 라디오 버튼 선택 옵션 저장
-    setSelectedOption(state, option) {
-      state.selectedOption = option;
-    },
+    // // 사용자 주문확인페이지
+    // {
+    //   path:"/ordercheck",
+    //   component: () => import("../views/OrderCheckView.vue"),
+    // },
+    // // 비밀번호 재설정 페이지
+    // {
+    //   path: "/member/new-pw",
+    //   component: () => import('../views/auth/NewPwdView.vue')
+    // },
+      // 공지사항 작성글 상세조회 shop/notice-check
+  {
+    path: "/notice-check",
+    component: () => import("../views/notice/NoticeCheck.vue"),
   },
 
-  // 비동기 함수들을 정의하는 곳
-  actions: {
-    // 라디오 버튼 선택 옵션 업데이트 액션
-    updateSelectedOption({ commit }, option) {
-      commit("setSelectedOption", option);
-    },
-  },
+  
+  
+];
 
-  // 공유 저장소를 여러개 사용할 경우 모듈로 정의해서 분리가능하다. 모듈 정의하는 곳
-  modules: {},
+const router = createRouter({
+  history: createWebHistory(process.env.BASE_URL),
+  routes,
 });
+
+export default router;
