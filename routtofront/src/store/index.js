@@ -14,7 +14,9 @@ export default createStore({
 
 
     selectedOption: "", // 라디오 버튼에서 선택된 옵션
-    userId:"qick12"
+
+
+    userId: "qick12", // userId
   },
 
   // 공유 속성의 값을 조회하는 함수
@@ -41,6 +43,7 @@ export default createStore({
     logout(state) {
       state.loggedIn = false;
       state.user = null;
+      state.userId = "";
     },
 
     // todo 회원가입 성공함수

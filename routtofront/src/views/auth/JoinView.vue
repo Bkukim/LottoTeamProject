@@ -28,7 +28,6 @@
                     id="flexRadioDefault1"
                     value="user"
                     v-model="user.role"
-                    checked
                   />
                   <label class="form-check-label" for="flexRadioDefault1">
                     회원
@@ -137,11 +136,11 @@
                 >
               </th>
               <td>
-                <select class="form-select" aria-label="Default select example">
-                  <option selected>자신이 가장 존경하는 인물은?</option>
-                  <option value="1">기억에 남는 추억의 장소는?</option>
-                  <option value="2">자신의 인생 좌우명은?</option>
-                  <option value="3">인상깊게 읽은 책 이름은?</option>
+                <select class="form-select" aria-label="Default select example" v-model="user.pwQuestion">
+                  <option selected value="자신이 가장 존경하는 인물은">자신이 가장 존경하는 인물은?</option>
+                  <option value="기억에 남는 추억의 장소는">기억에 남는 추억의 장소는?</option>
+                  <option value="자신의 인생 좌우명은">자신의 인생 좌우명은?</option>
+                  <option value="인상깊게 읽은 책 이름은">인상깊게 읽은 책 이름은?</option>
                 </select>
               </td>
               <td></td>
@@ -154,7 +153,7 @@
                 >
               </th>
               <td>
-                <input class="form-control" type="text" name="pwdAskCheck" />
+                <input class="form-control" type="text" name="pwdAskCheck"  v-model="user.pwAnswer"/>
               </td>
               <td>
               </td>
@@ -258,22 +257,22 @@
                       aria-label="Default select example"
                       v-model="callNum.first"
                     >
-                      <option selected>02</option>
-                      <option value="1">032</option>
-                      <option value="2">042</option>
-                      <option value="3">051</option>
-                      <option value="3">052</option>
-                      <option value="3">053</option>
-                      <option value="3">062</option>
-                      <option value="3">064</option>
-                      <option value="3">031</option>
-                      <option value="3">033</option>
-                      <option value="3">041</option>
-                      <option value="3">043</option>
-                      <option value="3">054</option>
-                      <option value="3">055</option>
-                      <option value="3">061</option>
-                      <option value="3">063</option>
+                      <option selected value="02">02</option>
+                      <option value="032">032</option>
+                      <option value="042">042</option>
+                      <option value="051">051</option>
+                      <option value="052">052</option>
+                      <option value="053">053</option>
+                      <option value="062">062</option>
+                      <option value="064">064</option>
+                      <option value="031">031</option>
+                      <option value="033">033</option>
+                      <option value="041">041</option>
+                      <option value="043">043</option>
+                      <option value="054">054</option>
+                      <option value="055">055</option>
+                      <option value="061">061</option>
+                      <option value="063">063</option>
                     </select>
                   </div>
                   _
@@ -311,12 +310,12 @@
                       aria-label="Default select example"
                       v-model="phoneNum.first"
                     >
-                      <option selected>010</option>
-                      <option value="1">011</option>
-                      <option value="2">016</option>
-                      <option value="3">017</option>
-                      <option value="3">018</option>
-                      <option value="3">019</option>
+                      <option selected value="010">010</option>
+                      <option value="011">011</option>
+                      <option value="016">016</option>
+                      <option value="017">017</option>
+                      <option value="018">018</option>
+                      <option value="019">019</option>
                     </select>
                   </div>
                   _
@@ -420,6 +419,8 @@ export default {
         email: "",
         role: "",
         detailAddress: "",
+        pwQuestion:"",
+        pwAnswer:""
       },
     };
   },
@@ -438,6 +439,8 @@ export default {
         role: this.user.role,
         normalAddress: this.address + "," + this.extraAddress,
         detailAddress: this.user.detailAddress,
+        pwQuestion:this.user.pwQuestion,
+        pwAnswer:this.user.pwAnswer
       };
       try {
         let response = await AuthService.register(data);
