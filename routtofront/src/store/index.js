@@ -2,20 +2,14 @@
 //  => 모든 컴포넌트가 사용가능
 import { createStore } from "vuex";
 
-// TODO: 로그인 정보 + 로그인상태 를 정의
-// 1) 로컬스토리지에서 user 객체 가져오기
-const user = JSON.parse(localStorage.getItem("user"));
-
 export default createStore({
   // state : 공유 속성이나 공유 함수 정의
   state: {
     loggedIn: user ? true : false, // 로그인 여부
     user: user ? user : null, //  로그인 정보 (웹토큰 속성 있음)
 
-
-    selectedOption: "", // 라디오 버튼에서 선택된 옵션
-
-
+    selectedOption: '', // 라디오 버튼에서 선택된 옵션
+  
     userId: "qick12", // userId
   },
 

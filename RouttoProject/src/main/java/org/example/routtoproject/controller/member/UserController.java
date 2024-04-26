@@ -82,10 +82,10 @@ public class UserController {
             User user = userService.getForPw(role, userId, pwQuestion, pwAnswer);
             if (user != null) {
 
-                return new ResponseEntity<>(user, HttpStatus.OK);
+                return new ResponseEntity<>(true, HttpStatus.OK);
             }else {
 
-                return new ResponseEntity<>(null,HttpStatus.OK);
+                return new ResponseEntity<>(false,HttpStatus.OK);
             }
         }catch (Exception e){
             log.debug(e.getMessage());
@@ -96,9 +96,17 @@ public class UserController {
     // todo 새로운 비밀번호 업데이트
     @PutMapping("/new-pw")
     public ResponseEntity<Object> updatePw(@RequestBody NewPw newPw){
+        boolean result = false;
         try {
-            userService.updatePw(newPw.getNewPw(), newPw.getUserId());
-            return new  ResponseEntity<>(HttpStatus.OK);
+            if (userService.existById(newPw.getUserId())) {
+                userService.updatePw(newPw.getNewPw(), newPw.getUserId());
+                result=true;
+                return new  ResponseEntity<>(result,HttpStatus.OK);
+            }else {
+
+                return new ResponseEntity<>(result,HttpStatus.OK);
+            }
+
         }catch (Exception e){
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }

@@ -29,15 +29,20 @@ import java.util.List;
 public class OrderDto {
 //  클라이언트(웹 브라우저)에서 사용자에게 전달 필요한 정보들
 //  클라이언트 : 서버와 상호작용하고 서비스 이용, 사용자의 요청을 받아 서버에 전달하고, 서버로부터 받은 응답을 사용자에게 보여준다.
-private Integer orderId;
+
+    private Integer orderId;
     private String userId;
     private String orderName;
-    private Integer orderPrice;
-    private Integer shoppingFee;
+    private Integer orderPrice; // 최종 상품 가격
+    private Integer shoppingFee; // 배송비
     private Integer zipCode;
     private String orderAddress;
     private String orderDetailAddress;
+    private String orderTime;
     private String orderRequest;
     private String receiver;
+    private String orderStatus;
+    private String orderChangeTime;
+    private String orderChangeReason;
     private List<OrderProd> orderProds;
 }

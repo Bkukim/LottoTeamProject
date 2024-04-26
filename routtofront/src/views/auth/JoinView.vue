@@ -505,6 +505,7 @@ export default {
       }).open();
     },
   },
+ 
 };
 </script>
 <style>

@@ -10,7 +10,7 @@
           <h5 class="mb-4 mt-4 log-form"><strong>회원 로그인</strong></h5>
           
             <div class="mb-3">
-              <label class="insert-id log-form" for="id">아이디</label>
+              <label class="insert-id log-form mb-2" for="id">아이디</label>
               <input
                 class="form-control log-form"
                 type="text"
