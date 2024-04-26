@@ -36,6 +36,7 @@
                 type="text"
                 name="user"
                 v-model="user.userName"
+                disabled
               />
             </div>
           </td>
@@ -52,7 +53,12 @@
                 class="form-control"
                 type="text"
                 name="call"
-                v-model="user.phoneNum"
+                :value="
+                  user.phoneNum
+                    ? user.phoneNum.replace(/(\d{3})(\d{4})(\d{4})/, '$1-$2-$3')
+                    : ''
+                "
+                disabled
               />
             </div>
           </td>
@@ -468,6 +474,7 @@
 import CheckoutViewVue from "./payment/CheckoutView.vue";
 import UserService from "@/services/user/UserService";
 import ProductService from "@/services/product/ProductService";
+import OrderService from '@/services/product/OrderService';
 // import OrderService from "@/services/product/OrderService";
 
 export default {
@@ -480,6 +487,7 @@ export default {
       orderAddress: "",
       extraAddress: "",
       isModalVisible: false,
+      orderAmount:1,
       user: {
         userName: "",
         // email: "",
@@ -501,6 +509,41 @@ export default {
     };
   },
   methods: {
+    // 주문 저장함수
+    async saveOrder() {
+
+      // 주문 상품 객체 : 상품id, 상품 수량
+      let orderProduct={
+        prodId:this.product.prodId,
+        orderAmount:this.orderAmount
+      }
+      // 주문 상품 배열
+      let orderProductList = [];
+
+      // 배열에 값 넣기
+      orderProductList.push(orderProduct);
+
+      // 임시 객체 data에 dto 속성 넣기
+      let data = {
+        userId:this.userId,
+        orderName: this.order.orderName,
+        orderPrice:this.product.defaultPrice*(1-this.product.discountRate/100),
+        shoppingFee : 3000,
+        zipCode : this.order.zipcode,
+        orderAddress:this.order.orderAddress,
+        orderDetailAddress:this.order.orderDetailAddress,
+        orderRequest:this.order.orderRequest,
+        receiver:this.order.receiver,
+        orderProductList,
+      };
+      try {
+        let response = await OrderService.post(data);
+        console.log(response.data);
+      } catch (error) {
+        console.log(error);
+      }
+    },
+
     // userID로 상세조회하는 함수
     async retrieveUser(userId) {
       console.log(userId);
@@ -588,6 +631,22 @@ export default {
       this.order.orderName = this.user.userName; // retrieveUser 완료 후에 호출
     });
     this.retrieveProduct(this.$route.params.prodId);
+    console.log(this.product);  // console로 찍기
+        // 직접 입력 옵션을 선택했을 때
+    document.querySelector("select.form-select").addEventListener("change", function() {
+        var orderMessageInput = document.getElementById("ordermessage");
+        if (this.value === "5") { // 직접 입력 옵션 선택 시
+            orderMessageInput.style.display = "block"; // 텍스트 상자 보이기
+        } else {
+            orderMessageInput.style.display = "none"; // 다른 옵션일 경우 숨기기
+        }
+    });
+
+    // 페이지 로드 시 초기 설정
+    document.addEventListener("DOMContentLoaded", function() {
+        var orderMessageInput = document.getElementById("ordermessage");
+        orderMessageInput.style.display = "none"; // 페이지 로드 시 텍스트 상자 숨기기
+    });
   },
 };
 </script>

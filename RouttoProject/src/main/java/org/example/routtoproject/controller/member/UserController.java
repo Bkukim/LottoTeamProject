@@ -3,6 +3,7 @@ package org.example.routtoproject.controller.member;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.example.routtoproject.model.dto.member.FindId;
+import org.example.routtoproject.model.dto.member.NewPw;
 import org.example.routtoproject.model.entity.auth.User;
 import org.example.routtoproject.service.member.UserService;
 import org.springframework.http.HttpStatus;
@@ -31,6 +32,7 @@ import java.util.Optional;
 public class UserController {
     private final UserService userService ;
 
+
     @GetMapping("/order/{userId}")
     public ResponseEntity<Object> findById(@PathVariable String userId){
         log.debug("asdf");
@@ -50,6 +52,7 @@ public class UserController {
     }
 
 
+    // todo id 찾기함수
     @GetMapping("/findId/{role}/{userName}/{phoneNum}")
     public ResponseEntity<Object> findId(@PathVariable String role,
                                          @PathVariable String userName,
@@ -68,4 +71,37 @@ public class UserController {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
+
+    // todo 비밀번호 찾기위해 회원확인함수 - 확인후 일치하면 true를 내보낸다.
+    @GetMapping("/getForPw/{role}/{userId}/{pwQuestion}/{pwAnswer}")
+    public ResponseEntity<Object> getForPw(@PathVariable String role,
+                                           @PathVariable String userId,
+                                           @PathVariable String pwQuestion,
+                                           @PathVariable String pwAnswer){
+        try {
+            User user = userService.getForPw(role, userId, pwQuestion, pwAnswer);
+            if (user != null) {
+
+                return new ResponseEntity<>(user, HttpStatus.OK);
+            }else {
+
+                return new ResponseEntity<>(null,HttpStatus.OK);
+            }
+        }catch (Exception e){
+            log.debug(e.getMessage());
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    // todo 새로운 비밀번호 업데이트
+    @PutMapping("/new-pw")
+    public ResponseEntity<Object> updatePw(@RequestBody NewPw newPw){
+        try {
+            userService.updatePw(newPw.getNewPw(), newPw.getUserId());
+            return new  ResponseEntity<>(HttpStatus.OK);
+        }catch (Exception e){
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
 }

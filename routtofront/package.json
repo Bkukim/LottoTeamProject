@@ -14,7 +14,7 @@
     "bootstrap-vue-3": "^0.5.1",
     "core-js": "^3.8.3",
     "dayjs": "^1.11.10",
-    "vue": "^3.2.13",
+    "vue": "^3.4.25",
     "vue-router": "^4.0.3",
     "vue3-datepicker": "^0.4.0",
     "vuex": "^4.0.0"

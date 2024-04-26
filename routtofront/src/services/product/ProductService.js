@@ -3,16 +3,18 @@
 import http from "@/utils/http-common"; // spring 통신 정의 파일
 
 class ProductService {
-  // TODO: 상세조회 함수 : 부서번호(dno)
+  // TODO: 상세조회 함수 : 상품번호(prodId)
   // TODO: 조회(select) -> get 방식 -> @GetMapping
   get(prodId) {
-    // TODO: 사용법 : http.get(`/컨트롤러함수url/${부서번호}`)
+    // TODO: 사용법 : http.get(`/컨트롤러함수url/${상품번호}`)
+    // 상품 상세 조회
     return http.get(`/shop/product/${prodId}`);
   }
-  getImg(prodId) {
-    // TODO: 사용법 : http.get(`/컨트롤러함수url/${부서번호}`)
-    return http.get(`/shop/product/img/${prodId}`);
-  }
+  // getImg(prodId) {
+  //   // TODO: 사용법 : http.get(`/컨트롤러함수url/${상품번호}`)
+  //   // 상품 이미지 상세 조회
+  //   return http.get(`/shop/product/img/${prodId}`);
+  // }
 
   // TODO: 조회(select) -> get 방식 -> @GetMapping
   getAll() {

@@ -14,7 +14,7 @@
 
         <!-- 1. 리뷰 평점 -->
         <div class="box mt-5 text-center">
-          <h2>리뷰 평점 : {{ product.point }}</h2>
+          <h2>리뷰 평점 : {{product.point}} </h2>
           <h2 id="star">
             ★★★★★
             <!-- 별점 표시를 위한 반복문 -->
@@ -23,7 +23,7 @@
         </div>
         <!-- 2. 리뷰 -->
         <div class="box mt-5 text-center">
-          <h2>리뷰 : {{ product.reviewContent }}</h2>
+          <h2>리뷰 : {{product.reviewContent}}</h2>
         </div>
       </div>
 
@@ -151,7 +151,7 @@ export default {
         // saleStart: "",
         // prodStatus: "",
         // soldCount:""
-        point: 0,
+        point: 5,
         reviewContent: "만족스럽습니다.",
       },
       message: "", // 장바구니 추가 성공메세지(화면에 출력)
