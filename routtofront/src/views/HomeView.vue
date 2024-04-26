@@ -6,24 +6,14 @@
       <img class="baner_divbox" src="@/assets/images/main_banner.jpg" />
       <!-- src="@/assets/images/main_banner.jpg -->
 
-
-
       <!-- product -->
       <div class="product">
         <!--  product 메뉴 버튼-->
         <div class="menu_bt">
-          <div class="frame-18">
-            <div class="all">ALL</div>
-          </div>
-          <div class="frame-19">
-            <div class="skin">BEST</div>
-          </div>
-          <div class="frame-20">
-            <div class="body">SKIN</div>
-          </div>
-          <div class="frame-21">
-            <div class="make-up">BODY</div>
-          </div>
+        <router-link to="/product/example" class="frame-18">ALL</router-link>
+        <router-link to="/" class="frame-19">BEST</router-link>
+        <router-link to="/" class="frame-20">SKIN</router-link>
+        <router-link to="/" class="frame-21">BODY</router-link>
         </div>
       </div>
 
@@ -34,11 +24,8 @@
         <!-- product 왼쪽 문구 -->
         <div class="product2">product</div>
         <div class="product2_in" v-for="(data, index) in product" :key="index">
-          <!-- {{ data.index }} -->
-
-          <!-- 상품박스 -->
-          <div class="div10">
-            <!-- <div class="_23"></div> -->
+          <!-- 홀수 번째인 경우에만 odd 클래스를 추가 -->
+          <div class="div10" :class="{ odd: index % 2 !== 0 }">
             <!-- 상품이미지 -->
             <img class="frame-11" :src="data.prodImgUrl" />
 
@@ -58,46 +45,6 @@
               }}
             </div>
           </div>
-
-          <!-- <div class="div10">
-            <div class="_25"></div>
-            <div class="_26">★ ★ ★ ★ ★</div>
-            <div class="abcdefghijklm3">루또 체인지 립밤 2종</div>
-            <div class="abcdefghijklm4">보습과 생기 컬러 립밤</div>
-            <div class="abcdef2">11,900 won</div> -->
-          <!-- 상품이미지 -->
-          <!-- <img
-              class="frame-112"
-              src="../../src/assets/images/02_main_image410_pc.jpg"
-            /> -->
-          <!-- <div class="frame-112"></div> -->
-          <!-- </div>
-          <div class="div10">
-            <div class="_27"></div>
-            <div class="_28">★ ★ ★ ★ ★</div>
-            <div class="abcdefghijklm5">페이스 라인 스틱</div>
-            <div class="abcdefghijklm6">얼굴을 또렷하고 슬림하게</div>
-            <div class="abcdef3">15,900 won</div> -->
-          <!-- 상품이미지 -->
-          <!-- <img
-              class="frame-113"
-              src="../../src/assets/images/02_main_image1_pc_v2.png"
-            /> -->
-          <!-- <div class="frame-113"></div> -->
-          <!-- </div>
-          <div class="div10">
-            <div class="_29"></div>
-            <div class="_210">★ ★ ★ ★ ★</div>
-            <div class="abcdefghijklm7">멜로우 클레이 포마드</div>
-            <div class="abcdefghijklm8">자연스러운 헤어 포마드</div>
-            <div class="abcdef4">16,900 won</div> -->
-          <!-- 상품이미지 -->
-          <!-- <img
-              class="frame-114"
-              src="../../src/assets/images/02_main_image411_pc.jpg"
-            /> -->
-          <!-- <div class="frame-114"></div> -->
-          <!-- </div> -->
         </div>
       </div>
 
@@ -117,9 +64,9 @@
           <div class="abcdefgefghijk4">
             <p>내추럴 커버 파운데이션</p>
           </div>
-          <div class="abcdefg">shop</div>
+          <div class="abcdefg">shop></div>
           <div class="abcdefgefghijk5">퍼펙트 옴므 쿠션</div>
-          <div class="abcdefg2">shop</div>
+          <div class="abcdefg2">shop></div>
         </div>
       </div>
 
@@ -206,11 +153,7 @@ export default {
     // TODO: 전체 조회 자동 실행
     this.retrieveSimpleProduct();
   },
-
-  
 };
-
-
 </script>
 <style>
 @import "@/assets/css/main.css";
