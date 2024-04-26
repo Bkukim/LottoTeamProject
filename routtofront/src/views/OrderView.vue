@@ -92,12 +92,7 @@
           </th>
           <td>
             <div class="col-4">
-              <input
-                class="form-control"
-                type="text"
-                name="receiver"
-                v-model="order.receiver"
-              />
+              <input class="form-control" type="text" name="receiver" v-model="receiver"/>
             </div>
             <!-- <div class="col"></div> -->
           </td>
@@ -105,69 +100,70 @@
         </tr>
 
         <!-- 주소 tr -->
-        <tr>
-          <th scope="row">
-            <label class="form-label" for="address">주소</label>
-          </th>
-          <td>
-            <div class="row mb-1">
-              <!-- 우편번호 -->
-              <div class="col">
-                <input
-                  class="form-control"
-                  type="text"
-                  v-model="order.zipcode"
-                  placeholder="우편번호"
-                  disabled
-                />
-              </div>
-              <!-- 주소검색 버튼 -->
-              <div class="col">
-                <input
-                  class="btn"
-                  type="button"
-                  @click="execDaumPostcode()"
-                  value="우편번호 찾기"
-                  id="addressBtn"
-                />
-              </div>
-            </div>
-            <div class="row mb-1">
-              <div class="col">
-                <input
-                  class="form-control"
-                  type="text"
-                  v-model="orderAddress"
-                  placeholder="주소"
-                  disabled
-                />
-              </div>
-            </div>
-            <div class="row mb-1">
-              <div class="col">
-                <input
-                  class="form-control"
-                  type="text"
-                  v-model="extraAddress"
-                  placeholder=""
-                  disabled
-                />
-              </div>
-            </div>
-            <div class="row mb-1">
-              <div class="col">
-                <input
-                  class="form-control"
-                  type="text"
-                  id="detailAddress"
-                  v-model="orderDetailAddress"
-                  placeholder="상세주소"
-                />
-              </div>
-            </div>
-          </td>
-          <td></td>
-        </tr>
+            <tr>
+              <th scope="row">
+                <label class="form-label" for="address">주소</label>
+              </th>
+              <td>
+                <div class="row mb-1">
+                  <!-- 우편번호 -->
+                  <div class="col">
+                    <input
+                      class="form-control"
+                      type="text"
+                      v-model="zipCode"
+                      placeholder="우편번호"
+                      disabled
+                    />
+                  </div>
+                  <!-- 주소검색 버튼 -->
+                  <div class="col">
+                    <button
+                      class="btn"
+                      type="button"
+                      @click="execDaumPostcode()"
+                      value="우편번호 찾기"
+                      id="addressBtn"
+                    >주소 검색</button>
+                  </div>
+                </div>
+                <div class="row mb-1">
+                  <div class="col">
+                    <input
+                      class="form-control"
+                      type="text"
+                      v-model="address.normalAddress"
+                      placeholder="주소"
+                      disabled
+                    />
+                  </div>
+                </div>
+                <div class="row mb-1">
+                  <div class="col">
+                    <input
+                      class="form-control"
+                      type="text"
+                      v-model="address.extraAddress"
+                      placeholder=""
+                      disabled
+                    />
+                  </div>
+                </div>
+                <div class="row mb-1">
+                  <div class="col">
+                    <input
+                      class="form-control"
+                      type="text"
+                      id="detailAddress"
+                      placeholder="상세주소"
+                      v-model="orderDetailAddress"
+                    />
+                  </div>
+                </div>
+                
+              </td>
+              <td></td>
+            </tr>
       </tbody>
     </table>
 
@@ -196,14 +192,14 @@
           </th>
           <td>
             <!-- 배송 메세지 선택 옵션 -->
-            <div class="row mb-3">
+            <div class="row mb-1">
               <div class="col-12">
-                <select class="form-select" aria-label="Default select example">
-                  <option selected value="0">배송메세지를 선택해주세요</option>
-                  <option value="1">배송전 미리 연락해주세요.</option>
-                  <option value="2">부재 시 경비실에 맡겨주세요.</option>
-                  <option value="3">부재 시 문 앞에 놓아주세요.</option>
-                  <option value="4">벨을 누르지 말아주세요.</option>
+                <select class="form-select" aria-label="Default select example" v-model="orderRequest">
+                  <option selected value="">배송메세지를 선택해주세요</option>
+                  <option value="배송전 미리 연락해주세요">배송전 미리 연락해주세요</option>
+                  <option value="부재 시 경비실에 맡겨주세요">부재 시 경비실에 맡겨주세요</option>
+                  <option value="부재 시 문 앞에 놓아주세요">부재 시 문 앞에 놓아주세요</option>
+                  <option value="벨을 누르지 말아주세요">벨을 누르지 말아주세요</option>
                   <option value="5">직접 입력</option>
                 </select>
               </div>
@@ -217,6 +213,7 @@
                   type="text"
                   name="ordermessage"
                   id="ordermessage"
+                  v-model="orderRequestDetail"
                 />
               </div>
             </div>
@@ -241,9 +238,9 @@
           <!-- 제목 : 상품정보, 판매가, 수량, 구매가 -->
           <th scope="col">상품정보</th>
           <th scope="col"></th>
-          <th scope="col">판매가</th>
+          <th scope="col">상품가격</th>
           <th scope="col">수량</th>
-          <th scope="col">구매가</th>
+          <th scope="col">총 상품가격</th>
         </tr>
       </thead>
       <tbody>
@@ -261,16 +258,19 @@
           <!-- 2) 판매가 -->
           <td>
             <p style="margin-top: 35px">
-              {{
-                product.defaultPrice -
-                (product.defaultPrice * product.discountRate) / 100
-              }}
+             {{ this.product.defaultPrice * (1 - this.product.discountRate / 100)}}원
             </p>
           </td>
           <!-- 3) 수량 -->
-          <td><p style="margin-top: 35px"></p></td>
+          <td style="text-align: left">
+            <p style="margin-top: 35px">{{ orderAmount }}개</p>
+          </td>
           <!-- 4) 구매가 -->
-          <td><p style="margin-top: 35px"></p></td>
+          <td style="text-align: left">
+            <p style="margin-top: 35px">
+             {{ this.product.defaultPrice * (1 - this.product.discountRate / 100)*orderAmount}}원
+            </p>
+          </td>
         </tr>
       </tbody>
     </table>
@@ -282,6 +282,7 @@
     <!-- 5. 결제 수단 -->
     <div style="display: flex; justify-content: space-between">
       <div class="col-md-8">
+        <!-- 결제 수단 -->
         <div>
           <h2>결제 수단</h2>
         </div>
@@ -289,7 +290,7 @@
         <div>
           <hr />
         </div>
-        <!-- 결제 수단 시작-->
+        <!-- 결제 수단 목록-->
         <div>
           <table class="table" id="payMethod">
             <tbody>
@@ -306,6 +307,8 @@
                         type="radio"
                         name="flexRadioDefault"
                         id="creditCard"
+                        v-model="selectedPaymentMethod"
+                        value="신용카드"
                       />
                       <label class="form-check-label" for="creditCard">
                         신용카드
@@ -320,6 +323,8 @@
                         type="radio"
                         name="flexRadioDefault"
                         id="payco"
+                        v-model="selectedPaymentMethod"
+                        value="PAYCO"
                       />
                       <label class="form-check-label" for="payco">
                         PAYCO
@@ -334,6 +339,8 @@
                         type="radio"
                         name="flexRadioDefault"
                         id="kakaoPay"
+                        v-model="selectedPaymentMethod"
+                        value="카카오페이"
                       />
                       <label class="form-check-label" for="kakaoPay">
                         카카오페이
@@ -348,6 +355,8 @@
                         type="radio"
                         name="flexRadioDefault"
                         id="naverPay"
+                        v-model="selectedPaymentMethod"
+                        value="네이버페이"
                       />
                       <label class="form-check-label" for="naverPay">
                         네이버페이
@@ -362,6 +371,8 @@
                         type="radio"
                         name="flexRadioDefault"
                         id="mobilePayment"
+                        v-model="selectedPaymentMethod"
+                        value="휴대폰결제"
                       />
                       <label class="form-check-label" for="mobilePayment">
                         휴대폰결제
@@ -376,6 +387,8 @@
                         type="radio"
                         name="flexRadioDefault"
                         id="bankTransfer"
+                        v-model="selectedPaymentMethod"
+                        value="계좌이체"
                       />
                       <label class="form-check-label" for="bankTransfer">
                         계좌이체
@@ -390,9 +403,27 @@
                         type="radio"
                         name="flexRadioDefault"
                         id="tossPayment"
+                        v-model="selectedPaymentMethod"
+                        value="토스페이"
                       />
                       <label class="form-check-label" for="tossPayment">
                         토스페이
+                      </label>
+                    </li>
+
+                    <!-- 무통장입금 -->
+
+                    <li>
+                      <input
+                        class="form-check-input"
+                        type="radio"
+                        name="flexRadioDefault"
+                        id="tossPayment"
+                        v-model="selectedPaymentMethod"
+                        value="무통장입금"
+                      />
+                      <label class="form-check-label" for="tossPayment">
+                        무통장입금
                       </label>
                     </li>
                   </ul>
@@ -403,8 +434,8 @@
         </div>
       </div>
 
+      <!-- 6. 최종 결제 정보 -->
       <div class="payment-container">
-        <!-- 최종 결제 정보 -->
         <div class="col-md-4 payment-section">
           <h2>최종 결제 정보</h2>
           <div class="paymentInfo">
@@ -412,7 +443,9 @@
               <!-- 총 상품 금액 -->
               <div class="paymentTr">
                 <div class="payTitle">총 상품 금액</div>
-                <div class="price">00 원</div>
+                <div class="price">
+                  
+                </div>
               </div>
               <!-- 쿠폰 할인 금액 -->
               <div class="paymentTr">
@@ -422,26 +455,36 @@
               <!-- 총 배송비 -->
               <div class="paymentTr">
                 <div class="payTitle">총 배송비</div>
-                <div class="price">00 원</div>
+                <div class="price">원</div>
               </div>
               <!-- 최종 결제 금액 -->
               <div class="paymentTr">
                 <div class="payTitle">최종 결제 금액</div>
-                <div class="price">00 원</div>
+                <div class="price">
+                  
+                  원
+                </div>
               </div>
             </div>
           </div>
           <!-- 7. 결제 버튼 -->
-          <div class="mt-4">
-            <button type="button" id="btnPay" @click="goPayment">
+          <!-- <div class="mt-4">
+            <button type="button" id="btnPay" @click="togglePaymentModal">
               결제하기
+            </button>
+          </div> -->
+
+          <!-- 임시 결제 버튼 -->
+          <div class="mt-4">
+            <button type="button" id="btnPay" @click="saveOrder">
+              결제하기 임시 버튼
             </button>
           </div>
         </div>
       </div>
     </div>
     <!-- 결제 버튼 -->
-    <div class="payment-button">
+    <!-- <div class="payment-button">
       <button
         type="button"
         id="btnPay"
@@ -450,7 +493,7 @@
       >
         결제하기
       </button>
-    </div>
+    </div> -->
   </div>
 
   <div>
@@ -469,7 +512,7 @@
 import CheckoutViewVue from "./payment/CheckoutView.vue";
 import UserService from "@/services/user/UserService";
 import ProductService from "@/services/product/ProductService";
-import OrderService from '@/services/product/OrderService';
+import OrderService from "@/services/product/OrderService";
 // import OrderService from "@/services/product/OrderService";
 
 export default {
@@ -478,102 +521,156 @@ export default {
   },
   data() {
     return {
-      address: "",
-      orderAddress: "",
-      extraAddress: "",
+      selectedPaymentMethod: "", // 선택한 결제 수단을 저장할 데이터 속성
+
+      // 주소정보
+      address: {
+        normalAddress: "",
+        extraAddress: "",
+      },
+
       isModalVisible: false,
-      orderAmount:1,
+
+      // 주문 수량
+      orderAmount: 2,
+
       user: {
-        userName: "",
-        // email: "",
-        phoneNum: "",
+        //  userId;
+        //  password;
+        //  userName;
+        //  birthday;
+        //  phoneNum;
+        //  callNum;
+        //  email;
+        //  role;
+        //  normalAddress;
+        //  detailAddress;
       },
-      product: {},
-      order: {
-        userId: this.$store.state.userId,
-        // orderName: this.user.userName,
-        orderName: "",
-        orderPrice: 0,
-        shoppingFee: 0,
-        zipcode: "",
-        orderAddress: this.orderAddress + "," + this.extraAddress,
-        orderDetailAddress: "",
-        orderRequest: "",
-        receiver: "",
+      product: {
+        //       prodId;       // 기본키, 시퀀스, 상품id
+        // prodName;      // 상품 이름
+        //  defaultPrice; // 원가
+        // prodCategory;  // 카테고리
+        // prodImg;       // 상품 이미지
+        // prodDetailPage; // 상품 상세 페이지
+        //  discountRate; // 할인율
+        //  prodStock;    // 재고
+        // prodStatus;    // 상품 판매 상태
+        //  soldCount;    // 상품 판매 횟수
+        // prodImgUrl;     // 상품 이미지 url
+        // prodDetailPageUrl; // 상품 상세 이미지 url
+        // prodImgUuid;       // 상품 이미지 uuid
+        // prodDetailPageUuid; // 상품 상세 이미지 uuid
       },
+
+      // orderName: this.user.userName,
+      orderName: "",
+      shoppingFee: 3000,
+      zipCode: "",
+      orderDetailAddress: "",
+      orderRequest: "",
+      orderRequestDetail: "", // 주문 요청사항이 직접 입력이면 여기에 저장
+      receiver: "",
     };
   },
   methods: {
-    // 주문 저장함수
+    // // TODO: 결제 수단 저장
+    // savePaymentMethod() {
+    //   // 선택한 결제 수단을 저장하거나 처리하는 로직
+    //   console.log("Selected Payment Method:", this.selectedPaymentMethod);
+    //   // 여기에 선택한 결제 수단을 서버로 전송하여 저장하는 로직을 추가할 수 있습니다.
+    // },
+
+    // TODO: 주문 저장함수
     async saveOrder() {
-
-      // 주문 상품 객체 : 상품id, 상품 수량
-      let orderProduct={
-        prodId:this.product.prodId,
-        orderAmount:this.orderAmount
-      }
-      // 주문 상품 배열
-      let orderProductList = [];
-
-      // 배열에 값 넣기
-      orderProductList.push(orderProduct);
-
-      // 임시 객체 data에 dto 속성 넣기
-      let data = {
-        userId:this.userId,
-        orderName: this.order.orderName,
-        orderPrice:this.product.defaultPrice*(1-this.product.discountRate/100),
-        shoppingFee : 3000,
-        zipCode : this.order.zipcode,
-        orderAddress:this.order.orderAddress,
-        orderDetailAddress:this.order.orderDetailAddress,
-        orderRequest:this.order.orderRequest,
-        receiver:this.order.receiver,
-        orderProductList,
+       let now = new Date(); // js 날짜 객체
+        // 날짜포맷 : yyyy-mm-dd hh:mi:ss 형태
+        // 년도 : now.getFullYear()
+        // 월 : now.getMonth()
+        // 일 : noew.getDate()
+        // 시 : now.getHours()
+        // 분 : now.getMinutes()
+        // 초 : noww.getSeconds()
+        let formatNow = `${now.getFullYear()}-${now.getMonth()}-${now.getDate()} ${now.getHours()}:${now.getMinutes()}:${now.getSeconds()}`;
+      // 주문 상품 객체 : 선택한 상품의 id, 주문 수량을 orderProduct 객체에 저장
+      let orderProd = {
+        prodId: this.product.prodId,
+        orderAmount: this.orderAmount,
       };
+
+      // 배열 생성
+      let orderProds = [];
+
+      // 이를 orderProductList 주문 상품 배열로 값 넣기
+      orderProds.push(orderProd);
+
+      
+
+      // 주문 정보 객체 생성 : 임시 객체 data에 dto 주문 속성 넣기
+      let data = {
+        userId: this.user.userId,
+        orderName: this.user.userName,
+        orderPrice:
+        this.product.defaultPrice * (1 - this.product.discountRate / 100)*this.orderAmount,
+        shoppingFee: 3000,
+        zipCode: this.zipCode,
+        orderAddress: this.address.normalAddress + "," + this.address.extraAddress,
+        orderDetailAddress: this.orderDetailAddress,
+        orderTime:formatNow,
+        orderRequest: this.orderRequest,
+        receiver: this.receiver,
+        orderProds,
+        // selectedPaymentMethod: this.selectedPaymentMethod,
+      };
+      if (this.orderRequest == "5") {
+        data.orderRequest=this.orderRequestDetail;
+      }
+      
       try {
-        let response = await OrderService.post(data);
+        let response = await OrderService.saveOrder(data); // 주문 정보를 서버에 전송(post 요청 수행)
         console.log(response.data);
       } catch (error) {
         console.log(error);
       }
     },
 
-    // userID로 상세조회하는 함수
+    // TODO: userID로 상세조회하는 함수
     async retrieveUser(userId) {
-      console.log(userId);
       try {
         let response = await UserService.get(userId);
-        console.log(response.data);
-        this.user.userName = response.data.userName;
-        this.user.phoneNum = response.data.phoneNum;
+        this.user=response.data;
+        
+    console.log(this.user); // console로 찍기
       } catch (error) {
         console.log(error);
       }
     },
-    // prodId로 상세조회하는 함수
+    // TODO: prodId로 상세조회하는 함수
+    
     async retrieveProduct(prodId) {
       try {
         let response = await ProductService.get(prodId);
         console.log(response.data);
         this.product = response.data;
+        this.orderPrice =  response.data.defaultPrice; // 비동기 함수이기에 언제 값이 들어올지 모른다. 그러면 이 함수에 의한 데이터가 들어가기 전에 먼저 orderprice가 값이 안 들어간 product에서 값을 가져오게 된다.
+ // todo : 진짜 해야하는 일 = amount를 가져오게 되면 orderPrice의 값 바꾸기
       } catch (error) {
         console.log(error);
       }
     },
-    // 주소 함수
+    // TODO: 주소 함수
     execDaumPostcode() {
       new window.daum.Postcode({
         oncomplete: (data) => {
-          if (this.extraAddress !== "") {
-            this.extraAddress = "";
+          if (this.address.extraAddress !== "") {
+            this.address.extraAddress = "";
           }
           if (data.userSelectedType === "R") {
             // 사용자가 도로명 주소를 선택했을 경우
-            this.address = data.roadAddress;
+            this.address.normalAddress = data.roadAddress;
           } else {
             // 사용자가 지번 주소를 선택했을 경우(J)
-            this.address = data.jibunAddress;
+            this.address.normalAddress = data.jibunAddress;
           }
 
           // 사용자가 선택한 주소가 도로명 타입일때 참고항목을 조합한다.
@@ -581,66 +678,80 @@ export default {
             // 법정동명이 있을 경우 추가한다. (법정리는 제외)
             // 법정동의 경우 마지막 문자가 "동/로/가"로 끝난다.
             if (data.bname !== "" && /[동|로|가]$/g.test(data.bname)) {
-              this.extraAddress += data.bname;
+              this.address.extraAddress += data.bname;
             }
             // 건물명이 있고, 공동주택일 경우 추가한다.
             if (data.buildingName !== "" && data.apartment === "Y") {
-              this.extraAddress +=
-                this.extraAddress !== ""
+              this.address.extraAddress +=
+                this.address.extraAddress !== ""
                   ? `, ${data.buildingName}`
                   : data.buildingName;
             }
             // 표시할 참고항목이 있을 경우, 괄호까지 추가한 최종 문자열을 만든다.
-            if (this.extraAddress !== "") {
-              this.extraAddress = `(${this.extraAddress})`;
+            if (this.address.extraAddress !== "") {
+              this.address.extraAddress = `(${this.address.extraAddress})`;
             }
           } else {
-            this.extraAddress = "";
+            this.address.extraAddress = "";
           }
           // 우편번호를 입력한다.
-          this.postcode = data.zonecode;
+          this.zipCode = data.zonecode;
         },
       }).open();
     },
-    // 결제하기로 이동하는 함수
-    goPayment() {
-      this.$router.push("/order/tosspay");
+    // TODO: 주문 저장, 결제하기로 이동하는 함수
+    async goPayment() {
+      // saveOrder 함수 호출
+      try {
+        let response = await this.saveOrder(); // saveOrder 함수 호출 및 await로 비동기 처리
+        console.log(response);
+      } catch (error) {
+        console.error("에러 발생 : ", error);
+        // 주문 저장 중 오류가 발생한 경우에 대한 처리
+      }
+      this.$router.push("/order/Payment");
     },
-    togglePaymentModal() {
-      this.isModalVisible = !this.isModalVisible; // 결제하기 버튼 클릭 시 모달 상태 토글
-    },
-    // 주문/결제 페이지 정보를 저장하는 함수
-    // async saveOrder() {
-    //   try {
-    //     let data = {
 
-    //     };
-    //     let response = await OrderService.create(data);
-    //   } catch (error) {
-    //     console.log(error);
-    //   }
-    // },
+    // TODO: 결제 모달 여는 로직 (비동기, saveOrder 추가했음)
+    async togglePaymentModal() {
+      this.isModalVisible = !this.isModalVisible; // 결제하기 버튼 클릭 시 모달 상태 토글
+
+      // saveOrder 함수 호출
+      try {
+        let response = await this.saveOrder(); // saveOrder 함수 호출 및 await로 비동기 처리
+        console.log(response);
+      } catch (error) {
+        console.error("에러 발생 : ", error);
+        // 주문 저장 중 오류가 발생한 경우에 대한 처리
+      }
+    },
   },
   mounted() {
-    this.retrieveUser(this.$store.state.userId).then(() => {
-      this.order.orderName = this.user.userName; // retrieveUser 완료 후에 호출
-    });
+    // TODO: userId로 조회해서 주문자에 자동입력 후 -> prodId로 주문 페이지 뜸
+    // this.retrieveUser(this.$store.state.userId).then(() => {
+    //   this.order.orderName = this.user.userName; // retrieveUser 완료 후에 호출
+    // });
+    this.retrieveUser(this.$store.state.userId);
     this.retrieveProduct(this.$route.params.prodId);
-    console.log(this.product);  // console로 찍기
-        // 직접 입력 옵션을 선택했을 때
-    document.querySelector("select.form-select").addEventListener("change", function() {
-        var orderMessageInput = document.getElementById("ordermessage");
-        if (this.value === "5") { // 직접 입력 옵션 선택 시
-            orderMessageInput.style.display = "block"; // 텍스트 상자 보이기
-        } else {
-            orderMessageInput.style.display = "none"; // 다른 옵션일 경우 숨기기
-        }
-    });
+    console.log(this.product); // console로 찍기
 
-    // 페이지 로드 시 초기 설정
-    document.addEventListener("DOMContentLoaded", function() {
+    // TODO: 배송 요청 사항 : 직접 입력 옵션을 선택했을 때 텍스트 상자
+    document
+      .querySelector("select.form-select")
+      .addEventListener("change", function () {
         var orderMessageInput = document.getElementById("ordermessage");
-        orderMessageInput.style.display = "none"; // 페이지 로드 시 텍스트 상자 숨기기
+        if (this.value === "5") {
+          // 직접 입력 옵션 선택 시
+          orderMessageInput.style.display = "block"; // 텍스트 상자 보이기
+        } else {
+          orderMessageInput.style.display = "none"; // 다른 옵션일 경우 숨기기
+        }
+      });
+
+    // TODO: 페이지 로드 시 초기 설정
+    document.addEventListener("DOMContentLoaded", function () {
+      var orderMessageInput = document.getElementById("ordermessage");
+      orderMessageInput.style.display = "none"; // 페이지 로드 시 텍스트 상자 숨기기
     });
   },
 };
