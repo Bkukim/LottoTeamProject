@@ -509,7 +509,7 @@
 </template>
 
 <script>
-import CheckoutViewVue from "./payment/CheckoutView.vue";
+import CheckoutViewVue from "../payment/CheckoutView.vue";
 import UserService from "@/services/user/UserService";
 import ProductService from "@/services/product/ProductService";
 import OrderService from "@/services/product/OrderService";
