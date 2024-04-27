@@ -33,9 +33,9 @@ export default {};
   height: 1300px;
 }
 
-h3 {
+/* h3 {
   margin-top: 300px;
-}
+} */
 
 
 /* input box */

@@ -312,7 +312,7 @@ export default {
       },
 
       // 주문완료 이미지 경로
-      ordercompleteimg: require("../assets/images/ordercomplete_icon.png"),
+      ordercompleteimg: require("@/assets/images/ordercomplete_icon.png"),
 
       products: [], // 주문 상품 정보 배열
     };

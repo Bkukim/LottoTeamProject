@@ -1,3 +1,27 @@
+.router-link-exact-active {
+  color: #ffffff;
+  text-decoration: none; /* 언더라인 제거 */
+}
+
+/* 호버 시 색상 변경 */
+.router-link-exact-active:hover {
+  color: rgb(255, 255, 255); /* 원하는 호버 색상으로 변경 */
+}
+
+.frame-18,
+.frame-19,
+.frame-20
+.frame-21{
+  color: #ffffff;
+  text-decoration: none; /* 언더라인 제거 */
+}
+
+
+
+
+
+
+
 .main_all {
   max-width: 1920px;
   margin: 0 auto; /* 가운데 정렬을 위해 추가 */
@@ -11,8 +35,6 @@
     padding: 0 20px; /* 옆에 여백을 추가하여 콘텐츠가 너무 가까이 붙지 않도록 함 */
   }
 }
-
-
 
 .frame-22,
 .frame-22 * {
@@ -35,683 +57,480 @@
 /* 메인배너 */
 .baner_divbox {
   width: 1320px;
-  height:600px;
+  height: 800px;
   position: absolute;
-  top: 77px;
+  top: -20px;
   background-color: #342a26;
   overflow: visible;
 }
 
-
-
 /* product */
+
+/* 홀수 번째인 경우에만 배경색을 적용하는 스타일 */
+/* .div10.odd {
+  background-color: lightgray;
+} */
 
 /* product 버튼 */
 .product {
-    width: 1320px;
-    /* height: 660.69px; */
-    position: relative;
-    top: -820px; /* 위쪽으로 20px 이동 */
-    left: -180px; /* 왼쪽으로 10px 이동 */
-  }
-  .frame-18 {
-    background: #999999;
-    border-radius: 20px;
-    padding: 8px 50px 8px 50px;
-    display: flex;
-    flex-direction: row;
-    gap: 10px;
-    align-items: center;
-    justify-content: center;
-    position: absolute;
-    left: 934px;
-    top: 1755.34px;
-    box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
-    overflow: hidden;
-  }
-  .all {
-    color: #ffffff;
-    text-align: left;
-    font-family: "Inter-Bold", sans-serif;
-    font-size: 20px;
-    font-weight: 700;
-    position: relative;
-  }
-  
-  .menu_bt{
-    position: absolute;
-    left: -134px;
-  }
-  
-  .frame-19 {
-    background: #d1ccbd;
-    border-radius: 20px;
-    padding: 8px 50px 8px 50px;
-    display: flex;
-    flex-direction: row;
-    gap: 10px;
-    align-items: center;
-    justify-content: center;
-    position: absolute;
-    left: 1089.38px;
-    top: 1755.34px;
-    box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
-    overflow: hidden;
-  }
-  .skin {
-    color: #ffffff;
-    text-align: left;
-    font-family: "Inter-Bold", sans-serif;
-    font-size: 20px;
-    font-weight: 700;
-    position: relative;
-  }
-  .frame-20 {
-    background: #d1ccbd;
-    border-radius: 20px;
-    padding: 8px 50px 8px 50px;
-    display: flex;
-    flex-direction: row;
-    gap: 10px;
-    align-items: center;
-    justify-content: center;
-    position: absolute;
-    left: 1254.38px;
-    top: 1755.34px;
-    box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
-    overflow: hidden;
-  }
-  .body {
-    color: #ffffff;
-    text-align: left;
-    font-family: "Inter-Bold", sans-serif;
-    font-size: 20px;
-    font-weight: 700;
-    position: relative;
-  }
-  .frame-21 {
-    background: #d1ccbd;
-    border-radius: 20px;
-    padding: 8px 50px 8px 50px;
-    display: flex;
-    flex-direction: row;
-    gap: 10px;
-    align-items: center;
-    justify-content: center;
-    position: absolute;
-    left: 1429.38px;
-    top: 1755.34px;
-    box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
-    overflow: hidden;
-  }
-  .make-up {
-    color: #ffffff;
-    text-align: left;
-    font-family: "Inter-Bold", sans-serif;
-    font-size: 20px;
-    font-weight: 700;
-    position: relative;
-  }
+  width: 1320px;
+  /* height: 660.69px; */
+  position: relative;
+  top: -820px; /* 위쪽으로 20px 이동 */
+  left: -180px; /* 왼쪽으로 10px 이동 */
+}
+.frame-18 {
+  background: #d1ccbd;
+  border-radius: 20px;
+  padding: 8px 50px 8px 50px;
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  left: 934px;
+  top: 1755.34px;
+  box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+  overflow: hidden;
+}
+
+.all {
+  color: #ffffff;
+  text-align: left;
+  font-family: "Inter-Bold", sans-serif;
+  font-size: 20px;
+  font-weight: 700;
+  position: relative;
+}
+
+.menu_bt {
+  position: absolute;
+  left: -134px;
+}
+.menu_bt :hover{
+background-color: rgb(56, 37, 13);
+color: rgb(255, 255, 255);
+}
 
 
+.frame-19 {
+  background: #d1ccbd;
+  border-radius: 20px;
+  padding: 8px 50px 8px 50px;
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  left: 1089.38px;
+  top: 1755.34px;
+  box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+  overflow: hidden;
+}
+.skin {
+  color: #ffffff;
+  text-align: left;
+  font-family: "Inter-Bold", sans-serif;
+  font-size: 20px;
+  font-weight: 700;
+  position: relative;
+}
+.frame-20 {
+  background: #d1ccbd;
+  border-radius: 20px;
+  padding: 8px 50px 8px 50px;
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  left: 1254.38px;
+  top: 1755.34px;
+  box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+  overflow: hidden;
+}
+.body {
+  color: #ffffff;
+  text-align: left;
+  font-family: "Inter-Bold", sans-serif;
+  font-size: 20px;
+  font-weight: 700;
+  position: relative;
+}
+.frame-21 {
+  background: #d1ccbd;
+  border-radius: 20px;
+  padding: 8px 50px 8px 50px;
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  left: 1429.38px;
+  top: 1755.34px;
+  box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+  overflow: hidden;
+}
+.make-up {
+  color: #ffffff;
+  text-align: left;
+  font-family: "Inter-Bold", sans-serif;
+  font-size: 20px;
+  font-weight: 700;
+  position: relative;
+}
 
-  /* product all 상품이미지 메뉴 */
-  .product2_all{
-    position: absolute;
-    left: -350px;
-    top: -830px;
-  }
-  .product2 {
-    color: #999999;
-    text-align: left;
-    font-family: "NotoSans-DisplayBold", sans-serif;
-    font-size: 63px;
-    font-weight: 400;
-    position: absolute;
-    left: 420px;
-    top: 1715.46px;
-    width: 257.2px;
-    height: 80.69px;
-  }
-  
-  
-  
-  .div10 {
-    width: 270.16px;
-    height: 100px;
-    position: static;
-  }
-  /* ._23 {
-    background: #e5e5e5;
-    width: 270.16px;
-    height: 332.24px;
-    position: absolute;
-    left: 423px;
-    top: 1876.84px;
-  } */
-  ._24 {
-    /* background: #535353; */
-    width: 116.64px;
-    height: 13.29px;
-    position: absolute;
-    left: 423px;
-    top: 2362.87px;
-    color: rgb(212, 38, 38);
-    font-weight: bolder;
-    letter-spacing: -3px;
-  }
-  .abcdefghijklm {
-    color: #535353;
-    text-align: left;
-    font-family: "Inter-Bold", sans-serif;
-    font-size: 20px;
-    font-weight: 700;
-    position: absolute;
-    left: 423px;
-    top: 2229.97px;
-    width: 258.19px;
-    height: 34.17px;
-  }
-  .abcdefghijklm2 {
-    color: #535353;
-    text-align: left;
-    font-family: "Inter-Bold", sans-serif;
-    font-size: 15px;
-    font-weight: 700;
-    position: absolute;
-    left: 423px;
-    top: 2264.14px;
-    width: 258.19px;
-    height: 34.17px;
-  }
-  .abcdef {
-    color: #535353;
-    text-align: left;
-    font-family: "Inter-Medium", sans-serif;
-    font-size: 20px;
-    font-weight: 500;
-    position: absolute;
-    left: 423px;
-    top: 2318.25px;
-    width: 119.63px;
-    height: 34.17px;
-  }
-  .frame-11 {
-    background: #e5e5e5;
-    width: 270.16px;
-    height: 332px;
-    position: absolute;
-    left: 423px;
-    top: 1877.05px;
-    overflow: hidden;
-  }
-  ._25 {
-    background: #e5e5e5;
-    width: 270.16px;
-    height: 332.24px;
-    position: absolute;
-    left: 732.42px;
-    top: 1876.84px;
-  }
-  ._26 {
-    /* background: #535353; */
-    width: 116.64px;
-    height: 13.29px;
-    position: absolute;
-    left: 732.42px;
-    top: 2362.87px;
-    color: rgb(212, 38, 38);
-    font-weight: bolder;
-    letter-spacing: -3px;
-  }
-  .abcdefghijklm3 {
-    color: #535353;
-    text-align: left;
-    font-family: "Inter-Bold", sans-serif;
-    font-size: 20px;
-    font-weight: 700;
-    position: absolute;
-    left: 732.42px;
-    top: 2229.97px;
-    width: 258.19px;
-    height: 34.17px;
-  }
-  .abcdefghijklm4 {
-    color: #535353;
-    text-align: left;
-    font-family: "Inter-Bold", sans-serif;
-    font-size: 15px;
-    font-weight: 700;
-    position: absolute;
-    left: 732.42px;
-    top: 2264.14px;
-    width: 258.19px;
-    height: 34.17px;
-  }
-  .abcdef2 {
-    color: #535353;
-    text-align: left;
-    font-family: "Inter-Medium", sans-serif;
-    font-size: 20px;
-    font-weight: 500;
-    position: absolute;
-    left: 732.42px;
-    top: 2318.25px;
-    width: 119.63px;
-    height: 34.17px;
-  }
-  .frame-112 {
-    background: #e5e5e5;
-    width: 270.16px;
-    height: 332px;
-    position: absolute;
-    left: 732.42px;
-    top: 1877.05px;
-    overflow: hidden;
-  }
-  ._27 {
-    background: #e5e5e5;
-    width: 270.16px;
-    height: 332.24px;
-    position: absolute;
-    left: 1041.84px;
-    top: 1876.84px;
-  }
-  ._28 {
-    /* background: #535353; */
-    width: 116.64px;
-    height: 13.29px;
-    position: absolute;
-    left: 1041.84px;
-    top: 2362.87px;
-    color: rgb(212, 38, 38);
-    font-weight: bolder;
-    letter-spacing: -3px;
-  }
-  .abcdefghijklm5 {
-    color: #535353;
-    text-align: left;
-    font-family: "Inter-Bold", sans-serif;
-    font-size: 20px;
-    font-weight: 700;
-    position: absolute;
-    left: 1041.84px;
-    top: 2229.97px;
-    width: 258.19px;
-    height: 34.17px;
-  }
-  .abcdefghijklm6 {
-    color: #535353;
-    text-align: left;
-    font-family: "Inter-Bold", sans-serif;
-    font-size: 15px;
-    font-weight: 700;
-    position: absolute;
-    left: 1041.84px;
-    top: 2264.14px;
-    width: 258.19px;
-    height: 34.17px;
-  }
-  .abcdef3 {
-    color: #535353;
-    text-align: left;
-    font-family: "Inter-Medium", sans-serif;
-    font-size: 20px;
-    font-weight: 500;
-    position: absolute;
-    left: 1041.84px;
-    top: 2318.25px;
-    width: 119.63px;
-    height: 34.17px;
-  }
-  .frame-113 {
-    background: #e5e5e5;
-    width: 270.16px;
-    height: 332px;
-    position: absolute;
-    left: 1041.84px;
-    top: 1877.05px;
-    overflow: hidden;
-  }
-  ._29 {
-    background: #e5e5e5;
-    width: 270.16px;
-    height: 332.24px;
-    position: absolute;
-    left: 1351.26px;
-    top: 1876.84px;
-  }
-  ._210 {
-    /* background: #535353; */
-    width: 116.64px;
-    height: 13.29px;
-    position: absolute;
-    left: 1351.26px;
-    top: 2362.87px;
-    color: rgb(212, 38, 38);
-    font-weight: bolder;
-    letter-spacing: -3px;
-  }
-  .abcdefghijklm7 {
-    color: #535353;
-    text-align: left;
-    font-family: "Inter-Bold", sans-serif;
-    font-size: 20px;
-    font-weight: 700;
-    position: absolute;
-    left: 1351.26px;
-    top: 2229.97px;
-    width: 258.19px;
-    height: 34.17px;
-  }
-  .abcdefghijklm8 {
-    color: #535353;
-    text-align: left;
-    font-family: "Inter-Bold", sans-serif;
-    font-size: 15px;
-    font-weight: 700;
-    position: absolute;
-    left: 1351.26px;
-    top: 2264.14px;
-    width: 258.19px;
-    height: 34.17px;
-  }
-  .abcdef4 {
-    color: #535353;
-    text-align: left;
-    font-family: "Inter-Medium", sans-serif;
-    font-size: 20px;
-    font-weight: 500;
-    position: absolute;
-    left: 1351.26px;
-    top: 2318.25px;
-    width: 119.63px;
-    height: 34.17px;
-  }
-  .frame-114 {
-    background: #e5e5e5;
-    width: 270.16px;
-    height: 332px;
-    position: absolute;
-    left: 1351.26px;
-    top: 1877.05px;
-    overflow: hidden;
-  }
-  
+/* product all 상품이미지 메뉴 */
+.product2_all {
+  position: absolute;
+  left: -350px;
+  top: -830px;
+}
+.product2 {
+  color: #999999;
+  text-align: left;
+  font-family: "NotoSans-DisplayBold", sans-serif;
+  font-size: 63px;
+  font-weight: 400;
+  position: absolute;
+  left: 420px;
+  top: 1715.46px;
+  width: 257.2px;
+  height: 80.69px;
+}
 
-  /* best sellers */
-  .best-menu {
-    width: 1320px;
-    height: 936.16px;
-    position: relative;
-    top: -790px; 
-    left: 10px; 
-  }
-  ._1 {
-    width: 450px;
-    height: 670px;
-    position: absolute;
-    left: 0px;
-    top: 2638.05px;
-    overflow: visible;
-    background-color: #342a26;
-  }
-  
-  .best-menu_in{
-    position: absolute;
-    left: -455px;
-    top: -170px;
-  }
-  .div8 {
-    width: 215.33px;
-    height: 362.62px;
-    position: absolute;
-    left: 1100px;
-    top: 3110px;
-    overflow: visible;
-    background-color: #342a26;
-  
-  }
-  .div9 {
-    width: 215.33px;
-    height: 362.62px;
-    position: absolute;
-    left: 1447px;
-    top: 3110px;
-    overflow: visible;
-    background-color: #342a26;
-  
-  }
-  .best-menu2 {
-    color: #535353;
-    text-align: left;
-    font-family: "Inter-Bold", sans-serif;
-    font-size: 55px;
-    font-weight: 700;
-    position: absolute;
-    left: 1062px;
-    top: 2785px;
-    width: 424px;
-    height: 79px;
-  }
-  .abcdefgefghijk4 {
-    color: #535353;
-    text-align: left;
-    font-family: "Inter-Bold", sans-serif;
-    font-size: 20px;
-    font-weight: 700;
-    position: absolute;
-    left: 1100px;
-    top: 3492.21px;
-    width: 229px;
-    height: 34px;
-  }
-  .abcdefgefghijk5 {
-    color: #535353;
-    text-align: left;
-    font-family: "Inter-Bold", sans-serif;
-    font-size: 20px;
-    font-weight: 700;
-    position: absolute;
-    left: 1477px;
-    top: 3492.21px;
-    width: 229px;
-    height: 34px;
-  }
-  .abcdefg {
-    color: #535353;
-    text-align: left;
-    font-family: "Inter-Light", sans-serif;
-    font-size: 20px;
-    font-weight: 300;
-    position: absolute;
-    left: 1186px;
-    top: 3551.43px;
-    width: 93.71px;
-    height: 22.78px;
-  }
-  .abcdefg2 {
-    color: #535353;
-    text-align: left;
-    font-family: "Inter-Light", sans-serif;
-    font-size: 20px;
-    font-weight: 300;
-    position: absolute;
-    left: 1530px;
-    top: 3551.43px;
-    width: 93.71px;
-    height: 22.78px;
-  }
+.product2_in{
+  display: flex;
+}
+
+._24 {
+  /* background: #535353; */
+  width: 116.64px;
+  height: 13.29px;
+  position: absolute;
+  left: 423px;
+  top: 2362.87px;
+  color: rgb(212, 38, 38);
+  font-weight: bolder;
+  letter-spacing: -3px;
+}
+.abcdefghijklm {
+  color: #535353;
+  text-align: left;
+  font-family: "Inter-Bold", sans-serif;
+  font-size: 20px;
+  font-weight: 700;
+  position: absolute;
+  left: 423px;
+  top: 2229.97px;
+  width: 258.19px;
+  height: 34.17px;
+}
+.abcdefghijklm2 {
+  color: #535353;
+  text-align: left;
+  font-family: "Inter-Bold", sans-serif;
+  font-size: 15px;
+  font-weight: 700;
+  position: absolute;
+  left: 423px;
+  top: 2264.14px;
+  width: 258.19px;
+  height: 34.17px;
+}
+.abcdef {
+  color: #535353;
+  text-align: left;
+  font-family: "Inter-Medium", sans-serif;
+  font-size: 20px;
+  font-weight: 500;
+  position: absolute;
+  left: 423px;
+  top: 2318.25px;
+  width: 119.63px;
+  height: 34.17px;
+}
+.frame-11 {
+  background: #e5e5e5;
+  width: 270.16px;
+  height: 332px;
+  position: absolute;
+  left: 423px;
+  top: 1877.05px;
+  overflow: hidden;
+}
 
 
+/* best sellers */
+.best-menu {
+  width: 1320px;
+  height: 936.16px;
+  position: relative;
+  top: -790px;
+  left: 10px;
+}
+._1 {
+  width: 450px;
+  height: 670px;
+  position: absolute;
+  left: 0px;
+  top: 2638.05px;
+  overflow: visible;
+  background-color: #342a26;
+}
 
+.best-menu_in {
+  position: absolute;
+  left: -455px;
+  top: -170px;
+}
+.div8 {
+  width: 215.33px;
+  height: 362.62px;
+  position: absolute;
+  left: 1100px;
+  top: 3110px;
+  overflow: visible;
+  background-color: #342a26;
+}
+.div9 {
+  width: 215.33px;
+  height: 362.62px;
+  position: absolute;
+  left: 1447px;
+  top: 3110px;
+  overflow: visible;
+  background-color: #342a26;
+}
+.best-menu2 {
+  color: #535353;
+  text-align: left;
+  font-family: "Inter-Bold", sans-serif;
+  font-size: 55px;
+  font-weight: 700;
+  position: absolute;
+  left: 1062px;
+  top: 2785px;
+  width: 424px;
+  height: 79px;
+}
+.abcdefgefghijk4 {
+  color: #535353;
+  text-align: left;
+  font-family: "Inter-Bold", sans-serif;
+  font-size: 20px;
+  font-weight: 700;
+  position: absolute;
+  left: 1100px;
+  top: 3492.21px;
+  width: 229px;
+  height: 34px;
+}
+.abcdefgefghijk5 {
+  color: #535353;
+  text-align: left;
+  font-family: "Inter-Bold", sans-serif;
+  font-size: 20px;
+  font-weight: 700;
+  position: absolute;
+  left: 1477px;
+  top: 3492.21px;
+  width: 229px;
+  height: 34px;
+}
+.abcdefg {
+  color: #535353;
+  text-align: left;
+  font-family: "Inter-Light", sans-serif;
+  font-size: 20px;
+  font-weight: 300;
+  position: absolute;
+  left: 1186px;
+  top: 3551.43px;
+  width: 93.71px;
+  height: 22.78px;
+}
+.abcdefg2 {
+  color: #535353;
+  text-align: left;
+  font-family: "Inter-Light", sans-serif;
+  font-size: 20px;
+  font-weight: 300;
+  position: absolute;
+  left: 1530px;
+  top: 3551.43px;
+  width: 93.71px;
+  height: 22.78px;
+}
 
-  /* 메인 젤 밑 상품보러가기 */
-  .best-menu-2 {
-    width: 1320px;
-    height: 348px;
-     position: relative;
-      /* top: -820px; */
-      left: 10px; /* 왼쪽으로 10px 이동 */
-    left: -300px;
-    top: -2050px;
-    /* background-color: red; */
-  }
-  ._2 {
-    width: 600px;
-    height: 869.53px;
-    position: absolute;
-    left: 720px;
-    top: 2860px;
-    background-color: #342a26;
-    overflow: visible;
-  }
+/* 메인 젤 밑 상품보러가기 */
+.best-menu-2 {
+  width: 1320px;
+  height: 348px;
+  position: relative;
+  /* top: -820px; */
+  left: 10px; /* 왼쪽으로 10px 이동 */
+  left: -300px;
+  top: -2050px;
+  /* background-color: red; */
+}
+._2 {
+  width: 600px;
+  height: 869.53px;
+  position: absolute;
+  left: 720px;
+  top: 2860px;
+  background-color: #342a26;
+  overflow: visible;
+}
 
-  ._3 {
-    width: 345px;
-    height: 345px;
-    position: absolute;
-    left: 823px;
-    top: 3992px;
-    /* background-color: #342a26; */
-    overflow: visible;
-    opacity: 50%;
-  }
-  
-  
-  .div2 {
-    width: 571.21px;
-    height: 430.02px;
-    position: absolute;
-    left: 305.05px;
-    top: 3983px;
-    overflow: visible;
-    background-color: #342a26;
-  
-  }
-  .abcdefgefghijk {
-    color: #535353;
-    text-align: left;
-    font-family: "Inter-Bold", sans-serif;
-    font-size: 43px;
-    font-weight: 700;
-    position: absolute;
-    left: 305px;
-    top: 4446.24px;
-    width: 453.58px;
-    height: 57.91px;
-  }
-  .div3 {
-    color: #535353;
-    text-align: left;
-    font-family: "Inter-Light", sans-serif;
-    font-size: 17px;
-    font-weight: 300;
-    position: absolute;
-    left: 305px;
-    top: 4520px;
-    width: 440px;
-    height: 46px;
-  }
-  .shop-more {
-    color: #535353;
-    text-align: left;
-    font-family: "Inter-Light", sans-serif;
-    font-size: 30px;
-    font-weight: 300;
-    position: absolute;
-    left: 305px;
-    top: 4614px;
-    width: 227px;
-    height: 49px;
-  }
-  .div4 {
-    width: 571.21px;
-    height: 430.02px;
-    position: absolute;
-    left: 305.05px;
-    top: 4717px;
-    overflow: visible;
-    background-color: #342a26;
-  }
-  .abcdefgefghijk2 {
-    color: #535353;
-    text-align: left;
-    font-family: "Inter-Bold", sans-serif;
-    font-size: 40px;
-    font-weight: 700;
-    position: absolute;
-    left: 305px;
-    top: 5180.24px;
-    width: 453.58px;
-    height: 57.91px;
-  }
-  .div5 {
-    color: #535353;
-    text-align: left;
-    font-family: "Inter-Light", sans-serif;
-    font-size: 17px;
-    font-weight: 300;
-    position: absolute;
-    left: 305px;
-    top: 5254px;
-    width: 440px;
-    height: 46px;
-  }
-  .shop-more2 {
-    color: #535353;
-    text-align: left;
-    font-family: "Inter-Light", sans-serif;
-    font-size: 30px;
-    font-weight: 300;
-    position: absolute;
-    left: 305px;
-    top: 5348px;
-    width: 227px;
-    height: 49px;
-  }
-  .div6 {
-    width: 571.21px;
-    height: 430.02px;
-    position: absolute;
-    left: 305.05px;
-    top: 5451px;
-    overflow: visible;
-    background-color: #342a26;
-  }
-  .abcdefgefghijk3 {
-    color: #535353;
-    text-align: left;
-    font-family: "Inter-Bold", sans-serif;
-    font-size: 43px;
-    font-weight: 700;
-    position: absolute;
-    left: 305px;
-    top: 5914.24px;
-    width: 453.58px;
-    height: 57.91px;
-  }
-  .div7 {
-    color: #535353;
-    text-align: left;
-    font-family: "Inter-Light", sans-serif;
-    font-size: 17px;
-    font-weight: 300;
-    position: absolute;
-    left: 305px;
-    top: 5988px;
-    width: 440px;
-    height: 46px;
-  }
-  .shop-more3 {
-    color: #535353;
-    text-align: left;
-    font-family: "Inter-Light", sans-serif;
-    font-size: 30px;
-    font-weight: 300;
-    position: absolute;
-    left: 305px;
-    top: 6082px;
-    width: 227px;
-    height: 49px;
-  }
+._3 {
+  width: 345px;
+  height: 345px;
+  position: absolute;
+  left: 823px;
+  top: 3992px;
+  /* background-color: #342a26; */
+  overflow: visible;
+  opacity: 50%;
+}
+
+.div2 {
+  width: 571.21px;
+  height: 430.02px;
+  position: absolute;
+  left: 305.05px;
+  top: 3983px;
+  overflow: visible;
+  background-color: #342a26;
+}
+.abcdefgefghijk {
+  color: #535353;
+  text-align: left;
+  font-family: "Inter-Bold", sans-serif;
+  font-size: 43px;
+  font-weight: 700;
+  position: absolute;
+  left: 305px;
+  top: 4446.24px;
+  width: 453.58px;
+  height: 57.91px;
+}
+.div3 {
+  color: #535353;
+  text-align: left;
+  font-family: "Inter-Light", sans-serif;
+  font-size: 17px;
+  font-weight: 300;
+  position: absolute;
+  left: 305px;
+  top: 4520px;
+  width: 440px;
+  height: 46px;
+}
+.shop-more {
+  color: #535353;
+  text-align: left;
+  font-family: "Inter-Light", sans-serif;
+  font-size: 30px;
+  font-weight: 300;
+  position: absolute;
+  left: 305px;
+  top: 4614px;
+  width: 227px;
+  height: 49px;
+}
+.div4 {
+  width: 571.21px;
+  height: 430.02px;
+  position: absolute;
+  left: 305.05px;
+  top: 4717px;
+  overflow: visible;
+  background-color: #342a26;
+}
+.abcdefgefghijk2 {
+  color: #535353;
+  text-align: left;
+  font-family: "Inter-Bold", sans-serif;
+  font-size: 40px;
+  font-weight: 700;
+  position: absolute;
+  left: 305px;
+  top: 5180.24px;
+  width: 453.58px;
+  height: 57.91px;
+}
+.div5 {
+  color: #535353;
+  text-align: left;
+  font-family: "Inter-Light", sans-serif;
+  font-size: 17px;
+  font-weight: 300;
+  position: absolute;
+  left: 305px;
+  top: 5254px;
+  width: 440px;
+  height: 46px;
+}
+.shop-more2 {
+  color: #535353;
+  text-align: left;
+  font-family: "Inter-Light", sans-serif;
+  font-size: 30px;
+  font-weight: 300;
+  position: absolute;
+  left: 305px;
+  top: 5348px;
+  width: 227px;
+  height: 49px;
+}
+.div6 {
+  width: 571.21px;
+  height: 430.02px;
+  position: absolute;
+  left: 305.05px;
+  top: 5451px;
+  overflow: visible;
+  background-color: #342a26;
+}
+.abcdefgefghijk3 {
+  color: #535353;
+  text-align: left;
+  font-family: "Inter-Bold", sans-serif;
+  font-size: 43px;
+  font-weight: 700;
+  position: absolute;
+  left: 305px;
+  top: 5914.24px;
+  width: 453.58px;
+  height: 57.91px;
+}
+.div7 {
+  color: #535353;
+  text-align: left;
+  font-family: "Inter-Light", sans-serif;
+  font-size: 17px;
+  font-weight: 300;
+  position: absolute;
+  left: 305px;
+  top: 5988px;
+  width: 440px;
+  height: 46px;
+}
+.shop-more3 {
+  color: #535353;
+  text-align: left;
+  font-family: "Inter-Light", sans-serif;
+  font-size: 30px;
+  font-weight: 300;
+  position: absolute;
+  left: 305px;
+  top: 6082px;
+  width: 227px;
+  height: 49px;
+}

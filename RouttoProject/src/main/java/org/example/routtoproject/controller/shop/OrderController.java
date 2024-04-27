@@ -40,11 +40,13 @@ public class OrderController {
 //        TODO: 주문 저장 함수
     @PostMapping("/order")
     public ResponseEntity<Object> create(@RequestBody OrderDto orderDto) {
+        log.debug("여기는 컨트롤러 1 ::: " + String.valueOf(orderDto));
         try {
             if (orderDto == null) {
                 return new ResponseEntity<>(HttpStatus.NO_CONTENT);
             } else {
                 Order order1 = orderService.saveOrder(orderDto);
+                log.debug("여기는 컨트롤러 2 ::: " + String.valueOf(orderDto));
                 return new ResponseEntity<>(order1, HttpStatus.OK);
             }
         } catch (Exception e) {

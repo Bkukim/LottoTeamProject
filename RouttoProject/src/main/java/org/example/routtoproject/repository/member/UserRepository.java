@@ -3,10 +3,12 @@ package org.example.routtoproject.repository.member;
 import lombok.extern.slf4j.Slf4j;
 import org.example.routtoproject.model.entity.auth.User;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Optional;
 
@@ -57,6 +59,8 @@ public interface UserRepository extends JpaRepository<User, String> {
     public User getForPw(@Param("role") String role, @Param("userId") String userId, @Param("pwQuestion") String pwQuestion, @Param("pwAnswer") String pwAnswer);
 
 
+    @Transactional
+    @Modifying // 업데이트문을 쿼리문으로 작성할때는 두개의 어노테이션을 추가해줘야한다.
     @Query(value = "UPDATE LOTTO_USER SET PASSWORD = :newPw WHERE USER_ID = :userId "
             ,nativeQuery = true)
     public void updatePw(@Param("newPw") String newPw, @Param("userId") String userId);

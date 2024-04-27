@@ -54,6 +54,7 @@ public class UserService {
 
     // todo 새로운 비밀번호 update함수
     public void updatePw(String newPw, String userId){
+
         userRepository.updatePw(newPw, userId);
     }
 }
