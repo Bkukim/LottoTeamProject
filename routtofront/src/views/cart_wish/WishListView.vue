@@ -64,7 +64,7 @@
     <!-- 아래 버튼 4개 -->
     <div class="row justify-content-end mt-5">
       <div class="col">
-        <button type="button" id="button2" class="btn btn-primary" @click="deleteSelectedItems">
+        <button type="button" id="button2" class="btn btn-primary" @click="deleteAllWish">
           선택상품 삭제하기
         </button>
       </div>
@@ -113,6 +113,7 @@ export default {
     // 전체선택
     // 전체선택함수
     selectAllItems() {
+      // TODO:  카트랑 다르게 적용되어있으니 뭐가 되는지 확인하고 변경할것
       // 전체 선택 체크박스가 선택되면 모든 상품의 selected 값을 true로 설정
       // 선택 해제되면 false로 설정
       // 반복문의 data랑 같다고 생각하기
@@ -159,8 +160,9 @@ export default {
       }
       // 임시객체
     },
-    // 장바구니 삭제 함수
-      // TODO: 장바구니 삭제 함수 : delete 버튼 태그
+    // 위시 삭제 함수
+      // TODO: 단일 위시 삭제 함수 
+      // : delete 버튼 태그, 기본키로 삭제
       async deleteWish(favoriteId) {
       try {
         // todo: 공통 장바구니 삭제 서비스 함수 실행
@@ -169,6 +171,24 @@ export default {
         console.log(response.data);
         // alert 대화상자
         alert("정상적으로 삭제되었습니다.");
+        this.wishCount=this.wishCount-1; // 단일이니까 -1
+        // 삭제후 재조회
+        this.retrieveWishList();
+      } catch (e) {
+        console.log(e);
+      }
+    },// 위시 전체 삭제 함수
+      // TODO: 단일 위시 삭제 함수 
+      // :  전체가 들어있는 객체 삭제 ==맞나?
+      async deleteAllWish(favorite) {
+      try {
+        // todo: 공통 장바구니 삭제 서비스 함수 실행
+        let response = await wishService.remove(favorite);
+        // 로깅
+        console.log(response.data);
+        // alert 대화상자
+        alert("정상적으로 삭제되었습니다.");
+        this.wishCount=0; // 전체니까 초기화
         // 삭제후 재조회
         this.retrieveWishList();
       } catch (e) {
