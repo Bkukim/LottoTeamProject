@@ -3,7 +3,7 @@ node_modules
 /dist
 
 # Ignore router index.js file
-src/router/index.js
+/src/router/index.js
 
 # local env files
 .env.local

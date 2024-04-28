@@ -29,13 +29,13 @@
               <br>
              (Lunch time 12:30~14:00)</p>
             </div>
-            <div class="div12">그린은행 / 주식회사 루또</div>
+            <!-- <div class="div12">주식회사 루또</div> -->
             <div class="div11">토, 일요일 및 공휴일 휴무</div>
 
-            <div class="bank-info">Bank Info</div>
+            <!-- <div class="bank-info">Bank Info</div> -->
 
           </div>
-          <div class="_1005-112-000000">1005-112-000000</div>
+          <!-- <div class="_1005-112-000000">1005-112-000000</div> -->
         </div>
       </div>
     </div>
