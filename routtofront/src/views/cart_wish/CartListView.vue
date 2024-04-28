@@ -26,7 +26,7 @@
         <!-- 반복문시작할 tr -->
         <tr v-for="(data, index) in cart" :key="index" class="mb-3">
           <!-- 체크박스 -->
-          <td class="check_td text-center"><input type="checkbox" /></td>
+          <td class="check_td text-center"><input type="checkbox"  /></td>
           <!-- 상품이미지 -->
           <td class="text-center">
             {{ data.prodImg }}
@@ -140,9 +140,9 @@
           type="button"
           id="button2"
           class="btn btn-primary"
-          @click="deleteCart"
+          @click="deleteAllCart"
         >
-          선택상품 삭제하기
+          전체상품 삭제하기
         </button>
       </div>
       <div class="col-auto mb-5">
@@ -150,9 +150,9 @@
           type="button"
           id="button2"
           class="btn btn-secondary"
-          @click="goOrder"
+          
         >
-          선택상품 주문하기
+          선택상품 주문하기/추가예정
         </button>
         <button
           type="button"
@@ -172,7 +172,7 @@ export default {
   // TODO: 데이터
   data() {
     return {
-      cart: [],
+      cart: [], //상품을 담는 객체
       cartCount: 0, //장바구니 갯수
 
       // 공통 페이징 속성 정의
@@ -195,9 +195,7 @@ export default {
       // 전체 선택 체크박스가 선택되면 모든 상품의 selected 값을 true로 설정
       // 선택 해제되면 false로 설정
       // 반복문의 data랑 같다고 생각하기
-      this.cart.forEach((data) => {
-        data.selected = this.selectAll;
-      });
+      this.selectAll = !this.selectAll;
     },
 
     // TODO: 장바구니 개수 증가 함수
@@ -248,7 +246,7 @@ export default {
         console.log(e);
       }
     },
-    // TODO: 장바구니 삭제 함수 : delete 버튼 태그
+    // TODO: 장바구니 삭제 함수 : delete 버튼 태그 ::단일상품
     async deleteCart(prodId) {
       try {
         // todo: 공통 장바구니 삭제 서비스 함수 실행
@@ -257,15 +255,51 @@ export default {
         console.log(response.data);
         // alert 대화상자
         alert("정상적으로 삭제되었습니다.");
+        this.cartCount=this.cartCount-1; // 단일 삭제니까 -1
+        // 삭제후 재조회
+        this.retrieveCart();
+      } catch (e) {
+        console.log(e);
+      }
+    },// TODO: 장바구니 전체 삭제 함수 : delete 버튼 태그 ::전체상품
+    async deleteAllCart(cartId) {
+      try {
+        // todo: 공통 장바구니 삭제 서비스 함수 실행
+        let response = await CartService.remove(cartId);
+        // 로깅
+        console.log(response.data);
+        // alert 대화상자
+        alert("정상적으로 삭제되었습니다.");
+        this.cartCount=0; //카트카운트 초기화 해주기
         // 삭제후 재조회
         this.retrieveCart();
       } catch (e) {
         console.log(e);
       }
     },
-    // TODO: 주문페이지 이동 함수
-    goOrder() {
-      this.$router.push("/order");
+    // TODO: 주문페이지 이동 함수 ::전체객체 이동(?)
+    async goOrder() {
+      // 장바구니에 객체가 있는지 확인
+      if (this.cart.length === 0) {
+        this.message = "장바구니에 상품이 없습니다.";
+        return;
+      }
+      // 주문하기로 객체data 전송
+      try {
+        let data = {
+          prodId: this.cart.prodId, //상품번호
+          wishCount: this.cartCount, //상품갯수
+        };
+        // todo: 공통 저장 서비스 함수
+        // todo: async ~await
+        let response = await CartService.create(data);
+        // login
+        console.log(response.data);
+        // 성공메세지 출력
+        this.message = "장바구니에 담겼습니다";
+      } catch (e) {
+        console.log(e);
+      }
     },
     // TODO: 공통 페이징 함수 : select 태그
     pageSizeChange() {
