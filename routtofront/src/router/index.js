@@ -168,6 +168,12 @@ const routes = [
     path: "/notice-check",
     component: () => import("../views/notice/NoticeCheck.vue"),
   },
+  // SearchProduchView
+  {
+    path: "/member/searchproduct",
+    component: () => import("../views/search/SearchProduchView.vue"),
+
+  },
 
   
   
