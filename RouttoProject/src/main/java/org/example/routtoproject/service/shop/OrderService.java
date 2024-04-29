@@ -44,11 +44,12 @@ public class OrderService {
 //              (2) 자동 변환 패키지 : 초보자 추천 (ModelMapper 패키지 : 성능 저하)
 //      simpleOrderRepository.save();  // save 함수의 매개변수에는 entity 를 넣어야하는데 Dto를 쓸수없으니 entity로 변환해야함
         log.debug( "여기는 service 1 ::: ");
+
 //        TODO: 1) DTO -> Entity로 변환
 //         사용법 : modelMapper.map(DTO 클래스, 엔티티명.class);
-
         Order order = modelMapper.map(orderDto, Order.class);
         log.debug( "여기는 service 2 ::: " + order.getOrderAddress());
+
 //        TODO: 2) 부모테이블 저장(부모저장 후 자식저장)
         Order order2 =orderRepository.save(order);
         log.debug( "여기는 service 3 ::: " + order2);
