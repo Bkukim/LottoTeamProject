@@ -18,7 +18,7 @@
               />
 
               <router-link to="/">
-                <img class="search" src="../../src/assets/images/search.png" />
+                <img class="search" src="@/assets/images/search.png" />
               </router-link>
             </div>
           </div>
