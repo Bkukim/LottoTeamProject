@@ -249,7 +249,7 @@ export default {
       }
     },
     // TODO: 장바구니 삭제 함수 : delete 버튼 태그
-    async deleteCart(prodId) {
+    async deleteCart(cartId) {
       try {
         // todo: 공통 장바구니 삭제 서비스 함수 실행
         let response = await CartService.remove(prodId);
