@@ -58,6 +58,11 @@ export default createStore({
     setSelectedOption(state, option) {
       state.selectedOption = option;
     },
+
+    // 계좌번호 상태 업데이트
+    setAccountNumber(state, accountNumber) {
+      state.accountNumber = accountNumber;
+    },
   },
 
   // 비동기 함수들을 정의하는 곳
@@ -65,6 +70,10 @@ export default createStore({
     // 라디오 버튼 선택 옵션 업데이트 액션
     updateSelectedOption({ commit }, option) {
       commit("setSelectedOption", option);
+    },
+    // 계좌번호 업데이트
+    updateAccountNumber({ commit }, accountNumber) {
+      commit("setAccountNumber", accountNumber);
     },
   },
 

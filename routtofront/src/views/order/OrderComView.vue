@@ -32,7 +32,7 @@
               justify-content: space-between;
             "
           >
-          <div class="row amount">
+            <div class="row amount">
               <label class="col-md-3 col-form-label">주문번호 :</label>
               <label
                 class="col-md-9 col-form-label"
@@ -46,6 +46,7 @@
               <label
                 class="col-md-9 col-form-label"
                 style="text-align: right; color: blue; font-weight: bold"
+                id="amount"
               >
                 {{ odid.orderPrice }} 원
               </label>
@@ -92,7 +93,12 @@
             <div class="mb-3 row" v-if="odid.paymentType === '간편 결제'">
               <label class="col-md-3 col-form-label">간편결제</label>
               <label class="col-md-9 col-form-label">{{ odid.payPg }}</label>
-            </div>            
+            </div>
+          </div>
+
+          <div class="mb-1 row" v-if="odid.paymentType === '가상계좌'">
+            <label class="col-md-2 col-form-label">입금 계좌번호</label>
+            <label class="col-md-10 col-form-label">{{ accountNumber }}</label>
           </div>
           <!-- 결제수단 박스 끝 -->
 
@@ -182,12 +188,15 @@
               <b>주문 상품</b>
             </div>
             <!-- 주문 상품 사진 및 상품 정보 -->
-            <div v-for="(product, index) in products" :key="index" 
-            style="display: flex; align-items: center">
+            <div
+              v-for="(product, index) in products"
+              :key="index"
+              style="display: flex; align-items: center"
+            >
               <div class="col-md-2 col-form-label" style="min-width: 100px">
                 <img
-                :src="product.imageUrl"
-                 alt="상품 이미지"
+                  :src="product.imageUrl"
+                  alt="상품 이미지"
                   style="max-width: 100%"
                 />
               </div>
@@ -195,16 +204,19 @@
                 class="col-md-10 col-form-label"
                 style="border-bottom: 1px solid rgba(0, 0, 0, 0.1)"
               >
-              상품 정보
-          <br />
-          <label>상품명 : {{ product.name }}</label>
-          <br />
-          <label>수량 : {{ product.quantity }}</label>
-          <br />
-          <label>금액 : {{ product.price }}</label>
-          <br />
-          <label>할인 금액 : {{ product.discount }}</label>
+                상품 정보
+                <br />
+                <label>상품명 : {{ product.name }}</label>
+                <br />
+                <label>수량 : {{ product.quantity }}</label>
+                <br />
+                <label>금액 : {{ product.price }}</label>
+                <br />
+                <label>할인 금액 : {{ product.discount }}</label>
               </div>
+            </div>
+            <div>
+              {{ jsonData }}
             </div>
           </div>
           <!-- 주문 상품 정보 박스 끝 -->
@@ -264,17 +276,21 @@
             <div class="d-flex justify-content-between align-items-center">
               <!-- 주문확인하기 버튼 -->
               <div class="col-6 d-grid p-1">
-                <button type="button" class="btn btn-lg btn-outline-dark" @click="goToMyPage">
+                <button
+                  type="button"
+                  class="btn btn-lg btn-outline-dark"
+                  @click="goToMyPage"
+                >
                   주문 확인하기
                 </button>
               </div>
               <!-- 쇼핑 계속하기 버튼 -->
               <div class="col-6 d-grid p-1">
-      <button
-        type="button"
-        class="btn btn-lg keepShopBtn btn-outline-dark"
-        @click="goToHome"
-      >
+                <button
+                  type="button"
+                  class="btn btn-lg keepShopBtn btn-outline-dark"
+                  @click="goToHome"
+                >
                   쇼핑 계속하기
                 </button>
               </div>
@@ -288,9 +304,56 @@
 </template>
 
 <script>
-import axios from 'axios';
+import axios from "axios";
+import { mapState } from "vuex";
+import CheckoutView from '../payment/CheckoutView.vue';
+
+  import { ref, onMounted } from "vue";
+  import { useRoute, useRouter } from "vue-router";
+  import { confirmPayment } from '@/services/payment/confirmPayment';
 
 export default {
+      setup() {
+      const route = useRoute();
+      const router = useRouter();
+      const confirmed = ref(false);
+      const jsonData = ref(null);
+  
+      onMounted(async () => {
+        const requestData = {
+          orderId: route.query.orderId,
+          amount: route.query.amount,
+          paymentKey: route.query.paymentKey,
+        };
+  
+        async function confirm() {
+          try {
+            const { response, json } = await confirmPayment(requestData);
+            console.log(json);
+            if (!response.ok) {
+              router.push(`/fail?message=${json.message}&code=${json.code}`);
+            } else {
+              confirmed.value = true;
+              jsonData.value = json;
+            }
+          } catch (error) {
+            console.log(error);
+          }
+        }
+  
+        confirm();
+      });
+  
+      return {
+        confirmed,
+        jsonData,
+      };
+    },
+  computed: {
+    // Vuex 스토어의 상태를 매핑합니다.
+    ...mapState(['accountNumber']),
+    CheckoutView,
+  },
   data() {
     return {
       odid: {
@@ -315,6 +378,8 @@ export default {
       ordercompleteimg: require("@/assets/images/ordercomplete_icon.png"),
 
       products: [], // 주문 상품 정보 배열
+
+      paymentInfo: null,
     };
   },
   methods: {
@@ -332,6 +397,7 @@ export default {
       };
 
       // 조회된 데이터를 odid 객체에 저장
+      this.odid = retrievedOdid;
       this.odid.orderId = retrievedOdid.orderId;
       this.odid.orderPrice = retrievedOdid.orderPrice;
       this.odid.paymentType = retrievedOdid.paymentType;
@@ -356,28 +422,37 @@ export default {
     },
 
     fetchProducts() {
-      axios.get('http://localhost:8080/api/products') // 여기 URL은 실제 백엔드 API 주소로 대체해야 합니다.
-        .then(response => {
+      axios
+        .get("http://localhost:8080/api/products") // 여기 URL은 실제 백엔드 API 주소로 대체해야 합니다.
+        .then((response) => {
           this.products = response.data;
         })
-        .catch(e => {
+        .catch((e) => {
           console.error("상품 데이터를 가져오는데 실패했습니다.", e);
         });
     },
 
+        handlePaymentSuccess(info) {
+      this.paymentInfo = info;
+    },
+
     // 주문 확인하기 버튼 클릭시 실행될 함수
     goToMyPage() {
-      this.$router.push('/member/mypage');
+      this.$router.push("/member/mypage");
     },
     // 쇼핑 계속하기 버튼 클릭시 실행될 함수
     goToHome() {
-      this.$router.push('/');
+      this.$router.push("/");
     },
   },
   created() {
     this.retrieveOrder(); // 컴포넌트 생성 시 주문 정보 조회
     this.retrievedAddr();
     this.fetchProducts(); // 주문 상품 정보 조회
+    
+    // const orderId = this.$route.query.orderId;
+    // const paymentMethod = this.$route.query.paymentMethod;
+    // const bankAccountNumber = this.$route.query.bankAccountNumber;
   },
 };
 </script>

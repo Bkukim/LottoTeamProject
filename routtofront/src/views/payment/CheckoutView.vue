@@ -32,25 +32,46 @@ export default {
       amount: 50000,
       inputEnabled: false,
       isModalVisible: true,
+
+      // 무통장 입금 선택시 생성된 계좌번호 저장할 
+      bankAccountNumber: '', // 계좌번호를 저장할 새로운 데이터 속성 추가
+      isBankTransfer: false, // 무통장 입금 여부를 저장할 새로운 데이터 속성 추가
     };
   },
   methods: {
-    async requestPayment() {
-      try {
-        const orderId = nanoid();
-        await this.paymentWidget.requestPayment({
-          orderId,
-          orderName: "토스 티셔츠 외 2건",
-          customerName: "김토스",
-          customerEmail: "customer123@gmail.com",
-          customerMobilePhone: "01012341234",
-          successUrl: `${window.location.origin}/order/success`,
-          failUrl: `${window.location.origin}/order/fail`,
-        });
-      } catch (error) {
-        console.error(error);
-      }
-    },
+async requestPayment() {
+  try {
+    const orderId = nanoid();
+    const response = await this.paymentWidget.requestPayment({
+      orderId,
+      orderName: "토스 티셔츠 외 2건",
+      customerName: "김토스",
+      customerEmail: "asdasd@a.com",
+      customerMobilePhone: "01011111111",
+      successUrl: `${window.location.origin}/order/completed`,
+      failUrl: `${window.location.origin}/order/fail`,
+    });
+
+    // 결제 성공 후 응답에서 무통장 입금 계좌번호 추출
+    if (response.paymentMethod === '가상계좌') {
+      this.bankAccountNumber = response.bankAccountNumber; // 계좌번호 저장
+      this.isBankTransfer = true; // 무통장 입금 선택됨을 표시
+    }
+
+    // 결제 성공 후 OrderComView.vue로 리디렉션하고 필요한 데이터를 query로 전달
+    this.$router.push({
+      name: 'OrderComView', // Vue Router에 정의된 경로의 이름
+      query: {
+        orderId: orderId,
+        paymentMethod: response.paymentMethod,
+        bankAccountNumber: response.paymentMethod === '가상계좌' ? response.bankAccountNumber : null,
+      },
+    });
+
+  } catch (error) {
+    console.error(error);
+  }
+},
     closeModal() {
       this.isModalVisible = false;
     },
@@ -90,22 +111,22 @@ export default {
 }
 
 .modal-content {
-  background-color: #fff; /* 배경색 추가 */
-  padding: 20px; /* 적절한 패딩 추가 */
-  border-radius: 5px; /* 모서리 둥글게 */
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* 그림자 추가 */
-  width: 30%; /* 너비를 자동으로 조정 */
-  max-width: 100%; /* 최대 너비를 화면의 90%로 조정 */
-  height: auto; /* 높이를 자동으로 조정 */
-  max-height: 100vh; /* 최대 높이를 뷰포트의 90%로 조정 */
-  overflow-y: auto; /* 내부 콘텐츠가 넘칠 경우 스크롤바 생성 */
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 5px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  width: 30%;
+  max-width: 100%;
+  height: auto;
+  max-height: 100vh;
+  overflow-y: auto;
 }
 
 .button {
   display: block;
   width: 100%;
   padding: 10px;
-  margin: 5px 0; /* 버튼 간 위아래 간격 조정 */
+  margin: 5px 0;
   border: none;
   border-radius: 5px;
   cursor: pointer;

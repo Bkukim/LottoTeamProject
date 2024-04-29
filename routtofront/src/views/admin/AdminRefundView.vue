@@ -16,7 +16,7 @@
       <input
         type="text"
         placeholder="상세조회 내용"
-        style="height: 35px; margin-right: 10px"
+        class="input-box"
       />
       <button type="button" class="btn RBtn">주문조회</button>
     </label>
@@ -366,81 +366,85 @@ export default {
 </script>
 
 <style scoped>
-/* 기본 스타일 */
 .RWD {
   display: flex;
-  flex-wrap: wrap; /* 아이템들이 넘칠 경우 다음 줄로 이동 */
-  justify-content: space-around; /* 아이템들 사이에 공간을 균등하게 배분 */
-  transition: width 0.3s ease; /* 부드러운 전환 효과 적용 */
+  flex-wrap: wrap; 
+  justify-content: space-around;
+  transition: width 0.3s ease;
   box-sizing: border-box;
 }
+.input-box {
+  height: 35px; 
+  margin-right: 10px;
+  border: 1px solid #ccc; 
+  padding: 0 10px; 
+  color: black; 
+}
+.input-box:focus {
+  outline: none;
+  border-color: #342a26; 
+}
 
-/* 모바일 디바이스 */
 @media (max-width: 600px) {
   .RWD {
-    width: 90%; /* 90% 너비 */
+    width: 90%;
   }
   .sch > div {
-    width: 100%; /* 모바일 환경에서는 각 div가 전체 너비를 차지하도록 설정 */
-    margin-bottom: 10px; /* 아이템들 사이에 수직 간격 추가 */
+    width: 100%; 
+    margin-bottom: 10px;
   }
 }
 
-/* 태블릿 디바이스 */
 @media (min-width: 601px) and (max-width: 1024px) {
   .RWD {
-    width: 80%; /* 80% 너비 */
+    width: 80%;
   }
   .sch > div {
-    width: 48%; /* 태블릿 환경에서는 각 div가 대략 반 너비를 차지하도록 설정 */
+    width: 48%;
   }
 }
 
-/* 데스크탑 디바이스 */
 @media (min-width: 1025px) {
   .RWD {
-    width: 100%; /* 70% 너비 */
+    width: 100%;
   }
   .sch > div {
-    width: auto; /* 데스크탑 환경에서는 원래대로 돌아감 */
+    width: auto;
   }
 }
 
 @media (max-width: 768px) {
   .sch > div {
-    margin-left: 0; /* 모바일 화면에서는 왼쪽 여백을 제거 */
-    padding-right: 0; /* 모바일 화면에서는 오른쪽 패딩을 제거 */
-    margin-bottom: 20px; /* 요소들 사이의 세로 간격 */
+    margin-left: 0;
+    padding-right: 0;
+    margin-bottom: 20px;
   }
   .dur, .cal{
     flex-direction: column;
     align-items: flex-start;
   }
-    /* 버튼과 달력 컨테이너 간격 조정 */
-    .period-btn, .datepicker-container {
+  .period-btn, .datepicker-container {
     margin-bottom: 10px;
   }
 
   .period-btn, .datepicker-container {
-    width: auto; /* 버튼과 날짜 선택기의 너비를 자동으로 조절 */
-    margin-bottom: 10px; /* 요소 사이의 간격 조정 */
+    width: auto;
+    margin-bottom: 10px;
   }
   
   .datepicker-container {
-    max-width: 100%; /* 화면이 작을 때는 최대 너비를 100%로 설정 */
+    max-width: 100%; 
   }
   
-  /* 날짜 선택기와 관련된 추가 조정이 필요한 경우 */
   .datepicker-container .vuejs-datepicker {
-    width: 100%; /* Vue.js 날짜 선택기의 너비를 조정 */
+    width: 100%; 
   }
 }
 
-/* 날짜 선택기 컨테이너 기본 스타일 */
 .datepicker-container {
-  width: 100%; /* 부모 요소의 너비에 맞춰 조정 */
-  max-width: 400px; /* 최대 너비 설정 */
-  margin: 0 auto; /* 중앙 정렬 */
+  width: 100%;
+  max-width: 400px;
+  margin: 0 auto;
 }
 
 .RBtn {
@@ -458,7 +462,7 @@ export default {
   align-items: center;
 }
 .label {
-  margin-right: 20px; /* 라벨 간 간격 */
+  margin-right: 20px;
   flex-grow: 1;
   text-align: center;
 }
@@ -471,7 +475,6 @@ export default {
 
 .sch {
   margin-top: 10px;
-  /* margin-left: 100px; */
   display: flex;
   justify-content: space-between;
   width: 100%;
@@ -480,8 +483,8 @@ export default {
 }
 
 .sch > div {
-  margin-left: 100px; /* 첫 번째 div에 대한 스타일 */
-  padding-right: 100px; /* 두 번째 div에 대한 스타일 */
+  margin-left: 100px;
+  padding-right: 100px; 
 }
 
 .slbox {
@@ -519,16 +522,15 @@ export default {
 }
 
 .period-btn:hover {
-  background-color: #f0f0f0; /* 마우스 오버시 배경색 */
-  transform: translateY(-2px); /* 마우스 오버시 약간 위로 */
+  background-color: #f0f0f0;
+  transform: translateY(-2px); 
 }
 
 .datepicker-container button {
-  width: 100px; /* 버튼의 너비 */
-  height: 30px; /* 버튼의 높이 */
+  width: 100px; 
+  height: 30px; 
 }
 
-/* 버튼 기본 스타일 */
 .button-style {
   background-color: #5D4037;
   color: white;
@@ -536,21 +538,19 @@ export default {
   font-size: 14px;
   border: none;
   border-radius: 5px;
-  cursor: pointer; /* 마우스 오버 시 커서 변경 */
-  transition: background-color 0.3s; /* 배경색 변경 애니메이션 */
+  cursor: pointer;
+  transition: background-color 0.3s;
 }
 
-/* 버튼 호버 스타일 */
 .button-style:hover {
-  background-color: #4E342E; /* 호버 시 더 짙은 브라운으로 변경 */
+  background-color: #4E342E;
 }
 
-/* 세로 구분선 스타일 */
 .divider-style {
   display: flex;
   flex-direction: column;
   align-items: center;
-  border-right: 1px solid #8D6E63; /* 짙은 브라운 계열의 경계선 */
+  border-right: 1px solid #8D6E63;
   padding-right: 10px;
 }
 </style>
