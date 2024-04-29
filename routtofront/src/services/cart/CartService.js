@@ -13,9 +13,9 @@ class CartService {
   create(data) {
     return http.post("/shop/wishList", data);
   }
-  // todo: 장바구니 삭제함수 : 카트번호 cartId -> 삭제시 기본키로 삭제해야함
-  remove(cartId){ //simple cart number
-    return http.delete(`/shop/wishList/deletion/${cartId}`);
+  // todo: 장바구니 삭제함수 : 상품 번호(prodId)
+  remove(prodId){ //simple cart number
+    return http.delete(`/shop/wishList/deletion/${prodId}`);
   }
   // todo: 주문하기 함수
   
