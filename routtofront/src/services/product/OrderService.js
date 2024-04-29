@@ -10,6 +10,7 @@ class OrderService{
     get(prodId){
         return http.get(`/shop/order/${prodId}`);
     }
+    // TODO: 주문 저장 함수
     saveOrder(data){
         return http.post("/shop/order",data);
     }

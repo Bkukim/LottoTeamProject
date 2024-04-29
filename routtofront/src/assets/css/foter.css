@@ -2,7 +2,7 @@
   background: #342a26;
   padding: 2.6042vw; /* 화면 너비에 따른 padding 값 조정 */
   width: 100vw; /* 화면 너비에 따른 너비 값 조정 */
-  height: 19.5313vw; /* 화면 너비에 따른 높이 값 조정 */
+  height: 10.5313vw; /* 화면 너비에 따른 높이 값 조정 */
   position: absolute;
   left: 0;
   /* top: 309px; */
@@ -11,6 +11,7 @@
   /* position: fixed;
   bottom: 0;
   left: 0; */
+  margin-top: 150px;
   
 }
 
@@ -23,6 +24,8 @@
   top: 50%;
   transform: translate(-50%, -50%); /* 중앙 정렬 */
   overflow: hidden;
+  font-family: "NotoSans-DisplayBold", sans-serif;
+
 }
 
 
@@ -57,7 +60,7 @@
   font-weight: 400;
   position: absolute;
   left: -0.5729vw; /* 화면 너비에 따른 위치 조정 */
-  top: 5.9896vw; /* 화면 너비에 따른 위치 조정 */
+  top: 10.9896vw; /* 화면 너비에 따른 위치 조정 */
   width: 10.2969vw; /* 화면 너비에 따른 너비 조정 */
   height: 1.4063vw; /* 화면 너비에 따른 높이 조정 */
   display: flex;
@@ -90,7 +93,7 @@
   font-weight: 400;
   position: absolute;
   left: -0.5729vw; /* 화면 너비에 따른 위치 조정 */
-  top: 3.4322999999999997vw; /* 화면 너비에 따른 위치 조정 */
+  top: 8.4323vw; /* 화면 너비에 따른 위치 조정 */
   width: 3.6458vw; /* 화면 너비에 따른 너비 조정 */
   height: 1.4063vw; /* 화면 너비에 따른 높이 조정 */
   display: flex;
@@ -119,7 +122,7 @@
   font-weight: 500;
   position: absolute;
   left: 57.8125vw; /* 화면 너비에 따른 위치 조정 */
-  top: 1.7604vw; /* 화면 너비에 따른 위치 조정 */
+  top: 6vw; /* 화면 너비에 따른 위치 조정 */
   width: 15.625vw; /* 화면 너비에 따른 너비 조정 */
   height: 2.3438vw; /* 화면 너비에 따른 높이 조정 */
   display: flex;
@@ -136,7 +139,7 @@
   font-weight: 400;
   position: absolute;
   left: 57.8125vw; /* 화면 너비에 따른 위치 조정 */
-  top: 5.3958vw; /* 화면 너비에 따른 위치 조정 */
+  top: 9.3vw; /* 화면 너비에 따른 위치 조정 */
   width: 11.4167vw; /* 화면 너비에 따른 너비 조정 */
   height: 2.8125vw; /* 화면 너비에 따른 높이 조정 */
   display: flex;
@@ -153,7 +156,7 @@
   font-weight: 400;
   position: absolute;
   left: 57.8125vw; /* 화면 너비에 따른 위치 조정 */
-  top: 7.8906vw; /* 화면 너비에 따른 위치 조정 */
+  top: 12vw; /* 화면 너비에 따른 위치 조정 */
   width: 8.2031vw; /* 화면 너비에 따른 너비 조정 */
   height: 1.4063vw; /* 화면 너비에 따른 높이 조정 */
   display: flex;
@@ -214,10 +217,10 @@
 
 
 .routto-3-4 {
-  width: 30.0208vw; /* 화면 너비에 따른 너비 조정 */
-  height: 17.0208vw; /* 화면 너비에 따른 높이 조정 */
+  width: 18vw; /* 화면 너비에 따른 너비 조정 */
+  height: 14.020800000000001vw; /* 화면 너비에 따른 높이 조정 */
   position: absolute;
-  left: 3.5938vw; /* 화면 너비에 따른 위치 조정 */
-  top: 4.3542vw; /* 화면 너비에 따른 위치 조정 */
+  left: 18.3542vw; /* 화면 너비에 따른 위치 조정 */
+  top: 3.3541999999999987vw; /* 화면 너비에 따른 위치 조정 */
   object-fit: cover;
 }

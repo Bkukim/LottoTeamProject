@@ -11,8 +11,11 @@ export default createStore({
   state: {
     loggedIn: user ? true : false, // 로그인 여부
     user: user ? user : null, //  로그인 정보 (웹토큰 속성 있음)
-    selectedOption: "", // 라디오 버튼에서 선택된 옵션
-    userId: "", // userId
+
+
+    selectedOption: '', // 라디오 버튼에서 선택된 옵션
+  
+    userId: "qick12", // userId
   },
 
   // 공유 속성의 값을 조회하는 함수
