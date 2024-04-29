@@ -27,8 +27,6 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 public class OrderDto {
-//  클라이언트(웹 브라우저)에서 사용자에게 전달 필요한 정보들
-//  클라이언트 : 서버와 상호작용하고 서비스 이용, 사용자의 요청을 받아 서버에 전달하고, 서버로부터 받은 응답을 사용자에게 보여준다.
 
     private Integer orderId;
     private String userId;

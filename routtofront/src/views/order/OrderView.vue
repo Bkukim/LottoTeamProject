@@ -255,20 +255,20 @@
           <td>
             <p style="margin-top: 35px">{{ product.prodName }}</p>
           </td>
-          <!-- 2) 판매가 -->
+          <!-- 2) 상품가격 -->
           <td>
             <p style="margin-top: 35px">
-             {{ this.product.defaultPrice * (1 - this.product.discountRate / 100)}}원
+             {{ this.product.defaultPrice * (1 - this.product.discountRate / 100)}} 원
             </p>
           </td>
           <!-- 3) 수량 -->
           <td style="text-align: left">
-            <p style="margin-top: 35px">{{ orderAmount }}개</p>
+            <p style="margin-top: 35px">{{ orderAmount }} 개</p>
           </td>
-          <!-- 4) 구매가 -->
+          <!-- 4) 총 상품가격 -->
           <td style="text-align: left">
             <p style="margin-top: 35px">
-             {{ this.product.defaultPrice * (1 - this.product.discountRate / 100)*orderAmount}}원
+             {{ this.product.defaultPrice * (1 - this.product.discountRate / 100)*orderAmount}} 원
             </p>
           </td>
         </tr>
@@ -444,25 +444,24 @@
               <div class="paymentTr">
                 <div class="payTitle">총 상품 금액</div>
                 <div class="price">
-                  
+                  {{ this.product.defaultPrice * (1 - this.product.discountRate / 100)}} 원
                 </div>
               </div>
               <!-- 쿠폰 할인 금액 -->
               <div class="paymentTr">
                 <div class="payTitle">쿠폰 할인 금액</div>
-                <div class="price">00 원</div>
+                <div class="price"> coupon 원</div>
               </div>
               <!-- 총 배송비 -->
               <div class="paymentTr">
                 <div class="payTitle">총 배송비</div>
-                <div class="price">원</div>
+                <div class="price">{{shoppingFee}} 원</div>
               </div>
               <!-- 최종 결제 금액 -->
               <div class="paymentTr">
                 <div class="payTitle">최종 결제 금액</div>
                 <div class="price">
-                  
-                  원
+                  {{ this.product.defaultPrice * (1 - this.product.discountRate / 100)*orderAmount}} 원
                 </div>
               </div>
             </div>
@@ -592,6 +591,7 @@ export default {
         // 분 : now.getMinutes()
         // 초 : noww.getSeconds()
         let formatNow = `${now.getFullYear()}-${now.getMonth()}-${now.getDate()} ${now.getHours()}:${now.getMinutes()}:${now.getSeconds()}`;
+      
       // 주문 상품 객체 : 선택한 상품의 id, 주문 수량을 orderProduct 객체에 저장
       let orderProd = {
         prodId: this.product.prodId,
