@@ -11,7 +11,8 @@ class NoticeListService {
     // 예) axios_기본주소 + 추가 url
     // => http://localhost:8000/api + /basic/dept?dname=SALES&page=0&size=3
     // => http://localhost:8000/api/basic/dept?dname=SALES&page=0&size=3
-    return http.get(`/shop/notice/${title}/${title}?page=${page}&size=${size}`);
+    // 여기는 컨트롤러주소
+    return http.get(`/normal/member/notice?title=${title}&page=${page}&size=${size}`);
   }
   // // TODO: 추가(insert) 함수 -> post 방식 -> @PostMapping
   // create(data) {
@@ -24,7 +25,7 @@ class NoticeListService {
     formData.append("content", notice.content); //문자열
     formData.append("noticeImg", noticeImg); //이미지
 
-    return http.post("/notice/uploadImg", formData, {
+    return http.post("/normal/member/notice/uploadImg", formData, {
       headers: {
         "Content-Type": "multipart/form-data",
       },
@@ -35,7 +36,7 @@ class NoticeListService {
   // TODO: 조회(select) -> get 방식 -> @GetMapping
   getNoticeId(announcementId) {
     // TODO: 사용법 : http.get(`/컨트롤러함수url/${부서번호}`)
-    return http.get(`/shop/notice/${announcementId}`);
+    return http.get(`/normal/member/notice/${announcementId}`);
   }
 
   // TODO: 수정함수 : announcementId, 수정할객체(data)
