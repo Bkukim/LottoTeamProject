@@ -53,10 +53,10 @@ const routes = [
     component: () => import("../views/auth/JoinView.vue"),
   },
   // 회원가입 환영 페이지
-  // {
-  //   path: "/member/join/welcome",
-  //   component: () => import("../views/auth/WelcomeView.vue"),
-  // },
+  {
+    path: "/member/join/welcome",
+    component: () => import("../views/auth/WelcomeView.vue"),
+  },
   // 아이디 찾기 페이지
   {
     path: "/member/find-id",
@@ -158,21 +158,25 @@ const routes = [
     //   path:"/ordercheck",
     //   component: () => import("../views/OrderCheckView.vue"),
     // },
-    // // 비밀번호 재설정 페이지
-    // {
-    //   path: "/member/new-pw",
-    //   component: () => import('../views/auth/NewPwdView.vue')
-    // },
+    // 비밀번호 재설정 페이지
+    {
+      path: "/member/new-pw",
+      component: () => import('../views/auth/NewPwdView.vue')
+    },
       // 공지사항 작성글 상세조회 shop/notice-check
   {
     path: "/notice-check",
     component: () => import("../views/notice/NoticeCheck.vue"),
+
+
 
   }, 
   // SearchProduchView
   {
     path: "/member/searchproduct",
     component: () => import("../views/search/SearchProduchView.vue"),
+
+
 
   },
 
