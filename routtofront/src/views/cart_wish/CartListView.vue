@@ -247,9 +247,8 @@ export default {
       }
     },
 
-    // TODO: 장바구니 삭제 함수 : delete 버튼 태그 ::단일상품
+    // TODO: 장바구니 삭제 함수 : delete 버튼 태그
     async deleteCart(cartId) {
-
       try {
         // todo: 공통 장바구니 삭제 서비스 함수 실행
         let response = await CartService.remove(cartId);
@@ -259,6 +258,23 @@ export default {
         alert("정상적으로 삭제되었습니다.");
 
         this.cartCount=this.cartCount-1; // 단일 삭제니까 -1
+        // 삭제후 재조회
+        this.retrieveCart();
+      } catch (e) {
+        console.log(e);
+      }
+    },
+    // TODO: 장바구니 전체 삭제 함수 : delete 버튼 태그 ::전체상품
+    async deleteAllCart(cart) {
+      try {
+        // todo: 공통 장바구니 삭제 서비스 함수 실행
+        let response = await CartService.remove(cart);
+        // 로깅
+        console.log(response.data);
+        // alert 대화상자
+        alert("정상적으로 삭제되었습니다.");
+        this.cartCount=0; //카트카운트 초기화 해주기
+
         // 삭제후 재조회
         this.retrieveCart();
       } catch (e) {
