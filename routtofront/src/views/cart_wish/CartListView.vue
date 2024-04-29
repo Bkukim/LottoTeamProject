@@ -140,7 +140,7 @@
           type="button"
           id="button2"
           class="btn btn-primary"
-          @click="deleteCart"
+          @click="deleteAllCart"
         >
           선택상품 삭제하기
         </button>
@@ -195,9 +195,7 @@ export default {
       // 전체 선택 체크박스가 선택되면 모든 상품의 selected 값을 true로 설정
       // 선택 해제되면 false로 설정
       // 반복문의 data랑 같다고 생각하기
-      this.cart.forEach((data) => {
-        data.selected = this.selectAll;
-      });
+      this.selectAll = !this.selectAll;
     },
 
     // TODO: 장바구니 개수 증가 함수
@@ -248,6 +246,7 @@ export default {
         console.log(e);
       }
     },
+
     // TODO: 장바구니 삭제 함수 : delete 버튼 태그
     async deleteCart(cartId) {
       try {
@@ -257,6 +256,25 @@ export default {
         console.log(response.data);
         // alert 대화상자
         alert("정상적으로 삭제되었습니다.");
+
+        this.cartCount=this.cartCount-1; // 단일 삭제니까 -1
+        // 삭제후 재조회
+        this.retrieveCart();
+      } catch (e) {
+        console.log(e);
+      }
+    },
+    // TODO: 장바구니 전체 삭제 함수 : delete 버튼 태그 ::전체상품
+    async deleteAllCart(cart) {
+      try {
+        // todo: 공통 장바구니 삭제 서비스 함수 실행
+        let response = await CartService.remove(cart);
+        // 로깅
+        console.log(response.data);
+        // alert 대화상자
+        alert("정상적으로 삭제되었습니다.");
+        this.cartCount=0; //카트카운트 초기화 해주기
+
         // 삭제후 재조회
         this.retrieveCart();
       } catch (e) {

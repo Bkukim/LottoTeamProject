@@ -7,39 +7,39 @@ const routes = [
   },
   // 공지사항 shop/notice
   {
-    path: "/notice",
+    path: "/shop/notice",
     component: () => import("../views/notice/NoticeView.vue"),
   },
   // 공지사항 관리자 //adimn-notice
   {
-    path: "/adimn-notice",
+    path: "/shop/admin-notice",
     component: () => import("../views/admin/AdminNotice.vue"),
   },
 
   // 고객센터  shop//faqList
   {
-    path: "/faqList",
+    path: "/shop/faqList",
     component: () => import("../views/faq/FaqListView.vue"),
   },
   // 고객센터 문의글
   {
-    path: "/inquiry",
+    path: "/shop/inquiry",
     component: () => import("../views/faq/InquiryView.vue"),
   },
   
 // 고객센터 문의글 작성한거 확인하기
 {
-  path: "/inquiry-check",
+  path: "/shop/inquiry-check",
   component: () => import("../views/faq/InquiryCheck.vue"),
 },
   // 장바구니
   {
-    path: "/cart",
+    path: "/order/cart",
     component: () => import("../views/cart_wish/CartListView.vue"),
   },
   // 즐겨찾기
   {
-    path: "/wishlist",
+    path: "/member/wishlist",
     component: () => import("../views/cart_wish/WishListView.vue"),
   },
   // 로그인 페이지
@@ -165,13 +165,19 @@ const routes = [
     },
       // 공지사항 작성글 상세조회 shop/notice-check
   {
-    path: "/notice-check",
+    path: "/shop/notice-check",
     component: () => import("../views/notice/NoticeCheck.vue"),
+
+
+
   }, 
   // SearchProduchView
   {
     path: "/member/searchproduct",
     component: () => import("../views/search/SearchProduchView.vue"),
+
+
+
   },
 
   

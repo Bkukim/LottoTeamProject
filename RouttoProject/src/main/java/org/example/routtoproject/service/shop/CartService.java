@@ -1,8 +1,11 @@
 package org.example.routtoproject.service.shop;
 
 import lombok.RequiredArgsConstructor;
+import org.example.routtoproject.model.dto.shop.ICartDto;
 import org.example.routtoproject.model.entity.shop.Cart;
 import org.example.routtoproject.repository.shop.CartRepository;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 /**
@@ -27,4 +30,18 @@ public class CartService {
         Cart cart1 = cartRepository.save(cart);
         return cart1;
     }
+//    전체조회 함수
+public Page<ICartDto> selectByTitleContaining(
+        String title,
+        Pageable pageable
+){
+    Page<ICartDto> page
+            = cartRepository.selectByTitleContaining(
+            title,
+            pageable
+    );
+    return page;
+}
+
+
 }
