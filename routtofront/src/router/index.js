@@ -1,7 +1,3 @@
-// 0426_routerindex수정본
-
-
-
 import { createRouter, createWebHistory } from "vue-router";
 
 const routes = [
@@ -175,7 +171,7 @@ const routes = [
   // SearchProduchView
   {
     path: "/member/searchproduct",
-    component: () => import("../views/search/SearchProductView.vue"),
+    component: () => import("../views/search/SearchProduchView.vue"),
   },
 
   
