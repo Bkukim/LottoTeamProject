@@ -13,7 +13,7 @@
         class="form-control"
         id="exampleFormControlInput1"
         placeholder=""
-        v-model="notice.title"
+        v-model="announcement.title"
       />
     </div>
     <!-- 본문적는곳 -->
@@ -25,7 +25,7 @@
         class="form-control"
         id="exampleFormControlTextarea1"
         rows="15"
-        v-model="notice.content"
+        v-model="announcement.content"
       ></textarea>
     </div>
     <!-- 첨부파일 -->
@@ -35,6 +35,7 @@
         class="form-control"
         id="formFileSm"
         type="file"
+        ref="file"
         @click="selectImage"
       />
     </div>
@@ -54,7 +55,7 @@
         type="button"
         @click="updateNotice"
       >
-        <router-link to="/notice" class="router-link-exact-active"
+        <router-link to="/shop/notice" class="router-link-exact-active"
           >수정</router-link
         >
       </button>
@@ -70,12 +71,14 @@ export default {
     return {
       message: "",
       // 이미지
-      noticeImg: undefined,
+      announcementImg: undefined,
       // 공지사항 넘겨주기
-      notice: {
+      announcement: {
         announcementId: this.$route.params.announcementId, //기본키
         title: "",
         content: "",
+        announcementImgUrl: "",
+        announcementImgUuid: "",
       },
     };
   },
@@ -85,8 +88,8 @@ export default {
     async getNotice(announcementId) {
       try {
         // 상세조회 공통함수 실행 : NoticeListService.getNoticeId()
-        let response = await NoticeListService.getNoticeId(announcementId);
-        this.notice = response.data; // spring 결과를 바인딩 속성변수 notice 저장
+        let response = await NoticeListService.getNotice(announcementId);
+        this.announcement = response.data; // spring 결과를 바인딩 속성변수 notice 저장
         // 로깅
         console.log(response.data);
       } catch (e) {
@@ -104,15 +107,17 @@ export default {
       try {
         // TODO: 비동기 코딩 : async ~ await
         let response = await NoticeListService.update(
-          this.notice,
-          this.noticeImg
+          this.announcement,
+          this.announcementImg
         );
+        console.log(response)
+
         // 로깅
         console.log(response.data);
         // 화면에 성공메세지 출력 : message
         this.message = "수정에 성공했습니다.";
       } catch (e) {
-        this.noticeImg = undefined; //초기화
+        this.announcementImg = undefined; //초기화
         this.message = "에러" + e; //에러출력
         console.log(e);
       }

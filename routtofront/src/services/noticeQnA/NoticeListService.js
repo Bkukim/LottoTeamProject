@@ -19,13 +19,16 @@ class NoticeListService {
   //     // TODO: 사용법 : http.post("컨트롤러함수url", 생성할객체)
   //     return http.post("/shop/notice", data);
   // }
-  create(notice, noticeImg) {
+  // TODO: 저장함수
+  create(announcement, announcementImg) {
     let formData = new FormData();
-    formData.append("title", notice.title);
-    formData.append("content", notice.content); //문자열
-    formData.append("noticeImg", noticeImg); //이미지
+    formData.append("title", announcement.title);
+    formData.append("content", announcement.content); //문자열
+    formData.append("announcementImg", announcementImg); //이미지
+    formData.append("announcementImgUrl", announcement.announcementImgUrl); //이미지
+    formData.append("announcementImgUuid", announcement.announcementImgUuid); //이미지
 
-    return http.post("/normal/member/notice/uploadImg", formData, {
+    return http.post("/admin/notice/save", formData, {
       headers: {
         "Content-Type": "multipart/form-data",
       },
@@ -34,21 +37,23 @@ class NoticeListService {
 
   // TODO: 상세조회 함수1 : 공지사항 :announcementId
   // TODO: 조회(select) -> get 방식 -> @GetMapping
-  getNoticeId(announcementId) {
+  getNotice(announcementId) {
     // TODO: 사용법 : http.get(`/컨트롤러함수url/${부서번호}`)
     return http.get(`/normal/member/notice/${announcementId}`);
   }
 
-  // TODO: 수정함수 : announcementId, 수정할객체(data)
-  update(notice, noticeImg) {
+  // TODO: 수정함수 : announcementId, 수정할객체(notice)
+  update(announcement, announcementImg) {
     // TODO: 수정(update) -> put 방식 -> @PutMapping
     // TODO: 사용법 : http.put(`/컨트롤러함수url/${dno}`, 수정할객체)
     let formData = new FormData();
-    formData.append("title", notice.title);
-    formData.append("content", notice.content); //문자열
-    formData.append("noticeImg", noticeImg); //이미지
+    formData.append("title", announcement.title);
+    formData.append("content", announcement.content); //문자열
+    formData.append("announcementImg", announcementImg); //이미지
+    formData.append("announcementImgUrl", announcement.announcementImgUrl); //이미지
+    formData.append("announcementImgUuid", announcement.announcementImgUuid); //이미지
 
-    return http.put(`/shop/notice/${notice.announcementId}`, formData, {
+    return http.put(`/admin/notice/update/${announcement.announcementId}`, formData, {
       headers: {
         //헤더쪽에다가 멀티파트 보냄~~
         "Content-Type": "multipart/form-data",
@@ -60,7 +65,7 @@ class NoticeListService {
   // TODO: 삭제(delete) -> delete 방식 -> @DeleteMapping
   // TODO: 사용법 : http.delete(`/컨트롤러함수url/${dno}`)
   delete(announcementId) {
-    return http.delete(`/shop/notice/deletion/${announcementId}`);
+    return http.delete(`/normal/member/notice/deletion/${announcementId}`);
   }
 }
 

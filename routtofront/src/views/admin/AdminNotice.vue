@@ -3,7 +3,7 @@
   <div class="mt-5 mb-5 col-13">
     <!-- 카테고리 -->
     <h5 class="text-center">공지사항등록</h5>
-    <br />
+    <br />                                                                                                                                                                                                                                                                                                                                                                                                  
     <div class="col-4 mb-3">
       <label class="mb-3 text-left">제목 </label>
       <input
@@ -11,7 +11,7 @@
         class="form-control"
         id="exampleFormControlInput1"
         placeholder="제목 적어주세요"
-        v-model="notice.title"
+        v-model="announcement.title"
       />
     </div>
     <!-- 본문적는곳 -->
@@ -23,7 +23,7 @@
         class="form-control"
         id="exampleFormControlTextarea1"
         rows="15"
-        v-model="notice.content"
+        v-model="announcement.content"
       ></textarea>
     </div>
     <!-- 첨부파일 -->
@@ -53,9 +53,7 @@
         type="button"
         @click="createNotice"
       >
-        <router-link to="shop/notice" class="router-link-exact-active"
-          >등록</router-link
-        >
+        등록
       </button>
     </div>
   </div>
@@ -69,12 +67,14 @@ export default {
     return {
       message: "",
       // 이미지
-      noticeImg: undefined,
+      announcementImg: undefined,
       // 공지사항 넘겨주기
-      notice: {
+      announcement: {
         announcementId: null, //기본키
         title: "",
         content: "",
+        announcementImgUrl: "",
+        announcementImgUuid: "",
       },
     };
   },
@@ -85,7 +85,7 @@ export default {
       // 1) 파일선택상자에서 1st 로 선택한 이미지를 변수에 저장
       // ref="file" 접근 -> 내부 속성 : files[번호]
       // TODO: 사용법 : this.$refs.변수명 => input type="file" ref="변수명" 태그 접근
-      this.noticeImg = this.$refs.file.files[0];
+      this.announcementImg = this.$refs.file.files[0];
       // 성공메세지 변수 초기화
       this.message = "";
     },
@@ -93,16 +93,17 @@ export default {
     async createNotice() {
       try {
         // TODO: 벡엔드로 객체 추가 요청
+        console.log(this.announcement);
         let response = await NoticeListService.create(
-          this.notice,
-          this.noticeImg
+          this.announcement,
+          this.announcementImg
         );
         // TODO: 콘솔에 결과 출력
         console.log(response);
         this.message = response.data;
       } catch (e) {
         // 현재선택된 이미지 변수 초기화
-        this.noticeImg = undefined;
+        this.announcementImg = undefined;
         this.message = "";
         console.log(e);
       }
