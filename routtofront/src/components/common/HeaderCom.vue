@@ -40,7 +40,7 @@
       <!-- 검색창 -->
       <div class="search_header">
         <input type="text" v-model="searchQuery" placeholder="" />
-        <router-link to="/member/searchproduch" class="se_button">
+        <router-link to="/member/searchproduct" class="se_button">
           <img src="../../../src/assets/images/se.png" />
         </router-link>
       </div>
