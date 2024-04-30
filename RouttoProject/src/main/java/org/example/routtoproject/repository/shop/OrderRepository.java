@@ -1,7 +1,12 @@
 package org.example.routtoproject.repository.shop;
 
 import org.example.routtoproject.model.entity.shop.Order;
+import org.example.routtoproject.model.entity.shop.Product;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 /**
@@ -19,4 +24,14 @@ import org.springframework.stereotype.Repository;
  */
 @Repository
 public interface OrderRepository extends JpaRepository<Order, Integer> {
+    @Query(value = "SELECT * FROM LOTTO_ORDER\n" +
+            "WHERE ORDER_ID LIKE '%' || :orderId || '%'"
+            ,countQuery = "SELECT count(*) FROM LOTTO_ORDER\n" +
+            "WHERE ORDER_ID LIKE '%' || :orderId || '%'"
+            ,nativeQuery = true
+    )
+    Page<Order> findAllByOrderIdContaining(@Param("orderId") int orderId,
+                                              Pageable pageable
+    );
+
 }
