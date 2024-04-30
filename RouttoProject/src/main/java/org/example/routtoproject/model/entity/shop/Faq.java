@@ -5,27 +5,26 @@ import lombok.*;
 import org.example.routtoproject.model.common.BaseTimeEntity;
 import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
-import org.hibernate.annotations.SQLDelete;
-import org.hibernate.annotations.Where;
 
 /**
  * packageName : org.example.routtoproject.model.entity.shop
- * fileName : Cart
- * author : hayj6
- * date : 2024-04-22(022)
+ * fileName : Faq
+ * author : KimDJ
+ * date : 2024-04-29
  * description :
  * 요약 :
+ *
  * <p>
  * ===========================================================
  * DATE            AUTHOR             NOTE
  * -----------------------------------------------------------
- * 2024-04-22(022)         hayj6          최초 생성
+ * 2024-04-29         KimDJ          최초 생성
  */
 @Entity
-@Table(name = "LOTTO_CART")
+@Table(name = "LOTTO_FAQ")
 @SequenceGenerator(
-        name = "SQ_LOTTO_CART_GENERATOR"
-        , sequenceName = "SQ_LOTTO_CART"
+        name = "SQ_LOTTO_FAQ_GENERATOR"
+        , sequenceName = "SQ_LOTTO_FAQ"
         , initialValue = 1
         , allocationSize = 1
 )
@@ -37,13 +36,22 @@ import org.hibernate.annotations.Where;
 @AllArgsConstructor
 @DynamicInsert
 @DynamicUpdate
-public class Cart extends BaseTimeEntity {
-@Id
-@GeneratedValue(strategy = GenerationType.SEQUENCE
-        , generator = "SQ_LOTTO_CART_GENERATOR"
-)
-    private Integer cartId;
+public class Faq extends BaseTimeEntity {
+//    faq_id	number
+//    user_id	varchar2(255 byte)
+//    faq_title	varchar2(255 byte)
+//    faq_content	varchar2(1000 byte)
+//    faq_type	varchar2(255 byte)
+//    insert_time	date
+//    update_time	date
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE
+            , generator = "SQ_LOTTO_FAQ_GENERATOR"
+    )
+    private Integer faqId;
     private String userId;
-    private Integer prodId;
-    private Integer cartProdCount;
+    private String faqTitle;
+    private String faqContent;
+    private String faqType; //유형 ->이거 삭제했던 거같은데
 }
