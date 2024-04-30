@@ -32,8 +32,9 @@
       <input
         class="form-control"
         id="formFileSm"
+        ref="file"
         type="file"
-        @click="selectImage"
+        @change="selectImage"
       />
     </div>
 
@@ -46,8 +47,13 @@
         >
       </button>
       <!-- 등록시 공지사항 목록으로 재이동 -->
-      <button id="button1" class="btn btn-primary" type="button" @click="createNotice">
-        <router-link to="/notice" class="router-link-exact-active"
+      <button
+        id="button1"
+        class="btn btn-primary"
+        type="button"
+        @click="createNotice"
+      >
+        <router-link to="shop/notice" class="router-link-exact-active"
           >등록</router-link
         >
       </button>
@@ -56,7 +62,7 @@
 </template>
 
 <script>
-import NoticeListService from '@/services/noticeQnA/NoticeListService';
+import NoticeListService from "@/services/noticeQnA/NoticeListService";
 export default {
   // 바인딩속성들
   data() {
@@ -87,7 +93,10 @@ export default {
     async createNotice() {
       try {
         // TODO: 벡엔드로 객체 추가 요청
-        let response = await NoticeListService.create(this.notice, this.noticeImg);
+        let response = await NoticeListService.create(
+          this.notice,
+          this.noticeImg
+        );
         // TODO: 콘솔에 결과 출력
         console.log(response);
         this.message = response.data;

@@ -255,7 +255,7 @@
           <td>
             <p style="margin-top: 35px">{{ product.prodName }}</p>
           </td>
-          <!-- 2) 판매가 -->
+          <!-- 2) 상품가격 -->
           <td>
             <p style="margin-top: 35px">
              {{ this.product.defaultPrice * (1 - this.product.discountRate / 100)}}원
@@ -265,7 +265,7 @@
           <td style="text-align: left">
             <p style="margin-top: 35px">{{ orderAmount }}개</p>
           </td>
-          <!-- 4) 구매가 -->
+          <!-- 4) 총 상품가격 -->
           <td style="text-align: left">
             <p style="margin-top: 35px">
              {{ this.product.defaultPrice * (1 - this.product.discountRate / 100)*orderAmount}}원
@@ -422,7 +422,7 @@
                         v-model="selectedPaymentMethod"
                         value="무통장입금"
                       />
-                      <label class="form-check-label" for="tossPayment">
+                      <label class="form-check-label" for="bankTransferPayment">
                         무통장입금
                       </label>
                     </li>
@@ -444,7 +444,7 @@
               <div class="paymentTr">
                 <div class="payTitle">총 상품 금액</div>
                 <div class="price">
-                  
+                  {{ this.product.defaultPrice * (1 - this.product.discountRate / 100)*orderAmount}} 원
                 </div>
               </div>
               <!-- 쿠폰 할인 금액 -->
@@ -455,13 +455,13 @@
               <!-- 총 배송비 -->
               <div class="paymentTr">
                 <div class="payTitle">총 배송비</div>
-                <div class="price">원</div>
+                <div class="price">{{shoppingFee}} 원</div>
               </div>
               <!-- 최종 결제 금액 -->
               <div class="paymentTr">
                 <div class="payTitle">최종 결제 금액</div>
                 <div class="price">
-                  
+                  {{ this.product.defaultPrice * (1 - this.product.discountRate / 100)*orderAmount + shoppingFee}}
                   원
                 </div>
               </div>

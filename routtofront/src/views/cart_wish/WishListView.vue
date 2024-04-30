@@ -106,6 +106,7 @@ export default {
 
       // 전체선택 함수
       selectAll: false,
+      // 선택함수 객체배열 함수를 다른 페이지로 넘길수 있는지
     };
   },
   // TODO: 함수정의
@@ -161,14 +162,49 @@ export default {
     },
     // 장바구니 삭제 함수
       // TODO: 장바구니 삭제 함수 : delete 버튼 태그
+    //   async deleteWish(favoriteId) {
+    //   try {
+    //     // todo: 공통 장바구니 삭제 서비스 함수 실행
+    //     let response = await wishService.remove(favoriteId);
+    //     // 로깅
+    //     console.log(response.data);
+    //     // alert 대화상자
+    //     alert("정상적으로 삭제되었습니다.");
+    //     // 삭제후 재조회
+    //     this.retrieveWishList();
+    //   } catch (e) {
+    //     console.log(e);
+    //   }
+    // },
+        // 위시 삭제 함수
+      // TODO: 단일 위시 삭제 함수 
+      // : delete 버튼 태그, 기본키로 삭제
       async deleteWish(favoriteId) {
       try {
         // todo: 공통 장바구니 삭제 서비스 함수 실행
         let response = await wishService.remove(favoriteId);
+
+        console.log(response.data);
+        // alert 대화상자
+        alert("정상적으로 삭제되었습니다.");
+        this.wishCount=this.wishCount-1; // 단일이니까 -1
+        // 삭제후 재조회
+        this.retrieveWishList();
+      } catch (e) {
+        console.log(e);
+      }
+    },// 위시 전체 삭제 함수
+      // TODO: 단일 위시 삭제 함수 
+      // :  전체가 들어있는 객체 삭제 ==맞나?
+      async deleteAllWish(favorite) {
+      try {
+        // todo: 공통 장바구니 삭제 서비스 함수 실행
+        let response = await wishService.remove(favorite);
         // 로깅
         console.log(response.data);
         // alert 대화상자
         alert("정상적으로 삭제되었습니다.");
+        this.wishCount=0; // 전체니까 초기화
         // 삭제후 재조회
         this.retrieveWishList();
       } catch (e) {
