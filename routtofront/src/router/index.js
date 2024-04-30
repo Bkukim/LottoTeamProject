@@ -171,7 +171,7 @@ const routes = [
   // SearchProduchView
   {
     path: "/member/searchproduct",
-    component: () => import("../views/search/SearchProduchView.vue"),
+    component: () => import("../views/search/SearchProductView.vue"),
   },
 
   

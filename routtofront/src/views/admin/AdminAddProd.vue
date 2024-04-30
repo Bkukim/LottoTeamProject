@@ -1,5 +1,7 @@
 // 관리자 환불 페이지
 <template>
+  <br>
+  <br>
   <!-- 카테코리 선택 배너 -->
   <div
     class="container mt-5"
@@ -45,6 +47,7 @@
         placeholder="상품명을 입력하세요"
         style="height: 35px; margin-right: 10px"
         v-model="product.prodName"
+        class="input-box"
       />
     </label>
   </div>
@@ -159,6 +162,7 @@
         type="text"
         placeholder="옵션을 입력하세요"
         style="height: 35px; margin-right: 10px"
+        class="input-box"
       />
     </label>
   </div>
@@ -178,7 +182,7 @@
 
     <div>
       <div id="img-add">
-        <label class="mt-3 mb-3">이미지를 추가해주세요</label>
+        <label class="mt-3 mb-3">이미지를 추가 해주세요</label>
         <br />
         <div class="text-center">
           <!-- <input
@@ -222,7 +226,7 @@
         <!-- 사이드 공간 -->
         <div class="col"></div>
         <!-- 분홍색 상자 -->
-        <div class="col-10" id="detailFile">
+        <div class="col-10 container" id="detailFile">
           <!-- 첨부파일 -->
           <div id="file">
             <!-- <input type="file" ref="fileInput" style="display: none" /> -->
@@ -439,7 +443,6 @@ export default {
   margin-right: 50px;
 }
 #detailFile {
-  width: 58vw;
   height: auto;
   background-color: #f3eae8;
   margin: 2.6042vw;
@@ -465,5 +468,16 @@ export default {
   height: 45px;
   background-color: #342a26;
   margin: 20px;
+}
+.input-box {
+  height: 35px; 
+  margin-right: 10px;
+  border: 1px solid #ccc; 
+  padding: 0 10px; 
+  color: black; 
+}
+.input-box:focus {
+  outline: none;
+  border-color: #342a26; 
 }
 </style>

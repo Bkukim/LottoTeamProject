@@ -1,4 +1,4 @@
-package org.example.routtoproject.controller.shop;
+package org.example.routtoproject.controller.normal.shop;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -36,24 +36,25 @@ import java.util.Optional;
  */
 @Slf4j
 @RestController
-@RequestMapping("/api/shop")
+@RequestMapping("/api/normal/shop")
 @RequiredArgsConstructor
-public class ProductController {
+public class NormalProductController {
     private final ProductService productService;        // DI
 
-    // todo 전체조회 함수
+    // todo 전체조회 함수 : 1. 홈페이지 상품 조회
 
     @GetMapping("/product/all")
-    public ResponseEntity<Object> getAll(){
+    public ResponseEntity<Object> normalGetAll() {
         try {
             List<Product> products = productService.findAll();
-            return new ResponseEntity<>(products,HttpStatus.OK);
-        }catch (Exception e){
+            return new ResponseEntity<>(products, HttpStatus.OK);
+        } catch (Exception e) {
             log.debug(e.getMessage());
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
 
     }
+
     //    TODO: 전체조회 함수
 //    조회(select) -> get 방식 -> @GetMapping
     @GetMapping("/product")
@@ -72,13 +73,13 @@ public class ProductController {
                     .findAllByProdNameContaining(prodName, pageable);
 
 //            공통 페이징 객체 생성 : 자료구조 맵 사용
-            Map<String , Object> response = new HashMap<>();
+            Map<String, Object> response = new HashMap<>();
             response.put("product", products.getContent());    // simpleProduct 배열
             response.put("currentPage", products.getNumber());       // 현재페이지번호
             response.put("totalItems", products.getTotalElements()); // 총건수(개수)
             response.put("totalPages", products.getTotalPages());    // 총페이지수
 
-            if(products.isEmpty() == false) {
+            if (products.isEmpty() == false) {
 //                조회 성공
                 return new ResponseEntity<>(response, HttpStatus.OK);
             } else {
@@ -92,41 +93,42 @@ public class ProductController {
     }
 
 
-
-    //       TODO: 상세 조회 함수
+    //       TODO: 상세 조회 함수 : 1. 주문페이지 상품 조회 2상품 상세페이지
     @GetMapping("/product/{prodId}")
-    public ResponseEntity<Object> findById(@PathVariable int prodId){
-        try{
+    public ResponseEntity<Object> findById(@PathVariable int prodId) {
+        try {
             Optional<Product> product = productService.findById(prodId);
             if (product.isEmpty() == false) {
                 return new ResponseEntity<>(product.get(), HttpStatus.OK);
             } else {
                 return new ResponseEntity<>(HttpStatus.NO_CONTENT);
             }
-        } catch(Exception e){
+        } catch (Exception e) {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
-//    TODO: 파일 다운로드 함수
-@GetMapping("/product/img/{uuid}")
-public ResponseEntity<byte[]> findImg(@PathVariable String uuid) {
-    Product product = productService.findImgByUuid(uuid).get();
+    //    TODO: 파일 다운로드 함수
+    @GetMapping("/product/img/{uuid}")
+    public ResponseEntity<byte[]> findImg(@PathVariable String uuid) {
+        Product product = productService.findImgByUuid(uuid).get();
 
-    return ResponseEntity.ok()
+        return ResponseEntity.ok()
 //           Todo : attachment: => attachment;
-            .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + product.getProdName() + "\"")
-            .body(product.getProdImg());
-}
-@GetMapping("/product/page/{uuid}")
-public ResponseEntity<byte[]> findPage(@PathVariable String uuid) {
-    Product product = productService.findPageByUuid(uuid).get();
+                .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + product.getProdName() + "\"")
+                .body(product.getProdImg());
+    }
 
-    return ResponseEntity.ok()
+    // todo 상세페이지 다운로드 함수
+    @GetMapping("/product/page/{uuid}")
+    public ResponseEntity<byte[]> findPage(@PathVariable String uuid) {
+        Product product = productService.findPageByUuid(uuid).get();
+
+        return ResponseEntity.ok()
 //           Todo : attachment: => attachment;
-            .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + product.getProdName() + "\"")
-            .body(product.getProdImg());
-}
+                .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + product.getProdName() + "\"")
+                .body(product.getProdImg());
+    }
     @PostMapping("/product")
     public ResponseEntity<Object> createProduct(@RequestParam(defaultValue = "") String prodName,
                                                 @RequestParam (defaultValue = "0") String defaultPrice,
@@ -139,27 +141,29 @@ public ResponseEntity<byte[]> findPage(@PathVariable String uuid) {
 
                                                 @RequestParam (defaultValue = "")String prodImgUrl,
                                                 @RequestParam (defaultValue = "")String prodDetailPageUrl
-                                                ){
+    ){
         try {
 //
 //                log.debug("확인용" + prodImg);
 //                log.debug("확인용" + prodDetailPage);
-                Product product1 = productService.save(
-                        prodName,
-                        Integer.parseInt(defaultPrice), // TODO: 정수로 변경
-                        prodCategory,
-                        prodImg,
-                        prodDetailPage,
-                        Integer.parseInt(discountRate), // TODO: 정수로 변경
-                        Integer.parseInt(prodStock),    // TODO: 정수로 변경
-                        prodImgUrl,
-                        prodDetailPageUrl);
-                return new ResponseEntity<>(/*product1,*/ HttpStatus.OK);
+            Product product1 = productService.save(
+                    prodName,
+                    Integer.parseInt(defaultPrice), // TODO: 정수로 변경
+                    prodCategory,
+                    prodImg,
+                    prodDetailPage,
+                    Integer.parseInt(discountRate), // TODO: 정수로 변경
+                    Integer.parseInt(prodStock),    // TODO: 정수로 변경
+                    prodImgUrl,
+                    prodDetailPageUrl);
+            return new ResponseEntity<>(/*product1,*/ HttpStatus.OK);
 
 
         }catch (Exception e){
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
+
+
 
 }

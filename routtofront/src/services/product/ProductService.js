@@ -8,17 +8,12 @@ class ProductService {
   get(prodId) {
     // TODO: 사용법 : http.get(`/컨트롤러함수url/${상품번호}`)
     // 상품 상세 조회
-    return http.get(`/shop/product/${prodId}`);
+    return http.get(`/normal/shop/product/${prodId}`);
   }
-  // getImg(prodId) {
-  //   // TODO: 사용법 : http.get(`/컨트롤러함수url/${상품번호}`)
-  //   // 상품 이미지 상세 조회
-  //   return http.get(`/shop/product/img/${prodId}`);
-  // }
 
   // TODO: 조회(select) -> get 방식 -> @GetMapping
   getAll() {
-    return http.get("/shop/product/all");
+    return http.get("/normal/shop/product/all");
   }
 
   create(data) {
