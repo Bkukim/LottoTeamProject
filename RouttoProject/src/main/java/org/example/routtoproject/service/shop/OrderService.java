@@ -5,12 +5,17 @@ import lombok.extern.slf4j.Slf4j;
 import org.example.routtoproject.model.dto.shop.OrderDto;
 import org.example.routtoproject.model.entity.shop.Order;
 import org.example.routtoproject.model.entity.shop.OrderProd;
+import org.example.routtoproject.model.entity.shop.Product;
 import org.example.routtoproject.repository.shop.OrderProdRepository;
 import org.example.routtoproject.repository.shop.OrderRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
 
 
 /**
@@ -68,5 +73,12 @@ public class OrderService {
             orderProdRepository.save(tmpOrderProd);
         }
         return order2;    // 저장된 주문 객체
+    }
+
+    // 페이징 주문 전체 조회
+    // todo 전체조회
+    public Page<Order> findAll(int orderId, Pageable pageable){
+        Page<Order> page = orderRepository.findAllByOrderIdContaining(orderId, pageable);
+        return page;
     }
 }

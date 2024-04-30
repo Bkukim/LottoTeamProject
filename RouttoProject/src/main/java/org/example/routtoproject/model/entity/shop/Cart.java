@@ -43,7 +43,7 @@ public class Cart extends BaseTimeEntity {
         , generator = "SQ_LOTTO_CART_GENERATOR"
 )
     private Integer cartId;
-    private Integer userId;
+    private String userId;
     private Integer prodId;
     private Integer cartProdCount;
 }

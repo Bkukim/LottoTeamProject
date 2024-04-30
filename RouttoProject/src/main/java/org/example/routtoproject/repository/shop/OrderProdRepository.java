@@ -4,6 +4,8 @@ import org.example.routtoproject.model.entity.shop.OrderProd;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 /**
  * packageName : org.example.routtoproject.repository.shop
  * fileName : OrderProdRepository
@@ -19,4 +21,5 @@ import org.springframework.stereotype.Repository;
  */
 @Repository
 public interface OrderProdRepository extends JpaRepository<OrderProd, Integer>{
+
 }

@@ -31,16 +31,14 @@
             <th scope="col">번호</th>
             <th scope="col">제목</th>
             <th scope="col">작성자</th>
-            <th scope="col">작성일</th>
           </tr>
         </thead>
         <tbody>
           <!-- 반복문 시작할 행 -->
-          <tr v-for="(data, index) in notice" :key="index">
+          <tr v-for="(data, index) in notice" :key="index" @click="goNoticeCheck">
             <th scope="col">{{ data.announcementId }}</th>
             <th scope="col">{{ data.title }}</th>
             <th scope="col">ADMIN</th>
-            <th scope="col">{{ data.updateTime }}</th>
           </tr>
         </tbody>
       </table>
@@ -62,7 +60,7 @@
       <!-- 관리자 등록 버튼 :: 공지사항 글등록으로 이동-->
       <div class="row justify-content-end">
         <button type="button" id="button1" class="mt-5 btn">
-          <router-link to="/admin-notice" class="router-link-exact-active"
+          <router-link to="/shop/admin-notice" class="router-link-exact-active"
             >공지사항 등록</router-link
           >
         </button>
@@ -107,6 +105,9 @@ export default {
         console.log(e);
       }
     },
+    goNoticeCheck(){
+      this.$router.push("/shop/notice-check");
+    }
   },
   // 조회
   mounted() {
