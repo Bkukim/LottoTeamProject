@@ -2,12 +2,12 @@
 <template>
   <div class="container">
     <div class="mt-5">
-      <router-link class="top_notice router-link-exact-active fs-5" to="/notice"
+      <router-link class="top_notice router-link-exact-active fs-5" to="/shop/notice"
         >공지사항</router-link
       >
       |
-      <router-link class="top_notice2 text-decoration-none" to="/faqList"
-        >고객센터</router-link
+      <router-link class="top_notice2 text-decoration-none" to="/shop/faqList"
+        >FAQ</router-link
       >
     </div>
     <div class="mt-5 text-center">
@@ -35,9 +35,23 @@
         </thead>
         <tbody>
           <!-- 반복문 시작할 행 -->
-          <tr v-for="(data, index) in notice" :key="index" @click="goNoticeCheck">
-            <th scope="col">{{ data.announcementId }}</th>
-            <th scope="col">{{ data.title }}</th>
+
+          <tr
+            v-for="(data, index) in notice"
+            :key="index"
+            @click="goNoticeCheck"
+          >
+            <th scope="col">
+              <router-link :to="'/shop/notice-check/' + data.announcementId" class="router-link-exact-active cencle">
+                {{ data.announcementId }}</router-link
+              >
+            </th>
+
+            <th scope="col">
+              <router-link :to="'/shop/notice-check/' + data.announcementId" class="router-link-exact-active cencle">
+                {{ data.title }}
+              </router-link>
+            </th>
             <th scope="col">ADMIN</th>
           </tr>
         </tbody>
@@ -105,9 +119,9 @@ export default {
         console.log(e);
       }
     },
-    goNoticeCheck(){
-      this.$router.push("/shop/notice-check");
-    }
+    // goNoticeCheck(){
+    //   this.$router.push("/shop/notice-check");
+    // }
   },
   // 조회
   mounted() {

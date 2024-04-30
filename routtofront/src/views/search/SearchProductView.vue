@@ -12,10 +12,11 @@
             <P>키워드를 입력하여 원하시는 상품을 찾아보세요.</P>
             <div class="search_input">
               <input
-                type="email"
+                type="text"
                 class="form-control"
-                id="exampleFormControlInput1"
-                placeholder="search"
+                id="prodName"
+                placeholder="prodName"
+                name="prodName"
               />
 
               <router-link to="/">

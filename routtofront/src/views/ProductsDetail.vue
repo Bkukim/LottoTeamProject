@@ -115,6 +115,8 @@
           <button type="button" id="btn2" @click="goCart">장바구니</button>
 
           <button type="button" id="btn3" @click="goOrder">주문하기</button>
+
+          <button type="button" id="btn4" @click="goOrder">상품문의</button>
         </div>
       </div>
     </div>
@@ -279,9 +281,19 @@ export default {
 #btn3 {
   width: 12vw;
   height: 4vw;
+    margin-right: 1.5vw;
   background-color: #342a26;
   color: white;
   border-radius: 5px; /* 모서리 둥글게 : 5px로 설정 */
+}
+
+#btn4 {
+  width: 6vw;
+  height: 4vw;
+  
+  background-color: #342a26;
+  color: white;
+  border-radius: 50%; /* 모서리 둥글게 : 5px로 설정 */
 }
 #star {
   color: red;

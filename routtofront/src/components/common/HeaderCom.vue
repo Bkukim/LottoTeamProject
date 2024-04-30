@@ -24,7 +24,7 @@
       <!-- 왼쪽 박스 -->
       <div class="kim-frame-142">
         <router-link to="/notice" class="kim-div4">공지사항</router-link>
-        <router-link to="#" class="kim-div4">FAQ</router-link>
+        <router-link to="/faqList" class="kim-div4">FAQ</router-link>
       </div>
 
       <!-- 오른쪽 박스 -->
@@ -46,7 +46,9 @@
 
       <!-- 검색창 -->
       <div class="search_header">
-        <input type="text" v-model="searchQuery" placeholder="" />
+        <input type="text" 
+        v-model="searchQuery" 
+        placeholder="" />
         <router-link to="/member/searchproduct" class="se_button">
           <img src="../../../src/assets/images/se.png" />
         </router-link>

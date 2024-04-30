@@ -48,4 +48,11 @@ public class Announcement {
     public String announcementImgUrl;
     public String announcementImgUuid;
 
+    public Announcement(String title, String content, byte[] announcementImg, String announcementImgUrl, String announcementImgUuid) {
+        this.title = title;
+        this.content = content;
+        this.announcementImg = announcementImg;
+        this.announcementImgUrl = announcementImgUrl;
+        this.announcementImgUuid = announcementImgUuid;
+    }
 }
