@@ -281,23 +281,6 @@ export default {
         console.log(e);
       }
     },
-    // TODO: 장바구니 전체 삭제 함수 : delete 버튼 태그 ::전체상품
-    async deleteAllCart(cart) {
-      try {
-        // todo: 공통 장바구니 삭제 서비스 함수 실행
-        let response = await CartService.remove(cart);
-        // 로깅
-        console.log(response.data);
-        // alert 대화상자
-        alert("정상적으로 삭제되었습니다.");
-        this.cartCount=0; //카트카운트 초기화 해주기
-
-        // 삭제후 재조회
-        this.retrieveCart();
-      } catch (e) {
-        console.log(e);
-      }
-    },
     // TODO: 주문페이지 이동 함수
     goOrder() {
       this.$router.push("/order");
