@@ -52,6 +52,8 @@ public class ProductService {
         return page;
     }
 
+
+
     //    TODO: 상세조회
     public Optional<Product> findById(int prodId) {
         Optional<Product> product = productRepository.findById(prodId);
