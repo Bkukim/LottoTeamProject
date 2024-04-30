@@ -28,6 +28,19 @@ import java.util.Optional;
 public class UserService {
     private final UserRepository userRepository;
 
+    //    todo 회원 있는지 확인 함수 : 회원가입
+    public boolean existsById(String userId) {
+        boolean result = userRepository.existsById(userId);
+
+        return result;
+    }
+
+    //    todo 저장 : 회원가입
+    public User save(User user) {
+        User user2 = userRepository.save(user);
+
+        return user2;
+    }
 //    TODO: userID 상세 조회
     public Optional<User> findById(String userId){
         Optional<User> user = userRepository.findById(userId);
