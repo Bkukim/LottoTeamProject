@@ -31,7 +31,6 @@ import org.hibernate.annotations.Where;
 public class User extends BaseTimeEntity2 {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private String userId;
     private String password;
     private String userName;
@@ -42,4 +41,24 @@ public class User extends BaseTimeEntity2 {
     private String role;
     private String normalAddress;
     private String detailAddress;
+    private String pastPw;
+    private String pwUpdateTime;
+    private String pwQuestion;
+    private String pwAnswer;
+
+    // todo 회원가입시 값 넣을 생성자 : 비밀번호를 인코딩 해줘야해서 생성자를 한개 만들어줘야한다.
+    public User(String userId, String password, String userName, int birthday, String phoneNum, String callNum, String email, String role, String normalAddress, String detailAddress, String pwQuestion, String pwAnswer) {
+        this.userId = userId;
+        this.password = password;
+        this.userName = userName;
+        this.birthday = birthday;
+        this.phoneNum = phoneNum;
+        this.callNum = callNum;
+        this.email = email;
+        this.role = role;
+        this.normalAddress = normalAddress;
+        this.detailAddress = detailAddress;
+        this.pwQuestion = pwQuestion;
+        this.pwAnswer = pwAnswer;
+    }
 }
