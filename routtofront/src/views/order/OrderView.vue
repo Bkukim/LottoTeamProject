@@ -92,7 +92,12 @@
           </th>
           <td>
             <div class="col-4">
-              <input class="form-control" type="text" name="receiver" v-model="receiver"/>
+              <input
+                class="form-control"
+                type="text"
+                name="receiver"
+                v-model="receiver"
+              />
             </div>
             <!-- <div class="col"></div> -->
           </td>
@@ -100,70 +105,71 @@
         </tr>
 
         <!-- 주소 tr -->
-            <tr>
-              <th scope="row">
-                <label class="form-label" for="address">주소</label>
-              </th>
-              <td>
-                <div class="row mb-1">
-                  <!-- 우편번호 -->
-                  <div class="col">
-                    <input
-                      class="form-control"
-                      type="text"
-                      v-model="zipCode"
-                      placeholder="우편번호"
-                      disabled
-                    />
-                  </div>
-                  <!-- 주소검색 버튼 -->
-                  <div class="col">
-                    <button
-                      class="btn"
-                      type="button"
-                      @click="execDaumPostcode()"
-                      value="우편번호 찾기"
-                      id="addressBtn"
-                    >주소 검색</button>
-                  </div>
-                </div>
-                <div class="row mb-1">
-                  <div class="col">
-                    <input
-                      class="form-control"
-                      type="text"
-                      v-model="address.normalAddress"
-                      placeholder="주소"
-                      disabled
-                    />
-                  </div>
-                </div>
-                <div class="row mb-1">
-                  <div class="col">
-                    <input
-                      class="form-control"
-                      type="text"
-                      v-model="address.extraAddress"
-                      placeholder=""
-                      disabled
-                    />
-                  </div>
-                </div>
-                <div class="row mb-1">
-                  <div class="col">
-                    <input
-                      class="form-control"
-                      type="text"
-                      id="detailAddress"
-                      placeholder="상세주소"
-                      v-model="orderDetailAddress"
-                    />
-                  </div>
-                </div>
-                
-              </td>
-              <td></td>
-            </tr>
+        <tr>
+          <th scope="row">
+            <label class="form-label" for="address">주소</label>
+          </th>
+          <td>
+            <div class="row mb-1">
+              <!-- 우편번호 -->
+              <div class="col">
+                <input
+                  class="form-control"
+                  type="text"
+                  v-model="zipCode"
+                  placeholder="우편번호"
+                  disabled
+                />
+              </div>
+              <!-- 주소검색 버튼 -->
+              <div class="col">
+                <button
+                  class="btn"
+                  type="button"
+                  @click="execDaumPostcode()"
+                  value="우편번호 찾기"
+                  id="addressBtn"
+                >
+                  주소 검색
+                </button>
+              </div>
+            </div>
+            <div class="row mb-1">
+              <div class="col">
+                <input
+                  class="form-control"
+                  type="text"
+                  v-model="address.normalAddress"
+                  placeholder="주소"
+                  disabled
+                />
+              </div>
+            </div>
+            <div class="row mb-1">
+              <div class="col">
+                <input
+                  class="form-control"
+                  type="text"
+                  v-model="address.extraAddress"
+                  placeholder=""
+                  disabled
+                />
+              </div>
+            </div>
+            <div class="row mb-1">
+              <div class="col">
+                <input
+                  class="form-control"
+                  type="text"
+                  id="detailAddress"
+                  placeholder="상세주소"
+                  v-model="orderDetailAddress"
+                />
+              </div>
+            </div>
+          </td>
+          <td></td>
+        </tr>
       </tbody>
     </table>
 
@@ -194,12 +200,24 @@
             <!-- 배송 메세지 선택 옵션 -->
             <div class="row mb-1">
               <div class="col-12">
-                <select class="form-select" aria-label="Default select example" v-model="orderRequest">
+                <select
+                  class="form-select"
+                  aria-label="Default select example"
+                  v-model="orderRequest"
+                >
                   <option selected value="">배송메세지를 선택해주세요</option>
-                  <option value="배송전 미리 연락해주세요">배송전 미리 연락해주세요</option>
-                  <option value="부재 시 경비실에 맡겨주세요">부재 시 경비실에 맡겨주세요</option>
-                  <option value="부재 시 문 앞에 놓아주세요">부재 시 문 앞에 놓아주세요</option>
-                  <option value="벨을 누르지 말아주세요">벨을 누르지 말아주세요</option>
+                  <option value="배송전 미리 연락해주세요">
+                    배송전 미리 연락해주세요
+                  </option>
+                  <option value="부재 시 경비실에 맡겨주세요">
+                    부재 시 경비실에 맡겨주세요
+                  </option>
+                  <option value="부재 시 문 앞에 놓아주세요">
+                    부재 시 문 앞에 놓아주세요
+                  </option>
+                  <option value="벨을 누르지 말아주세요">
+                    벨을 누르지 말아주세요
+                  </option>
                   <option value="5">직접 입력</option>
                 </select>
               </div>
@@ -258,7 +276,10 @@
           <!-- 2) 상품가격 -->
           <td>
             <p style="margin-top: 35px">
-             {{ this.product.defaultPrice * (1 - this.product.discountRate / 100)}}원
+              {{
+                this.product.defaultPrice *
+                (1 - this.product.discountRate / 100)
+              }}원
             </p>
           </td>
           <!-- 3) 수량 -->
@@ -268,7 +289,11 @@
           <!-- 4) 총 상품가격 -->
           <td style="text-align: left">
             <p style="margin-top: 35px">
-             {{ this.product.defaultPrice * (1 - this.product.discountRate / 100)*orderAmount}}원
+              {{
+                this.product.defaultPrice *
+                (1 - this.product.discountRate / 100) *
+                orderAmount
+              }}원
             </p>
           </td>
         </tr>
@@ -307,7 +332,7 @@
                         type="radio"
                         name="flexRadioDefault"
                         id="creditCard"
-                        v-model="selectedPaymentMethod"
+                        v-model="paymentType"
                         value="신용카드"
                       />
                       <label class="form-check-label" for="creditCard">
@@ -323,7 +348,7 @@
                         type="radio"
                         name="flexRadioDefault"
                         id="payco"
-                        v-model="selectedPaymentMethod"
+                        v-model="paymentType"
                         value="PAYCO"
                       />
                       <label class="form-check-label" for="payco">
@@ -339,7 +364,7 @@
                         type="radio"
                         name="flexRadioDefault"
                         id="kakaoPay"
-                        v-model="selectedPaymentMethod"
+                        v-model="paymentType"
                         value="카카오페이"
                       />
                       <label class="form-check-label" for="kakaoPay">
@@ -355,7 +380,7 @@
                         type="radio"
                         name="flexRadioDefault"
                         id="naverPay"
-                        v-model="selectedPaymentMethod"
+                        v-model="paymentType"
                         value="네이버페이"
                       />
                       <label class="form-check-label" for="naverPay">
@@ -371,7 +396,7 @@
                         type="radio"
                         name="flexRadioDefault"
                         id="mobilePayment"
-                        v-model="selectedPaymentMethod"
+                        v-model="paymentType"
                         value="휴대폰결제"
                       />
                       <label class="form-check-label" for="mobilePayment">
@@ -387,7 +412,7 @@
                         type="radio"
                         name="flexRadioDefault"
                         id="bankTransfer"
-                        v-model="selectedPaymentMethod"
+                        v-model="paymentType"
                         value="계좌이체"
                       />
                       <label class="form-check-label" for="bankTransfer">
@@ -403,7 +428,7 @@
                         type="radio"
                         name="flexRadioDefault"
                         id="tossPayment"
-                        v-model="selectedPaymentMethod"
+                        v-model="paymentType"
                         value="토스페이"
                       />
                       <label class="form-check-label" for="tossPayment">
@@ -419,7 +444,7 @@
                         type="radio"
                         name="flexRadioDefault"
                         id="tossPayment"
-                        v-model="selectedPaymentMethod"
+                        v-model="paymentType"
                         value="무통장입금"
                       />
                       <label class="form-check-label" for="bankTransferPayment">
@@ -444,7 +469,12 @@
               <div class="paymentTr">
                 <div class="payTitle">총 상품 금액</div>
                 <div class="price">
-                  {{ this.product.defaultPrice * (1 - this.product.discountRate / 100)*orderAmount}} 원
+                  {{
+                    this.product.defaultPrice *
+                    (1 - this.product.discountRate / 100) *
+                    orderAmount
+                  }}
+                  원
                 </div>
               </div>
               <!-- 쿠폰 할인 금액 -->
@@ -455,13 +485,18 @@
               <!-- 총 배송비 -->
               <div class="paymentTr">
                 <div class="payTitle">총 배송비</div>
-                <div class="price">{{shoppingFee}} 원</div>
+                <div class="price">{{ shoppingFee }} 원</div>
               </div>
               <!-- 최종 결제 금액 -->
               <div class="paymentTr">
                 <div class="payTitle">최종 결제 금액</div>
                 <div class="price">
-                  {{ this.product.defaultPrice * (1 - this.product.discountRate / 100)*orderAmount + shoppingFee}}
+                  {{
+                    this.product.defaultPrice *
+                      (1 - this.product.discountRate / 100) *
+                      orderAmount +
+                    shoppingFee
+                  }}
                   원
                 </div>
               </div>
@@ -477,7 +512,7 @@
           <!-- 임시 결제 버튼 -->
           <div class="mt-4">
             <button type="button" id="btnPay" @click="saveOrder">
-              결제하기 임시 버튼
+              주문확인
             </button>
           </div>
         </div>
@@ -521,9 +556,6 @@ export default {
   },
   data() {
     return {
-      selectedPaymentMethod: "", // 선택한 결제 수단을 저장할 데이터 속성
-
-      // 주소정보
       address: {
         normalAddress: "",
         extraAddress: "",
@@ -571,27 +603,30 @@ export default {
       orderRequest: "",
       orderRequestDetail: "", // 주문 요청사항이 직접 입력이면 여기에 저장
       receiver: "",
+      paymentType: "", // 결제수단
     };
   },
   methods: {
     // // TODO: 결제 수단 저장
     // savePaymentMethod() {
     //   // 선택한 결제 수단을 저장하거나 처리하는 로직
-    //   console.log("Selected Payment Method:", this.selectedPaymentMethod);
+    //   console.log("Selected Payment Method:", this.paymentType);
     //   // 여기에 선택한 결제 수단을 서버로 전송하여 저장하는 로직을 추가할 수 있습니다.
     // },
 
     // TODO: 주문 저장함수
     async saveOrder() {
-       let now = new Date(); // js 날짜 객체
-        // 날짜포맷 : yyyy-mm-dd hh:mi:ss 형태
-        // 년도 : now.getFullYear()
-        // 월 : now.getMonth()
-        // 일 : noew.getDate()
-        // 시 : now.getHours()
-        // 분 : now.getMinutes()
-        // 초 : noww.getSeconds()
-        let formatNow = `${now.getFullYear()}-${now.getMonth()}-${now.getDate()} ${now.getHours()}:${now.getMinutes()}:${now.getSeconds()}`;
+      let now = new Date(); // js 날짜 객체
+      // 날짜포맷 : yyyy-mm-dd hh:mi:ss 형태
+      // 년도 : now.getFullYear()
+      // 월 : now.getMonth()
+      // 일 : noew.getDate()
+      // 시 : now.getHours()
+      // 분 : now.getMinutes()
+      // 초 : noww.getSeconds()
+      let formatNow = `${now.getFullYear()}-${
+        now.getMonth() + 1
+      }-${now.getDate()} ${now.getHours()}:${now.getMinutes()}:${now.getSeconds()}`;
       // 주문 상품 객체 : 선택한 상품의 id, 주문 수량을 orderProduct 객체에 저장
       let orderProd = {
         prodId: this.product.prodId,
@@ -604,31 +639,34 @@ export default {
       // 이를 orderProductList 주문 상품 배열로 값 넣기
       orderProds.push(orderProd);
 
-      
-
       // 주문 정보 객체 생성 : 임시 객체 data에 dto 주문 속성 넣기
       let data = {
         userId: this.user.userId,
         orderName: this.user.userName,
         orderPrice:
-        this.product.defaultPrice * (1 - this.product.discountRate / 100)*this.orderAmount,
+          this.product.defaultPrice *
+          (1 - this.product.discountRate / 100) *
+          this.orderAmount,
         shoppingFee: 3000,
         zipCode: this.zipCode,
-        orderAddress: this.address.normalAddress + "," + this.address.extraAddress,
+        orderAddress:
+          this.address.normalAddress + "," + this.address.extraAddress,
         orderDetailAddress: this.orderDetailAddress,
-        orderTime:formatNow,
+        orderTime: formatNow,
         orderRequest: this.orderRequest,
         receiver: this.receiver,
+        paymentType: this.paymentType,
         orderProds,
-        // selectedPaymentMethod: this.selectedPaymentMethod,
       };
+      // 주문 요청 사항 : 직접 배송일 때 작성한 요청사항이 저장
       if (this.orderRequest == "5") {
-        data.orderRequest=this.orderRequestDetail;
+        data.orderRequest = this.orderRequestDetail;
       }
-      
+
       try {
         let response = await OrderService.saveOrder(data); // 주문 정보를 서버에 전송(post 요청 수행)
         console.log(response.data);
+        this.$router.push("/order/payment");
       } catch (error) {
         console.log(error);
       }
@@ -638,22 +676,22 @@ export default {
     async retrieveUser(userId) {
       try {
         let response = await UserService.get(userId);
-        this.user=response.data;
-        
-    console.log(this.user); // console로 찍기
+        this.user = response.data;
+
+        console.log(this.user); // console로 찍기
       } catch (error) {
         console.log(error);
       }
     },
     // TODO: prodId로 상세조회하는 함수
-    
+
     async retrieveProduct(prodId) {
       try {
         let response = await ProductService.get(prodId);
         console.log(response.data);
         this.product = response.data;
-        this.orderPrice =  response.data.defaultPrice; // 비동기 함수이기에 언제 값이 들어올지 모른다. 그러면 이 함수에 의한 데이터가 들어가기 전에 먼저 orderprice가 값이 안 들어간 product에서 값을 가져오게 된다.
- // todo : 진짜 해야하는 일 = amount를 가져오게 되면 orderPrice의 값 바꾸기
+        this.orderPrice = response.data.defaultPrice; // 비동기 함수이기에 언제 값이 들어올지 모른다. 그러면 이 함수에 의한 데이터가 들어가기 전에 먼저 orderprice가 값이 안 들어간 product에서 값을 가져오게 된다.
+        // todo : 진짜 해야하는 일 = amount를 가져오게 되면 orderPrice의 값 바꾸기
       } catch (error) {
         console.log(error);
       }

@@ -25,13 +25,12 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface OrderRepository extends JpaRepository<Order, Integer> {
     @Query(value = "SELECT * FROM LOTTO_ORDER\n" +
-            "WHERE ORDER_ID LIKE '%' || :orderId || '%'"
+            "WHERE ORDER_TIME LIKE '%'|| :orderTime ||'%'"
             ,countQuery = "SELECT count(*) FROM LOTTO_ORDER\n" +
-            "WHERE ORDER_ID LIKE '%' || :orderId || '%'"
+            "WHERE ORDER_TIME LIKE '%'|| :orderTime ||'%'"
             ,nativeQuery = true
     )
-    Page<Order> findAllByOrderIdContaining(@Param("orderId") int orderId,
+    Page<Order> findAllByOrderIdContaining(@Param("orderTime") String orderTime,
                                               Pageable pageable
     );
-
 }

@@ -34,7 +34,7 @@
         "
       >
         <!-- 검색 조건 : for="searchOption" -->
-        <label id="category1" for="searchOption"> 주문번호 검색 </label>
+        <label id="category1" for="searchOption"> 주문일 검색 </label>
         <!-- 주문번호/상품명 label : id="searchOpt" -->
         <!-- <label style="align-items: right" id="searchOpt"> -->
         <!-- 주문번호/상품명 select box : id="searchOption"-->
@@ -45,12 +45,26 @@
         <!-- </label> -->
         <!-- 주문번호/상품명 입력란 : id="searchInputContainer" -->
         <div class="col">
-          <input
+          <!-- <input
             class="form-control"
             type="text"
             name="prodNum"
             v-model="searchOptionInput"
-          />
+          /> -->
+  <div class="datepicker-container">
+    <VueDatePicker
+      v-model="selectedDate"
+      locale="ko"
+      format="yyyy-MM-dd"
+      :enable-time-picker="false"
+      week-start="0"
+      position="left"
+      placeholder="날짜 선택"
+      auto-apply
+      :max-date="maxDate"
+    />
+  </div>
+
         </div>
       </div>
     </div>
@@ -83,7 +97,7 @@
         <!-- </select> -->
         <!-- </label> -->
         <!-- 결제확인중 버튼 -->
-        <div class="form-check">
+        <!-- <div class="form-check">
           <input
             class="form-check-input"
             type="radio"
@@ -95,7 +109,7 @@
           <label class="form-check-label" for="flexRadioDefault" id="status1">
             결제확인중
           </label>
-        </div>
+        </div> -->
         <!-- 결제확인 버튼 -->
         <div class="form-check">
           <input
@@ -125,7 +139,7 @@
           </label>
         </div>
         <!-- 배송준비중 버튼 -->
-        <div class="form-check">
+        <!-- <div class="form-check">
           <input
             class="form-check-input"
             type="radio"
@@ -137,7 +151,7 @@
           <label class="form-check-label" for="flexRadioDefault" id="status1">
             배송준비중
           </label>
-        </div>
+        </div> -->
         <!-- 배송중 버튼 -->
         <div class="form-check">
           <input
@@ -166,7 +180,7 @@
             배송완료
           </label>
         </div>
-        <!-- 거래완료 버튼 -->
+        <!-- 구매확정 버튼 -->
         <div class="form-check">
           <input
             class="form-check-input"
@@ -177,133 +191,12 @@
             checked
           />
           <label class="form-check-label" for="flexRadioDefault" id="status1">
-            거래완료
+            구매확정
           </label>
         </div>
       </div>
     </div>
     <!-- 주문 상태 끝 -->
-
-    <!-- 3. 결제수단 시작 : selectedPayMethod-->
-    <!-- <div
-      class="container mt-4"
-      style="
-        border: 1px solid black;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        height: 60px;
-      "
-    >
-      <div
-        style="
-          display: flex;
-          justify-content: space-between;
-          align-items: center;
-        "
-      >
-        <label id="salaryStatus1">결제 수단</label>
-        신용카드 버튼
-         <div class="form-check">
-          <input
-            class="form-check-input"
-            type="radio"
-            name="flexRadioDefault"
-            id="flexRadioDefault2"
-            v-model="selectedPayMethod"
-            checked
-          />
-          <label class="form-check-label" for="flexRadioDefault2" id="status2">
-            신용카드
-          </label>
-        </div> -->
-    <!-- PAYCO 버튼 -->
-    <!-- <div class="form-check">
-          <input
-            class="form-check-input"
-            type="radio"
-            name="flexRadioDefault"
-            id="flexRadioDefault2"
-            v-model="selectedPayMethod"
-            checked
-          />
-          <label class="form-check-label" for="flexRadioDefault2" id="status2">
-            PAYCO
-          </label>
-        </div> -->
-    <!-- 카카오페이 버튼 -->
-    <!-- <div class="form-check">
-          <input
-            class="form-check-input"
-            type="radio"
-            name="flexRadioDefault"
-            id="flexRadioDefault2"
-             v-model="selectedPayMethod"
-            checked
-          />
-          <label class="form-check-label" for="flexRadioDefault2" id="status2">
-            카카오페이
-          </label>
-        </div> -->
-    <!-- 네이버페이 버튼 -->
-    <!-- <div class="form-check">
-          <input
-            class="form-check-input"
-            type="radio"
-            name="flexRadioDefault"
-            id="flexRadioDefault2"
-             v-model="selectedPayMethod"
-            checked
-          />
-          <label class="form-check-label" for="flexRadioDefault2" id="status2">
-            네이버페이
-          </label>
-        </div> -->
-    <!-- 휴대폰결제 버튼 -->
-    <!-- <div class="form-check">
-          <input
-            class="form-check-input"
-            type="radio"
-            name="flexRadioDefault"
-            id="flexRadioDefault2"
-             v-model="selectedPayMethod"
-            checked
-          />
-          <label class="form-check-label" for="flexRadioDefault2" id="status2">
-            휴대폰결제
-          </label>
-        </div> -->
-    <!-- 계좌이체 버튼 -->
-    <!-- <div class="form-check">
-          <input
-            class="form-check-input"
-            type="radio"
-            name="flexRadioDefault"
-            id="flexRadioDefault2"
-             v-model="selectedPayMethod"
-            checked
-          />
-          <label class="form-check-label" for="flexRadioDefault2" id="status2">
-            계좌이체
-          </label>
-        </div> -->
-    <!-- 토스페이 버튼 -->
-    <!-- <div class="form-check">
-          <input
-            class="form-check-input"
-            type="radio"
-            name="flexRadioDefault"
-            id="flexRadioDefault2"
-             v-model="selectedPayMethod"
-            checked
-          />
-          <label class="form-check-label" for="flexRadioDefault2" id="status2">
-            토스페이
-          </label>
-        </div> -->
-    <!-- </div> -->
-    <!-- </div> -->
-    <!-- 결제수단 끝 -->
 
     <!-- 4. 검색 버튼 : @click="searchOrder"-->
     <div class="container text-center">
@@ -311,7 +204,7 @@
         type="button"
         class="text-light searchBtn btn-sm mt-4"
         style="margin-left: 10px"
-        @click="searchOrder"
+        @click="retrieveOrder"
       >
         검색
       </button>
@@ -396,11 +289,12 @@
                 id="orderStatus"
               >
                 <option selected>상품준비중</option>
-                <option value="1">결제확인중</option>
-                <option value="2">결제확인</option>
-                <option value="3">배송준비중</option>
+                <!-- <option value="1">결제확인중</option> -->
+                <option value="1">결제확인</option>
+                <option value="2">상품준비중</option>
+                <option value="3">배송중</option>
                 <option value="4">배송완료</option>
-                <option value="5">거래완료</option>
+                <option value="5">구매확정</option>
               </select>
             </label>
           </td>
@@ -434,21 +328,10 @@
           v-model="page"
           :total-rows="count"
           :per-page="pageSize"
-          @click="retrieveFaq"
+          @click="retrieveOrder"
         ></b-pagination>
       </div>
     </div>
-
-    <!-- 6. 저장 버튼 -->
-    <!-- <div class="container text-center">
-      <button
-        type="button"
-        class="text-light signUpBtn btn-sm mt-4"
-        style="margin-left: 10px"
-      >
-        저장
-      </button>
-    </div> -->
 
     <br />
     <br />
@@ -456,13 +339,24 @@
 </template>
 <script>
 import AdminOrderservice from "@/services/admin/AdminOrderService";
+import VueDatePicker from "@vuepic/vue-datepicker";
+import "@vuepic/vue-datepicker/dist/main.css";
+
 export default {
+  components: {
+    VueDatePicker,
+  },
   data() {
     return {
+      // todo 주문일 날짜
+      // formatDate: 'YYYY-MM-DD', // 예시로 사용된 날짜 포맷, 실제 필요에 따라 변경
+      selectedDate: null, // 사용자가 선택한 날짜를 저장할 데이터 속성
+      maxDate: new Date(), // 오늘 날짜를 최대 날짜로 설정
+
       // selectedOrders:[],  // 체크박스 : 각 체크박스에서 선택된 주문들의 id를 저장하기 위해 배열로 생성
 
-      orders: [],
-      searchOrderId: 11,
+      orders: [], //
+      searchOrderId: "", // 주문번호
 
       searchOptionInput: "", // 입력한 주문번호를 저장할 데이터 속성
       selectedOrderStatus: "", // 선택한 주문 상태를 저장할 데이터 속성
@@ -473,7 +367,7 @@ export default {
       // 공통 속성(현재페이지, 전체데이터개수,1페이지당개수)
       page: 1, // 현재페이지번호
       count: 0, // 전체데이터개수
-      pageSize: 10, // 1페이지당개수(select태그)
+      pageSize: 2, // 1페이지당개수(select태그)
     };
   },
   methods: {
@@ -499,28 +393,29 @@ export default {
     searchOrder() {
       // this.searchResult = this.searchOptionInput;
 
-      // 주문번호 입력값 가져오기
-      var orderNumberInput = this.searchOptionInput;
+      // 주문일 입력값 가져오기 (orderNumberInput 변수 생성)
+      var orderDateInput = this.selectedDate;
 
-      // 선택된 주문 상태 가져오기
-      var selectedOrderStatus = document.querySelector(
-        'input[name="flexRadioDefault"]:checked'
-      );
+      // // 선택된 주문 상태 가져오기
+      // var selectedOrderStatus = document.querySelector(
+      //   'input[name="flexRadioDefault"]:checked'
+      // );
 
-      // 선택된 주문 번호가 없을 경우
-      if (!orderNumberInput) {
-        alert("주문번호를 입력해주세요.");
+      // 선택된 주문일이 없을 경우(orderNumberInput 변수가 없을 경우)
+      if (!orderDateInput) {
+        alert("주문일을 입력해주세요.");
         return;
       }
 
-      // 선택된 주문 상태가 없을 경우
-      if (!selectedOrderStatus) {
-        alert("주문 상태를 선택해주세요.");
-        return;
-      }
+      // // 선택된 주문 상태가 없을 경우
+      // if (!selectedOrderStatus) {
+      //   alert("주문 상태를 선택해주세요.");
+      //   return;
+      // }
     },
   },
   mounted() {
+    // 최초 화면이 뜰 때 전체조회 실행(장바구니)
     this.retrieveOrder();
   },
 };

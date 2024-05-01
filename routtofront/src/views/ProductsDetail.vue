@@ -269,7 +269,7 @@ export default {
 }
 
 #btn2 {
-  width: 12vw;
+  width: 9vw;
   height: 4vw;
   margin-right: 1.5vw;
   background-color: white;
@@ -279,7 +279,7 @@ export default {
 }
 
 #btn3 {
-  width: 12vw;
+  width: 9vw;
   height: 4vw;
     margin-right: 1.5vw;
   background-color: #342a26;
@@ -288,12 +288,13 @@ export default {
 }
 
 #btn4 {
-  width: 6vw;
+  width: 9vw;
   height: 4vw;
-  
-  background-color: #342a26;
-  color: white;
-  border-radius: 50%; /* 모서리 둥글게 : 5px로 설정 */
+  border: #fff16c;
+  background-color: #fff16c;
+  color: black;
+  border-radius: 5px; /* 모서리 둥글게 : 5px로 설정 */
+    border: 2px solid #fff16c; /* 빨간색 테두리, 두께는 2px */
 }
 #star {
   color: red;
