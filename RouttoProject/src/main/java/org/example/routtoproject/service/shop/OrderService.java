@@ -36,12 +36,12 @@ import java.util.List;
 @RequiredArgsConstructor
 public class OrderService {
 
-    private final OrderRepository orderRepository;
-    private final OrderProdRepository orderProdRepository;
+    private final OrderRepository orderRepository;          // DI
+    private final OrderProdRepository orderProdRepository;  // DI
 
     ModelMapper modelMapper = new ModelMapper();
-//    TODO: 주문/결제 페이지에서 주문 정보 입력시 DB에 저장하는 함수
 
+//    TODO: 주문/결제 페이지에서 주문 정보 입력시 DB에 저장하는 함수
     @Transactional
     public Order saveOrder(OrderDto orderDto) {
 //        TODO: 1) insert 할 때는 DTO -> Entity 로 변환해서 insert
@@ -76,9 +76,9 @@ public class OrderService {
     }
 
     // 페이징 주문 전체 조회
-    // todo 전체조회
-    public Page<Order> findAll(int orderId, Pageable pageable){
-        Page<Order> page = orderRepository.findAllByOrderIdContaining(orderId, pageable);
+    // todo 전체조회 : 관리자 주문확인 페이지에서 사용
+    public Page<Order> findAll(String orderTime, Pageable pageable){
+        Page<Order> page = orderRepository.findAllByOrderIdContaining(orderTime, pageable);
         return page;
     }
 }

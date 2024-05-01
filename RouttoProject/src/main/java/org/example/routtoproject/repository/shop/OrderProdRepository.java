@@ -2,6 +2,7 @@ package org.example.routtoproject.repository.shop;
 
 import org.example.routtoproject.model.entity.shop.OrderProd;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -21,5 +22,9 @@ import java.util.List;
  */
 @Repository
 public interface OrderProdRepository extends JpaRepository<OrderProd, Integer>{
-
+//    SELECT LP.PROD_ID, LP.PROD_NAME
+//    FROM LOTTO_PRODUCT LP, LOTTO_ORDER_PROD OP
+//    WHERE LP.PROD_ID = OP.PROD_ID
+//    @Query(value = "", countQuery = "", nativeQuery = true)
+//    List<>
 }

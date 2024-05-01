@@ -15,6 +15,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -42,7 +43,7 @@ public class AdminOrderController {
 //    조회(select) -> get 방식 -> @GetMapping
     @GetMapping("/order")
     public ResponseEntity<Object> findAll(
-            @RequestParam(defaultValue = "") int orderId,
+            @RequestParam(defaultValue = "") String orderTime,
             @RequestParam(defaultValue = "0") int page,
             @RequestParam(defaultValue = "3") int size
     ) {
@@ -53,16 +54,16 @@ public class AdminOrderController {
 //            전체 조회 서비스 실행
             Page<Order> orders
                     = orderService
-                    .findAll(orderId, pageable);
+                    .findAll(orderTime, pageable);
 
 //            공통 페이징 객체 생성 : 자료구조 맵 사용
-            Map<String , Object> response = new HashMap<>();
+            Map<String, Object> response = new HashMap<>();
             response.put("orders", orders.getContent());    // simpleProduct 배열
             response.put("currentPage", orders.getNumber());       // 현재페이지번호
             response.put("totalItems", orders.getTotalElements()); // 총건수(개수)
             response.put("totalPages", orders.getTotalPages());    // 총페이지수
 
-            if(orders.isEmpty() == false) {
+            if (orders.isEmpty() == false) {
 //                조회 성공
                 return new ResponseEntity<>(response, HttpStatus.OK);
             } else {
@@ -74,5 +75,4 @@ public class AdminOrderController {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
-
 }

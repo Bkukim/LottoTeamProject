@@ -56,6 +56,7 @@ public class Order {
     private String orderTime;
     private String orderRequest;
     private String receiver;
+    private String paymentType;
     private String orderStatus;
     private String orderChangeTime;
     private String orderChangeReason;

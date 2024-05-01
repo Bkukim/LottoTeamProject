@@ -269,7 +269,7 @@ export default {
 }
 
 #btn2 {
-  width: 12vw;
+  width: 9vw;
   height: 4vw;
   margin-right: 1.5vw;
   background-color: white;
@@ -279,7 +279,7 @@ export default {
 }
 
 #btn3 {
-  width: 12vw;
+  width: 9vw;
   height: 4vw;
     margin-right: 1.5vw;
   background-color: #342a26;
