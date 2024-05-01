@@ -23,6 +23,7 @@
       <div class="product2_all">
         <!-- product 왼쪽 문구 -->
         <div class="product2">product</div>
+        
         <div class="product2_in" v-for="(data, index) in product" :key="index">
           <!-- 홀수 번째인 경우에만 odd 클래스를 추가 -->
           <div class="div10" :class="{ odd: index % 2 !== 0 }">
