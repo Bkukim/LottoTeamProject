@@ -309,7 +309,7 @@
     <div class="container text-center">
       <button
         type="button"
-        class="text-light signUpBtn btn-sm mt-4"
+        class="text-light searchBtn btn-sm mt-4"
         style="margin-left: 10px"
         @click="searchOrder"
       >
@@ -353,34 +353,41 @@
                 type="checkbox"
                 value=""
                 id="flexCheckDefault"
+                v-model="selectedOrders"
             /></label>
           </th>
 
+          <!-- 주문번호 -->
           <td>
             <div>
               <p>{{ data.orderId }}</p>
             </div>
           </td>
+          <!-- 주문일 -->
           <td>
             <div>
               <p>{{ data.orderTime }}</p>
             </div>
           </td>
+          <!-- 주문상품정보 -->
           <td>
             <!-- <div v-for="(data2, index) in data.orderProds" :key="index">
               <p>{{ data.prodName }}</p>
             </div> -->
           </td>
+          <!-- 주문자 정보 -->
           <td>
             <div>
               <p>{{ data.userId }}</p>
             </div>
           </td>
+          <!-- 결제 수단 -->
           <td>
             <div>
               <p>{{ data.paymentType }}</p>
             </div>
           </td>
+          <!-- 주문 상태 변경 -->
           <td>
             <label style="align-items: right">
               <select
@@ -397,19 +404,21 @@
               </select>
             </label>
           </td>
+          <!-- 주문 상태 -->
           <td>
-            <p>{{data.orderStatus}}</p>
+            <p>{{ data.orderStatus }}</p>
           </td>
           <td>
-          <div>
-            <button
-              type="button"
-              class="text-light saveBtn btn-sm mt-4"
-              style="margin-left: 10px"
-            >
-              저장
-            </button>
-          </div>
+            <!-- 주문 상태 저장 -->
+            <div>
+              <button
+                type="button"
+                class="text-light saveBtn btn-sm mt-1"
+                style="margin-left: 5px"
+              >
+                저장
+              </button>
+            </div>
           </td>
         </tr>
       </tbody>
@@ -450,6 +459,8 @@ import AdminOrderservice from "@/services/admin/AdminOrderService";
 export default {
   data() {
     return {
+      // selectedOrders:[],  // 체크박스 : 각 체크박스에서 선택된 주문들의 id를 저장하기 위해 배열로 생성
+
       orders: [],
       searchOrderId: 11,
 
@@ -466,7 +477,7 @@ export default {
     };
   },
   methods: {
-    // TODO: 전체조회(장바구니) 함수 : 검색어 버튼, 화면이뜰때 자동 실행
+    // 전체조회(장바구니) 함수 : 검색어 버튼, 화면이뜰때 자동 실행
     async retrieveOrder() {
       try {
         // TODO: 공통 장바구니 전체 조회 서비스 함수 실행
@@ -535,7 +546,7 @@ export default {
   margin-right: 3vw;
 }
 
-.signUpBtn {
+.searchBtn {
   background-color: #342a26;
   color: white;
   font-size: 20px;
@@ -547,7 +558,7 @@ export default {
   color: white;
   font-size: 15px;
   width: 70px;
-  height: 50px;
+  height: 35px;
 }
 #orderStatus {
   width: 11vw;

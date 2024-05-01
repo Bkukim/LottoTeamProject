@@ -18,7 +18,11 @@
 
 
 
-
+.div10{
+  position: absolute;
+  left: -3px;
+  top: 80.04999999999995px;
+}
 
 
 
@@ -208,7 +212,6 @@ color: rgb(255, 255, 255);
 }
 
 ._24 {
-  /* background: #535353; */
   width: 116.64px;
   height: 13.29px;
   position: absolute;

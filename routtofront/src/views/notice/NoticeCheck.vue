@@ -1,4 +1,4 @@
-<!-- NoticeCheck.vue -->
+<!-- NoticeCheck.vue ::공지사항 상세조회-->
 <template>
   <div class="mt-5 mb-5 col-13">
     <!-- 카테고리 -->
@@ -8,19 +8,19 @@
         <tbody>
           <tr>
             <th scope="row" class="col-2">제목</th>
-            <td>{{ notice.title }}</td>
+            <td>{{ announcement.title }}</td>
           </tr>
 
           <tr>
             <th scope="row">내용</th>
             <td>
-              {{ notice.content }}
+              {{ announcement.content }}
             </td>
           </tr>
           <tr>
             <th scope="row">첨부파일</th>
             <td>
-              <a href="#">{{ notice.noticeImg }}</a>
+              {{ announcement.announcementImg }}
             </td>
           </tr>
           <!-- Add more rows as needed -->
@@ -31,11 +31,12 @@
     <!-- 문의사항 등록 버튼  :: 공지사항거 들고오기-->
     <div class="d-grid gap-2 d-md-flex justify-content-md-end">
       <!-- 등록시 고객센터 글 목록으로 재이동 -->
-      <button id="button1" class="btn btn-primary" type="button">
-        <router-link to="/shop/admin-notice" class="router-link-exact-active"
-          >수정</router-link
-        >
+      <router-link :to="'/shop/notice-update/'+announcement.announcementId">
+        <button id="button1" class="btn btn-primary" type="button">
+        수정
       </button>
+      </router-link>
+      
       <button
         id="button1"
         class="btn btn-primary"
@@ -53,12 +54,13 @@ import NoticeListService from "@/services/noticeQnA/NoticeListService";
 export default {
   data() {
     return {
-      notice: {
+      announcement: {
         // 웹 매개변수 전달방식 :: 필기옮겨오기
         // todo: 사용법 : this.$router.params.기본키명
         // todo: 참조) router/index.js=>path: /fileDb/:uuid
         // tpdo : 2개의 변수명이 일치해야함 : uuid
-        announcementId: this.$route.params.announcementId,
+        // 아래의 거 쓸때 /:announcementId가 붙어있어야함
+        announcementId:this.$route.params.announcementId,
         title: "",
         content: "", 
         announcementImg: "",
@@ -70,23 +72,24 @@ export default {
     };
   },
   methods: {
-    async getPost() {
-      try {
-        // 특정 fnqID에 해당하는 문의사항 데이터 받아오기
-        let announcementId = this.$route.params.announcementId; // 라우터의 fnqID 파라미터 가져오기
-        // 상세조회 2 fnq id
-        let response = await NoticeListService.getNoticeId(announcementId); // 백엔드에서 해당 ID에 해당하는 문의사항 데이터 받아오기
-        this.notice = response.data; // 받아온 데이터를 inquiry 객체에 저장
-      } catch (e) {
-        console.log(e);
-      }
-    },
+    // async getPost() {
+    //   try {
+    //     // 특정 fnqID에 해당하는 문의사항 데이터 받아오기
+    //     let announcementId = this.$route.params.announcementId; // 라우터의 fnqID 파라미터 가져오기
+    //     // 상세조회 2 fnq id
+    //     let response = await NoticeListService.getNotice(announcementId); // 백엔드에서 해당 ID에 해당하는 문의사항 데이터 받아오기
+    //     this.announcement = response.data; // 받아온 데이터를 announcement 객체에 저장
+    //   } catch (e) {
+    //     console.log(e);
+    //   }
+    // },
+    // 상세조회
     async get(announcementId) {
       // todo: 공통 상세조회 함수: get()
       // 비동기 코딩!!!!
       try {
-        let response = await NoticeListService.getNoticeId(announcementId);
-        this.notice = response.data; //spring 결과 -> fileDb 저장
+        let response = await NoticeListService.getNotice(announcementId);
+        this.announcement = response.data; //spring 결과 -> announcement 저장
         // 로깅
         console.log(response.data);
       } catch (e) {

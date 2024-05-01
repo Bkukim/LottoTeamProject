@@ -24,22 +24,31 @@
       <!-- 왼쪽 박스 -->
       <div class="kim-frame-142">
         <router-link to="/notice" class="kim-div4">공지사항</router-link>
-        <router-link to="#" class="kim-div4">FAQ</router-link>
+        <router-link to="/faqList" class="kim-div4">FAQ</router-link>
       </div>
 
       <!-- 오른쪽 박스 -->
-      <div class="kim-frame-15">
-        <router-link to="/member/login" class="kim-login">LOGIN</router-link>
-        <router-link to="/member/join" class="kim-join">JOIN</router-link>
-        <router-link to="/cart" class="kim-cart">CART</router-link>
-        <router-link to="/member/mypage" class="kim-my-page"
-          >MY PAGE</router-link
-        >
+      <div>
+        <div class="kim-frame-15" v-if="!this.$store.state.loggedIn">
+          <router-link to="/member/login" class="kim-login">LOGIN</router-link>
+          <router-link to="/member/join" class="kim-join">JOIN</router-link>
+        </div>
+        <div class="kim-frame-15" v-else>
+          <li>
+            <a href class="kim-login" @click.prevent="handleLogout"> LOGOUT </a>
+          </li>
+          <router-link to="/cart" class="kim-cart">CART</router-link>
+          <router-link to="/member/mypage" class="kim-my-page"
+            >MY PAGE</router-link
+          >
+        </div>
       </div>
 
       <!-- 검색창 -->
       <div class="search_header">
-        <input type="text" v-model="searchQuery" placeholder="" />
+        <input type="text" 
+        v-model="searchQuery" 
+        placeholder="" />
         <router-link to="/member/searchproduct" class="se_button">
           <img src="../../../src/assets/images/se.png" />
         </router-link>
@@ -64,6 +73,7 @@
 </template>
 
 <script>
+import AuthService from '@/services/auth/AuthService';
 export default {
   data() {
     return {
@@ -117,6 +127,17 @@ export default {
       // 여기서 검색어(searchQuery)를 이용하여 검색을 수행하는 로직을 작성
       console.log("검색어:", this.searchQuery);
       // 예를 들어, 검색 결과를 서버에 요청하거나 라우팅을 통해 검색 결과 페이지로 이동
+    },
+    handleLogout() {
+      let result = confirm("정말로 로그아웃 하시겠습니까?");
+      if (result) {
+        AuthService.logout(); // LOCAL저장소에서 USER객체 삭제해주기
+      this.$store.commit("logout"); //
+      this.$router.push("/member/login");
+      } else {
+        return;
+      }
+      
     },
   },
 };

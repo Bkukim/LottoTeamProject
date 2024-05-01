@@ -73,22 +73,6 @@ public class NormalAnnouncementController {
         }
     }
 
-    //    TODO: 저장함수
-//    저장(insert) -> post 방식 -> @PostMapping
-    @PostMapping("/notice")
-    public ResponseEntity<Object> create(
-            @RequestBody Announcement announcement
-    ) {
-        try {
-//            저장 서비스 실행
-            Announcement simpleCart2 = announcementService.save(announcement);
-
-            return new ResponseEntity<>(simpleCart2, HttpStatus.OK);
-        } catch (Exception e) {
-            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
-        }
-    }
-
     //    todo: 상세조회 만들기
 //    조회(select) -> get 방식 -> @GetMapping
     @GetMapping("/notice/{announcementId}")
@@ -112,4 +96,6 @@ public class NormalAnnouncementController {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
+
+    
 }
