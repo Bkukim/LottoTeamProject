@@ -8,7 +8,7 @@
         >고객센터</router-link
       >
       |
-      <router-link class="top_notice2 text-decoration-none" to="/notice"
+      <router-link class="top_notice2 text-decoration-none" to="/shop/notice"
         >공지사항</router-link
       >
     </div>
@@ -39,10 +39,14 @@
         <tbody>
           <!-- 반복문 시작할 행 -->
           <tr v-for="(data, index) in faqList" :key="index">
-            <th scope="row">{{data.faqId}}</th>
-            <td>{{data.faqTitle}}</td>
-            <td>{{data.userId}}</td>
-            <td>{{ created }}</td>
+            <th scope="row">
+              <router-link :to="'/shop/inquiry-check/' + data.faqId" class="router-link-exact-active cencle">
+              {{ data.faqId }}
+            </router-link>
+            </th>
+            <td>{{ data.faqTitle }}</td>
+            <td>{{ data.userId }}</td>
+            <td>{{ data.insertTime }}</td>
           </tr>
         </tbody>
       </table>
@@ -65,7 +69,7 @@
       <!-- 질문하기 등록-->
       <div class="row justify-content-end">
         <button type="button" id="button1" class="mt-5 btn">
-          <router-link to="/inquiry" class="router-link-exact-active"
+          <router-link to="/shop/inquiry" class="router-link-exact-active"
             >질문하기</router-link
           >
         </button>
@@ -75,20 +79,16 @@
 </template>
 
 <script>
-import FaqListService from '@/services/noticeQnA/FaqListService';
+import FaqListService from "@/services/noticeQnA/FaqListService";
 export default {
   data() {
     return {
       faqList: [],
       faqTitle: "",
-
       // 공통 속성(현재페이지, 전체데이터개수,1페이지당개수)
       page: 1, // 현재페이지번호
       count: 0, // 전체데이터개수
       pageSize: 10, // 1페이지당개수(select태그)
-
-      // 날짜함수
-      currentDate: '',
     };
   },
   methods: {
@@ -111,11 +111,6 @@ export default {
       } catch (e) {
         console.log(e);
       }
-    },
-    created(){
-    //  이걸 백엔드에 전해주려면 어캐함?
-     this.currentDate = new Date().toLocaleDateString();
-
     },
   },
   mounted() {

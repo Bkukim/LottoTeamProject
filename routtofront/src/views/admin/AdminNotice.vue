@@ -101,6 +101,7 @@ export default {
         // TODO: 콘솔에 결과 출력
         console.log(response);
         this.message = response.data;
+        this.$router.push("/shop/notice");
       } catch (e) {
         // 현재선택된 이미지 변수 초기화
         this.announcementImg = undefined;

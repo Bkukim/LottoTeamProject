@@ -53,6 +53,7 @@ public class AnnouncementService {
 //     1) 기본키가(부서번호) 없으면 저장(insert)
 //     2) 기본키가(부서번호) 있으면 수정(update)
 public Announcement save(
+        int announcementId,
         String title,
         String content,
         MultipartFile announcementImg,
@@ -77,6 +78,7 @@ public Announcement save(
 
             // todo  1-3) 생성자에 만든 url넣어주기
             Announcement announcement = new Announcement(
+
                     title,
                     content,
                     announcementImg.getBytes(),
@@ -84,20 +86,16 @@ public Announcement save(
                     announcementImgUuid);
             announcement1 = announcementRepository.save(announcement);
         }else {
-//            TODO: update : 기본키(uuid) 있으면
-            announcementImgUrl = ServletUriComponentsBuilder
-                    .fromCurrentContextPath()// 스프링 서버 기본 주소 : localhost:8000
-                    .path("/api/normal/member/notice/save") // 추가 경로 넣기 : /advanced/fileDb
-                    .path(announcementImgUuid) // uuid를 url 제일 마지막에 넣어주기
-                    .toUriString(); // 위의 url을 하나로 합쳐주는 함수 http://localhost:8000/advanced/fileDb/xxxx 가 된다.
+            // todo  1-3) 생성자에 만든 url넣어주기
             Announcement announcement = new Announcement(
+                    announcementId,
                     title,
                     content,
                     announcementImg.getBytes(),
                     announcementImgUrl,
                     announcementImgUuid);
-            announcement1 = announcementRepository.save(announcement);
-
+            Announcement announcement2 = announcementRepository.save(announcement);
+            return announcement2;
         }
     } catch (Exception e) {
         log.debug(e.getMessage());
@@ -114,6 +112,27 @@ public Optional<Announcement> findById(int announcementId) {
             = announcementRepository.findById(announcementId);
     return optionalAnnouncement;
 }
+
+//   todo: 이미지 불러오는 함수
+public Optional<Announcement> findImgByUuid(String uuid){
+    Optional<Announcement> announcement = announcementRepository.findByAnnouncementImgUuid(uuid);
+    return announcement;
+}
+// 삭제함수
+    public boolean removeById(int announcementId) {
+//        JPA 삭제함수 : deleteById(기본키)
+//        1) 먼저 기본키가 테이블에 있으면 삭제, true 리턴
+//           없으면 false 리턴
+
+//        사용법 : jpa레포지토리.existsById(기본키)
+//         => 기본키가 테이블에 있으지 확인. 있으면 true, 없으면 false
+        if(announcementRepository.existsById(announcementId) == true) {
+            announcementRepository.deleteById(announcementId);
+            return true;
+        } else {
+            return false;
+        }
+    }
 
 }
 

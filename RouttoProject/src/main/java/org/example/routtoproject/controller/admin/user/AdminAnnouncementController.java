@@ -56,6 +56,7 @@ public ResponseEntity<Object> createAnnouncement(
 //                log.debug("확인용" + prodImg);
 //                log.debug("확인용" + prodDetailPage);
         Announcement announcement1 = announcementService.save(
+                0,
                 title,
                 content,
                 announcementImg,
@@ -70,8 +71,9 @@ public ResponseEntity<Object> createAnnouncement(
 }
     //    todo: 수정함수
 //    수정(update) ->put 방식 ->@PutMapping
-    @PutMapping("/notice/update")
+    @PutMapping("/notice/update/{announcementId}")
     public ResponseEntity<Object> updateAnnouncement(
+            @PathVariable String announcementId,
             @RequestParam(defaultValue = "") String title,
             @RequestParam(defaultValue = "") String content,
             @RequestParam MultipartFile announcementImg,
@@ -80,13 +82,35 @@ public ResponseEntity<Object> createAnnouncement(
     ){
         try{
 //            DB 수정 서비스 함수 실행
-            announcementService.save(title, content, announcementImg, announcementImgUrl,announcementImgUuid );
+            announcementService.save(Integer.parseInt(announcementId), title, content, announcementImg, announcementImgUrl,announcementImgUuid );
             return new ResponseEntity<>("업로드 수정 성공", HttpStatus.OK);
         }catch (Exception e){
             return new ResponseEntity<>("서버에러",HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
+    //    TODO: 삭제 함수
+//     삭제(delete) -> delete 방식 -> @DeleteMapping
+    @DeleteMapping("/notice/deletion/{announcementId}")
+    public ResponseEntity<Object> delete(
+            @PathVariable int announcementId
+    ) {
+        try {
+//            DB 서비스 삭제 함수 실행
+            boolean success = announcementService.removeById(announcementId);
+
+            if(success == true) {
+                return new ResponseEntity<>(HttpStatus.OK);
+            } else {
+                // 삭제 실행 : 0건 삭제(삭제할 데이터 없음)
+                return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+            }
+
+        } catch (Exception e) {
+//            서버(DB) 에러
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
 
 
 }

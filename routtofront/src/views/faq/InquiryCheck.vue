@@ -8,35 +8,28 @@
         <tbody>
           <tr>
             <th scope="row" class="col-2">제목</th>
-            <td>{{inquiry.faqTitle}}</td>
+            <td>{{ faqList.faqTitle }}</td>
           </tr>
           <tr>
             <th scope="row">문의유형</th>
-            <td>{{inquiry.faqType}}</td>
+            <td>{{ faqList.faqType }}</td>
           </tr>
           <tr>
             <th scope="row">내용</th>
             <td>
-              {{inquiry.faqContent}}
+              {{ faqList.faqContent }}
             </td>
           </tr>
-          <tr>
-            <th scope="row">첨부파일</th>
-            <td><a href="#">{{ inquiry.faqImg }}</a></td>
-          </tr>
-          <!-- Add more rows as needed -->
         </tbody>
       </table>
-      
     </div>
-
 
     <!-- 문의사항 등록 버튼  :: 공지사항거 들고오기-->
     <div class="d-grid gap-2 d-md-flex justify-content-md-end">
       <!-- 등록시 고객센터 글 목록으로 재이동 -->
-      <button id="button1" class="btn btn-primary" type="button" @click="goUapdate">
-        수정
-      </button>
+      <router-link :to="'/shop/inquiry-update/'+faqList.faqId">
+      <button id="button1" class="btn btn-primary" type="button">수정</button>
+    </router-link>
     </div>
   </div>
 </template>
@@ -46,29 +39,35 @@ import FaqListService from "@/services/noticeQnA/FaqListService";
 export default {
   data() {
     return {
-      inquiry: {} // 단일 문의사항을 저장할 객체
+      faqList: {
+        faqId: this.$route.params.faqId,
+        faqTitle: "",
+        faqContent: "",
+        faqType: "",
+      }, // 단일 문의사항을 저장할 객체
     };
   },
   methods: {
-    async getPost() {
-    try {
-      // 특정 fnqID에 해당하는 문의사항 데이터 받아오기
-      let faqId = this.$route.params.faqId; // 라우터의 fnqID 파라미터 가져오기
-      // 상세조회 2 fnq id
-      let response = await FaqListService.getFaqId(faqId); // 백엔드에서 해당 ID에 해당하는 문의사항 데이터 받아오기
-      this.inquiry = response.data; // 받아온 데이터를 inquiry 객체에 저장
-    } catch (e) {
-      console.log(e);
-    }
-  }
-  ,
-  // 패스워드 쓰지않음
-  goUapdate() {
-      this.$router.push("/inquiry-update");
+    async get(faqId) {
+      // todo: 공통 상세조회 함수: get()
+      // 비동기 코딩!!!!
+      try {
+        let response = await FaqListService.getFaqId(faqId);
+        this.faqList = response.data; //spring 결과 -> announcement 저장
+        // 로깅
+        console.log(response.data);
+      } catch (e) {
+        console.log(e);
+      }
     },
+    // 패스워드 쓰지않음
+    // goUapdate() {
+    //   this.$router.push('/inquiry-update'+faq.faqId);
+    // },
   },
-  
-
+  mounted() {
+    this.get(this.$route.params.faqId);
+  },
 };
 </script>
 

@@ -20,7 +20,7 @@
           <tr>
             <th scope="row">첨부파일</th>
             <td>
-              {{ announcement.announcementImg }}
+              <img :src="announcement.announcementImgUrl" class="img_size" alt="첨부이미지">
             </td>
           </tr>
           <!-- Add more rows as needed -->
@@ -54,6 +54,7 @@ import NoticeListService from "@/services/noticeQnA/NoticeListService";
 export default {
   data() {
     return {
+
       announcement: {
         // 웹 매개변수 전달방식 :: 필기옮겨오기
         // todo: 사용법 : this.$router.params.기본키명
@@ -68,7 +69,6 @@ export default {
         announcementImgUuid: "",
       },
 
-      // 단일 문의사항을 저장할 객체
     };
   },
   methods: {
@@ -99,7 +99,7 @@ export default {
     async deleteNotice(announcementId) {
       try {
         // todo: 공통 장바구니 삭제 서비스 함수 실행
-        let response = await NoticeListService.remove(announcementId);
+        let response = await NoticeListService.delete(announcementId);
         // 로깅
         console.log(response.data);
         // alert 대화상자
@@ -117,4 +117,5 @@ export default {
 
 <style>
 @import "@/assets/css/Button.css";
+
 </style>

@@ -67,17 +67,18 @@ public class WebSecurityConfig {
         http.formLogin(req -> req.disable()); // form 태그 action 을 이용한 로그인 사용않함 -> axios 통신함
 
         http.authorizeHttpRequests(req -> req // todo 여기서 부터 controller의 url을 제한함으로 db와의 접근을 제한한다.
-                .dispatcherTypeMatchers(DispatcherType.FORWARD).permitAll()
-                .requestMatchers("/api/auth/**").permitAll()       // 로그인 및 회원가입 함수
-                .requestMatchers("/api/user/**").permitAll()       // user관련 모든 함수
-                .requestMatchers("/api/admin/**").permitAll()       // 관리자의 모든 함수
-                .requestMatchers("/api/normal/**").permitAll()       // 관리자의 모든 함수
-//                .requestMatchers("/api/shop/**").permitAll()       // 이 url 은 모든 사용자 접근 허용
-//                .requestMatchers("/api/admin/**").hasRole("admin") // admin 메뉴는 ROLE_ADMIN 만 가능
-//                .requestMatchers("/api/user/**").hasRole("user")           // 이 url 은 모든 사용자 접근 허용
-//                .requestMatchers("/").permitAll()           // 이 url 은 모든 사용자 접근 허용
-                .anyRequest()
-                .authenticated());
+//                .dispatcherTypeMatchers(DispatcherType.FORWARD).permitAll()
+//                .requestMatchers("/api/auth/**").permitAll()       // 로그인 및 회원가입 함수
+//                .requestMatchers("/api/user/**").permitAll()       // user관련 모든 함수
+//                .requestMatchers("/api/admin/**").permitAll()       // 관리자의 모든 함수
+//                .requestMatchers("/api/normal/**").permitAll()       // 관리자의 모든 함수
+////                .requestMatchers("/api/shop/**").permitAll()       // 이 url 은 모든 사용자 접근 허용
+////                .requestMatchers("/api/admin/**").hasRole("admin") // admin 메뉴는 ROLE_ADMIN 만 가능
+////                .requestMatchers("/api/user/**").hasRole("user")           // 이 url 은 모든 사용자 접근 허용
+////                .requestMatchers("/").permitAll()           // 이 url 은 모든 사용자 접근 허용
+//                .anyRequest()
+//                .authenticated());
+                        .anyRequest().permitAll());
 
 //        TODO: 웹토큰 클래스를 스프링시큐리티 설정에 끼워넣기 : 모든 게시판 조회(CRUD)에서 아래 인증을 실행함
 //         웹토큰 인증필터를 UsernamePasswordAuthenticationFilter(id/암호 인증필터) 앞에 끼워넣기

@@ -27,7 +27,7 @@ class NoticeListService {
     formData.append("announcementImg", announcementImg); //이미지
     formData.append("announcementImgUrl", announcement.announcementImgUrl); //이미지
     formData.append("announcementImgUuid", announcement.announcementImgUuid); //이미지
-
+    console.log("announcementImg", announcementImg);
     return http.post("/admin/notice/save", formData, {
       headers: {
         "Content-Type": "multipart/form-data",
@@ -52,7 +52,8 @@ class NoticeListService {
     formData.append("announcementImg", announcementImg); //이미지
     formData.append("announcementImgUrl", announcement.announcementImgUrl); //이미지
     formData.append("announcementImgUuid", announcement.announcementImgUuid); //이미지
-
+    // TODO: 이미지만 콘솔 로그로 확인 => File {이미지명}
+    console.log("announcementImg", announcementImg);
     return http.put(`/admin/notice/update/${announcement.announcementId}`, formData, {
       headers: {
         //헤더쪽에다가 멀티파트 보냄~~
@@ -65,7 +66,7 @@ class NoticeListService {
   // TODO: 삭제(delete) -> delete 방식 -> @DeleteMapping
   // TODO: 사용법 : http.delete(`/컨트롤러함수url/${dno}`)
   delete(announcementId) {
-    return http.delete(`/normal/member/notice/deletion/${announcementId}`);
+    return http.delete(`/admin/notice/deletion/${announcementId}`);
   }
 }
 
