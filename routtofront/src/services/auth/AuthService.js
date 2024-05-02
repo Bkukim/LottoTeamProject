@@ -37,6 +37,11 @@ class AuthService {
   updatePw(newPw) {
     return http.put("/auth/new-pw", newPw);
   }
+
+  // 아이디 중복확인함수
+  existUserById(userId){
+    return http.get(`/auth/exist-id/${userId}`);
+ }
 }
 
 export default new AuthService();

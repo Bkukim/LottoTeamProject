@@ -115,6 +115,10 @@ export default {
   },
   methods: {
     async findPw() {
+      console.log(this.role,
+          this.userId,
+          this.pwQuestion,
+          this.pwAnswer);
       try {
         let response = await UserService.getForPw(
           this.role,
