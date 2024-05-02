@@ -30,7 +30,7 @@
     </div>
     <!-- 첨부파일 -->
     <div class="mb-3">
-      <label for="formFileSm" class="form-label text-left">첨부파일 </label>
+      <label for="formFileSm" class="form-label text-left">첨부파일 </label> -->
       <!-- TODO: @click => @change -->
       <input
         class="form-control"
@@ -45,7 +45,7 @@
     <div class="d-grid gap-2 d-md-flex justify-content-md-end">
       <!-- 취소시 관리자 페이지로 이동 -->
       <button id="button2" class="btn btn-primary me-md-2" type="button">
-        <router-link to="/admin" class="cencle router-link-exact-active"
+        <router-link to="/shop/notice" class="cencle router-link-exact-active"
           >취소</router-link
         >
       </button>

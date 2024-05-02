@@ -5,7 +5,7 @@
       <router-link
         class="top_notice router-link-exact-active fs-5"
         to="/faqList"
-        >고객센터</router-link
+        >FAQ</router-link
       >
       |
       <router-link class="top_notice2 text-decoration-none" to="/shop/notice"
@@ -40,12 +40,29 @@
           <!-- 반복문 시작할 행 -->
           <tr v-for="(data, index) in faqList" :key="index">
             <th scope="row">
-              <router-link :to="'/shop/inquiry-check/' + data.faqId" class="router-link-exact-active cencle">
-              {{ data.faqId }}
-            </router-link>
+              <router-link
+                :to="'/shop/inquiry-check/' + data.faqId"
+                class="router-link-exact-active cencle"
+              >
+                {{ data.faqId }}
+              </router-link>
             </th>
-            <td>{{ data.faqTitle }}</td>
-            <td>{{ data.userId }}</td>
+            <td>
+              <router-link
+                :to="'/shop/inquiry-check/' + data.faqId"
+                class="router-link-exact-active cencle"
+              >
+                {{ data.faqTitle }}
+              </router-link>
+            </td>
+            <td>
+              <router-link
+                :to="'/shop/inquiry-check/' + data.faqId"
+                class="router-link-exact-active cencle"
+              >
+                {{ data.userId }}
+              </router-link>
+            </td>
             <td>{{ data.insertTime }}</td>
           </tr>
         </tbody>

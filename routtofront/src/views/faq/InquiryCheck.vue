@@ -27,9 +27,17 @@
     <!-- 문의사항 등록 버튼  :: 공지사항거 들고오기-->
     <div class="d-grid gap-2 d-md-flex justify-content-md-end">
       <!-- 등록시 고객센터 글 목록으로 재이동 -->
-      <router-link :to="'/shop/inquiry-update/'+faqList.faqId">
-      <button id="button1" class="btn btn-primary" type="button">수정</button>
-    </router-link>
+      <router-link :to="'/shop/inquiry-update/' + faqList.faqId">
+        <button id="button1" class="btn btn-primary" type="button">수정</button>
+      </router-link>
+      <button
+        id="button1"
+        class="btn btn-primary"
+        type="button"
+        @click="deleteFaq"
+      >
+        삭제
+      </button>
     </div>
   </div>
 </template>
@@ -56,6 +64,19 @@ export default {
         this.faqList = response.data; //spring 결과 -> announcement 저장
         // 로깅
         console.log(response.data);
+      } catch (e) {
+        console.log(e);
+      }
+    },
+    async deleteFaq() {
+      try {
+        // todo: 공통 장바구니 삭제 서비스 함수 실행
+        let response = await FaqListService.delete(this.faqList.faqId);
+        // 로깅
+        console.log(response.data);
+        this.$router.push("/shop/faqList");
+        // alert 대화상자
+        alert("정상적으로 삭제되었습니다.");
       } catch (e) {
         console.log(e);
       }

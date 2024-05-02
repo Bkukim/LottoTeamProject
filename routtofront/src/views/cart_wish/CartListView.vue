@@ -11,8 +11,7 @@
           <th class="text-center">
             <input
               type="checkbox"
-              v-model="selectAll"
-              @change="selectAllItems"
+
             />
           </th>
           <th class="text-center">상품</th>
@@ -66,6 +65,7 @@
           </td>
           <!-- 총가격 -->
           <td class="text-center">{{ calculateTotalPrice }}</td>
+          
           <!-- 구매하기 ::버튼 -->
           <td class="text-center">
             <div class="row mb-1">
@@ -172,7 +172,8 @@ export default {
   // TODO: 데이터
   data() {
     return {
-      cart: [],
+      cart: [], //장바구니에 담긴 프로덕트 들
+      selectCart: [], //선택된 물건만 장바구니에 담을 객체
       cartCount: 0, //장바구니 갯수
 
       // 공통 페이징 속성 정의
@@ -229,6 +230,7 @@ export default {
     },
     // TODO: 전체조회(장바구니) 함수 : 검색어 버튼, 화면이뜰때 자동 실행
     async retrieveCart() {
+      console.log("실행이 됐는지확인");
       try {
         // todo: 공통 장바구니 전체 조회 서비스 함수 실행
         //   todo: 비동기 코딩 : async~await

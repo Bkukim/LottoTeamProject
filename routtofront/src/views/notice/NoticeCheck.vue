@@ -96,10 +96,11 @@ export default {
         console.log(e);
       }
     },
-    async deleteNotice(announcementId) {
+    async deleteNotice() {
       try {
         // todo: 공통 장바구니 삭제 서비스 함수 실행
-        let response = await NoticeListService.delete(announcementId);
+        let response = await NoticeListService.delete(this.announcement.announcementId);
+        this.$router.push("/shop/notice");
         // 로깅
         console.log(response.data);
         // alert 대화상자

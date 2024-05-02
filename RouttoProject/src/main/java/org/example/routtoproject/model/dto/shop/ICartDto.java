@@ -17,7 +17,7 @@ package org.example.routtoproject.model.dto.shop;
 public interface ICartDto {
 
  Integer getCartId(); // 기본키  시퀀스 장바구니 번호
- Integer getUserId(); //회원번호
+ String getUserId(); //회원번호
  Integer getCartProdCount();
 
  Integer getProdId();       // 상품번호

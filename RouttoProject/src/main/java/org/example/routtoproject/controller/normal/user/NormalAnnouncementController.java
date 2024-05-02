@@ -1,6 +1,7 @@
 package org.example.routtoproject.controller.normal.user;
 
 import lombok.extern.slf4j.Slf4j;
+import org.example.routtoproject.model.dto.member.AnnouncementAllDto;
 import org.example.routtoproject.model.entity.shop.Announcement;
 import org.example.routtoproject.model.entity.shop.Product;
 import org.example.routtoproject.service.shop.AnnouncementService;
@@ -50,20 +51,24 @@ public class NormalAnnouncementController {
 //            페이징 객체 생성
             Pageable pageable = PageRequest.of(page, size);
 
+//            log.debug("여기는 컨트롤러1");
 //            전체 조회 서비스 실행
-            Page<Announcement> announcements
+            Page<AnnouncementAllDto> announcements
                     = announcementService
                     .selectByTitleContaining(title, pageable);
 
+//            log.debug("여기는 컨트롤러1.5");
+            log.debug(String.valueOf(announcements));
 //            공통 페이징 객체 생성 : 자료구조 맵 사용
             Map<String, Object> response = new HashMap<>();
             response.put("notice", announcements.getContent());       // simpleCart 배열
             response.put("currentPage", announcements.getNumber());       // 현재페이지번호
             response.put("totalItems", announcements.getTotalElements()); // 총건수(개수)
             response.put("totalPages", announcements.getTotalPages());    // 총페이지수
-
+//            log.debug("여기는 서비스2");
             if (announcements.isEmpty() == false) {
 //                조회 성공
+//                log.debug("여기는 커트롤러3" + response);
                 return new ResponseEntity<>(response, HttpStatus.OK);
             } else {
 //                데이터 없음
@@ -71,6 +76,7 @@ public class NormalAnnouncementController {
             }
 
         } catch (Exception e) {
+//            log.debug("여기는 커트롤러4");
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
@@ -98,7 +104,7 @@ public class NormalAnnouncementController {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
-// 이미지 가져오기 함수
+// 이미지 가져오기 함수, 상세조회
     @GetMapping("notice/save{uuid}")
     public ResponseEntity<byte[]> findImg(@PathVariable String uuid) {
         Announcement announcement = announcementService.findImgByUuid(uuid).get();

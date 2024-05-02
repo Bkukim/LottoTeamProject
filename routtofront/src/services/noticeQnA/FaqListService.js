@@ -12,6 +12,7 @@ class FaqListService {
   }
   // TODO: 저장, 이미지는 포기하라...
   create(data) {
+    console.log(data);
     // TODO: 사용법 : http.post("컨트롤러함수url", 생성할객체)
     return http.post("/normal/member/faq/save", data);
 }
@@ -42,7 +43,8 @@ class FaqListService {
   // TODO: 삭제(delete) -> delete 방식 -> @DeleteMapping
   // TODO: 사용법 : http.delete(`/컨트롤러함수url/${dno}`)
   delete(faqId) {
-    return http.delete(`/normal/member/faq/${faqId}`);
+    console.log(faqId)
+    return http.delete(`/normal/member/faq/deletion/${faqId}`);
   }
 
   

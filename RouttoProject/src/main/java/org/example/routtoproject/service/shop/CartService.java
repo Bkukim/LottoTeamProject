@@ -1,6 +1,7 @@
 package org.example.routtoproject.service.shop;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.example.routtoproject.model.dto.shop.ICartDto;
 import org.example.routtoproject.model.entity.shop.Cart;
 import org.example.routtoproject.repository.shop.CartRepository;
@@ -22,6 +23,7 @@ import org.springframework.stereotype.Service;
  * 2024-04-22(022)         hayj6          최초 생성
  */
 @Service
+@Slf4j
 @RequiredArgsConstructor
 public class CartService {
     private final CartRepository cartRepository;
@@ -40,6 +42,8 @@ public Page<ICartDto> selectByTitleContaining(
             title,
             pageable
     );
+    log.debug("service확인");
+    
     return page;
 }
 

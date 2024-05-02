@@ -1,5 +1,6 @@
 package org.example.routtoproject.repository.shop;
 
+import org.example.routtoproject.model.dto.member.AnnouncementAllDto;
 import org.example.routtoproject.model.entity.shop.Announcement;
 import org.example.routtoproject.model.entity.shop.Product;
 import org.springframework.data.domain.Page;
@@ -29,12 +30,14 @@ import java.util.Optional;
 public interface AnnouncementRepository extends JpaRepository<Announcement, Integer> {
 
     Optional<Announcement> findByAnnouncementImgUuid(String announcementImgUrl);
-    @Query(value = "SELECT * FROM LOTTO_ANNOUNCEMENT\n" +
+
+
+    @Query(value = "SELECT ANNOUNCEMENT_ID as announcementId, TITLE as title FROM LOTTO_ANNOUNCEMENT\n" +
             "WHERE TITLE LIKE '%'|| :title ||'%'"
             , countQuery = "SELECT count(*) FROM LOTTO_ANNOUNCEMENT\n" +
             "WHERE TITLE LIKE '%'|| :title ||'%'"
             , nativeQuery = true)
-    Page<Announcement> findAllByTitleContaining(@Param("title") String title,
-                                                Pageable pageable
+    Page<AnnouncementAllDto> findAllByTitleContaining(@Param("title") String title,
+                                                      Pageable pageable
     );
 }

@@ -25,13 +25,16 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface CartRepository extends JpaRepository<Cart, Integer> {
 //    장바구니 전체 조인 ::검색필요없음 :: 삭제됐늕 묻는 컬럼 필요없나?
-    @Query(value = "SELECT LC.CART_ID AS 카트번호,\n" +
-            "LC.USER_ID             AS 사용자아이디,\n" +
-            "LC.CART_PROD_COUNT     AS 수량,\n" +
-            "LP.PROD_ID             AS 상품아이디,\n" +
-            "LP.PROD_NAME           AS 상품이름,\n" +
-            "LP.DEFAULT_PRICE       AS 원가,\n" +
-            "LP.DISCOUNT_RATE       AS 할인율\n" +
+    @Query(value = "SELECT LC.CART_ID AS cartId,\n" +
+            "LC.USER_ID             AS userId,\n" +
+            "LC.CART_PROD_COUNT     AS cartProdCount,\n" +
+            "LP.PROD_ID             AS prodId,\n" +
+            "LP.PROD_NAME           AS prodName,\n" +
+            "LP.DEFAULT_PRICE       AS defaultPrice,\n" +
+            "LP.DISCOUNT_RATE       AS discountRate\n" +
+            "FROM LOTTO_CART LC, LOTTO_PRODUCT LP\n" +
+            "WHERE LC.PROD_ID = LP.PROD_ID",
+    countQuery = "SELECT count(*)\n" +
             "FROM LOTTO_CART LC, LOTTO_PRODUCT LP\n" +
             "WHERE LC.PROD_ID = LP.PROD_ID",
     nativeQuery = true)
