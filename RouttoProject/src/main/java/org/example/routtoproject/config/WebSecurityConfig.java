@@ -80,7 +80,6 @@ public class WebSecurityConfig {
 //                .authenticated());
                 .anyRequest().permitAll());
 
-
 //        TODO: 웹토큰 클래스를 스프링시큐리티 설정에 끼워넣기 : 모든 조회(CRUD)에서 아래 인증을 실행함
 //         웹토큰 인증필터를 UsernamePasswordAuthenticationFilter(id/암호 인증필터) 앞에 끼워넣기
         http.addFilterBefore(authenticationJwtTokenFilter(), UsernamePasswordAuthenticationFilter.class);
