@@ -170,8 +170,8 @@ public class AuthController {
     public ResponseEntity<Object> updatePw(@RequestBody NewPw newPw){
         boolean result = false;
         try {
-            if (userService.existById(newPw.getUserId())) {
-                userService.updatePw(newPw.getNewPw(), newPw.getUserId());
+            if (userService.existsById(newPw.getUserId())) {
+                userService.updatePw(passwordEncoder.encode(newPw.getNewPw()), newPw.getUserId());
                 result=true;
                 return new  ResponseEntity<>(result,HttpStatus.OK);
             }else {
@@ -184,5 +184,14 @@ public class AuthController {
         }
     }
 
-
+    // todo id 존재 여부 확인
+    @GetMapping("/exist-id/{userId}")
+    public ResponseEntity<Object> existUserById(@PathVariable String userId){
+        try {
+            boolean result = userService.existsById(userId);
+            return new ResponseEntity<>(result,HttpStatus.OK);
+        }catch (Exception e){
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
 }

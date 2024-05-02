@@ -53,12 +53,6 @@ public class UserService {
         return user;
     }
 
-    // todo : id를 받아서 user 존재하는지 확인하는 함수
-    public Boolean existById(String userId){
-        boolean result = userRepository.existsById(userId);
-        return result;
-    }
-
     // todo 비밀번호 찾기위해 회원 확인 함수
     public User getForPw(String  role,String userId, String pwQuestion, String pwAnswer){
         User user = userRepository.getForPw(role, userId, pwQuestion, pwAnswer);
