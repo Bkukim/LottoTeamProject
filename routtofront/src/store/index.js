@@ -11,7 +11,7 @@ export default createStore({
   state: {
     loggedIn: user ? true : false, // 로그인 여부
     user: user ? user : null, //  로그인 정보 (웹토큰 속성 있음)
-
+    orderAmount: 1,
 
     selectedOption: '', // 라디오 버튼에서 선택된 옵션
   },

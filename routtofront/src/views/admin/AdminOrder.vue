@@ -51,20 +51,19 @@
             name="prodNum"
             v-model="searchOptionInput"
           /> -->
-  <div class="datepicker-container">
-    <VueDatePicker
-      v-model="selectedDate"
-      locale="ko"
-      format="yyyy-MM-dd"
-      :enable-time-picker="false"
-      week-start="0"
-      position="left"
-      placeholder="날짜 선택"
-      auto-apply
-      :max-date="maxDate"
-    />
-  </div>
-
+          <div class="datepicker-container">
+            <VueDatePicker
+              v-model="selectedDate"
+              locale="ko"
+              format="yyyy-MM-dd"
+              :enable-time-picker="false"
+              week-start="0"
+              position="left"
+              placeholder="날짜 선택"
+              auto-apply
+              :max-date="maxDate"
+            />
+          </div>
         </div>
       </div>
     </div>
@@ -89,39 +88,19 @@
         "
       >
         <label id="salaryStatus1" for="StatusOption">주문 상태</label>
-        <!-- <label style="align-items: right" id="searchOpt"> -->
-        <!-- 주문번호/상품명 select box -->
-        <!-- <select class="form-select" aria-label="Default select example"> -->
-        <!-- <option selected>주문관리</option> -->
-        <!-- <option value="1">상품명</option> -->
-        <!-- </select> -->
-        <!-- </label> -->
-        <!-- 결제확인중 버튼 -->
-        <!-- <div class="form-check">
-          <input
-            class="form-check-input"
-            type="radio"
-            name="flexRadioDefault"
-            id="flexRadioDefault"
-            v-model="selectedOrderStatus"
-            checked
-          />
-          <label class="form-check-label" for="flexRadioDefault" id="status1">
-            결제확인중
-          </label>
-        </div> -->
+
         <!-- 결제확인 버튼 -->
         <div class="form-check">
           <input
             class="form-check-input"
             type="radio"
             name="flexRadioDefault"
+            value="결제완료"
             id="flexRadioDefault"
             v-model="selectedOrderStatus"
-            checked
           />
           <label class="form-check-label" for="flexRadioDefault" id="status1">
-            결제확인
+            결제완료
           </label>
         </div>
         <!-- 상품준비중 버튼 -->
@@ -131,8 +110,8 @@
             type="radio"
             name="flexRadioDefault"
             id="flexRadioDefault"
+            value="상품준비중"
             v-model="selectedOrderStatus"
-            checked
           />
           <label class="form-check-label" for="flexRadioDefault" id="status1">
             상품준비중
@@ -160,7 +139,7 @@
             name="flexRadioDefault"
             id="flexRadioDefault"
             v-model="selectedOrderStatus"
-            checked
+            value="배송중"
           />
           <label class="form-check-label" for="flexRadioDefault" id="status1">
             배송중
@@ -174,7 +153,7 @@
             name="flexRadioDefault"
             id="flexRadioDefault"
             v-model="selectedOrderStatus"
-            checked
+            value="배송완료"
           />
           <label class="form-check-label" for="flexRadioDefault" id="status1">
             배송완료
@@ -188,7 +167,7 @@
             name="flexRadioDefault"
             id="flexRadioDefault"
             v-model="selectedOrderStatus"
-            checked
+            value="구매확정"
           />
           <label class="form-check-label" for="flexRadioDefault" id="status1">
             구매확정
@@ -204,7 +183,7 @@
         type="button"
         class="text-light searchBtn btn-sm mt-4"
         style="margin-left: 10px"
-        @click="retrieveOrder"
+        @click="searchOrder"
       >
         검색
       </button>
@@ -267,6 +246,14 @@
             <!-- <div v-for="(data2, index) in data.orderProds" :key="index">
               <p>{{ data.prodName }}</p>
             </div> -->
+            <button
+              type="button"
+              class="text-light detailBtn btn-sm mt-1"
+              style="margin-left: 5px"
+              @click="goProdDetail()"
+            >
+              상세보기
+            </button>
           </td>
           <!-- 주문자 정보 -->
           <td>
@@ -348,70 +335,113 @@ export default {
   },
   data() {
     return {
+      // 상품 상세보기 시 조회할 변수 : 주문상품번호
+      orderProdId: "",
       // todo 주문일 날짜
       // formatDate: 'YYYY-MM-DD', // 예시로 사용된 날짜 포맷, 실제 필요에 따라 변경
-      selectedDate: null, // 사용자가 선택한 날짜를 저장할 데이터 속성
+      selectedDate: "", // 사용자가 선택한 날짜를 저장할 데이터 속성
       maxDate: new Date(), // 오늘 날짜를 최대 날짜로 설정
 
       // selectedOrders:[],  // 체크박스 : 각 체크박스에서 선택된 주문들의 id를 저장하기 위해 배열로 생성
 
-      orders: [], //
-      searchOrderId: "", // 주문번호
+      orders: [], // 테이블에 나오는 배열정보들
 
-      searchOptionInput: "", // 입력한 주문번호를 저장할 데이터 속성
+      // searchOptionInput: "", // 입력한 주문번호를 저장할 데이터 속성
       selectedOrderStatus: "", // 선택한 주문 상태를 저장할 데이터 속성
-      searchOptionResult: "", // 주문번호 검색 결과를 표시하는 데이터 속성
-      searchOrderResult: "", // 주문 상태 결과를 표시하는 데이터 속성
-      // orderNumberInput:""             // 검색한 주문번호의 결과를 표시하는 데이터 속성
+      // searchOptionResult: "", // 주문번호 검색 결과를 표시하는 데이터 속성
+      // searchOrderResult: "", // 주문 상태 결과를 표시하는 데이터 속성
 
       // 공통 속성(현재페이지, 전체데이터개수,1페이지당개수)
       page: 1, // 현재페이지번호
       count: 0, // 전체데이터개수
-      pageSize: 2, // 1페이지당개수(select태그)
+      pageSize: 3, // 1페이지당개수(select태그)
     };
   },
   methods: {
+    // 상세보기 클릭 시 상품 상세조회로 가는 페이지
+    goProdDetail(orderProdId) {
+      this.$router.push(`/orderProduct/${orderProdId}`);
+    },
     // 전체조회(장바구니) 함수 : 검색어 버튼, 화면이뜰때 자동 실행
     async retrieveOrder() {
+      // Date 객체 생성
+
       try {
-        // TODO: 공통 장바구니 전체 조회 서비스 함수 실행
-        // TODO: 비동기 코딩 : async ~ await
-        let response = await AdminOrderservice.getAll(
-          this.searchOrderId,
-          this.page - 1,
-          this.pageSize
-        );
-        const { orders, totalItems } = response.data;
-        this.orders = orders;
-        this.count = totalItems;
-        // 로깅
-        console.log(response.data); // 웹브라우저 콘솔탭에 벡엔드 데이터 표시
+        if (this.selectedDate == "") {
+          // 주문일 검색에서 선택안했을 때
+          let formattedDate = ""; // 쿼리문에 날짜가 아닌 빈칸이 들어가야 전체 데이터가 나온다.
+          // TODO: 공통 장바구니 전체 조회 서비스 함수 실행
+          // TODO: 비동기 코딩 : async ~ await
+          let response = await AdminOrderservice.getAll(
+            formattedDate,
+            this.selectedOrderStatus,
+            this.page - 1,
+            this.pageSize
+          );
+          const { orders, totalItems } = response.data;
+          this.orders = orders;
+          this.count = totalItems;
+          // 로깅
+          // console.log("결과출력", response.data); // 웹브라우저 콘솔탭에 벡엔드 데이터 표시
+        } else {
+          let date = new Date(this.selectedDate);
+
+          // 날짜 포맷 설정
+          let options = { year: "numeric", month: "numeric", day: "numeric" };
+
+          // 날짜 포맷팅
+          let formattedDate = date
+            .toLocaleDateString("ko-KR", options)
+            .replace(/\. /g, "-") // 공백과 점을 -로 대체
+            .slice(0, -1); // 맨 끝 문자열 제거
+
+          // TODO: 공통 장바구니 전체 조회 서비스 함수 실행
+          // TODO: 비동기 코딩 : async ~ await
+          let response = await AdminOrderservice.getAll(
+            formattedDate,
+            this.selectedOrderStatus,
+            this.page - 1,
+            this.pageSize
+          );
+          const { orders, totalItems } = response.data;
+          this.orders = orders;
+          this.count = totalItems;
+          // 로깅
+          // console.log("결과출력", response.data); // 웹브라우저 콘솔탭에 벡엔드 데이터 표시
+
+          // let now = new Date(); // js 날짜 객체
+          // let formatNow = `${now.getFullYear()}-${now.getMonth()}-${now.getDate()} ${now.getHours()}:${now.getMinutes()}:${now.getSeconds()}`;}
+        }
       } catch (e) {
         console.log(e); // 웹브라우저 콘솔탭에 에러 표시
       }
     },
-    searchOrder() {
+    async searchOrder() {
       // this.searchResult = this.searchOptionInput;
 
-      // 주문일 입력값 가져오기 (orderNumberInput 변수 생성)
+      // 주문일 입력값 가져오기
       var orderDateInput = this.selectedDate;
 
-      // // 선택된 주문 상태 가져오기
-      // var selectedOrderStatus = document.querySelector(
-      //   'input[name="flexRadioDefault"]:checked'
-      // );
+      // 선택된 주문 상태 가져오기
+      var selectedOrderStatus = document.querySelector(
+        'input[name="flexRadioDefault"]:checked'
+      );
 
-      // 선택된 주문일이 없을 경우(orderNumberInput 변수가 없을 경우)
+      // 선택된 주문일이 없을 경우
       if (!orderDateInput) {
         alert("주문일을 입력해주세요.");
         return;
       }
 
-      // // 선택된 주문 상태가 없을 경우
-      // if (!selectedOrderStatus) {
-      //   alert("주문 상태를 선택해주세요.");
-      //   return;
-      // }
+      // 선택된 주문 상태가 없을 경우
+      if (!selectedOrderStatus) {
+        alert("주문 상태를 선택해주세요.");
+        return;
+      }
+
+      // retrieveOrder 함수 실행
+      await this.retrieveOrder();
+
     },
   },
   mounted() {
@@ -453,6 +483,13 @@ export default {
   color: white;
   font-size: 15px;
   width: 70px;
+  height: 35px;
+}
+.detailBtn {
+  background-color: #342a26;
+  color: white;
+  font-size: 15px;
+  width: 80px;
   height: 35px;
 }
 #orderStatus {
