@@ -77,8 +77,8 @@ public class OrderService {
 
     // 페이징 주문 전체 조회
     // todo 전체조회 : 관리자 주문확인 페이지에서 사용
-    public Page<Order> findAll(String orderTime, Pageable pageable){
-        Page<Order> page = orderRepository.findAllByOrderIdContaining(orderTime, pageable);
+    public Page<Order> findAll(String orderTime, String orderStatus, Pageable pageable){
+        Page<Order> page = orderRepository.findAllByOrderIdContaining(orderTime,orderStatus, pageable);
         return page;
     }
 }

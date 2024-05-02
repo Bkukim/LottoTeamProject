@@ -10,11 +10,11 @@
     <div class="row">
       <!-- 왼쪽 -->
       <div class="col-sm-6">
-        <img :src="product.prodImgUrl" alt="prodImgUrl"/>
+        <img :src="product.prodImgUrl" alt="prodImgUrl" />
 
         <!-- 1. 리뷰 평점 -->
         <div class="box mt-5 text-center">
-          <h2>리뷰 평점 : {{product.point}} </h2>
+          <h2>리뷰 평점 : {{ product.point }}</h2>
           <h2 id="star">
             ★★★★★
             <!-- 별점 표시를 위한 반복문 -->
@@ -23,7 +23,7 @@
         </div>
         <!-- 2. 리뷰 -->
         <div class="box mt-5 text-center">
-          <h2>리뷰 : {{product.reviewContent}}</h2>
+          <h2>리뷰 : {{ product.reviewContent }}</h2>
         </div>
       </div>
 
@@ -42,70 +42,75 @@
         </h4> -->
 
         <!-- 3. 상품 원가 -->
-        <div class="mt-4">
-        </div>
+        <div class="mt-4"></div>
 
         <!-- 4. 상품 최종가 -->
         <div id="price">
           <h4>
             원가 :
-            {{
-              product.defaultPrice
-            }}
+            {{ product.defaultPrice }} 원
           </h4>
         </div>
-
+        <br />
         <hr />
 
-        <!-- 5. 드롭다운 시작 -->
-        <div class="dropdown mt-3" id="selectOption">
+        <!-- 위아래로 수량조절 -->
+        <td class="col-2">
+          <b>수량을 선택하세요</b>
+          <br>
+          <br>
           <!-- 1) 드롭다운 이름 -->
-          <div class="col-12">
-            <select class="form-select" aria-label="Default select example">
-              <option selected>옵션을 선택해주세요.</option>
-              <option value="스킨+립밤">스킨+립밤</option>
-              <option value="스킨+선크림">스킨+선크림</option>
-              <option value="선크림+립밤">선크림+립밤</option>
-            </select>
+          <div
+            class="btn-group col"
+            role="group"
+            aria-label="Basic outlined example"
+          >
+            <!-- 장바구니 개수 감소 버튼  -->
+            <button
+              type="button"
+              class="btn btn-outline-secondary opacity-100"
+              @click="decreaseCount"
+            >
+              -
+            </button>
+            <!-- 장바구니 개수 표시 : 버튼제목 -->
+            <button type="button" class="btn btn-outline-dark" disabled>
+              {{ productCount }}
+            </button>
+            <!-- 장바구니 개수 증가 버튼 -->
+            <button
+              type="button"
+              class="btn btn-outline-secondary opacity-100"
+              @click="increaseCount"
+            >
+              +
+            </button>
           </div>
-
-          <!-- 2) 드롭다운 메뉴 -->
-          <!-- <ul class="dropdown-menu">
-            <li><a class="dropdown-item">option 1</a></li>
-            <li><hr class="dropdown-divider" /></li>
-            <li><a class="dropdown-item">option 2</a></li>
-            <li><hr class="dropdown-divider" /></li>
-            <li><a class="dropdown-item">option 3</a></li>
-          </ul> -->
-        </div>
-        <!-- 드롭다운 끝 -->
-
+        </td>
         <hr />
+        <br />
 
         <!-- 6. 총 상품 금액 -->
         <div id="total">
           <h4>
             총 상품 금액 :
             {{
-              product.defaultPrice -
-              (product.defaultPrice * product.discountRate) / 100 
-            }}
+              (product.defaultPrice -
+              (product.defaultPrice * product.discountRate) / 100) * productCount
+            }} 원
           </h4>
-           <div class="mt-3">
-          <h5>
-            배송비 : 3000
-            
-          </h5>
+          <div class="mt-3">
+            <h5>배송비 : 3000 원</h5>
           </div>
           <hr />
           <div class="mb-3">
             <h5>
               총 주문 금액 :
               {{
-                product.defaultPrice -
-                (product.defaultPrice * product.discountRate) / 100 +
+                (product.defaultPrice -
+                (product.defaultPrice * product.discountRate) / 100) * productCount  +
                 3000
-              }}
+              }} 원
             </h5>
           </div>
         </div>
@@ -124,7 +129,7 @@
     <!-- 상세 페이지 -->
     <div class="mt-5">
       <div id="page">
-        <img :src="product.prodDetailPageUrl">
+        <img :src="product.prodDetailPageUrl" />
       </div>
     </div>
     <!-- 상세 페이지 끝 -->
@@ -138,6 +143,7 @@ import CartService from "@/services/product/CartService";
 export default {
   data() {
     return {
+      productCount: 1, // 상품 수량
       // image: require("@/assets/images/skincare.jpg"),
       product: {
         // prodId: this.$route.params.prodId,
@@ -161,6 +167,17 @@ export default {
     };
   },
   methods: {
+        // TODO: 상품 개수 증가 함수
+    increaseCount() {
+      this.productCount += 1;
+    },
+    // TODO: 상품 개수 감소 함수
+    decreaseCount() {
+      if (this.productCount > 0) {
+        this.productCount -= 1;
+      }
+    },
+
     // TODO: 상품 상세조회 : 상품ID(prodId)
     // 비동기 코딩
     async getProd(prodId) {
@@ -193,10 +210,12 @@ export default {
     // TODO: 장바구니 전체 조회페이지 이동함수
     goCart() {
       this.$router.push("/cart");
+      this.$store.state.orderAmount = this.productCount;
     },
     // TODO: 주문하기 이동함수
     goOrder() {
       this.$router.push("/order/" + this.$route.params.prodId);
+      this.$store.state.orderAmount = this.productCount;
       // this.$router.push("/order");
     },
   },
@@ -281,7 +300,7 @@ export default {
 #btn3 {
   width: 9vw;
   height: 4vw;
-    margin-right: 1.5vw;
+  margin-right: 1.5vw;
   background-color: #342a26;
   color: white;
   border-radius: 5px; /* 모서리 둥글게 : 5px로 설정 */
@@ -294,7 +313,7 @@ export default {
   background-color: #fff16c;
   color: black;
   border-radius: 5px; /* 모서리 둥글게 : 5px로 설정 */
-    border: 2px solid #fff16c; /* 빨간색 테두리, 두께는 2px */
+  border: 2px solid #fff16c; /* 빨간색 테두리, 두께는 2px */
 }
 #star {
   color: red;

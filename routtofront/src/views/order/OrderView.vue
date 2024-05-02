@@ -277,8 +277,8 @@
           <td>
             <p style="margin-top: 35px">
               {{
-                this.product.defaultPrice *
-                (1 - this.product.discountRate / 100)
+                Math.ceil(this.product.defaultPrice *
+                (1 - this.product.discountRate / 100))
               }}원
             </p>
           </td>
@@ -290,9 +290,9 @@
           <td style="text-align: left">
             <p style="margin-top: 35px">
               {{
-                this.product.defaultPrice *
+                Math.ceil(this.product.defaultPrice *
                 (1 - this.product.discountRate / 100) *
-                orderAmount
+                orderAmount)
               }}원
             </p>
           </td>
@@ -470,9 +470,9 @@
                 <div class="payTitle">총 상품 금액</div>
                 <div class="price">
                   {{
-                    this.product.defaultPrice *
+                    Math.ceil(this.product.defaultPrice *
                     (1 - this.product.discountRate / 100) *
-                    orderAmount
+                    orderAmount)
                   }}
                   원
                 </div>
@@ -492,10 +492,10 @@
                 <div class="payTitle">최종 결제 금액</div>
                 <div class="price">
                   {{
-                    this.product.defaultPrice *
+                    Math.ceil(this.product.defaultPrice *
                       (1 - this.product.discountRate / 100) *
                       orderAmount +
-                    shoppingFee
+                    shoppingFee)
                   }}
                   원
                 </div>
@@ -564,7 +564,7 @@ export default {
       isModalVisible: false,
 
       // 주문 수량
-      orderAmount: 2,
+      orderAmount: 1,
 
       user: {
         //  userId;
@@ -691,6 +691,8 @@ export default {
         console.log(response.data);
         this.product = response.data;
         this.orderPrice = response.data.defaultPrice; // 비동기 함수이기에 언제 값이 들어올지 모른다. 그러면 이 함수에 의한 데이터가 들어가기 전에 먼저 orderprice가 값이 안 들어간 product에서 값을 가져오게 된다.
+        this.orderAmount = this.$store.state.orderAmount;
+         this.$store.state.orderAmount=1;
         // todo : 진짜 해야하는 일 = amount를 가져오게 되면 orderPrice의 값 바꾸기
       } catch (error) {
         console.log(error);
@@ -769,7 +771,7 @@ export default {
     // this.retrieveUser(this.$store.state.userId).then(() => {
     //   this.order.orderName = this.user.userName; // retrieveUser 완료 후에 호출
     // });
-    this.retrieveUser(this.$store.state.userId);
+    this.retrieveUser(this.$store.state.user.userId);
     this.retrieveProduct(this.$route.params.prodId);
     console.log(this.product); // console로 찍기
 

@@ -2,8 +2,8 @@
 import http from "@/utils/http-common";
 
 class AdminOrderService {
-  getAll(orderId, page, size) {
-    return http.get(`/admin/shop/order?orderId=${orderId}&page=${page}&size=${size}`);
+  getAll(orderTime, orderStatus, page, size) {
+    return http.get(`/admin/shop/order?orderTime=${orderTime}&orderStatus=${orderStatus}&page=${page}&size=${size}`);
   }
 
 }

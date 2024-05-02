@@ -44,17 +44,20 @@ public class AdminOrderController {
     @GetMapping("/order")
     public ResponseEntity<Object> findAll(
             @RequestParam(defaultValue = "") String orderTime,
+            @RequestParam(defaultValue = "") String orderStatus,
             @RequestParam(defaultValue = "0") int page,
             @RequestParam(defaultValue = "3") int size
     ) {
         try {
+            log.debug(orderTime + "sdfasdtgasrtgasretasrtgsdertgsdrfgsdrftgszd");
 //            페이징 객체 생성
             Pageable pageable = PageRequest.of(page, size);
+            log.debug(orderTime);
 
 //            전체 조회 서비스 실행
             Page<Order> orders
                     = orderService
-                    .findAll(orderTime, pageable);
+                    .findAll(orderTime, orderStatus, pageable);
 
 //            공통 페이징 객체 생성 : 자료구조 맵 사용
             Map<String, Object> response = new HashMap<>();
