@@ -31,12 +31,13 @@
     <!-- 첨부파일 -->
     <div class="mb-3">
       <label for="formFileSm" class="form-label text-left">첨부파일 </label>
+      <!-- TODO: @click => @change -->
       <input
         class="form-control"
         id="formFileSm"
         type="file"
         ref="file"
-        @click="selectImage"
+        @change="selectImage"
       />
     </div>
 
@@ -55,9 +56,7 @@
         type="button"
         @click="updateNotice"
       >
-        <router-link to="/shop/notice" class="router-link-exact-active"
-          >수정</router-link
-        >
+        수정
       </button>
     </div>
   </div>
@@ -100,17 +99,21 @@ export default {
     selectImage() {
       // todo: 파일 선택 상자에서 1st 선택한 이미지를 currentImage 변수에 저장
       // 사용법 this.noticeImg=this.$refs.변수명.files[0]
-      this.noticeImg = this.$refs.file.files[0]; // 파일 선택상자에서 가지고 있음  고정 : files[0]
+      // this.noticeImg = this.$refs.file.files[0]; // 파일 선택상자에서 가지고 있음  고정 : files[0]
+      // TODO: this.noticeImg => this.announcementImg
+      this.announcementImg = this.$refs.file.files[0]; // 파일 선택상자에서 가지고 있음  고정 : files[0]
     },
     // TODO: 수정요청 함수 : 시점(상세조회가 끝난후)
     async updateNotice() {
       try {
+        console.log(this.announcement);
         // TODO: 비동기 코딩 : async ~ await
         let response = await NoticeListService.update(
           this.announcement,
           this.announcementImg
         );
-        console.log(response)
+        console.log(response);
+        this.$router.push("/shop/notice"); //로깅위에 달아줘야함
 
         // 로깅
         console.log(response.data);

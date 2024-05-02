@@ -22,24 +22,24 @@
         v-model="faq.faqType"
       >
         <option selected>문의내용</option>
-        <option value="1">상품문의</option>
-        <option value="2">배송문의</option>
-        <option value="3">기타문의</option>
+        <option value="상품문의">상품문의</option>
+        <option value="배송문의">배송문의</option>
+        <option value="기타문의">기타문의</option>
       </select>
     </div>
 
     <div class="mb-3">
-      <!-- 회원아이디 -->
+      <!-- 회원아이디 ::이거 로그인 한 사람 아이디 어캐 불러오지?
       <label for="exampleFormControlInput1" class="form-label mt-3 text-left">
         ID</label
-      >
-      <input
+      > -->
+      <!-- <input
         type="text"
         class="form-control"
         id="exampleFormControlInput1"
         placeholder="id를 적어주세요"
         v-model="faq.userId"
-      />
+      /> -->
     </div>
     <!-- 본문적는곳 -->
     <div class="mb-3">
@@ -53,26 +53,16 @@
         v-model="faq.faqContent"
       ></textarea>
     </div>
-    <!-- 첨부파일 -->
-    <div class="mb-3">
-      <label for="formFileSm" class="form-label text-left">첨부파일 </label>
-      <input
-        class="form-control"
-        id="formFileSm"
-        type="file"
-        @click="selectImage"
-      />
-    </div>
 
     <!-- 비밀번호 등록 -->
-    <div class="mb-3 row">
+    <!-- <div class="mb-3 row">
       <label for="inputPassword" class="col-sm-2 col-form-label"
         >Password</label
       >
       <div class="col-sm-10">
         <input type="password" class="form-control" id="inputPassword" />
       </div>
-    </div>
+    </div> -->
 
     <!-- 문의사항 등록 버튼  :: 공지사항거 들고오기-->
     <div class="d-grid gap-2 d-md-flex justify-content-md-end">
@@ -87,11 +77,9 @@
         id="button1"
         class="btn btn-primary"
         type="button"
-        @click="createFaq"
+        @click="saveFaq"
       >
-        <router-link to="/faqList" class="router-link-exact-active"
-          >등록</router-link
-        >
+        등록
       </button>
     </div>
   </div>
@@ -103,46 +91,35 @@ export default {
   // 바인딩속성정의
   data() {
     return {
-      message: "", // 성공메세지 변수
       // TODO: 저장(추가:insert) 함수 : CRUD (비동기)
       // TODO: 비동기 코딩 : async ~ await
-      // 그외의걸 담을 객체
-      faq: {
-        userId: "", //유저 아이디 입력
-        faqId: null, //faqID 자동으로 매겨져야하는데 이건 나중에 백엔드에서 알아보기
-        faqTitle: "", // 제목
-        faqType: "", //유형
-        faqContent: "", //내용
-        faqPassword: "", //게시글 패스워드
-      },
-      faqImg: undefined, // 이미지 담을 빈객체
+      faq: {      },
+      // submitted: false  // 저장버튼 클릭하면 true 바뀜
     };
   },
   methods: {
-    // TODO: 파일 선택상자에서 이미지 선택하면 변수에 저장하는 함수
-    selectImage() {
-      // 1) 파일선택상자에서 1st 로 선택한 이미지를 변수에 저장
-      // ref="file" 접근 -> 내부 속성 : files[번호]
-      // TODO: 사용법 : this.$refs.변수명 => input type="file" ref="변수명" 태그 접근
-      this.faqImg = this.$refs.file.files[0];
-      // 성공메세지 변수 초기화
-      this.message = "";
-    },
-    // 전체 객체 전달 하기(생성하기) :::: addfileDB참고
-    async createFaq() {
-      try {
-        // TODO: 벡엔드로 객체 추가 요청
-        let response = await FaqListService.create(this.faq, this.faqImg);
-        // TODO: 콘솔에 결과 출력
-        console.log(response);
-        this.message = response.data;
-      } catch (e) {
-        // 현재선택된 이미지 변수 초기화
-        this.faqImg = undefined;
-        this.message = "";
-        console.log(e);
-      }
-    },
+ 
+  //  저장함수
+  async saveFaq() {
+            try {
+                // 임시 객체 변수 
+                let data = {
+                    faqTitle:this.faq.faqTitle,
+                    userId:this.$store.state.userId, //TODO:  나중에 수정요망
+                    faqType:this.faq.faqType,
+                    faqContent:this.faq.faqContent,
+                };
+
+                // TODO: 벡엔드로 객체 추가 요청
+                let response = await FaqListService.create(data);
+                this.$router.push("/shop/faqList");
+                // TODO: 콘솔에 결과 출력
+                console.log(response);
+                // this.submitted = true; // 저장유무변수=true 변경
+            } catch(e) {
+                console.log(e);
+            }
+        },
   },
 };
 </script>

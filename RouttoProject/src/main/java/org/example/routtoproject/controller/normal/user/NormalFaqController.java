@@ -2,13 +2,12 @@ package org.example.routtoproject.controller.normal.user;
 
 import lombok.extern.slf4j.Slf4j;
 import org.example.routtoproject.model.entity.shop.Announcement;
-import org.example.routtoproject.model.entity.shop.Product;
-import org.example.routtoproject.service.shop.AnnouncementService;
+import org.example.routtoproject.model.entity.shop.Faq;
+import org.example.routtoproject.service.shop.FaqService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
-import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -19,9 +18,9 @@ import java.util.Optional;
 
 /**
  * packageName : org.example.routtoproject.controller.normal.user
- * fileName : NomalAnnouncementController
+ * fileName : NormalFaqController
  * author : KimDJ
- * date : 2024-04-29
+ * date : 2024-05-01
  * description :
  * 요약 :
  *
@@ -29,18 +28,17 @@ import java.util.Optional;
  * ===========================================================
  * DATE            AUTHOR             NOTE
  * -----------------------------------------------------------
- * 2024-04-29         KimDJ          최초 생성
+ * 2024-05-01         KimDJ          최초 생성
  */
 @Slf4j
 @RestController
 @RequestMapping("/api/normal/member")
-public class NormalAnnouncementController {
+public class NormalFaqController {
     @Autowired
-    AnnouncementService announcementService;
+    FaqService faqService; //di
 
-    //    TODO: 전체조회 함수(조인) + like 검색
-//    조회(select) -> get 방식 -> @GetMapping
-    @GetMapping("/notice")
+    //todo: 전체조회
+    @GetMapping("/faq")
     public ResponseEntity<Object> findAll(
             @RequestParam(defaultValue = "") String title,
             @RequestParam(defaultValue = "0") int page,
@@ -51,18 +49,18 @@ public class NormalAnnouncementController {
             Pageable pageable = PageRequest.of(page, size);
 
 //            전체 조회 서비스 실행
-            Page<Announcement> announcements
-                    = announcementService
+            Page<Faq> faq
+                    = faqService
                     .selectByTitleContaining(title, pageable);
 
 //            공통 페이징 객체 생성 : 자료구조 맵 사용
             Map<String, Object> response = new HashMap<>();
-            response.put("notice", announcements.getContent());       // simpleCart 배열
-            response.put("currentPage", announcements.getNumber());       // 현재페이지번호
-            response.put("totalItems", announcements.getTotalElements()); // 총건수(개수)
-            response.put("totalPages", announcements.getTotalPages());    // 총페이지수
+            response.put("faqList", faq.getContent());       // faq 배열
+            response.put("currentPage", faq.getNumber());       // 현재페이지번호
+            response.put("totalItems", faq.getTotalElements()); // 총건수(개수)
+            response.put("totalPages", faq.getTotalPages());    // 총페이지수
 
-            if (announcements.isEmpty() == false) {
+            if (faq.isEmpty() == false) {
 //                조회 성공
                 return new ResponseEntity<>(response, HttpStatus.OK);
             } else {
@@ -77,37 +75,57 @@ public class NormalAnnouncementController {
 
     //    todo: 상세조회 만들기
 //    조회(select) -> get 방식 -> @GetMapping
-    @GetMapping("/notice/{announcementId}")
+    @GetMapping("/faq/{faqId}")
     public ResponseEntity<Object> findById(
-            @PathVariable int announcementId
+            @PathVariable int faqId
     ) {
         try {
 //            상세조회 서비스 실행
-            Optional<Announcement> announcementOptional
-                    = announcementService.findById(announcementId);
+            Optional<Faq> faqOptional
+                    = faqService.findById(faqId);
 
-            if (announcementOptional.isEmpty() == true) {
+            if (faqOptional.isEmpty() == true) {
 //                데이터 없음
                 return new ResponseEntity<>(HttpStatus.NO_CONTENT);
             } else {
 //                조회 성공
-                return new ResponseEntity<>(announcementOptional.get(), HttpStatus.OK);
+                return new ResponseEntity<>(faqOptional.get(), HttpStatus.OK);
 
             }
         } catch (Exception e) {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
-// 이미지 가져오기 함수
-    @GetMapping("notice/save{uuid}")
-    public ResponseEntity<byte[]> findImg(@PathVariable String uuid) {
-        Announcement announcement = announcementService.findImgByUuid(uuid).get();
 
-        return ResponseEntity.ok()
-//           Todo : attachment: => attachment;
-                .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + announcement.getContent() + "\"")
-                .body(announcement.getAnnouncementImg());
+    //    todo: 저장함수
+    @PostMapping("/faq/save")
+    public ResponseEntity<Object> createFaq(
+            @RequestBody Faq faq
+    ) {
+        try {
+//            DB 서비스 저장 함수 실행
+            Faq faq1 = faqService.save(faq);
+//            성공(OK) 메세지 + 저장된객체
+            return new ResponseEntity<>(faq1, HttpStatus.OK);
+        } catch (Exception e) {
+//            500 전송
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 
-    
+//    TODO: 수정 함수 : 수정 버튼 클릭시 실행될 함수
+//       수정(update) -> put 방식 -> @PutMapping
+    @PutMapping("/faq/update/{faqId}")
+    public ResponseEntity<Object> update(
+            @PathVariable int faqId,
+            @RequestBody Faq faq
+    ) {
+        try {
+            Faq faq1 = faqService.save(faq);  // 수정
+            return new ResponseEntity<>(faq1, HttpStatus.OK);
+        } catch (Exception e) {
+//            DB 에러 (서버 에러) -> 500 신호(INTERNAL_SERVER_ERROR)
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
 }
