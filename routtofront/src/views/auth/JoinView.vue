@@ -26,7 +26,7 @@
                     type="radio"
                     name="flexRadioDefault"
                     id="flexRadioDefault1"
-                    value="user"
+                    value="ROLE_USER"
                     v-model="user.role"
                   />
                   <label class="form-check-label" for="flexRadioDefault1">
@@ -41,7 +41,7 @@
                     type="radio"
                     name="flexRadioDefault"
                     id="flexRadioDefault2"
-                    value="admin"
+                    value="ROLE_ADMIN"
                     v-model="user.role"
                   />
                   <label class="form-check-label" for="flexRadioDefault2">
@@ -81,10 +81,32 @@
                     type="text"
                     name="id"
                     v-model="user.userId"
+                    @change="convertToFalse"
                   />
                 </div>
               </td>
-              <td>(영문소문자/숫자, 4~16자)</td>
+              <td>
+                <button
+                  class="btn col-1"
+                  type="button"
+                  id="addressBtn"
+                  @click="confirmExistenceID"
+                >
+                  중복 확인
+                </button>
+                <!-- <div class="col-11" v-if="idCheckMessage">
+                    {{ idCheckMessage }}
+                  </div> -->
+                <div v-if="idCheckMessage == '사용 가능한 ID 입니다.'">
+                  {{ idCheckMessage }}
+                </div>
+                <div v-if="idCheckMessage == '이미 사용중인 ID 입니다.'">
+                  {{ idCheckMessage }}
+                </div>
+                <div v-if="idCheckMessage == ''">
+                  {{ idCheckMessage }}
+                </div>
+              </td>
             </tr>
             <!-- 비밀번호 tr -->
             <tr>
@@ -98,12 +120,16 @@
                     type="password"
                     name="pwd"
                     v-model="user.password"
+                    @input="validatePassword"
                   />
                 </div>
               </td>
               <div class="col">
                 <td>
-                  (영문 대소문자/숫자/특수문자 중 3가지 이상 조합, 8자~16자)
+                  <p v-if="!isValid">
+                    (영문 대소문자/숫자/특수문자 중 3가지 이상 조합, 8자~16자)
+                  </p>
+                  <p v-else>비밀번호가 조건에 맞습니다.</p>
                 </td>
               </div>
             </tr>
@@ -124,9 +150,11 @@
                   />
                 </div>
               </td>
-              <td><p v-if="passwordMatchError" style="color: red">
+              <td>
+                <p v-if="passwordMatchError" style="color: red">
                   비밀번호가 일치하지 않습니다.
-                </p></td>
+                </p>
+              </td>
             </tr>
             <!-- 비밀번호 확인 질문 tr -->
             <tr>
@@ -136,11 +164,23 @@
                 >
               </th>
               <td>
-                <select class="form-select" aria-label="Default select example" v-model="user.pwQuestion">
-                  <option selected value="자신이 가장 존경하는 인물은">자신이 가장 존경하는 인물은?</option>
-                  <option value="기억에 남는 추억의 장소는">기억에 남는 추억의 장소는?</option>
-                  <option value="자신의 인생 좌우명은">자신의 인생 좌우명은?</option>
-                  <option value="인상깊게 읽은 책 이름은">인상깊게 읽은 책 이름은?</option>
+                <select
+                  class="form-select"
+                  aria-label="Default select example"
+                  v-model="user.pwQuestion"
+                >
+                  <option selected value="자신이 가장 존경하는 인물은">
+                    자신이 가장 존경하는 인물은?
+                  </option>
+                  <option value="기억에 남는 추억의 장소는">
+                    기억에 남는 추억의 장소는?
+                  </option>
+                  <option value="자신의 인생 좌우명은">
+                    자신의 인생 좌우명은?
+                  </option>
+                  <option value="인상깊게 읽은 책 이름은">
+                    인상깊게 읽은 책 이름은?
+                  </option>
                 </select>
               </td>
               <td></td>
@@ -153,10 +193,14 @@
                 >
               </th>
               <td>
-                <input class="form-control" type="text" name="pwdAskCheck"  v-model="user.pwAnswer"/>
+                <input
+                  class="form-control"
+                  type="text"
+                  name="pwdAskCheck"
+                  v-model="user.pwAnswer"
+                />
               </td>
-              <td>
-              </td>
+              <td></td>
             </tr>
             <!-- 이름 tr -->
             <tr>
@@ -164,7 +208,12 @@
                 <label class="form-label" for="userName">이름</label>
               </th>
               <td>
-                <input class="form-control" type="text" name="userName" v-model="user.userName">
+                <input
+                  class="form-control"
+                  type="text"
+                  name="userName"
+                  v-model="user.userName"
+                />
               </td>
               <td></td>
             </tr>
@@ -174,9 +223,18 @@
                 <label class="form-label" for="email">email</label>
               </th>
               <td>
-                <input class="form-control" type="email" name="email" v-model="user.email"/>
+                <input
+                  class="form-control"
+                  type="email"
+                  name="email"
+                  v-model="user.email"
+                  @input="validateEmail"
+                />
               </td>
-              <td></td>
+              <td>
+                <p v-if="!emailIsValid">올바른 이메일 형식이 아닙니다.</p>
+                <p v-else>올바른 이메일 형식입니다.</p>
+              </td>
             </tr>
 
             <!-- 주소 tr -->
@@ -204,7 +262,9 @@
                       @click="execDaumPostcode()"
                       value="우편번호 찾기"
                       id="addressBtn"
-                    >주소 검색</button>
+                    >
+                      주소 검색
+                    </button>
                   </div>
                 </div>
                 <div class="row mb-1">
@@ -240,7 +300,6 @@
                     />
                   </div>
                 </div>
-                
               </td>
               <td></td>
             </tr>
@@ -349,7 +408,6 @@
         <!-- 추가 정보 테이블 시작-->
         <table class="table">
           <thead>
-            
             <!-- 생년월일 tr -->
             <tr>
               <th scope="row">
@@ -357,7 +415,12 @@
               </th>
               <td>
                 <div class="col">
-                  <input class="form-control" type="text" name="pwd" v-model="user.birthday"/>
+                  <input
+                    class="form-control"
+                    type="text"
+                    name="pwd"
+                    v-model="user.birthday"
+                  />
                 </div>
               </td>
               <td>주민번호 앞 6자리 ex ) 990115</td>
@@ -376,7 +439,12 @@
   <div class="container text-center">
     <div class="row justify-content-md-center">
       <div class="col-md-auto">
-        <button class="text-light singUpBtn btn-sm mt-4" id="" type="button" @click="handleRegister">
+        <button
+          class="text-light singUpBtn btn-sm mt-4"
+          id=""
+          type="button"
+          @click="handleRegister"
+        >
           회원가입
         </button>
       </div>
@@ -395,11 +463,22 @@ export default {
       confirmPassword: "", // 비밀번호 확인
       passwordMatchError: false, // 비밀 번호확인이 다르면 true
 
+      // 비밀번호 정규화 확인 : 확인 되면 true
+      isValid: false,
+      // email 정규화 확인 : 확인 되면 true
+      emailIsValid: false,
+
+      // id 중복 체크 변수 : 존재여부로 존재하면 false
+      idPass: true,
+      // id 중복 실행 여부 : 실행하면 true
+      idCheck: false,
+      // id 중복 확인 결과 메세지
+      idCheckMessage: "",
+
       // 주소검색 변수들
       postcode: "",
       address: "",
       extraAddress: "",
-
 
       phoneNum: {
         first: "", // 폰 번호 첫자리
@@ -419,14 +498,88 @@ export default {
         email: "",
         role: "",
         detailAddress: "",
-        pwQuestion:"",
-        pwAnswer:""
+        pwQuestion: "",
+        pwAnswer: "",
       },
     };
   },
   methods: {
     /* 회원가입 버튼 누르면 실행될 함수 */
     async handleRegister() {
+      if (this.user.role == "") {
+        alert("회원유형을 선택해주세요");
+        return;
+      }
+      if (this.user.userId == "") {
+        alert("ID를 입력해주세요");
+        return;
+      }
+      if (!this.idCheck) {
+        alert("ID 중복 확인을 해주세요");
+        return;
+      }
+      if (!this.idPass) {
+        alert("이미 사용중인 ID입니다");
+        return;
+      }
+      if (this.user.password == "") {
+        alert("비밀번호를 입력해주세요");
+        return;
+      }
+      if (this.user.confirmPassword == "") {
+        alert("비밀번호확인을 입력해주세요");
+        return;
+      }
+      if (!this.isValid) {
+        alert("비밀번호가 조건에 맞지 않습니다");
+        return;
+      }
+
+      if (this.user.password !== this.confirmPassword) {
+        alert("비밀번호와 비밀번호 확인이 일치하지 않습니다");
+        return;
+      }
+      if (this.user.pwQuestion == "") {
+        alert("비밀번호 확인 질문을 입력해주세요");
+        return;
+      }
+      if (this.user.pwAnswer == "") {
+        alert("비밀번호 질문 확인을 입력해주세요");
+        return;
+      }
+
+      if (this.user.userName == "") {
+        alert("이름을 입력해주세요");
+        return;
+      }
+      if (this.user.email == "") {
+        alert("email을 입력해주세요");
+        return;
+      }
+       if (!this.emailIsValid) {
+        alert("올바른 email형식이 아닙니다");
+        return;
+      }
+      if (this.address == "") {
+        alert("주소를 입력해주세요");
+        return;
+      }
+      if (this.user.detailAddress == "") {
+        alert("상세주소를 입력해주세요");
+        return;
+      }
+      if (
+        this.phoneNum.first == "" ||
+        this.phoneNum.second == "" ||
+        this.phoneNum.third == ""
+      ) {
+        alert("휴대전화번호를 입력해주세요");
+        return;
+      }
+      if (this.user.birthday == "") {
+        alert("생년월일을 입력해주세요");
+        return;
+      }
       let data = {
         userId: this.user.userId,
         password: this.user.password,
@@ -439,20 +592,39 @@ export default {
         role: this.user.role,
         normalAddress: this.address + "," + this.extraAddress,
         detailAddress: this.user.detailAddress,
-        pwQuestion:this.user.pwQuestion,
-        pwAnswer:this.user.pwAnswer
+        pwQuestion: this.user.pwQuestion,
+        pwAnswer: this.user.pwAnswer,
       };
       try {
         let response = await AuthService.register(data);
         console.log(response.data);
         this.$store.commit("registerSuccess");
-        this.$router.push("/");
+        alert("회원가입이 완료되었습니다.");
+        this.$router.push("/member/login");
       } catch (e) {
         // 공유 저장소의 register 실해함수 실행
         this.$store.commit("registerFailure");
         this.message = "에러 :" + e;
         console.log(e); // 에러 출력
       }
+    },
+    // 비밀번호 정규화 함수
+    validatePassword() {
+      // 비밀번호에 대한 정규식 패턴
+      const pattern =
+        /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,16}$/;
+
+      // 정규식 패턴과 비밀번호가 맞는지 확인
+      this.isValid = pattern.test(this.user.password);
+    },
+
+    // email 정규화함수
+    validateEmail() {
+      // 이메일에 대한 정규식 패턴
+      const pattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+      // 정규식 패턴과 이메일이 맞는지 확인
+      this.emailIsValid = pattern.test(this.user.email);
     },
 
     /* 비밀번호 확인이 일치하지 않으면 메세지가 뜨게 할  */
@@ -463,7 +635,33 @@ export default {
       } else {
         this.passwordMatchError = false;
       }
-    },  
+    },
+
+    // 아이디 중복 함수
+    async confirmExistenceID() {
+      try {
+        let response = await AuthService.existUserById(this.user.userId);
+        console.log("아이디 존재" + response.data);
+        this.idPass = !response.data; // response.data = id 가 존재 하면 true 존재 안 하면 false
+        if (!response.data) {
+          this.idCheckMessage = "사용 가능한 ID 입니다.";
+          this.idCheck = true;
+        } else {
+          this.idCheckMessage = "이미 사용중인 ID 입니다.";
+          this.idCheck = true;
+        }
+      } catch (e) {
+        console.log(e);
+      }
+    },
+
+    // 아이디 재 입력시 아이디 중복확인 여부 false로 만들어주는 함수
+    convertToFalse() {
+      this.idCheck = false;
+      this.idCheckMessage = "";
+    },
+
+    // 주소 api 함수
     execDaumPostcode() {
       new window.daum.Postcode({
         oncomplete: (data) => {
@@ -505,7 +703,6 @@ export default {
       }).open();
     },
   },
- 
 };
 </script>
 <style>
