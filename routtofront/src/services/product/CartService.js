@@ -8,7 +8,7 @@ class CartService{
     // }
     // TODO: 장바구니 저장함수
     create(data) {
-        return http.post("/shop/cart", data);
+        return http.post("/normal/shop/cart", data);
     }
 }
 export default new CartService;

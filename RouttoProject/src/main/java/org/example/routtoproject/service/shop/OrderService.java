@@ -3,6 +3,7 @@ package org.example.routtoproject.service.shop;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.example.routtoproject.model.dto.shop.OrderDto;
+import org.example.routtoproject.model.dto.shop.OrderProductDetailDto;
 import org.example.routtoproject.model.entity.shop.Order;
 import org.example.routtoproject.model.entity.shop.OrderProd;
 import org.example.routtoproject.model.entity.shop.Product;
@@ -76,9 +77,21 @@ public class OrderService {
     }
 
     // 페이징 주문 전체 조회
-    // todo 전체조회 : 관리자 주문확인 페이지에서 사용
+    // todo: 전체조회 : 관리자 주문확인 페이지에서 사용
     public Page<Order> findAll(String orderTime, String orderStatus, Pageable pageable){
         Page<Order> page = orderRepository.findAllByOrderIdContaining(orderTime,orderStatus, pageable);
         return page;
+    }
+
+//    todo: 관리자 주문확인 페이지 : 상세보기 클릭 시 나오는 상품 정보
+    public List<OrderProductDetailDto> findOrderProdDetail(Integer orderId){
+        List<OrderProductDetailDto> order = orderProdRepository.findAllByorderProdIdContaining(orderId);
+        return order;
+    }
+
+//    todo: 관리자 주문확인 페이지 : 주문상태 변경(수정) 함수
+    public Order save(Order order){
+        Order order2 = orderRepository.save(order);
+        return order2;
     }
 }

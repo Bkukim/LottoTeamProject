@@ -44,7 +44,6 @@ public class Order {
     @GeneratedValue(strategy = GenerationType.SEQUENCE
             , generator = "SQ_LOTTO_ORDER_GENERATOR"
     )
-
     private Integer orderId;
     private String userId;
     private String orderName;
@@ -60,5 +59,4 @@ public class Order {
     private String orderStatus;
     private String orderChangeTime;
     private String orderChangeReason;
-
 }
