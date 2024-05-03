@@ -1,4 +1,5 @@
 <template>
+  <AdminHeaderCom/>
   <div class="container">
     <!-- 1) 주문 조회 배너 시작 -->
     <div
@@ -339,12 +340,14 @@
 </template>
 <script>
 import AdminOrderservice from "@/services/admin/AdminOrderService";
+import AdminHeaderCom from "@/components/common/AdminHeaderCom.vue";
 import VueDatePicker from "@vuepic/vue-datepicker";
 import "@vuepic/vue-datepicker/dist/main.css";
 
 export default {
   components: {
     VueDatePicker,
+    AdminHeaderCom
   },
   data() {
     return {

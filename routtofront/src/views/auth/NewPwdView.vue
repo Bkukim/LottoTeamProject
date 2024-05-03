@@ -94,9 +94,13 @@
   <br />
 </template>
 <script>
-import UserService from "@/services/user/UserService";
+import AuthService from "@/services/auth/AuthService";
 
 export default {
+  beforeRouteLeave(to, from, next) {
+    this.$store.state.userId = ""
+    next();
+  },
   data() {
     return {
       // 비밀번호 확인이 같으면 true
@@ -119,7 +123,7 @@ export default {
         console.log(data);
         if (this.newPw == this.newPwCheck) {
           // 비밀번호 확인이 같을때만 실행
-          let response = await UserService.updatePw(data); // 수정이 되면  true를 반환하고 안되면 false를 반환
+          let response = await AuthService.updatePw(data); // 수정이 되면  true를 반환하고 안되면 false를 반환
           if (response.data) {
             this.$store.state.userId = "";
             this.result = true;

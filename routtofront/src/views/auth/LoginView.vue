@@ -10,6 +10,17 @@
           <h5 class="mb-4 mt-4 log-form"><strong>회원 로그인</strong></h5>
           
             <div class="mb-3">
+              <label class="insert-id log-form mb-2" for="id">회원유형</label>
+              <select
+                class="form-select log-form"
+                aria-label="Default select example"
+                v-model="role"
+                id="login-role"
+              >
+                <option selected value="ROE_USER">회원</option>
+                <option value="ROLE_ADMIN">관리자</option>
+              </select>
+            </div><div class="mb-3">
               <label class="insert-id log-form mb-2" for="id">아이디</label>
               <input
                 class="form-control log-form"
@@ -45,7 +56,7 @@
         </div>
         <!-- 회원가입 시작 -->
         <div class="col join">
-          <h5 class="mb-1 mt-4 join-form"><strong>회원가입</strong></h5>
+          <h5 class="mb-1 mt-4 mb-4 join-form"><strong>회원가입</strong></h5>
           
             <div class="mb-3 join-form">
               <button
@@ -56,12 +67,12 @@
               >
                 회원가입
               </button>
-              <div class="mt-5">
-                <h5><strong>ID/PW 찾기</strong></h5>
+              <div class="mt-5 mb-4">
+                <h5 class="mt-4 mb-4" ><strong>ID/PW 찾기</strong></h5>
               </div>
             </div>
-            <div class="join-form mt-0">
-              <button class="btn btn-sm" id="find-idpw" type="button" @click="goFindId">
+            <div class="join-form mt-5">
+              <button class="btn btn-sm mb-3" id="find-idpw" type="button" @click="goFindId">
                 아이디 찾기
               </button>
               <button class="btn btn-sm mt-4 mb-3" id="find-idpw" type="button" @click="goFindPwd">
@@ -95,6 +106,7 @@ export default {
   data() {
     return {
       user:{
+        role:"",
         userId: "",
         password:"",
       }
@@ -110,18 +122,27 @@ export default {
     goFindPwd(){
       this.$router.push("/member/find-pwd")
     },
+
+    
     async handleLogin(){
         // 공통 로그인 서비스 함수
-        // 로그인 성고 =>
-        // 로그인 실해 => 로그인 실패 공유함수 실행
+        // 로그인 성공 =>
+        // 로그인 실패 => 로그인 실패 공유함수 실행
         try {
           let response = await AuthService.login(this.user); 
           console.log(response.data);// response.data == jwt, userId, 권한
-          localStorage.setItem("user", JSON.stringify(response.data)); // fh칼호스트는 객체를 저장할 수 없기에 이걸 문자열러 바꿔서 진행해야한다.
+          localStorage.setItem("user", JSON.stringify(response.data)); // 로칼호스트는 객체를 저장할 수 없기에 이걸 문자열러 바꿔서 진행해야한다.
           this.$store.commit("loginSuccess", response.data);
-          this.$router.push("/");
+        
+          if (this.$store.state.user.role == "ROLE_USER") {
+            this.$router.push("/")
+          } else if(this.$store.state.user.role == "ROLE_ADMIN") {
+            
+            this.$router.push("/shop/admin/order")
+          }
         } catch (e) {
           // 로그인 실패시 에러가 뜨므로 로그인 실패 공유함수를 실행
+          alert("로그인 정보가 일치하지 않습니다.")
           this.$store.commit("loginFailure"); // 공유함수의 mutation함수는commit으로 실행한다.
           console.log(e);
         }
@@ -137,6 +158,9 @@ export default {
 };
 </script>
 <style>
+#login-role {
+  width: 483px;
+}
 #id {
   width: 483px;
   height: 65px;

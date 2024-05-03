@@ -68,13 +68,13 @@ public class AuthController {
 //            4) 권한 정보 : ROLE_USER, ROLE_ADMIN
 //              => Set -> List => new ArrayList(Set객체) : 변경됨
 //              => authentication.getAuthorities() : 권한 배열 집합(set)
-            String codeName = new ArrayList(authentication.getAuthorities()).get(0).toString();
+            String role = new ArrayList(authentication.getAuthorities()).get(0).toString();
 
 //             5) DTO : jwt(웹토큰), 이메일, 권한명 => 프론트에 전송
             UserRes userRes = new UserRes(
                     jwt,                // 웹토큰
                     userReq.getUserId(), // 이메일
-                    codeName
+                    role
             );
             return new ResponseEntity<>(userRes, HttpStatus.OK);
 

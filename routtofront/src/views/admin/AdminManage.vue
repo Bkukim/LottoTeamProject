@@ -1,5 +1,6 @@
 // 관리자 조회/수정 페이지
 <template>
+  <AdminHeaderCom />
   <!-- 1. 조회 -->
   <div class="container">
     <!-- 1) 조회 배너 시작 -->
@@ -306,7 +307,7 @@
                 id="flexCheckDefault"
               />
             </th>
-            <th scope="col" id="modifyCol" >수정</th>
+            <th scope="col" id="modifyCol">수정</th>
             <th scope="col" id="modifyCol">복사</th>
             <th scope="col">상품번호</th>
             <th scope="col">상품명</th>
@@ -328,37 +329,24 @@
                   id="flexCheckDefault"
               /></label>
             </th>
-                        <td>
+            <td>
               <button
                 type="button"
-                class="text-light updateBtn btn btn-success">
+                class="text-light updateBtn btn btn-success"
+              >
                 수정
               </button>
             </td>
             <td>
               <button
                 type="button"
-                class="text-light updateBtn btn btn-success">
+                class="text-light updateBtn btn btn-success"
+              >
                 복사
               </button>
             </td>
             <td>
-              <div >
-                <input class="form-control" type="text" name="user" />
-              </div>
-            </td>
-            <td>
-              <div >
-                <input class="form-control" type="text" name="user" />
-              </div>
-            </td>
-            <td>
-              <div >
-                <input class="form-control" type="text" name="user" />
-              </div>
-            </td>
-            <td>
-              <div >
+              <div>
                 <input class="form-control" type="text" name="user" />
               </div>
             </td>
@@ -368,7 +356,22 @@
               </div>
             </td>
             <td>
-              <div >
+              <div>
+                <input class="form-control" type="text" name="user" />
+              </div>
+            </td>
+            <td>
+              <div>
+                <input class="form-control" type="text" name="user" />
+              </div>
+            </td>
+            <td>
+              <div>
+                <input class="form-control" type="text" name="user" />
+              </div>
+            </td>
+            <td>
+              <div>
                 <input class="form-control" type="text" name="user" />
               </div>
             </td>
@@ -384,37 +387,24 @@
                   id="flexCheckDefault"
               /></label>
             </th>
-                        <td>
+            <td>
               <button
                 type="button"
-                class="text-light updateBtn btn btn-success">
+                class="text-light updateBtn btn btn-success"
+              >
                 수정
               </button>
             </td>
             <td>
               <button
                 type="button"
-                class="text-light updateBtn btn btn-success">
+                class="text-light updateBtn btn btn-success"
+              >
                 복사
               </button>
             </td>
             <td>
-              <div >
-                <input class="form-control" type="text" name="user" />
-              </div>
-            </td>
-            <td>
-              <div >
-                <input class="form-control" type="text" name="user" />
-              </div>
-            </td>
-            <td>
-              <div >
-                <input class="form-control" type="text" name="user" />
-              </div>
-            </td>
-            <td>
-              <div >
+              <div>
                 <input class="form-control" type="text" name="user" />
               </div>
             </td>
@@ -424,7 +414,22 @@
               </div>
             </td>
             <td>
-              <div >
+              <div>
+                <input class="form-control" type="text" name="user" />
+              </div>
+            </td>
+            <td>
+              <div>
+                <input class="form-control" type="text" name="user" />
+              </div>
+            </td>
+            <td>
+              <div>
+                <input class="form-control" type="text" name="user" />
+              </div>
+            </td>
+            <td>
+              <div>
                 <input class="form-control" type="text" name="user" />
               </div>
             </td>
@@ -440,37 +445,24 @@
                   id="flexCheckDefault"
               /></label>
             </th>
-                        <td>
+            <td>
               <button
                 type="button"
-                class="text-light updateBtn btn btn-success">
+                class="text-light updateBtn btn btn-success"
+              >
                 수정
               </button>
             </td>
             <td>
               <button
                 type="button"
-                class="text-light updateBtn btn btn-success">
+                class="text-light updateBtn btn btn-success"
+              >
                 복사
               </button>
             </td>
             <td>
-              <div >
-                <input class="form-control" type="text" name="user" />
-              </div>
-            </td>
-            <td>
-              <div >
-                <input class="form-control" type="text" name="user" />
-              </div>
-            </td>
-            <td>
-              <div >
-                <input class="form-control" type="text" name="user" />
-              </div>
-            </td>
-            <td>
-              <div >
+              <div>
                 <input class="form-control" type="text" name="user" />
               </div>
             </td>
@@ -480,7 +472,22 @@
               </div>
             </td>
             <td>
-              <div >
+              <div>
+                <input class="form-control" type="text" name="user" />
+              </div>
+            </td>
+            <td>
+              <div>
+                <input class="form-control" type="text" name="user" />
+              </div>
+            </td>
+            <td>
+              <div>
+                <input class="form-control" type="text" name="user" />
+              </div>
+            </td>
+            <td>
+              <div>
                 <input class="form-control" type="text" name="user" />
               </div>
             </td>
@@ -501,13 +508,18 @@
     </button>
   </div>
 
-  <br>
-  <br>
-
+  <br />
+  <br />
 </template>
 
 <script>
-export default {};
+import AdminHeaderCom from "@/components/common/AdminHeaderCom.vue";
+
+export default {
+  components: {
+    AdminHeaderCom,
+  },
+};
 </script>
 
 <style>
@@ -565,8 +577,7 @@ export default {};
 #category {
   margin-right: 7vw;
 }
-#modifyCol{
+#modifyCol {
   width: 5vw;
 }
-
 </style>

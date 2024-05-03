@@ -22,5 +22,5 @@ import lombok.*;
 @NoArgsConstructor
 public class FindId {
 
-   private String message ;
+   private String failMessage ;
 }
