@@ -2,6 +2,7 @@
 <!-- 관리자 공지사항 수정페이지 -->
 
 <template>
+  <AdminHeaderCom />
   <div class="mt-5 mb-5 col-13">
     <!-- 카테고리 -->
     <h5 class="text-center">공지사항 수정</h5>
@@ -64,7 +65,11 @@
 
 <script>
 import NoticeListService from "@/services/noticeQnA/NoticeListService";
+import AdminHeaderCom from "@/components/common/AdminHeaderCom.vue";
 export default {
+  components: {
+    AdminHeaderCom,
+  },
   // 바인딩속성들
   data() {
     return {
@@ -113,7 +118,7 @@ export default {
           this.announcementImg
         );
         console.log(response);
-        this.$router.push("/shop/notice"); //로깅위에 달아줘야함
+        this.$router.push("/shop/notice"); //로깅위에 달아줘야함Bku
 
         // 로깅
         console.log(response.data);

@@ -51,9 +51,9 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 
 //        TODO: 2) 검증객체에 정보 넣기
 //               2-1) 권한을 생성해서 넣기 : GrantedAuthority(스프링시큐리티 권한클래스)
-//                 => codeName : 권한명 (ROLE_ADMIN, ROLE_USER)
+//                 => codeName : 권한명 (ROLE_ADMIN, ROLE_USER) 스프링 시큐리티가 ROLE_이 붙어야만 인식을 한다.
 //                 => 사용법 : GrantedAuthority 변수 = new SimpleGrantedAuthority(권한명);
-        GrantedAuthority authority = new SimpleGrantedAuthority(user.getRole());
+        GrantedAuthority authority = new SimpleGrantedAuthority(user.getRole()); //
 
 //        TODO:  2-2) 권한 배열에(List, Set 등) 넣기 : Set 에 넣기
         Set<GrantedAuthority> authorities = new HashSet<>();

@@ -1,5 +1,6 @@
 // 관리자 환불 페이지
 <template>
+  <AdminHeaderCom />
   <!-- 반품관리 배너 시작 -->
   <div
     class="container mt-5 RWD"
@@ -23,7 +24,6 @@
   </div>
   <!-- 반품관리 배너 끝 -->
 
-
   <!-- 조회기간 및 처리상태 박스 시작 -->
   <div
     class="container mt-4 RWD"
@@ -36,27 +36,27 @@
       padding: 10px;
     "
   >
-  <div class="sch">
-    <div style="margin-left: 100px;">
-      <span>조회기간:</span>
-      <select class="slbox">
-        <option selected>반품요청일</option>
-        <option>수거완료일</option>
-        <option>결제일</option>
-      </select>
+    <div class="sch">
+      <div style="margin-left: 100px">
+        <span>조회기간:</span>
+        <select class="slbox">
+          <option selected>반품요청일</option>
+          <option>수거완료일</option>
+          <option>결제일</option>
+        </select>
+      </div>
+      <div style="padding-right: 100px">
+        <span>상세조건:</span>
+        <select class="slbox">
+          <option selected>상세조건</option>
+          <option>수취인명</option>
+          <option>구매자명</option>
+          <option>구매자 ID</option>
+          <option>주문번호</option>
+          <option>상품번호</option>
+        </select>
+      </div>
     </div>
-    <div style="padding-right: 100px;">
-      <span>상세조건:</span>
-      <select class="slbox">
-        <option selected>상세조건</option>
-        <option>수취인명</option>
-        <option>구매자명</option>
-        <option>구매자 ID</option>
-        <option>주문번호</option>
-        <option>상품번호</option>
-      </select>
-    </div>
-  </div>
 
     <!-- 기간 선택 버튼 시작 -->
     <div class="dur">
@@ -127,7 +127,7 @@
         justify-content: center;
       "
     >
-      <button class="btn RBtn" style="width: 100px;">검 색</button>
+      <button class="btn RBtn" style="width: 100px">검 색</button>
     </div>
   </div>
   <!-- 조회기간 및 처리상태 박스 끝 -->
@@ -147,27 +147,34 @@
     <!-- 왼쪽 정렬을 위해 수정 -->
     <hr style="width: 100%" />
 
-   <!-- 버튼 그룹 시작 -->
-<div style="display: flex; justify-content: space-between; width: 100%; margin-bottom: 20px;">
-  <!-- 왼쪽 버튼 그룹 -->
-  <div style="display: flex; gap: 10px">
-    <div class="divider-style">
-      <button class="button-style">반품처리 한번에 하기</button>
-    </div>
-    <div style="display: flex; gap: 10px">
-      <button class="button-style">반품 완료처리</button>
-      <button class="button-style">반품 거부(철회)처리</button>
-      <button class="button-style">교환으로 변경</button>
-    </div>
-  </div>
+    <!-- 버튼 그룹 시작 -->
+    <div
+      style="
+        display: flex;
+        justify-content: space-between;
+        width: 100%;
+        margin-bottom: 20px;
+      "
+    >
+      <!-- 왼쪽 버튼 그룹 -->
+      <div style="display: flex; gap: 10px">
+        <div class="divider-style">
+          <button class="button-style">반품처리 한번에 하기</button>
+        </div>
+        <div style="display: flex; gap: 10px">
+          <button class="button-style">반품 완료처리</button>
+          <button class="button-style">반품 거부(철회)처리</button>
+          <button class="button-style">교환으로 변경</button>
+        </div>
+      </div>
 
-  <!-- 오른쪽 버튼 그룹 -->
-  <div style="display: flex; gap: 10px">
-    <button class="button-style">구매확정 후 취소 처리 바로가기 ></button>
-    <button class="button-style">판매자 직접 반품 접수 바로가기 ></button>
-  </div>
-</div>
-<!-- 버튼 그룹 끝 -->
+      <!-- 오른쪽 버튼 그룹 -->
+      <div style="display: flex; gap: 10px">
+        <button class="button-style">구매확정 후 취소 처리 바로가기 ></button>
+        <button class="button-style">판매자 직접 반품 접수 바로가기 ></button>
+      </div>
+    </div>
+    <!-- 버튼 그룹 끝 -->
 
     <!-- 목록 태그 시작 -->
     <!-- 여기부터 표 부분 -->
@@ -298,10 +305,12 @@
 <script>
 import VueDatePicker from "@vuepic/vue-datepicker";
 import "@vuepic/vue-datepicker/dist/main.css";
+import AdminHeaderCom from "@/components/common/AdminHeaderCom.vue";
 
 export default {
   components: {
     VueDatePicker,
+    AdminHeaderCom,
   },
   data() {
     return {
@@ -412,24 +421,27 @@ export default {
     padding-right: 0; /* 모바일 화면에서는 오른쪽 패딩을 제거 */
     margin-bottom: 20px; /* 요소들 사이의 세로 간격 */
   }
-  .dur, .cal{
+  .dur,
+  .cal {
     flex-direction: column;
     align-items: flex-start;
   }
-    /* 버튼과 달력 컨테이너 간격 조정 */
-    .period-btn, .datepicker-container {
+  /* 버튼과 달력 컨테이너 간격 조정 */
+  .period-btn,
+  .datepicker-container {
     margin-bottom: 10px;
   }
 
-  .period-btn, .datepicker-container {
+  .period-btn,
+  .datepicker-container {
     width: auto; /* 버튼과 날짜 선택기의 너비를 자동으로 조절 */
     margin-bottom: 10px; /* 요소 사이의 간격 조정 */
   }
-  
+
   .datepicker-container {
     max-width: 100%; /* 화면이 작을 때는 최대 너비를 100%로 설정 */
   }
-  
+
   /* 날짜 선택기와 관련된 추가 조정이 필요한 경우 */
   .datepicker-container .vuejs-datepicker {
     width: 100%; /* Vue.js 날짜 선택기의 너비를 조정 */
@@ -530,7 +542,7 @@ export default {
 
 /* 버튼 기본 스타일 */
 .button-style {
-  background-color: #5D4037;
+  background-color: #5d4037;
   color: white;
   padding: 5px 10px;
   font-size: 14px;
@@ -542,7 +554,7 @@ export default {
 
 /* 버튼 호버 스타일 */
 .button-style:hover {
-  background-color: #4E342E; /* 호버 시 더 짙은 브라운으로 변경 */
+  background-color: #4e342e; /* 호버 시 더 짙은 브라운으로 변경 */
 }
 
 /* 세로 구분선 스타일 */
@@ -550,7 +562,7 @@ export default {
   display: flex;
   flex-direction: column;
   align-items: center;
-  border-right: 1px solid #8D6E63; /* 짙은 브라운 계열의 경계선 */
+  border-right: 1px solid #8d6e63; /* 짙은 브라운 계열의 경계선 */
   padding-right: 10px;
 }
 </style>

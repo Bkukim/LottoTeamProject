@@ -1,9 +1,10 @@
 <!-- /adimn-notice ::공지사항 등록폼ADD -->
 <template>
+  <AdminHeaderCom />
   <div class="mt-5 mb-5 col-13">
     <!-- 카테고리 -->
     <h5 class="text-center">공지사항등록</h5>
-    <br />                                                                                                                                                                                                                                                                                                                                                                                                  
+    <br />
     <div class="col-4 mb-3">
       <label class="mb-3 text-left">제목 </label>
       <input
@@ -61,8 +62,12 @@
 
 <script>
 import NoticeListService from "@/services/noticeQnA/NoticeListService";
+import AdminHeaderCom from "@/components/common/AdminHeaderCom.vue";
+
 export default {
-  // 바인딩속성들
+  components: {
+    AdminHeaderCom,
+  },
   data() {
     return {
       message: "",

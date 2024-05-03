@@ -24,8 +24,8 @@
                 aria-label="Default select example"
                 v-model="role"
               >
-                <option selected value="user">회원</option>
-                <option value="admin">관리자</option>
+                <option selected value="ROE_USER">회원</option>
+                <option value="ROLE_ADMIN">관리자</option>
               </select>
             </div>
             <div class="mt-4 col-11">
@@ -114,7 +114,8 @@
   <br />
 </template>
 <script>
-import UserService from "@/services/user/UserService";
+import AuthService from '@/services/auth/AuthService';
+
 export default {
   data() {
     return {
@@ -139,7 +140,7 @@ export default {
           phoneNum:
             this.phoneNum.first + this.phoneNum.second + this.phoneNum.third,
         };
-        let response = await UserService.findId(
+        let response = await AuthService.findId(
           data.role,
           data.userName,
           data.phoneNum
