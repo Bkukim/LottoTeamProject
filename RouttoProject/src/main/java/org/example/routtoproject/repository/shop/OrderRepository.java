@@ -5,9 +5,11 @@ import org.example.routtoproject.model.entity.shop.Product;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  * packageName : org.example.routtoproject.repository.shop
@@ -24,14 +26,16 @@ import org.springframework.stereotype.Repository;
  */
 @Repository
 public interface OrderRepository extends JpaRepository<Order, Integer> {
+
+    //    todo 주문일과 주문상태로 조회하는 SELECT 쿼리문
     @Query(value = "SELECT * FROM LOTTO_ORDER\n" +
             "WHERE ORDER_TIME LIKE '%'|| :orderTime ||'%' AND ORDER_STATUS LIKE '%'|| :orderStatus ||'%'"
-            ,countQuery = "SELECT count(*) FROM LOTTO_ORDER\n" +
+            , countQuery = "SELECT count(*) FROM LOTTO_ORDER\n" +
             "WHERE ORDER_TIME LIKE '%'|| :orderTime ||'%' AND ORDER_STATUS LIKE '%'|| :orderStatus ||'%'"
 
-            ,nativeQuery = true
+            , nativeQuery = true
     )
     Page<Order> findAllByOrderIdContaining(@Param("orderTime") String orderTime, @Param("orderStatus") String orderStatus,
-                                              Pageable pageable
-    );
+                                           Pageable pageable);
+
 }

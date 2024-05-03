@@ -26,9 +26,14 @@ import java.util.List;
 @Repository
 public interface OrderProdRepository extends JpaRepository<OrderProd, Integer> {
 
-    @Query(value = "SELECT LP.PROD_IMG, LP.PROD_IMG_URL, LP.PROD_IMG_UUID, LP.PROD_NAME, OP.ORDER_AMOUNT, LP.DEFAULT_PRICE * (1-LP.DISCOUNT_RATE/100)*OP.ORDER_AMOUNT + 3000 AS TOTAL_PRICE\n" +
-            "FROM LOTTO_PRODUCT LP, LOTTO_ORDER_PROD OP\n" +
-            "WHERE LP.PROD_ID = OP.PROD_ID",
+//    todo: 상품의 상품id = 주문상품의 상품id 인 상품의 정보들을 불러와서 상세페이지에 띄우기
+//          예) 상품id가 95번인 상품-상품상세 테이블 조인
+    @Query(value = "SELECT LP.PROD_NAME AS prodName" +
+            ", OP.ORDER_AMOUNT AS orderAmount" +
+            ", LP.DEFAULT_PRICE * (1-LP.DISCOUNT_RATE/100)*OP.ORDER_AMOUNT + 3000 AS totalPrice\n" +
+            "            FROM LOTTO_PRODUCT LP, LOTTO_ORDER_PROD OP\n" +
+            "            WHERE LP.PROD_ID = OP.PROD_ID\n" +
+            "            AND OP.ORDER_ID = :orderId",
             nativeQuery = true)
-    List<OrderProductDetailDto> findAllByOrderProdIdContaining(@Param("prodId") String prodId);
+    List<OrderProductDetailDto> findAllByorderProdIdContaining(@Param("orderId") Integer orderId);
 }

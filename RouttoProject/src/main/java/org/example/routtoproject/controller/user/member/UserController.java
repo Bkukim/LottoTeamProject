@@ -29,7 +29,7 @@ public class UserController {
     private final UserService userService ;
 
     // todo : 회원 상세조회 : 1.주문페이지에서 주문자 자동입력
-    @GetMapping("/order/{userId}")
+    @GetMapping("/{userId}")
     public ResponseEntity<Object> findById(@PathVariable String userId){
         log.debug("asdf");
         try{

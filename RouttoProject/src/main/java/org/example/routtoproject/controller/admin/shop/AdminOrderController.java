@@ -3,6 +3,7 @@ package org.example.routtoproject.controller.admin.shop;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.example.routtoproject.model.dto.shop.OrderDto;
+import org.example.routtoproject.model.dto.shop.OrderProductDetailDto;
 import org.example.routtoproject.model.entity.shop.Order;
 import org.example.routtoproject.model.entity.shop.Product;
 import org.example.routtoproject.service.shop.OrderService;
@@ -42,12 +43,7 @@ public class AdminOrderController {
     //    TODO: 전체조회 함수
 //    조회(select) -> get 방식 -> @GetMapping
     @GetMapping("/order")
-    public ResponseEntity<Object> findAll(
-            @RequestParam(defaultValue = "") String orderTime,
-            @RequestParam(defaultValue = "") String orderStatus,
-            @RequestParam(defaultValue = "0") int page,
-            @RequestParam(defaultValue = "3") int size
-    ) {
+    public ResponseEntity<Object> findAll(@RequestParam(defaultValue = "") String orderTime, @RequestParam(defaultValue = "") String orderStatus, @RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "3") int size) {
         try {
             log.debug(orderTime + "sdfasdtgasrtgasretasrtgsdertgsdrfgsdrftgszd");
 //            페이징 객체 생성
@@ -55,9 +51,7 @@ public class AdminOrderController {
             log.debug(orderTime);
 
 //            전체 조회 서비스 실행
-            Page<Order> orders
-                    = orderService
-                    .findAll(orderTime, orderStatus, pageable);
+            Page<Order> orders = orderService.findAll(orderTime, orderStatus, pageable);
 
 //            공통 페이징 객체 생성 : 자료구조 맵 사용
             Map<String, Object> response = new HashMap<>();
@@ -76,6 +70,39 @@ public class AdminOrderController {
 
         } catch (Exception e) {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    //    todo: 상품 상세조회 함수 : 관리자 주문확인 페이지에서 상세보기 클릭 시 나옴
+    @GetMapping("/order/{orderId}")
+    public ResponseEntity<Object> findOrderProductAll(@PathVariable Integer orderId) {
+        try {
+//            전체 조회 서비스 실행
+            List<OrderProductDetailDto> orderProdDetail = orderService.findOrderProdDetail(orderId);
+            if (orderProdDetail.isEmpty() == false) {
+//                조회 성공
+                return new ResponseEntity<>(orderProdDetail, HttpStatus.OK);
+            } else {
+//                데이터 없음
+                return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+            }
+        } catch (Exception e) {
+            log.debug("error" + e.getMessage());
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    //   todo: 주문상태 변경(저장) 함수 : 드롭다운에서 선택 시 바뀌도록
+    @PutMapping("/order/update/{orderId}")
+    public ResponseEntity<Object> update(   // 데이터를 넣어서 프론트로 보냄. 품질향상에 좋은 클래스
+              @PathVariable int orderId
+             ,@RequestBody Order order
+    ) {
+        try {
+            Order order1 = orderService.save(order);                // DB 서비스 저장 함수 실행
+            return new ResponseEntity<>(order1, HttpStatus.OK);  // 성공했으니까 OK 보내기(안보내도 상관없음)
+        } catch (Exception e) {
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);   // 500 에러 전송
         }
     }
 }

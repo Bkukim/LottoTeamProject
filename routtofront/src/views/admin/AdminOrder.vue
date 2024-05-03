@@ -118,20 +118,6 @@
             상품준비중
           </label>
         </div>
-        <!-- 배송준비중 버튼 -->
-        <!-- <div class="form-check">
-          <input
-            class="form-check-input"
-            type="radio"
-            name="flexRadioDefault"
-            id="flexRadioDefault"
-            v-model="selectedOrderStatus"
-            checked
-          />
-          <label class="form-check-label" for="flexRadioDefault" id="status1">
-            배송준비중
-          </label>
-        </div> -->
         <!-- 배송중 버튼 -->
         <div class="form-check">
           <input
@@ -198,14 +184,6 @@
       <!-- 테이블 제목 행 -->
       <thead>
         <tr class="text-center">
-          <th scope="col">
-            <input
-              class="form-check-input"
-              type="checkbox"
-              value=""
-              id="flexCheckDefault"
-            />
-          </th>
           <th scope="col">주문번호</th>
           <th scope="col">주문일</th>
           <th scope="col">주문상품정보</th>
@@ -219,17 +197,6 @@
       <tbody>
         <!-- 1행 -->
         <tr class="text-center" v-for="(data, index) in orders" :key="index">
-          <th scope="row">
-            <label class="form-label" for="user"
-              ><input
-                class="form-check-input"
-                type="checkbox"
-                value=""
-                id="flexCheckDefault"
-                v-model="selectedOrders"
-            /></label>
-          </th>
-
           <!-- 주문번호 -->
           <td>
             <div>
@@ -251,7 +218,7 @@
               type="button"
               class="text-light detailBtn btn-sm mt-1"
               style="margin-left: 5px"
-              @click="goProdDetail()"
+              @click="goProdDetail(data.orderId)"
             >
               상세보기
             </button>
@@ -275,14 +242,14 @@
                 class="form-select"
                 aria-label="Default select example"
                 id="orderStatus"
+                v-model="data.orderStatus"
               >
-                <option selected>상품준비중</option>
-                <!-- <option value="1">결제확인중</option> -->
-                <option value="1">결제확인</option>
-                <option value="2">상품준비중</option>
-                <option value="3">배송중</option>
-                <option value="4">배송완료</option>
-                <option value="5">구매확정</option>
+                <option selected>결제완료</option>
+                <option value="상품준비중">상품준비중</option>
+                <option value="배송중">배송중</option>
+                <option value="배송완료">배송완료</option>
+                <option value="구매확정">구매확정</option>
+                <!-- <option value="5">구매확정</option> -->
               </select>
             </label>
           </td>
@@ -297,6 +264,7 @@
                 type="button"
                 class="text-light saveBtn btn-sm mt-1"
                 style="margin-left: 5px"
+                @click="update(data)"
               >
                 저장
               </button>
@@ -349,6 +317,7 @@ export default {
 
       orders: [], // 테이블에 나오는 배열정보들
 
+
       // searchOptionInput: "", // 입력한 주문번호를 저장할 데이터 속성
       selectedOrderStatus: "", // 선택한 주문 상태를 저장할 데이터 속성
       // searchOptionResult: "", // 주문번호 검색 결과를 표시하는 데이터 속성
@@ -361,20 +330,28 @@ export default {
     };
   },
   methods: {
+//   주문 상태 변경(수정) 함수
+      async update(data) {
+      try {
+        let response = await AdminOrderservice.update(data);
+        console.log(response.data); // 로깅
+        alert("주문상태가 변경되었습니다."); // 화면에 성공메세지 출력 : message 바인딩 변수
+        this.retrieveOrder();   // 화면 재조회함수
+      } catch (e) {
+        console.log(e);
+      }
+    },
     // 상세보기 클릭 시 상품 상세조회로 가는 페이지
-    goProdDetail(orderProdId) {
-      this.$router.push(`/orderProduct/${orderProdId}`);
+    goProdDetail(orderId) {
+      this.$router.push(`/orderProduct/${orderId}`);
     },
     // 전체조회(장바구니) 함수 : 검색어 버튼, 화면이뜰때 자동 실행
     async retrieveOrder() {
-      // Date 객체 생성
-
       try {
         if (this.selectedDate == "") {
           // 주문일 검색에서 선택안했을 때
           let formattedDate = ""; // 쿼리문에 날짜가 아닌 빈칸이 들어가야 전체 데이터가 나온다.
-          // TODO: 공통 장바구니 전체 조회 서비스 함수 실행
-          // TODO: 비동기 코딩 : async ~ await
+          // 공통 장바구니 전체 조회 서비스 함수 실행
           let response = await AdminOrderservice.getAll(
             formattedDate,
             this.selectedOrderStatus,
@@ -388,18 +365,13 @@ export default {
           // console.log("결과출력", response.data); // 웹브라우저 콘솔탭에 벡엔드 데이터 표시
         } else {
           let date = new Date(this.selectedDate);
-
           // 날짜 포맷 설정
           let options = { year: "numeric", month: "numeric", day: "numeric" };
-
           // 날짜 포맷팅
           let formattedDate = date
             .toLocaleDateString("ko-KR", options)
             .replace(/\. /g, "-") // 공백과 점을 -로 대체
             .slice(0, -1); // 맨 끝 문자열 제거
-
-          // TODO: 공통 장바구니 전체 조회 서비스 함수 실행
-          // TODO: 비동기 코딩 : async ~ await
           let response = await AdminOrderservice.getAll(
             formattedDate,
             this.selectedOrderStatus,
@@ -411,9 +383,6 @@ export default {
           this.count = totalItems;
           // 로깅
           // console.log("결과출력", response.data); // 웹브라우저 콘솔탭에 벡엔드 데이터 표시
-
-          // let now = new Date(); // js 날짜 객체
-          // let formatNow = `${now.getFullYear()}-${now.getMonth()}-${now.getDate()} ${now.getHours()}:${now.getMinutes()}:${now.getSeconds()}`;}
         }
       } catch (e) {
         console.log(e); // 웹브라우저 콘솔탭에 에러 표시
@@ -444,7 +413,6 @@ export default {
 
       // retrieveOrder 함수 실행
       await this.retrieveOrder();
-
     },
   },
   mounted() {
