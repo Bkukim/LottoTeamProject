@@ -9,10 +9,7 @@
         <tr>
           <!-- 전체선택 체크박스 -->
           <th class="text-center">
-            <input
-              type="checkbox"
-
-            />
+            <input type="checkbox" />
           </th>
           <th class="text-center">상품</th>
           <th class="text-center">상품명</th>
@@ -64,8 +61,12 @@
             </div>
           </td>
           <!-- 총가격 -->
-          <td class="text-center">{{ calculateTotalPrice }}</td>
-          
+          <td class="text-center">
+            {{
+              data.defaultPrice - data.defaultPrice * (data.discountRate * 0.01)
+            }}
+          </td>
+
           <!-- 구매하기 ::버튼 -->
           <td class="text-center">
             <div class="row mb-1">
@@ -122,13 +123,14 @@
       </thead>
       <tbody>
         <!-- 합산해야할 tr -->
-        <tr>
-          <td class="text-center">{{ calculateTotalPrice.defaultPrice }}</td>
-          <td class="text-center small_td"></td>
-          <td class="text-center">{{ calculateTotalPrice.discountPrice }}</td>
-          <td class="text-center small_td"></td>
-          <td class="text-center">0원</td>
-          <td class="text-center">{{ calculateTotalPrice + 0 }}</td>
+        <!-- TODO: 하드코딩 해둠 함수로 변경 -->
+        <tr v-if="cart">
+          <td class="text-center">{{ getDefaultPriceSum() }}</td>
+          <td class="text-center small_td">-</td>
+          <td class="text-center">{{ getDiscountedPriceSum() }}</td>
+          <td class="text-center small_td">+</td>
+          <td class="text-center">{{getDeliveryFree()}}</td>
+          <td class="text-center">{{ getFinalPriceSum()+getDeliveryFree() }}</td>
         </tr>
         <!-- 다른 상품들도 이와 같은 형식으로 추가할 수 있습니다 -->
       </tbody>
@@ -181,10 +183,10 @@ export default {
       count: 0, // 전체 데이터개수
       pageSize: 3, // 화면에 보여질 개수
 
-      // 가격 계산함수
-      defaultPrice: 0, //원가격
-      discountRate: 0, //할인률
-
+      // // 가격 계산함수
+      // defaultPrice: 0, //원가격
+      // discountRate: 0, //할인률
+      total: 0,
       // 전체선택 함수
       selectAll: false,
     };
@@ -202,35 +204,47 @@ export default {
     // TODO: 장바구니 개수 증가 함수
     increaseCount() {
       this.cartCount += 1;
+      this.getFinalPriceSum();
     },
     // TODO: 장바구니 개수 감소 함수
     decreaseCount() {
       if (this.cartCount > 0) {
         this.cartCount -= 1;
       }
+      this.getFinalPriceSum();
     },
-    // 계산함수
-    calculateTotalPrice() {
-      // 데이터베이스에서 정보를 가져와서 가격 계산
-      // 아래는 예시 코드
-      // axios.get('/api/product/price')
-      //     .then(response => {
-      //         const productPrice = response.data;
-      //         const totalPrice = this.cartCount * (productPrice - (productPrice * this.discountRate));
-      //         return totalPrice;
-      //     })
-      //     .catch(error => {
-      //         console.error('Error fetching product price: ', error);
-      //     });
+    getDefaultPriceSum() {
+      let sum = 0;
+      for (let item of this.cart) {
+        sum += item.defaultPrice * this.cartCount;
+      }
+      return sum;
+    },
+    getDiscountedPriceSum() {
+      let sum = 0;
+      for (let item of this.cart) {
+        sum += item.defaultPrice * (item.discountRate * 0.01) * this.cartCount;
+      }
+      return sum;
+    },
+    getFinalPriceSum() {
+      let sum = 0;
+      sum = this.getDefaultPriceSum() - this.getDiscountedPriceSum();
+      this.total=sum;
 
-      // 임시로 하드코딩한 예시 코드
-      let discountPrice = this.defaultPrice * this.discountRate;
-      const totalPrice = this.cartCount * (this.defaultPrice - discountPrice);
-      return totalPrice;
+      return sum;
+    },
+    getDeliveryFree() {
+      if (this.getFinalPriceSum >= 50000) {
+        return 0; // 5만원 이상 주문일 때 배송비 0
+      } else {
+        return 3000; // 5만원 미만 주문일 때 배송비 3000원
+      }
     },
     // TODO: 전체조회(장바구니) 함수 : 검색어 버튼, 화면이뜰때 자동 실행
     async retrieveCart() {
       console.log("실행이 됐는지확인");
+
       try {
         // todo: 공통 장바구니 전체 조회 서비스 함수 실행
         //   todo: 비동기 코딩 : async~await
@@ -243,7 +257,7 @@ export default {
         this.cart = cart;
         this.count = totalItems;
         // 로깅
-        console.log(response); //웹브라우저 콘솔탭에 백엔드 데이터 표시
+        console.log(response.data); //웹브라우저 콘솔탭에 백엔드 데이터 표시
       } catch (e) {
         console.log(e);
       }
@@ -259,7 +273,7 @@ export default {
         // alert 대화상자
         alert("정상적으로 삭제되었습니다.");
 
-        this.cartCount=this.cartCount-1; // 단일 삭제니까 -1
+        this.cartCount = this.cartCount - 1; // 단일 삭제니까 -1
         // 삭제후 재조회
         this.retrieveCart();
       } catch (e) {
@@ -275,7 +289,7 @@ export default {
         console.log(response.data);
         // alert 대화상자
         alert("정상적으로 삭제되었습니다.");
-        this.cartCount=0; //카트카운트 초기화 해주기
+        this.cartCount = 0; //카트카운트 초기화 해주기
 
         // 삭제후 재조회
         this.retrieveCart();
