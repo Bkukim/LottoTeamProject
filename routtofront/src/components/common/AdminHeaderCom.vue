@@ -1,262 +1,131 @@
-
-import router from '@/router';
 <template>
   <!-- header 전체박스 -->
-  <div class="kim-frame-14">
-  <!-- header 중앙 정렬박스 -->
-    <div class="container center">
+  <div :class="{ scrolled: scrolled }" class="kim-frame-14">
+    <!-- header 중앙 정렬박스 -->
+    <div class="kim-frame-14-in">
+      <!--로고이미지  -->
+      <router-link to="/">
+        <img
+          class="kim-routto-logo"
+          src="../../../src/assets/images/routto__4__1.png"
+        />
+      </router-link>
 
-    <!--로고이미지  -->
-    <router-link to="/shop"><img class="kim-routto-logo" src="../../../src/assets/images/routto__4__1.png" /> </router-link>
+      <!-- 메뉴 바 -->
+      <div class="kim-navbar">
+        <router-link to="/shop/admin/order" class="kim-div3"
+          >주문관리</router-link
+        >
+        <router-link to="/admin-notice" class="kim-div3">공지사항</router-link>
+        <router-link to="/shop/admin/add-product" class="kim-div3"
+          >상품등록</router-link
+        >
+        <router-link to="/shop/admin/manage" class="kim-div3"
+          >상품조회/수정</router-link
+        >
+        <router-link to="/shop/admin/refund" class="kim-div3"
+          >환불관리</router-link
+        >
+        <router-link to="" class="kim-div3">상품 QNA</router-link>
+        <router-link to="" class="kim-div3">고객문의</router-link>
+        <router-link to="" class="kim-div3">홍보배너관리</router-link>
+      </div>
 
-    <!-- 홈 아이콘 -->
-    <!-- <img class="kim-div" src="../../../src/assets/images/______1.png" /> -->
+      <!-- 오른쪽 박스 -->
+      <div>
+        <div class="kim-frame-15" v-if="!this.$store.state.loggedIn">
+          <router-link to="/member/login" class="kim-login">LOGIN</router-link>
+          <router-link to="/member/join" class="kim-join">JOIN</router-link>
+        </div>
+        <div class="kim-frame-15" v-else>
+          <li>
+            <a href class="kim-login" @click.prevent="handleLogout"> LOGOUT </a>
+          </li>
 
-    <!-- 햄버거 아이콘 -->
-    <img class="kim-div2" src="../../../src/assets/images/hb.png" />
-    
-    <!-- 메뉴 바 -->
-    <div class="kim-navbar">
-      <router-link to="#" class="kim-div3">BEST</router-link>
-      <router-link to="#" class="kim-div3">SKIN</router-link>
-      <router-link to="#" class="kim-div3">MAKE UP</router-link>
-      <router-link to="#" class="kim-div3">BODY</router-link>
-      <router-link to="/shop/notice" class="kim-div3">NOTICE</router-link>
+          <router-link to="/member/mypage" class="kim-my-page"
+            >MY PAGE</router-link
+          >
+        </div>
+      </div>
+
+      <!-- header 중앙 정렬박스 -->
     </div>
-
-    <!-- 왼쪽 박스 -->
-    <div class="kim-frame-142">
-      <router-link to="/shop/notice" class="kim-div4">공지사항</router-link>
-      <router-link to="/shop/faqList" class="kim-div4">FAQ</router-link>
-
-      <!-- <div class="kim-div4">공지사항</div> -->
-      <!-- <div class="kim-faq">FAQ</div> -->
-    </div>
-
-    <!-- 검색 아이콘 -->
-    <img class="kim-vector-4" src="../../../src/assets/images/unederbar.png" />
-    <img class="kim-_1" src="../../../src/assets/images/se.png" />
-
-    <!-- 오른쪽 박스 -->
-    <div class="kim-frame-15">
-      <router-link to="/member/login" class="kim-login">LOGIN</router-link>
-      <router-link to="/member/join" class="kim-join">JOIN</router-link>
-      <router-link to="/order/cart" class="kim-cart">CART</router-link>
-      <router-link to="/member/mypage" class="kim-my-page">MY PAGE</router-link>
-<!-- 
-      <div class="kim-login">LOGIN</div>
-      <div class="kim-join">JOIN</div>
-      <div class="kim-cart">CART</div>
-      <div class="kim-my-page">MY PAGE</div> -->
-    </div>
-
-  <!-- header 중앙 정렬박스 -->
+    <!-- header 전체박스 -->
   </div>
-  <!-- header 전체박스 -->
-  </div>     
+  <br />
+  <br />
 </template>
 
+<script>
+import AuthService from "@/services/auth/AuthService";
+export default {
+  data() {
+    return {
+      scrolled: false, // 헤더의 스크롤 상태를 나타내는 데이터 변수
 
+      searchQuery: "", // 검색어를 저장할 데이터
+    };
+  },
+  created() {
+    window.addEventListener("scroll", this.handleScroll); // 스크롤 이벤트 리스너 등록
+  },
+  beforeUnmount() {
+    window.removeEventListener("scroll", this.handleScroll); // 컴포넌트 파괴 시 이벤트 리스너 제거
+  },
+  mounted() {},
+  methods: {
+    // 헤더 스크롤
+    handleScroll() {
+      // 스크롤 위치를 확인하여 헤더의 상태를 업데이트
+      if (window.scrollY > 50) {
+        this.scrolled = true;
+        document.querySelector(".kim-frame-14").classList.add("scrolled"); // 헤더 클래스 변경
+        document.querySelector(".kim-frame-14").style.height = "6vw"; // 스크롤 시 헤더 높이 변경
+        document.querySelector(".kim-routto-logo").style.width = "7vw"; // 로고 너비 변경
+        document.querySelectorAll(".kim-div3").forEach((item) => {
+          item.style.fontSize = "0.6vw"; // 메뉴 폰트 크기 변경
+        });
+        document.querySelector(".kim-navbar").style.top = "4.8vw"; // 네비바 위치 조정
+        document.querySelector(".kim-navbar").style.transition = "top 0.3s"; // 네비바 transition 설정
+        document.querySelector(".kim-routto-logo").style.bottom = "1.5vw"; // 로고 위치 조정
+        document.querySelector(".kim-routto-logo").style.top = "-1vw"; // 로고 위치 조정
 
+        // search_header
+      } else {
+        this.scrolled = false;
+        document.querySelector(".kim-frame-14").classList.remove("scrolled"); // 헤더 클래스 초기화
+        document.querySelector(".kim-frame-14").style.height = "11.5vw"; // 헤더 높이 변경
+        document.querySelector(".kim-routto-logo").style.width = "16.5104vw"; // 로고 너비 변경
+        document.querySelectorAll(".kim-div3").forEach((item) => {
+          item.style.fontSize = "1vw"; // 메뉴 폰트 크기 변경
+        });
+        document.querySelector(".kim-navbar").style.top = "9.4vw"; // 네비바 위치 조정
+        document.querySelector(".kim-navbar").style.transition = "0.3s"; // 네비바 transition 초기화
+        document.querySelector(".kim-routto-logo").style.bottom = "3.125vw"; // 로고 위치 조정
+        document.querySelector(".kim-routto-logo").style.top = "-3.4375vw"; // 로고 위치 조정
+      }
+    },
+
+    // 검색창
+    search() {
+      // 여기서 검색어(searchQuery)를 이용하여 검색을 수행하는 로직을 작성
+      console.log("검색어:", this.searchQuery);
+      // 예를 들어, 검색 결과를 서버에 요청하거나 라우팅을 통해 검색 결과 페이지로 이동
+    },
+    handleLogout() {
+      let result = confirm("정말로 로그아웃 하시겠습니까?");
+      if (result) {
+        AuthService.logout(); // LOCAL저장소에서 USER객체 삭제해주기
+        this.$store.commit("logout"); //
+        this.$router.push("/member/login");
+      } else {
+        return;
+      }
+    },
+  },
+};
+</script>
 
 <style>
-/* @import '@/assets/css/IndexStyle.css'; */
-
-
-.router-link-exact-active {
-  color: #ffffff;
-  text-decoration: none; /* 언더라인 제거 */
-} 
-
-/* 호버 시 색상 변경 */
-.router-link-exact-active:hover {
-  color: rgba(248, 224, 178, 0.705); /* 원하는 호버 색상으로 변경 */
-}
-
-/* router-link가 렌더링하는 <a> 태그에 적용되는 스타일 */
-.kim-frame-15 a {
-  color: #ffffff;
-  text-decoration: none; /* 언더라인 제거 */
-}
-
-/* 호버 시 색상 변경 */
-.kim-frame-15 a:hover {
-  color: rgba(248, 224, 178, 0.705); /* 원하는 호버 색상으로 변경 */
-}
-
-
-.kim-frame-142 a {
-  color: #ffffff;
-  text-decoration: none; /* 언더라인 제거 */
-}
-
-/* 호버 시 색상 변경 */
-.kim-frame-142 a:hover {
-  color: rgba(248, 224, 178, 0.705); /* 원하는 호버 색상으로 변경 */
-}
-
-
-.kim-frame-15 > router-link{
-  text-decoration: none; /* 언더라인 제거 */
-}
-
-
-/* router-link가 렌더링하는 <a> 태그에 적용되는 스타일 */
-  .kim-navbar a {
-  color: #ffffff;
-  text-decoration: none; /* 언더라인 제거 */
-}
-
-/* 호버 시 색상 변경 */
-.kim-navbar a:hover {
-  color: rgba(248, 224, 178, 0.705); /* 원하는 호버 색상으로 변경 */
-}
-
-
-/* ------------- */
-
-
-.kim-frame-14 {
-  background: #342a26;
-  height: 333px;
-  width: 100%;
-  position: relative;
-  overflow: hidden;
-}
-
-.kim-routto-logo {
-  width: 317px;
-  height: 58.86%;
-  position: absolute;
-  left: 50%;
-  transform: translateX(-50%);
-  bottom: 28.83%;
-  top: 12.31%;
-  object-fit: cover;
-}
-
-.kim-div {
-  width: 2.0833vw;
-  height: 2.0833vw;
-  position: absolute;
-  right: 85.73%;
-  left: 12.5%;
-  bottom: 77.48%;
-  top: 12.31%;
-  object-fit: cover;
-}
-
-.kim-div2 {
-  width: 2.0833vw;
-  height: 2.0833vw;
-  position: absolute;
-  right: 85.36%;
-  left: 12.55%;
-  bottom: 12.61%;
-  top: 78.98%;
-  overflow: visible;
-}
-
-.kim-navbar {
-  display: flex;
-  flex-direction: row;
-  gap: 70px;
-  align-items: flex-start;
-  justify-content: flex-start;
-  position: absolute;
-  left: 650px;
-  top: 255px;
-  align-items: flex-end;
-  justify-content: flex-end;
-}
-
-
-/* .div3:last-child {
-  margin-right: 0;
-} */ 
-
-.kim-div3 {
-  color: #ffffff;
-  text-align: left;
-  font-family: "Inter-Regular", sans-serif;
-  font-size: 20px;
-  font-weight: 400;
-  position: relative;
-  margin-right: 5vw;
-}
-
-.kim-frame-142 {
-  display: flex;
-  flex-direction: row;
-  gap: 22px;
-  align-items: flex-start;
-  justify-content: flex-start;
-  position: absolute;
-  left: 12.7vw;
-  top: 49px;
-}
-
-.kim-div4,
-.kim-faq {
-  color: #ffffff;
-  text-align: left;
-  font-family: "Inter-Regular", sans-serif;
-  font-size: 15px;
-  font-weight: 400;
-  position: relative;
-}
-
-.kim-vector-4 {
-  display: flex;
-  flex-direction: row;
-  gap: 25px;
-  align-items: flex-start;
-  justify-content: flex-start;
-  position: absolute;
-  left: calc(50% + 450px);
-  top: 125px;
-  align-items: flex-end;
-  justify-content: flex-end;
-}
-
-.kim-_1 {
-  width: 40px;
-  height: 40px;
-  display: flex;
-  flex-direction: row;
-  gap: 5px;
-  align-items: flex-start;
-  justify-content: flex-start;
-  position: absolute;
-  left: calc(50% + 625px);
-  top: 85px;
-  align-items: flex-end;
-  justify-content: flex-end;
-}
-
-
-.kim-frame-15 {
-  display: flex;
-  flex-direction: row;
-  gap: 25px;
-  align-items: flex-start;
-  justify-content: flex-start;
-  position: absolute;
-  left: calc(50% + 409px);
-  top: 38px;
-  align-items: flex-end;
-  justify-content: flex-end;
-}
-
-.kim-login,
-.kim-join,
-.kim-cart,
-.kim-my-page {
-  color: #ffffff;
-  text-align: left;
-  font-family: "Inter-Regular", sans-serif;
-  font-size: 15px;
-  font-weight: 400;
-  position: relative;
-}
+@import "@/assets/css/Header.css";
 </style>

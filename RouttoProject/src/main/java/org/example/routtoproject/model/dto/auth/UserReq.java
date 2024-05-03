@@ -22,6 +22,6 @@ import lombok.*;
 @NoArgsConstructor
 public class UserReq {
     private String userId;    // ID
-
+    private String role; // 권한
     private String password;  // 암호
 }

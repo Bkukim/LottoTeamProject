@@ -1,7 +1,8 @@
 // 관리자 환불 페이지
 <template>
-  <br>
-  <br>
+  <AdminHeaderCom />
+  <br />
+  <br />
   <!-- 카테코리 선택 배너 -->
   <div
     class="container mt-5"
@@ -298,7 +299,12 @@
 
 <script>
 import ProductService from "@/services/product/ProductService.js";
+import AdminHeaderCom from "@/components/common/AdminHeaderCom.vue";
+
 export default {
+  components: {
+    AdminHeaderCom,
+  },
   data() {
     return {
       product: {
@@ -470,14 +476,14 @@ export default {
   margin: 20px;
 }
 .input-box {
-  height: 35px; 
+  height: 35px;
   margin-right: 10px;
-  border: 1px solid #ccc; 
-  padding: 0 10px; 
-  color: black; 
+  border: 1px solid #ccc;
+  padding: 0 10px;
+  color: black;
 }
 .input-box:focus {
   outline: none;
-  border-color: #342a26; 
+  border-color: #342a26;
 }
 </style>

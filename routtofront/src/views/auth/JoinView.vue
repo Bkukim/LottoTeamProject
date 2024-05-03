@@ -564,7 +564,8 @@ export default {
         alert("주소를 입력해주세요");
         return;
       }
-      if (this.user.detailAddress == "") {
+      if (this
+      .user.detailAddress == "") {
         alert("상세주소를 입력해주세요");
         return;
       }
@@ -599,8 +600,7 @@ export default {
         let response = await AuthService.register(data);
         console.log(response.data);
         this.$store.commit("registerSuccess");
-        alert("회원가입이 완료되었습니다.");
-        this.$router.push("/member/login");
+        this.$router.push("/member/join/welcome");
       } catch (e) {
         // 공유 저장소의 register 실해함수 실행
         this.$store.commit("registerFailure");
@@ -608,6 +608,10 @@ export default {
         console.log(e); // 에러 출력
       }
     },
+
+    // 비밀번호 입력시 실행되는 함수
+     
+
     // 비밀번호 정규화 함수
     validatePassword() {
       // 비밀번호에 대한 정규식 패턴
