@@ -1,10 +1,8 @@
 // 주문 공통 CRUD 함수
 import http from "@/utils/http-common";
 
-class AdminOrderService {
-  getAll(orderTime, orderStatus, page, size) {
-    return http.get(`/admin/shop/order?orderTime=${orderTime}&orderStatus=${orderStatus}&page=${page}&size=${size}`);
-  }
+class AdminProductService {
+ 
 
   createProduct(data) {
     // TODO: formData 는 무조건 문자열로 전송됨 -> 벡엔드에서 문자열로 받고 정수로 형변환하면 됨
@@ -20,7 +18,7 @@ class AdminOrderService {
     formData.append("prodStock", data.prodStock);
     formData.append("prodImgUrl", data.prodImgUrl);
     formData.append("prodDetailPageUrl", data.prodDetailPageUrl);
-    return http.post("/shop/product", formData, {
+    return http.post("/admin/shop/product", formData, {
       headers: {
         "Content-Type": "multipart/form-data",
       },
@@ -28,4 +26,4 @@ class AdminOrderService {
   }
 }
 
-export default new AdminOrderService();
+export default new AdminProductService();

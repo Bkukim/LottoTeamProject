@@ -173,7 +173,7 @@ export default {
     },
     // TODO: 상품 개수 감소 함수
     decreaseCount() {
-      if (this.productCount > 0) {
+      if (this.productCount > 1) {
         this.productCount -= 1;
       }
     },
