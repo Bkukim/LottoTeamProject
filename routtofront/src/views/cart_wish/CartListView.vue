@@ -48,7 +48,7 @@
               </button>
               <!-- 장바구니 개수 표시 : 버튼제목 -->
               <button type="button" class="btn btn-outline-dark" disabled>
-                {{ cartProdCount }}
+                {{ data.cartProdCount }}
               </button>
               <!-- 장바구니 개수 증가 버튼 -->
               <button
