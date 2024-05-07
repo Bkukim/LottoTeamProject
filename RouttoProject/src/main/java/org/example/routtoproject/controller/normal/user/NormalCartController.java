@@ -34,7 +34,7 @@ import java.util.Map;
  */
 @Slf4j
 @RestController
-@RequestMapping("/api/normal/order")
+@RequestMapping("/api/user/order")
 public class NormalCartController {
     @Autowired
     CartService cartService;
@@ -46,7 +46,7 @@ public class NormalCartController {
     public ResponseEntity<Object> findAll(
             @RequestParam(defaultValue = "") String title,
             @RequestParam(defaultValue = "0") int page,
-            @RequestParam(defaultValue = "3") int size
+            @RequestParam(defaultValue = "100") int size
     ) {
         try {
 //            페이징 객체 생성
@@ -60,9 +60,9 @@ public class NormalCartController {
 //            공통 페이징 객체 생성 : 자료구조 맵 사용
             Map<String, Object> response = new HashMap<>();
             response.put("cart", iCartDtoPage.getContent());       // simpleCart 배열
-            response.put("currentPage", iCartDtoPage.getNumber());       // 현재페이지번호
-            response.put("totalItems", iCartDtoPage.getTotalElements()); // 총건수(개수)
-            response.put("totalPages", iCartDtoPage.getTotalPages());    // 총페이지수
+//            response.put("currentPage", iCartDtoPage.getNumber());       // 현재페이지번호
+//            response.put("totalItems", iCartDtoPage.getTotalElements()); // 총건수(개수)
+//            response.put("totalPages", iCartDtoPage.getTotalPages());    // 총페이지수
 
             if (iCartDtoPage.isEmpty() == false) {
 //                조회 성공
@@ -118,6 +118,8 @@ public class NormalCartController {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
+
+
 }
 
 

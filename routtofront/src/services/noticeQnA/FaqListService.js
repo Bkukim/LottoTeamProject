@@ -1,6 +1,8 @@
 // noticeQna/FaqListService.js
 // 목적 : 부서 CRUD 공통 함수들 정의
 import http from "@/utils/http-common"; // spring 통신 정의 파일
+import AuthHeader from "../auth/AuthHeader";
+
 
 class FaqListService {
   // 속성(x), 생성자(x), 공통함수
@@ -8,27 +10,43 @@ class FaqListService {
   getAll(title, page, size) {
     // TODO: 조회(select) : get 방식 -> @GetMapping
     // TODO: 사용법 : http.get("스프링_컨트롤러함수_url")
-    return http.get(`/normal/member/faq?title=${title}&page=${page}&size=${size}`);  
+    return http.get(`/user/member/faq?title=${title}&page=${page}&size=${size}`,
+    {
+      headers: AuthHeader()
+    }
+    );  
   }
   // TODO: 저장, 이미지는 포기하라...
   create(data) {
     console.log(data);
     // TODO: 사용법 : http.post("컨트롤러함수url", 생성할객체)
-    return http.post("/normal/member/faq/save", data);
+    return http.post("/user/member/faq/save", data,
+    {
+      headers: AuthHeader()
+    }
+    );
 }
 
   // TODO: 상세조회 함수1 : 내가쓴글 확인하기? : 회원번호 userId
   // TODO: 조회(select) -> get 방식 -> @GetMapping
   getUserId(userId) {
     // TODO: 사용법 : http.get(`/컨트롤러함수url/${부서번호}`)
-    return http.get(`/normal/member/faq/${userId}`);
+    return http.get(`/user/member/faq/${userId}`,
+    {
+      headers: AuthHeader()
+    }
+    );
   }
 
   // TODO: 상세조회 함수2 : 쓴 글 조회 후 수정할때 상세조회용
   // TODO: 조회(select) -> get 방식 -> @GetMapping
   getFaqId(faqId) {
     // TODO: 사용법 : http.get(`/컨트롤러함수url/${부서번호}`)
-    return http.get(`/normal/member/faq/${faqId}`);
+    return http.get(`/user/member/faq/${faqId}`,
+    {
+      headers: AuthHeader()
+    }
+    );
   }
 
 
@@ -36,7 +54,11 @@ class FaqListService {
   update(faqId, data) {
     // TODO: 수정(update) -> put 방식 -> @PutMapping
     // TODO: 사용법 : http.put(`/컨트롤러함수url/${dno}`, 수정할객체)
-    return http.put(`/normal/member/faq/update/${faqId}`, data);
+    return http.put(`/user/member/faq/update/${faqId}`, data,
+    {
+      headers: AuthHeader()
+    }
+    );
   }
 
   // TODO: 삭제함수 : 부서번호(dno)
@@ -44,7 +66,11 @@ class FaqListService {
   // TODO: 사용법 : http.delete(`/컨트롤러함수url/${dno}`)
   delete(faqId) {
     console.log(faqId)
-    return http.delete(`/normal/member/faq/deletion/${faqId}`);
+    return http.delete(`/user/member/faq/deletion/${faqId}`,
+    {
+      headers: AuthHeader()
+    }
+    );
   }
 
   
