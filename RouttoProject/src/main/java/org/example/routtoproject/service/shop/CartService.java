@@ -66,6 +66,13 @@ public class CartService {
             return false;
         }
     }
-
+// todo: id가 존재하는지 확인
+    public boolean existById(int prodId){
+        if (cartRepository.existsById(prodId) == true) {
+            return true;
+        } else {
+            return false;
+        }
+    }
 
 }
