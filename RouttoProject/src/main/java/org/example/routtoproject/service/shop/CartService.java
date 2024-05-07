@@ -34,6 +34,7 @@ public class CartService {
         return cart1;
     }
 
+
     //    전체조회 함수
     public Page<ICartDto> selectByTitleContaining(
             String title,
@@ -47,6 +48,23 @@ public class CartService {
         log.debug("service확인");
 
         return page;
+    }
+
+
+    // todo: 삭제
+    public boolean removeById(int cartId) {
+//        JPA 삭제함수 : deleteById(기본키)
+//        1) 먼저 기본키가 테이블에 있으면 삭제, true 리턴
+//           없으면 false 리턴
+
+//        사용법 : jpa레포지토리.existsById(기본키)
+//         => 기본키가 테이블에 있으지 확인. 있으면 true, 없으면 false
+        if(cartRepository.existsById(cartId) == true) {
+            cartRepository.deleteById(cartId);
+            return true;
+        } else {
+            return false;
+        }
     }
 
 
