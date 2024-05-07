@@ -37,7 +37,7 @@ import org.hibernate.annotations.Where;
 @AllArgsConstructor
 @DynamicInsert
 @DynamicUpdate
-public class Cart extends BaseTimeEntity {
+public class Cart {
 @Id
 @GeneratedValue(strategy = GenerationType.SEQUENCE
         , generator = "SQ_LOTTO_CART_GENERATOR"
