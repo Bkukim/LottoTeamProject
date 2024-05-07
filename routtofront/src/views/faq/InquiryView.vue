@@ -105,7 +105,7 @@ export default {
                 // 임시 객체 변수 
                 let data = {
                     faqTitle:this.faq.faqTitle,
-                    userId:this.$store.state.user.userId, //TODO:  나중에 수정요망
+                    userId:this.$store.state.user.userId, //TODO:  아이디 불러오는것
                     faqType:this.faq.faqType,
                     faqContent:this.faq.faqContent,
                 };
