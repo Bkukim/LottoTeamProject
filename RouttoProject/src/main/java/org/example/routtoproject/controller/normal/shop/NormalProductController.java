@@ -2,6 +2,8 @@ package org.example.routtoproject.controller.normal.shop;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.example.routtoproject.model.dto.shop.OrderDto;
+import org.example.routtoproject.model.entity.shop.Order;
 import org.example.routtoproject.model.entity.shop.Product;
 import org.example.routtoproject.service.shop.ProductService;
 
@@ -127,7 +129,7 @@ public class NormalProductController {
         return ResponseEntity.ok()
 //           Todo : attachment: => attachment;
                 .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + product.getProdName() + "\"")
-                .body(product.getProdImg());
+                .body(product.getProdDetailPage());
     }
     @PostMapping("/product")
     public ResponseEntity<Object> createProduct(@RequestParam(defaultValue = "") String prodName,
@@ -164,6 +166,19 @@ public class NormalProductController {
         }
     }
 
-
+//        TODO: 장바구니에 상품 저장 함수
+//    @PostMapping("/cart")
+//    public ResponseEntity<Object> create(@RequestBody OrderDto orderDto) {
+//        try {
+//            if (orderDto == null) {
+//                return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+//            } else {
+//                Order order1 = orderService.saveOrder(orderDto);
+//                return new ResponseEntity<>(order1, HttpStatus.OK);
+//            }
+//        } catch (Exception e) {
+//            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+//        }
+//    }
 
 }

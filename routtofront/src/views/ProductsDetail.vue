@@ -252,7 +252,6 @@ export default {
     goOrder() {
       this.$router.push("/order/" + this.$route.params.prodId);
       this.$store.state.orderAmount = this.productCount;
-      // this.$router.push("/order");
     },
   },
   mounted() {
