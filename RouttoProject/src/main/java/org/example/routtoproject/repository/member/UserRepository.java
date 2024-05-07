@@ -65,4 +65,30 @@ public interface UserRepository extends JpaRepository<User, String> {
     @Query(value = "UPDATE LOTTO_USER SET PASSWORD = :newPw WHERE USER_ID = :userId "
             ,nativeQuery = true)
     public void updatePw(@Param("newPw") String newPw, @Param("userId") String userId);
+
+    //  todo 회원 정보 수정 함수
+    @Transactional
+    @Modifying // 업데이트문을 쿼리문으로 작성할때는 두개의 어노테이션을 추가해줘야한다.
+    @Query(value = "UPDATE LOTTO_USER \n" +
+            "SET USER_NAME = :userName\n" +
+            ",BIRTHDAY = :birthday\n" +
+            ",PHONE_NUM = :phoneNum\n" +
+            ",CALL_NUM = :callNum\n" +
+            ",EMAIL = :email\n" +
+            ",NORMAL_ADDRESS = :normalAddress\n" +
+            ",DETAIL_ADDRESS = :detailAddress\n" +
+            "WHERE USER_ID = :userId "
+            ,nativeQuery = true)
+    public void updateUserById(
+             @Param("userName") String userName
+            , @Param("birthday") int birthday
+            , @Param("phoneNum") String phoneNum
+            , @Param("callNum") String callNum
+            , @Param("email") String email
+            , @Param("normalAddress") String normalAddress
+            , @Param("detailAddress") String detailAddress
+            , @Param("userId") String userId
+    );
+
+
 }
