@@ -2,13 +2,9 @@
 import http from "@/utils/http-common";
 
 class CartService{
-    // TODO: 상품 전체 조회
-    // getAll(pname, page, size){
-    //     return http.get(`/shop/cart?pname=${pname}&page=${page}&size=${size}`);
-    // }
     // TODO: 장바구니 저장함수
     create(data) {
-        return http.post("/normal/shop/cart", data);
+        return http.post("/normal/order/cart", data);
     }
 }
 export default new CartService;

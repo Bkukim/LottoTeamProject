@@ -2,8 +2,10 @@ package org.example.routtoproject.controller.normal.user;
 
 import lombok.extern.slf4j.Slf4j;
 import org.example.routtoproject.model.dto.shop.ICartDto;
+import org.example.routtoproject.model.dto.shop.OrderDto;
 import org.example.routtoproject.model.entity.shop.Cart;
 import org.example.routtoproject.model.entity.shop.Faq;
+import org.example.routtoproject.model.entity.shop.Order;
 import org.example.routtoproject.service.shop.CartService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -11,10 +13,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -80,6 +79,18 @@ public class NormalCartController {
         } catch (Exception e) {
             log.debug("컨트롤러 확인catch");
 
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    //        TODO: 장바구니에 상품 저장 함수
+    @PostMapping("/cart")
+    public ResponseEntity<Object> create(@RequestBody Cart cart) {
+        try {
+            Cart cart1 = cartService.save(cart);
+            return new ResponseEntity<>(HttpStatus.OK);
+
+        } catch (Exception e) {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }

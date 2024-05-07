@@ -28,24 +28,26 @@ import org.springframework.stereotype.Service;
 public class CartService {
     private final CartRepository cartRepository;
 
-    public Cart save(Cart cart){
+    //    저장(수정) 함수
+    public Cart save(Cart cart) {
         Cart cart1 = cartRepository.save(cart);
         return cart1;
     }
-//    전체조회 함수
-public Page<ICartDto> selectByTitleContaining(
-        String title,
-        Pageable pageable
-){
-    Page<ICartDto> page
-            = cartRepository.selectByTitleContaining(
-            title,
-            pageable
-    );
-    log.debug("service확인");
-    
-    return page;
-}
+
+    //    전체조회 함수
+    public Page<ICartDto> selectByTitleContaining(
+            String title,
+            Pageable pageable
+    ) {
+        Page<ICartDto> page
+                = cartRepository.selectByTitleContaining(
+                title,
+                pageable
+        );
+        log.debug("service확인");
+
+        return page;
+    }
 
 
 }
