@@ -246,7 +246,9 @@ export default {
         console.log(response.data);
         // 장바구니 담기 성공 메세지 출력
         // alert("장바구니에 잘 담겼습니다.");
+
         alert("장바구니에 상품이 담겼습니다.");
+
         this.$router.push("/order/cart");
         // this.$store.state.orderAmount = this.productCount;
         }

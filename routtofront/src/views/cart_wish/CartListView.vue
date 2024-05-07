@@ -123,7 +123,6 @@
       </thead>
       <tbody>
         <!-- 합산해야할 tr -->
-        <!-- TODO: 하드코딩 해둠 함수로 변경 -->
         <tr v-if="cart">
           <td class="text-center">{{ getDefaultPriceSum() }}</td>
           <td class="text-center small_td">-</td>
@@ -183,9 +182,7 @@ export default {
       count: 0, // 전체 데이터개수
       pageSize: 3, // 화면에 보여질 개수
 
-      // // 가격 계산함수
-      // defaultPrice: 0, //원가격
-      // discountRate: 0, //할인률
+
       total: 0,
       // 전체선택 함수
       selectAll: false,
@@ -256,6 +253,8 @@ export default {
       try {
         // todo: 공통 장바구니 전체 조회 서비스 함수 실행
         //   todo: 비동기 코딩 : async~await
+        console.log(this.page)
+        console.log(this.pageSize)
         let response = await CartService.getAll(
           this.searchTitle,
           this.page - 1,
@@ -265,7 +264,7 @@ export default {
         this.cart = cart;
         this.count = totalItems;
         // 로깅
-        console.log(response.data); //웹브라우저 콘솔탭에 백엔드 데이터 표시
+        console.log("카트조회", response.data); //웹브라우저 콘솔탭에 백엔드 데이터 표시
       } catch (e) {
         console.log(e);
       }
