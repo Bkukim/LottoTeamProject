@@ -6,6 +6,9 @@ class OrderService {
   saveOrder(data) {
     return http.post("/user/shop/order", data);
   }
+  getOrderId(orderId){
+    return http.get(`/admin/shop/order/${orderId}`);
+  }
 }
 
 export default new OrderService();

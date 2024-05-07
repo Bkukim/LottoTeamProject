@@ -2,6 +2,8 @@ package org.example.routtoproject.controller.normal.shop;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.example.routtoproject.model.dto.shop.OrderDto;
+import org.example.routtoproject.model.entity.shop.Order;
 import org.example.routtoproject.model.entity.shop.Product;
 import org.example.routtoproject.service.shop.ProductService;
 
@@ -127,43 +129,23 @@ public class NormalProductController {
         return ResponseEntity.ok()
 //           Todo : attachment: => attachment;
                 .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + product.getProdName() + "\"")
-                .body(product.getProdImg());
-    }
-    @PostMapping("/product")
-    public ResponseEntity<Object> createProduct(@RequestParam(defaultValue = "") String prodName,
-                                                @RequestParam (defaultValue = "0") String defaultPrice,
-                                                @RequestParam (defaultValue = "")String prodCategory,
-                                                @RequestParam MultipartFile prodImg,
-                                                @RequestParam MultipartFile prodDetailPage,
-
-                                                @RequestParam (defaultValue = "0")String discountRate,
-                                                @RequestParam (defaultValue = "0")String prodStock,
-
-                                                @RequestParam (defaultValue = "")String prodImgUrl,
-                                                @RequestParam (defaultValue = "")String prodDetailPageUrl
-    ){
-        try {
-//
-//                log.debug("확인용" + prodImg);
-//                log.debug("확인용" + prodDetailPage);
-            Product product1 = productService.save(
-                    prodName,
-                    Integer.parseInt(defaultPrice), // TODO: 정수로 변경
-                    prodCategory,
-                    prodImg,
-                    prodDetailPage,
-                    Integer.parseInt(discountRate), // TODO: 정수로 변경
-                    Integer.parseInt(prodStock),    // TODO: 정수로 변경
-                    prodImgUrl,
-                    prodDetailPageUrl);
-            return new ResponseEntity<>(/*product1,*/ HttpStatus.OK);
-
-
-        }catch (Exception e){
-            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
-        }
+                .body(product.getProdDetailPage());
     }
 
 
+//        TODO: 장바구니에 상품 저장 함수
+//    @PostMapping("/cart")
+//    public ResponseEntity<Object> create(@RequestBody OrderDto orderDto) {
+//        try {
+//            if (orderDto == null) {
+//                return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+//            } else {
+//                Order order1 = orderService.saveOrder(orderDto);
+//                return new ResponseEntity<>(order1, HttpStatus.OK);
+//            }
+//        } catch (Exception e) {
+//            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+//        }
+//    }
 
 }

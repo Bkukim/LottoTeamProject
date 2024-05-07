@@ -28,10 +28,11 @@ import org.springframework.web.bind.annotation.*;
 public class UserController {
     private final UserService userService ;
 
-    // todo : 회원 상세조회 : 1.주문페이지에서 주문자 자동입력
-    @GetMapping("/order/{userId}")
+
+    // todo : 회원 상세조회 : 1.주문페이지에서 주문자 자동입력 2.회원정보수정
+
+    @GetMapping("/{userId}")
     public ResponseEntity<Object> findById(@PathVariable String userId){
-        log.debug("asdf");
         try{
             User user = userService.findById(userId).get();
 //            User user = userService.findById(userId);
@@ -42,13 +43,36 @@ public class UserController {
 //                return new ResponseEntity<>(HttpStatus.NO_CONTENT);
 //            }
         } catch (Exception e){
-            log.debug("에러 : " + e.getMessage());
+            log.debug(e.getMessage());
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
+    // todo  회원 정보 수정 함수 : 1. 회원정보수정 페이지에서 사용
+    @PutMapping("/update/{userId}")
+    public ResponseEntity<Object> updateUser(@PathVariable String  userId,
+                                             @RequestBody User user){
+        try {
+             userService.updateUserById(user.getUserName(), user.getBirthday(),user.getPhoneNum(), user.getCallNum(), user.getEmail(), user.getNormalAddress(), user.getDetailAddress(), user.getUserId());
+            return new ResponseEntity<>(user, HttpStatus.OK);
+        }catch (Exception e){
+            log.debug(e.getMessage());
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
 
-
+    // todo  회원 소프트 삭제 함수 : 1. 회원 탈퇴
+    @DeleteMapping("/delete/{userId}")
+    public ResponseEntity<Object> deleteUser(@PathVariable String userId){
+        try {
+            log.debug(userId);
+            userService.removeById(userId);
+            return new ResponseEntity<>(HttpStatus.OK);
+        }catch (Exception e){
+            log.debug(e.getMessage());
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
 
 
 

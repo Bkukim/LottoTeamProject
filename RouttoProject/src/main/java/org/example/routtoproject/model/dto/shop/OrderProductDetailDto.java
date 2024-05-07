@@ -14,10 +14,11 @@ package org.example.routtoproject.model.dto.shop;
  * 2024-05-02(002)         hayj6          최초 생성
  */
 public interface OrderProductDetailDto {
-    Integer getProdId();
-    Integer getOrderId();
-    String getProdName();
-    Integer getOrderAmount();
-    Integer orderPrice(); // 최종 상품 가격
+//    Integer getProdId();
+//    Integer getOrderId();
+//    String getProdImg();        // 상품 이미지
+    String getProdName();       // 상품 이름
+    Integer getOrderAmount();   // 상품 수량
+    Integer getTotalPrice();       // 최종 상품 가격
 
 }

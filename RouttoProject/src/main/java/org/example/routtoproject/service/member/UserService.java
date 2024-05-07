@@ -65,5 +65,31 @@ public class UserService {
         userRepository.updatePw(newPw, userId);
     }
 
+    public void updateUserById(String userName
+            ,  int birthday
+            ,  String phoneNum
+            ,  String callNum
+            ,  String email
+            ,  String normalAddress
+            ,  String detailAddress
+            ,  String userId){
+        userRepository.updateUserById( userName
+                ,   birthday
+                ,   phoneNum
+                ,   callNum
+                ,   email
+                ,   normalAddress
+                ,   detailAddress
+                ,   userId);
+    }
 
+    // todo 유저 삭제 함수 (소프트 삭제)
+     public boolean removeById(String userId){
+         if (userRepository.existsById(userId)) {
+             userRepository.deleteById(userId);
+             return true;
+         }else {
+             return false;
+         }
+     }
 }

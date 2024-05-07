@@ -203,7 +203,9 @@ export default {
 
     // TODO: 장바구니 개수 증가 함수
     increaseCount() {
+
       this.cartProdCount += 1;
+
       this.getFinalPriceSum();
     },
     // TODO: 장바구니 개수 감소 함수
@@ -238,6 +240,7 @@ export default {
 
       return sum;
     },
+
     // 이거는 아직 안되는중
     getDeliveryFree() {
       if (this.getFinalPriceSum >= 50000) {
@@ -249,6 +252,7 @@ export default {
     // TODO: 전체조회(장바구니) 함수 : 검색어 버튼, 화면이뜰때 자동 실행
     async retrieveCart() {
       console.log("실행이 됐는지확인");
+
       try {
         // todo: 공통 장바구니 전체 조회 서비스 함수 실행
         //   todo: 비동기 코딩 : async~await
@@ -277,7 +281,9 @@ export default {
         // alert 대화상자
         alert("정상적으로 삭제되었습니다.");
 
+
         // this.cartProdCount = this.cartProdCount - 1; // 단일 삭제니까 -1
+
         // 삭제후 재조회
         this.retrieveCart();
       } catch (e) {
@@ -293,7 +299,9 @@ export default {
         console.log(response.data);
         // alert 대화상자
         alert("정상적으로 삭제되었습니다.");
+
         // this.cartProdCount = 0; //카트카운트 초기화 해주기
+
 
         // 삭제후 재조회
         this.retrieveCart();

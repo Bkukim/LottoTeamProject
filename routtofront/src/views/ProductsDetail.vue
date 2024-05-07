@@ -1,4 +1,10 @@
 <template>
+  <!-- Bootstrap CSS 파일 포함 -->
+  <link
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
+    rel="stylesheet"
+  />
+
   <div class="container mt-5">
     <h1 class="mt-4">Product</h1>
     <hr />
@@ -57,8 +63,8 @@
         <!-- 위아래로 수량조절 -->
         <td class="col-2">
           <b>수량을 선택하세요</b>
-          <br>
-          <br>
+          <br />
+          <br />
           <!-- 1) 드롭다운 이름 -->
           <div
             class="btn-group col"
@@ -96,8 +102,10 @@
             총 상품 금액 :
             {{
               (product.defaultPrice -
-              (product.defaultPrice * product.discountRate) / 100) * productCount
-            }} 원
+                (product.defaultPrice * product.discountRate) / 100) *
+              productCount
+            }}
+            원
           </h4>
           <div class="mt-3">
             <h5>배송비 : 3000 원</h5>
@@ -108,15 +116,43 @@
               총 주문 금액 :
               {{
                 (product.defaultPrice -
-                (product.defaultPrice * product.discountRate) / 100) * productCount  +
+                  (product.defaultPrice * product.discountRate) / 100) *
+                  productCount +
                 3000
-              }} 원
+              }}
+              원
             </h5>
           </div>
         </div>
 
         <!-- 7. 버튼 -->
         <div class="mt-5">
+          <!-- 즐겨찾기 하트 버튼 -->
+          <button
+            type="button"
+            id="btn5"
+            @click="addToFavorites"
+            style="
+              background-color: white;
+              border: 1px solid #cccccc;
+              margin-right: 15px;
+            "
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="25"
+              height="25"
+              fill="pink"
+              class="bi bi-heart-fill"
+              viewBox="0 0 16 16"
+            >
+              <path
+                fill-rule="evenodd"
+                d="M8 1.314C12.438-3.248 23.534 4.735 8 15-7.534 4.736 3.562-3.248 8 1.314"
+              />
+            </svg>
+          </button>
+
           <button type="button" id="btn2" @click="goCart">장바구니</button>
 
           <button type="button" id="btn3" @click="goOrder">주문하기</button>
@@ -167,13 +203,13 @@ export default {
     };
   },
   methods: {
-        // TODO: 상품 개수 증가 함수
+    // TODO: 상품 개수 증가 함수
     increaseCount() {
       this.productCount += 1;
     },
     // TODO: 상품 개수 감소 함수
     decreaseCount() {
-      if (this.productCount > 0) {
+      if (this.productCount > 1) {
         this.productCount -= 1;
       }
     },
@@ -216,7 +252,6 @@ export default {
     goOrder() {
       this.$router.push("/order/" + this.$route.params.prodId);
       this.$store.state.orderAmount = this.productCount;
-      // this.$router.push("/order");
     },
   },
   mounted() {
@@ -315,6 +350,7 @@ export default {
   border-radius: 5px; /* 모서리 둥글게 : 5px로 설정 */
   border: 2px solid #fff16c; /* 빨간색 테두리, 두께는 2px */
 }
+
 #star {
   color: red;
 }
