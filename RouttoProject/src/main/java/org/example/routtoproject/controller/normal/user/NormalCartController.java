@@ -80,23 +80,20 @@ public class NormalCartController {
     }
 
 
-
-
     //        TODO: 장바구니에 상품 저장 함수
     @PostMapping("/cart")
     public ResponseEntity<Object> create(@RequestBody Cart cart) {
         try {
-            Cart cart1 = cartService.save(cart);
-            return new ResponseEntity<>(HttpStatus.OK);
-
+            if (cartService.existById(cart.getProdId())) {
+                return new ResponseEntity<>(true, HttpStatus.OK);
+            } else {
+                Cart cart1 = cartService.save(cart);
+                return new ResponseEntity<>(cart1, HttpStatus.OK);
+            }
         } catch (Exception e) {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
-
-
-
-}
 
 
     //    TODO: 삭제 함수
@@ -108,7 +105,7 @@ public class NormalCartController {
 //            DB 서비스 삭제 함수 실행
             boolean success = cartService.removeById(cartId);
 
-            if(success == true) {
+            if (success == true) {
                 return new ResponseEntity<>(HttpStatus.OK);
             } else {
                 // 삭제 실행 : 0건 삭제(삭제할 데이터 없음)
