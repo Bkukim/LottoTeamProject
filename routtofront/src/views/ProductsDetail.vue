@@ -153,7 +153,7 @@
             </svg>
           </button>
 
-          <button type="button" id="btn2" @click="goCart">장바구니</button>
+          <button type="button" id="btn2" @click="saveCart">장바구니</button>
 
           <button type="button" id="btn3" @click="goOrder">주문하기</button>
 
@@ -231,22 +231,23 @@ export default {
       try {
         let data = {
           prodId: this.product.prodId, // 상품번호
-          // cartCount: this.cartCount, // 장바구니 개수
+          cartProdCount: this.productCount, // 장바구니 개수
+          userId: this.$store.state.user.userId // userId
+        
         };
+        console.log("확인", data);
         // TODO: 공통 저장 서비스 함수 실행, async ~ await
         let response = await CartService.create(data);
         // 로깅
         console.log(response.data);
         // 장바구니 담기 성공 메세지 출력
+        // alert("장바구니에 잘 담겼습니다.");
         this.message = "장바구니에 잘 담겼습니다.";
+        this.$router.push("/cart");
+        // this.$store.state.orderAmount = this.productCount;
       } catch (e) {
         console.log(e);
       }
-    },
-    // TODO: 장바구니 전체 조회페이지 이동함수
-    goCart() {
-      this.$router.push("/cart");
-      this.$store.state.orderAmount = this.productCount;
     },
     // TODO: 주문하기 이동함수
     goOrder() {

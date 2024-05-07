@@ -131,21 +131,4 @@ public class NormalProductController {
                 .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + product.getProdName() + "\"")
                 .body(product.getProdDetailPage());
     }
-
-
-//        TODO: 장바구니에 상품 저장 함수
-//    @PostMapping("/cart")
-//    public ResponseEntity<Object> create(@RequestBody OrderDto orderDto) {
-//        try {
-//            if (orderDto == null) {
-//                return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-//            } else {
-//                Order order1 = orderService.saveOrder(orderDto);
-//                return new ResponseEntity<>(order1, HttpStatus.OK);
-//            }
-//        } catch (Exception e) {
-//            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
-//        }
-//    }
-
 }
