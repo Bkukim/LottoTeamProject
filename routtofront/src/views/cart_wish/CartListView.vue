@@ -48,7 +48,7 @@
               </button>
               <!-- 장바구니 개수 표시 : 버튼제목 -->
               <button type="button" class="btn btn-outline-dark" disabled>
-                {{ cartCount }}
+                {{ cartProdCount }}
               </button>
               <!-- 장바구니 개수 증가 버튼 -->
               <button
@@ -85,7 +85,7 @@
                 <button
                   id="button_bg2"
                   class="btn btn-secondary btn-block"
-                  @click="deleteCart"
+                  @click="deleteCart(data.cartId)"
                 >
                   삭제하기
                 </button>
@@ -142,9 +142,9 @@
           type="button"
           id="button2"
           class="btn btn-primary"
-          @click="deleteAllCart"
+          @click="deleteAllCart(cart)"
         >
-          선택상품 삭제하기
+          전체상품 삭제하기
         </button>
       </div>
       <div class="col-auto mb-5">
@@ -176,7 +176,7 @@ export default {
     return {
       cart: [], //장바구니에 담긴 프로덕트 들
       selectCart: [], //선택된 물건만 장바구니에 담을 객체
-      cartCount: 0, //장바구니 갯수
+      cartProdCount: 0, //장바구니 갯수
 
       // 공통 페이징 속성 정의
       page: 1, // 현재페이지번호
@@ -203,30 +203,36 @@ export default {
 
     // TODO: 장바구니 개수 증가 함수
     increaseCount() {
-      this.cartCount += 1;
+
+      this.cartProdCount += 1;
+
       this.getFinalPriceSum();
     },
     // TODO: 장바구니 개수 감소 함수
     decreaseCount() {
-      if (this.cartCount > 0) {
-        this.cartCount -= 1;
+      if (this.cartProdCount > 0) {
+        this.cartProdCount -= 1;
       }
       this.getFinalPriceSum();
     },
+    // TODO: 계산기 함수
+    // 기본가격*카트카운트
     getDefaultPriceSum() {
       let sum = 0;
       for (let item of this.cart) {
-        sum += item.defaultPrice * this.cartCount;
+        sum += item.defaultPrice * this.cartProdCount;
       }
       return sum;
     },
+    // 할인률 적용
     getDiscountedPriceSum() {
       let sum = 0;
       for (let item of this.cart) {
-        sum += item.defaultPrice * (item.discountRate * 0.01) * this.cartCount;
+        sum += item.defaultPrice * (item.discountRate * 0.01) * this.cartProdCount;
       }
       return sum;
     },
+    // 최종결과
     getFinalPriceSum() {
       let sum = 0;
       sum = this.getDefaultPriceSum() - this.getDiscountedPriceSum();
@@ -234,6 +240,8 @@ export default {
 
       return sum;
     },
+
+    // 이거는 아직 안되는중
     getDeliveryFree() {
       if (this.getFinalPriceSum >= 50000) {
         return 0; // 5만원 이상 주문일 때 배송비 0
@@ -273,7 +281,9 @@ export default {
         // alert 대화상자
         alert("정상적으로 삭제되었습니다.");
 
-        this.cartCount = this.cartCount - 1; // 단일 삭제니까 -1
+
+        // this.cartProdCount = this.cartProdCount - 1; // 단일 삭제니까 -1
+
         // 삭제후 재조회
         this.retrieveCart();
       } catch (e) {
@@ -289,7 +299,9 @@ export default {
         console.log(response.data);
         // alert 대화상자
         alert("정상적으로 삭제되었습니다.");
-        this.cartCount = 0; //카트카운트 초기화 해주기
+
+        // this.cartProdCount = 0; //카트카운트 초기화 해주기
+
 
         // 삭제후 재조회
         this.retrieveCart();
