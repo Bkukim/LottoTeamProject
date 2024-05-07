@@ -49,7 +49,6 @@ public class NormalCartController {
             @RequestParam(defaultValue = "3") int size
     ) {
         try {
-            log.debug("컨트롤러 확인1");
 //            페이징 객체 생성
             Pageable pageable = PageRequest.of(page, size);
 
@@ -57,7 +56,6 @@ public class NormalCartController {
             Page<ICartDto> iCartDtoPage
                     = cartService
                     .selectByTitleContaining(title, pageable);
-            log.debug("컨트롤러 확인2");
 
 //            공통 페이징 객체 생성 : 자료구조 맵 사용
             Map<String, Object> response = new HashMap<>();
@@ -68,7 +66,6 @@ public class NormalCartController {
 
             if (iCartDtoPage.isEmpty() == false) {
 //                조회 성공
-                log.debug("컨트롤러 확인if");
 
                 return new ResponseEntity<>(response, HttpStatus.OK);
             } else {
@@ -77,7 +74,6 @@ public class NormalCartController {
             }
 
         } catch (Exception e) {
-            log.debug("컨트롤러 확인catch");
 
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
@@ -91,6 +87,29 @@ public class NormalCartController {
             return new ResponseEntity<>(HttpStatus.OK);
 
         } catch (Exception e) {
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+}
+
+    //    TODO: 삭제 함수
+    @DeleteMapping("/cart/deletion/{cartId}")
+    public ResponseEntity<Object> delete(
+            @PathVariable int cartId
+    ) {
+        try {
+//            DB 서비스 삭제 함수 실행
+            boolean success = cartService.removeById(cartId);
+
+            if(success == true) {
+                return new ResponseEntity<>(HttpStatus.OK);
+            } else {
+                // 삭제 실행 : 0건 삭제(삭제할 데이터 없음)
+                return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+            }
+
+        } catch (Exception e) {
+//            서버(DB) 에러
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
