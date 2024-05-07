@@ -248,6 +248,7 @@ export default {
         // alert("장바구니에 잘 담겼습니다.");
 
         alert("장바구니에 상품이 담겼습니다.");
+
         this.$router.push("/order/cart");
         // this.$store.state.orderAmount = this.productCount;
         }
