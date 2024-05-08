@@ -1,5 +1,6 @@
 // 주문 공통 CRUD 함수
 import http from "@/utils/http-common";
+import AuthHeader from "@/services/auth/AuthHeader";
 
 class AdminProductService {
  
@@ -21,6 +22,9 @@ class AdminProductService {
       headers: {
         "Content-Type": "multipart/form-data",
       },
+    },
+    {
+      headers: AuthHeader()
     });
   }
 }

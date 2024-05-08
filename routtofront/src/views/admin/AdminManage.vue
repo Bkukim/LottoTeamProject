@@ -148,10 +148,7 @@
             </td>
             <td>
               {{
-                Math.ceil(
-                  data.defaultPrice -
-                    (data.defaultPrice * data.discountRate) / 100
-                )
+               data.prodPrice
               }}
             </td>
             <td>
@@ -192,8 +189,8 @@ export default {
       try {
         let response = await AdminManageService.getAll(this.findProdName);
         this.products = response.data; // 부서 배열(백엔드에서 배열을 이름없이 전송했음. 이걸 products 라는 배열에 집어넣기)
-        console.log("나와주세요" + response.data);
-        console.log(response.data);   // 콘솔로 찍기
+        // console.log("나와주세요" + response.data);
+        // console.log(response.data);   // 콘솔로 찍기
       } catch (e) {
         console.log(e);
       }

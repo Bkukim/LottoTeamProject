@@ -772,6 +772,7 @@ export default {
     },
   },
   mounted() {
+      alert(this.$store.state.user.userId);
     // TODO: userId로 조회해서 주문자에 자동입력 후 -> prodId로 주문 페이지 뜸
     // this.retrieveUser(this.$store.state.userId).then(() => {
     //   this.order.orderName = this.user.userName; // retrieveUser 완료 후에 호출

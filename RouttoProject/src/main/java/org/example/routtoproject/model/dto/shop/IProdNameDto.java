@@ -23,13 +23,12 @@ public interface IProdNameDto {
 //, PROD_STOCK AS prodStock
 //    FROM LOTTO_PRODUCT
 //    WHERE PROD_NAME LIKE '%%'
-//    todo: Product.java에는 이미지도 있음. 로딩하려면 시간 많이 걸려서 Dto만듬
+//    todo: Product.java에는 이미지도 있음. 로딩하려면 시간 많이 걸려서 Dto만듬. Dto에는 (AS 별명) 에 있는 별명만 가지고 오면 됨
+//          -> 프론트에서는 이 이름만 쓰면 됨. 백엔드에서 프론트로 prodprice 이름으로 보내기 때문에
     Integer getProdId();
     String getProdName();
     String getProdStatus();
     String getProdCategory();
-    Integer getDefaultPrice();
-    Integer getDiscountRate();
     Integer getProdPrice();
     Integer getProdStock();
 }
