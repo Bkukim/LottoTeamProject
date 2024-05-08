@@ -37,7 +37,7 @@
           <li>
             <a href class="kim-login" @click.prevent="handleLogout"> LOGOUT </a>
           </li>
-          <router-link to="/cart" class="kim-cart">CART</router-link>
+          <router-link to="/order/cart" class="kim-cart">CART</router-link>
           <router-link to="/member/mypage" class="kim-my-page"
             >MY PAGE</router-link
           >
