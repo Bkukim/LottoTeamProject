@@ -3,13 +3,14 @@
 <template>
   <div class="mt-5 mb-5 col-13">
     <!-- 카테고리 -->
-    <h5 class="text-center">문의글 수정</h5>
+    <h5 class="text-center main_text">문의글 수정</h5>
     <br />
-    <div class="col-4 mb-3">
+   <div class="box_border">
+    <div class="col-12 mb-3">
       <label class="mb-3 text-left"> 제목 </label>
       <input
         type="text"
-        class="form-control"
+        class="borderA form-control"
         id="exampleFormControlInput1"
         placeholder=""
         v-model="faqList.faqTitle"
@@ -21,13 +22,15 @@
         >내용</label
       >
       <textarea
-        class="form-control"
+        class="borderA form-control"
         id="exampleFormControlTextarea1"
         rows="15"
         v-model="faqList.faqContent"
       ></textarea>
     </div>
 
+
+   </div>
     <!--  문의글 버튼 -->
     <div class="d-grid gap-2 d-md-flex justify-content-md-end">
       <!-- 취소시 관리자 페이지로 이동 -->
