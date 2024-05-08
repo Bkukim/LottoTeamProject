@@ -310,6 +310,8 @@ export default {
           prodDetailPageUrl: this.product.prodDetailPageUrl,
           discountRate: this.product.discountRate,
           prodStock: this.product.prodStock,
+          prodImgUuid: "",
+          prodDetailPageUuid: "",
         };
         console.log(
           "prodImg ::" + data.prodImg,
