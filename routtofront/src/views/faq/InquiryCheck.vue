@@ -1,9 +1,9 @@
 <!-- inquiryCheck.vue :: Add문의 등록 form-->
 <template>
-  <div class="mt-5 mb-5 col-13">
+  <div class="mt-5 mb-5 col-13" v-if="faqList">
     <!-- 카테고리 -->
     <div class="container">
-      <h2 class="mb-5">문의사항</h2>
+      <h2 class="mb-5 main_text">문의사항</h2>
       <table class="table table-bordered">
         <tbody>
           <tr>
@@ -27,9 +27,35 @@
     <!-- 문의사항 등록 버튼  :: 공지사항거 들고오기-->
     <div class="d-grid gap-2 d-md-flex justify-content-md-end">
       <!-- 등록시 고객센터 글 목록으로 재이동 -->
-      <router-link :to="'/shop/inquiry-update/' + faqList.faqId">
+      <!-- <router-link :to="'/shop/inquiry-update/' + faqList.userId">
         <button id="button1" class="btn btn-primary" type="button">수정</button>
       </router-link>
+      <button
+        
+        id="button1"
+        class="btn btn-primary"
+        type="button"
+        @click="deleteFaq"
+      >
+        삭제
+        {{ faqList.userId }}
+      </button> -->
+      <!-- <router-link
+        v-if="faqList.userId === this.$store.state.user.userId"
+        :to="'/shop/inquiry-update/' + faqList.faqId"
+      >
+        <button id="button1" class="btn btn-primary" type="button">수정</button>
+      </router-link> -->
+
+      <!-- <button
+        v-if="faqList?.userId === this.$store.state.user.userId"
+        id="button1"
+        class="btn btn-primary"
+        type="button"
+        @click="deleteFaq"
+      >
+        삭제
+      </button> -->
       <button
         id="button1"
         class="btn btn-primary"
@@ -47,8 +73,10 @@ import FaqListService from "@/services/noticeQnA/FaqListService";
 export default {
   data() {
     return {
+      // 배열일경우만 list
       faqList: {
         faqId: this.$route.params.faqId,
+        userId: "", // userId,
         faqTitle: "",
         faqContent: "",
         faqType: "",

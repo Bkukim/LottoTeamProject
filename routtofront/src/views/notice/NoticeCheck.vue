@@ -3,7 +3,7 @@
   <div class="mt-5 mb-5 col-13">
     <!-- 카테고리 -->
     <div class="container">
-      <h2 class="mb-5">공지사항</h2>
+      <h2 class="mb-5 main_text">공지사항</h2>
       <table class="table table-bordered">
         <tbody>
           <tr>
