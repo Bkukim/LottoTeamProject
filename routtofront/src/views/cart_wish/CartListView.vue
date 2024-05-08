@@ -4,14 +4,19 @@
     <h5 class="text-center mt-5">장바구니</h5>
     <!-- 상품리스트 테이블 -->
 
-    <table class="table mt-5 text-center">
+    <table class="table mt-5 text-center row-auto">
       <thead>
         <tr>
           <!-- 전체선택 체크박스 -->
+          <th class="text-center col-1">번호</th>
+
           <th class="text-center">
-            <input type="checkbox" />
+            <input
+              type="checkbox"
+              v-model="selectAll"
+              @click="selectAllProducts"
+            />
           </th>
-          <th class="text-center">상품</th>
           <th class="text-center">상품명</th>
           <th class="text-center">수량</th>
           <th class="text-center">가격</th>
@@ -21,12 +26,12 @@
       <tbody>
         <!-- 반복문시작할 tr -->
         <tr v-for="(data, index) in cart" :key="index" class="mb-3">
-          <!-- 체크박스 -->
-          <td class="check_td text-center"><input type="checkbox" /></td>
-          <!-- 상품이미지 -->
+          <!-- 상품ID -->
           <td class="text-center">
-            {{ data.prodImg }}
+            {{ data.cartId }}
           </td>
+          <!-- 체크박스 -->
+          <td class="check_td text-center"><input type="checkbox" v-model="data.checked" @change="selectProduct"/></td>
           <!-- 상품명 -->
           <td class="text-center">
             {{ data.prodName }}
@@ -42,19 +47,19 @@
               <button
                 type="button"
                 class="btn btn-outline-secondary opacity-100"
-                @click="decreaseCount"
+                @click="decreaseCount(index)"
               >
                 -
               </button>
               <!-- 장바구니 개수 표시 : 버튼제목 -->
-              <button type="button" class="btn btn-outline-dark" disabled>
+              <button type="button" class="btn btn-outline-dark">
                 {{ data.cartProdCount }}
               </button>
               <!-- 장바구니 개수 증가 버튼 -->
               <button
                 type="button"
                 class="btn btn-outline-secondary opacity-100"
-                @click="increaseCount"
+                @click="increaseCount(index)"
               >
                 +
               </button>
@@ -66,7 +71,6 @@
               data.defaultPrice - data.defaultPrice * (data.discountRate * 0.01)
             }}
           </td>
-
           <!-- 구매하기 ::버튼 -->
           <td class="text-center">
             <div class="row mb-1">
@@ -74,7 +78,7 @@
                 <button
                   id="button_bg1"
                   class="btn btn-primary btn-block"
-                  @click="goOrder"
+                  @click="sendOrderList"
                 >
                   구매하기
                 </button>
@@ -93,11 +97,10 @@
             </div>
           </td>
         </tr>
-        <!-- 다른 상품들도 이와 같은 형식으로 추가할 수 있습니다 -->
       </tbody>
     </table>
-    <!-- 페이징 -->
-    <div class="row justify-content-center">
+    <!-- 페이징 삭제 -->
+    <!-- <div class="row justify-content-center">
       <div class="col-auto">
         <b-pagination
           class="mb-3"
@@ -107,7 +110,7 @@
           @click="retrieveCart"
         ></b-pagination>
       </div>
-    </div>
+    </div> -->
 
     <!-- 총액 테이블 -->
     <table class="table col-auto mt-5">
@@ -123,14 +126,25 @@
       </thead>
       <tbody>
         <!-- 합산해야할 tr -->
-        <!-- TODO: 하드코딩 해둠 함수로 변경 -->
         <tr v-if="cart">
-          <td class="text-center">{{ getDefaultPriceSum() }}</td>
+          <!-- 총 금액 -->
+          <td class="text-center">{{ getCartTotal().totalPrice }}</td>
+          <!-- "-" 표시 -->
           <td class="text-center small_td">-</td>
-          <td class="text-center">{{ getDiscountedPriceSum() }}</td>
+          <!-- 할인 금액 -->
+          <td class="text-center">{{ getCartTotal().discountedPrice }}</td>
+          <!-- "+" 표시 -->
           <td class="text-center small_td">+</td>
-          <td class="text-center">{{getDeliveryFree()}}</td>
-          <td class="text-center">{{ getFinalPriceSum()+getDeliveryFree() }}</td>
+          <!-- 배송비 -->
+          <td class="text-center">{{ getCartTotal().deliveryFee }}</td>
+          <!-- 최종 총 금액 -->
+          <td class="text-center">
+            {{
+              getCartTotal().totalPrice -
+              getCartTotal().discountedPrice +
+              getCartTotal().deliveryFee
+            }}
+          </td>
         </tr>
         <!-- 다른 상품들도 이와 같은 형식으로 추가할 수 있습니다 -->
       </tbody>
@@ -152,7 +166,7 @@
           type="button"
           id="button2"
           class="btn btn-secondary"
-          @click="goOrder"
+          @click="sendOrderList"
         >
           선택상품 주문하기
         </button>
@@ -170,80 +184,62 @@
 </template>
 <script>
 import CartService from "@/services/cart/CartService";
+
 export default {
   // TODO: 데이터
   data() {
     return {
       cart: [], //장바구니에 담긴 프로덕트 들
       selectCart: [], //선택된 물건만 장바구니에 담을 객체
-      cartProdCount: 0, //장바구니 갯수
+      //장바구니 갯수
 
       // 공통 페이징 속성 정의
       page: 1, // 현재페이지번호
       count: 0, // 전체 데이터개수
-      pageSize: 3, // 화면에 보여질 개수
+      pageSize: 100, // 화면에 보여질 개수
 
-      // // 가격 계산함수
-      // defaultPrice: 0, //원가격
-      // discountRate: 0, //할인률
       total: 0,
-      // 전체선택 함수
+      // 전체 선택 체크박스 상태
       selectAll: false,
+      //전체주문하기 order로 전해줄 객체
+      orderList: [],
     };
   },
   // TODO: 함수
   methods: {
-    // 전체선택함수
-    selectAllItems() {
-      // 전체 선택 체크박스가 선택되면 모든 상품의 selected 값을 true로 설정
-      // 선택 해제되면 false로 설정
-      // 반복문의 data랑 같다고 생각하기
-      this.selectAll = !this.selectAll;
-    },
-
     // TODO: 장바구니 개수 증가 함수
-    increaseCount() {
-
-      this.cartProdCount += 1;
-
-      this.getFinalPriceSum();
+    increaseCount(index) {
+      this.cart[index].cartProdCount += 1;
     },
     // TODO: 장바구니 개수 감소 함수
-    decreaseCount() {
-      if (this.cartProdCount > 0) {
-        this.cartProdCount -= 1;
+    decreaseCount(index) {
+      if (this.cart[index].cartProdCount > 0) {
+        this.cart[index].cartProdCount -= 1;
       }
-      this.getFinalPriceSum();
     },
-    // TODO: 계산기 함수
-    // 기본가격*카트카운트
-    getDefaultPriceSum() {
-      let sum = 0;
-      for (let item of this.cart) {
-        sum += item.defaultPrice * this.cartProdCount;
-      }
-      return sum;
-    },
-    // 할인률 적용
-    getDiscountedPriceSum() {
-      let sum = 0;
-      for (let item of this.cart) {
-        sum += item.defaultPrice * (item.discountRate * 0.01) * this.cartProdCount;
-      }
-      return sum;
-    },
-    // 최종결과
-    getFinalPriceSum() {
-      let sum = 0;
-      sum = this.getDefaultPriceSum() - this.getDiscountedPriceSum();
-      this.total=sum;
+    // TODO: NEW 계산하기 함수
+    getCartTotal() {
+      let totalPrice = 0;
+      let discountedPrice = 0;
+      let deliveryFee = 0;
 
-      return sum;
-    },
+      for (let item of this.cart) {
+        totalPrice += item.defaultPrice * item.cartProdCount;
+        discountedPrice +=
+          item.defaultPrice * (item.discountRate * 0.01) * item.cartProdCount;
+      }
 
-    // 이거는 아직 안되는중
-    getDeliveryFree() {
-      if (this.getFinalPriceSum >= 50000) {
+      this.total = totalPrice - discountedPrice; // 최종 가격 계산
+      deliveryFee = this.getDeliveryFee(this.total); // 배송비 계산
+      return {
+        totalPrice: totalPrice,
+        discountedPrice: discountedPrice,
+        deliveryFee: deliveryFee,
+      };
+    },
+    // 배송비
+    getDeliveryFee(totalPrice) {
+      if (totalPrice >= 50000) {
         return 0; // 5만원 이상 주문일 때 배송비 0
       } else {
         return 3000; // 5만원 미만 주문일 때 배송비 3000원
@@ -256,6 +252,8 @@ export default {
       try {
         // todo: 공통 장바구니 전체 조회 서비스 함수 실행
         //   todo: 비동기 코딩 : async~await
+        console.log(this.page);
+        console.log(this.pageSize);
         let response = await CartService.getAll(
           this.searchTitle,
           this.page - 1,
@@ -265,7 +263,7 @@ export default {
         this.cart = cart;
         this.count = totalItems;
         // 로깅
-        console.log(response.data); //웹브라우저 콘솔탭에 백엔드 데이터 표시
+        console.log("카트조회", response.data); //웹브라우저 콘솔탭에 백엔드 데이터 표시
       } catch (e) {
         console.log(e);
       }
@@ -280,7 +278,6 @@ export default {
         console.log(response.data);
         // alert 대화상자
         alert("정상적으로 삭제되었습니다.");
-
 
         // this.cartProdCount = this.cartProdCount - 1; // 단일 삭제니까 -1
 
@@ -302,21 +299,43 @@ export default {
 
         // this.cartProdCount = 0; //카트카운트 초기화 해주기
 
-
         // 삭제후 재조회
         this.retrieveCart();
       } catch (e) {
         console.log(e);
       }
     },
-    // TODO: 주문페이지 이동 함수
-    goOrder() {
-      this.$router.push("/order");
+
+    // TODO: 선택함수
+    // 체크박스 전체선택
+    checkedAll() {
+      if (this.orderList.length === this.cart.length) {
+        this.orderList = [];
+      } else {
+        this.orderList = [...this.cart]; // 카트에 있는 배열을 모두 orderList로 넣기
+      }
     },
+
     // TODO: 공통 페이징 함수 : select 태그
     pageSizeChange() {
       this.page = 1; // 현재페이지번호 : 1
       this.retrieveCart(); // 재조회
+    },
+
+    // 전체 선택 체크박스 클릭 이벤트 핸들러
+    selectAllProducts() {
+      if (this.selectAll) {
+        // 전체 선택 체크박스가 체크되었을 때, 모든 상품을 선택
+        this.orderList = [...this.cart]; // 모든 상품을 선택된 상품 목록에 추가
+      } else {
+        // 전체 선택 체크박스가 해제되었을 때, 모든 상품 선택 해제
+        this.orderList = []; // 선택된 상품 목록 비우기
+      }
+    },
+    // 각 상품의 체크박스가 변경될 때 호출되는 메서드
+    selectProduct() {
+      // 전체 선택 체크박스 상태 업데이트
+      this.selectAll = this.orderList.length === this.cart.length;
     },
   },
   //   TODO: 화면이 뜰때 자동 실행 함수

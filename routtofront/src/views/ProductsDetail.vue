@@ -254,11 +254,13 @@ export default {
           this.$router.push("/order/cart");
           return; // 장바구니에 상품 추가하지 않고 함수 종료
         } else {
+
           // 로깅
           console.log(response.data);
           // 장바구니 담기 성공 메세지 출력
           alert("장바구니에 상품이 담겼습니다.");
           this.$router.push("/order/cart");
+
         }
       } catch (e) {
         console.log(e);
