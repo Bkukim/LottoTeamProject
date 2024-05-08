@@ -154,4 +154,10 @@ public class AdBannerService {
         }
 
     }
+
+    // todo 이미지 불러오기 위한 상세조회
+    public Optional<AdBanner> findByBannerImg1Uuid(String uuid){
+        Optional<AdBanner> adBanner = adBannerRepository.findByBannerImg1Uuid(uuid);
+        return adBanner;
+    }
 }
