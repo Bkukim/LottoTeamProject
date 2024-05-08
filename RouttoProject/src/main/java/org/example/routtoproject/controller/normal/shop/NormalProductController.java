@@ -43,6 +43,19 @@ import java.util.Optional;
 public class NormalProductController {
     private final ProductService productService;        // DI
 
+//    // todo 검색창 전체조회 함수 : 1. 검색상세
+//    @GetMapping("/searchProduct")
+//    public ResponseEntity<Object> getSearchProduct(@RequestParam String prodName) {
+//        try {
+//            List<Product> products = productService.findAllByProdName(prodName);
+//            return new ResponseEntity<>(products, HttpStatus.OK);
+//        } catch (Exception e) {
+//            log.debug(e.getMessage());
+//            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+//        }
+//
+//    }
+
     // todo 전체조회 함수 : 1. 홈페이지 상품 조회
 
     @GetMapping("/product/all")

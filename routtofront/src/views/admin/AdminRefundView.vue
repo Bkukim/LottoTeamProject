@@ -12,14 +12,23 @@
       height: 50px;
     "
   >
-    <label><b>반품관리</b></label
-    ><label style="display: flex; align-items: center; height: 100%">
+    <label><b>반품관리</b></label>
+    <label style="display: flex; align-items: center; height: 100%">
+      <select v-model="searchType" style="margin-right: 10px">
+        <option value="orderId">주문번호</option>
+        <option value="orderTime">주문 일시</option>
+        <option value="orderStatus">주문 상태</option>
+        <option value="orderPrice">주문 가격</option>
+      </select>
       <input
         type="text"
         placeholder="상세조회 내용"
-        style="height: 35px; margin-right: 10px"
+        v-model="searchQuery"
+        class="input-box"
       />
-      <button type="button" class="btn RBtn">주문조회</button>
+      <button type="button" class="btn RBtn" @click="searchOrders">
+        주문조회
+      </button>
     </label>
   </div>
   <!-- 반품관리 배너 끝 -->
@@ -41,6 +50,7 @@
         <span>조회기간:</span>
         <select class="slbox">
           <option selected>반품요청일</option>
+
           <option>수거완료일</option>
           <option>결제일</option>
         </select>
@@ -54,8 +64,10 @@
           <option>구매자 ID</option>
           <option>주문번호</option>
           <option>상품번호</option>
+          <option>결제일</option>
         </select>
       </div>
+
     </div>
 
     <!-- 기간 선택 버튼 시작 -->
@@ -99,25 +111,6 @@
     </div>
     <!-- 기간 입력 필드 끝 -->
 
-    <!-- 처리상태 -->
-    <div
-      style="
-        margin-top: 10px;
-        margin-left: 100px;
-        display: flex;
-        justify-content: flex-start;
-        width: 100%;
-      "
-    >
-      <span>처리상태:</span>
-      <select class="slbox">
-        <option>전체</option>
-        <option>처리중</option>
-        <option>처리완료</option>
-        <option>처리불가</option>
-      </select>
-    </div>
-
     <!-- 검색 버튼 -->
     <div
       style="
@@ -139,42 +132,15 @@
       border: 1px solid black;
       display: flex;
       flex-direction: column;
-      align-items: flex-start; /* 왼쪽 정렬을 위해 수정 */
+      align-items: flex-start;
       padding: 10px;
     "
   >
-    <b style="align-self: flex-start">목록 (총 0개)</b>
+    <b style="align-self: flex-start">목록</b>
     <!-- 왼쪽 정렬을 위해 수정 -->
     <hr style="width: 100%" />
 
-    <!-- 버튼 그룹 시작 -->
-    <div
-      style="
-        display: flex;
-        justify-content: space-between;
-        width: 100%;
-        margin-bottom: 20px;
-      "
-    >
-      <!-- 왼쪽 버튼 그룹 -->
-      <div style="display: flex; gap: 10px">
-        <div class="divider-style">
-          <button class="button-style">반품처리 한번에 하기</button>
-        </div>
-        <div style="display: flex; gap: 10px">
-          <button class="button-style">반품 완료처리</button>
-          <button class="button-style">반품 거부(철회)처리</button>
-          <button class="button-style">교환으로 변경</button>
-        </div>
-      </div>
 
-      <!-- 오른쪽 버튼 그룹 -->
-      <div style="display: flex; gap: 10px">
-        <button class="button-style">구매확정 후 취소 처리 바로가기 ></button>
-        <button class="button-style">판매자 직접 반품 접수 바로가기 ></button>
-      </div>
-    </div>
-    <!-- 버튼 그룹 끝 -->
 
     <!-- 목록 태그 시작 -->
     <!-- 여기부터 표 부분 -->
@@ -183,28 +149,29 @@
       <table style="width: 100%; border-collapse: collapse">
         <thead>
           <tr>
-            <th class="datalist">선택</th>
             <!-- 글자 중앙 정렬 추가 -->
-            <th class="datalist">상품주문번호</th>
             <th class="datalist">주문번호</th>
+            <th class="datalist">주문 일시</th>
+            <th class="datalist">주문자명</th>
+            <th class="datalist">수취인명</th>
+            <th class="datalist">주문 가격</th>
             <th class="datalist">주문상태</th>
-            <th class="datalist">배송속성</th>
-            <th class="datalist">반품 처리상태</th>
-            <th class="datalist">수거방법</th>
-            <th class="datalist">수거상황</th>
+            <th class="datalist">상태 변경</th>
           </tr>
         </thead>
         <tbody>
-          <!-- 임시 데이터 추가 -->
-          <tr>
-            <td class="datalist">✓</td>
-            <td class="datalist">20240422-ABCD1234ABCD1234ABCD1234</td>
-            <td class="datalist">20240422-ABCD1234ABCD1234ABCD1234</td>
-            <td class="datalist">20240422-ABCD1234ABCD1234ABCD1234</td>
-            <td class="datalist">20240422-ABCD1234ABCD1234ABCD1234</td>
-            <td class="datalist">20240422-ABCD1234ABCD1234ABCD1234</td>
-            <td class="datalist">20240422-ABCD1234ABCD1234ABCD1234</td>
-            <td class="datalist">20240422-ABCD1234ABCD1234ABCD1234</td>
+          <tr v-for="(data, index) in filteredOrders" :key="index">
+            <td class="datalist">{{ data.orderId }}</td>
+            <td class="datalist">{{ data.orderTime }}</td>
+            <td class="datalist">{{ data.orderName }}</td>
+            <td class="datalist">{{ data.receiver }}</td>
+            <td class="datalist">{{ data.orderPrice }}</td>
+            <td class="datalist">{{ data.orderStatus }}</td>
+            <td class="datalist">
+              <button class="button-style" @click="handleRefund(data.orderId)">
+                환불 처리
+              </button>
+            </td>
           </tr>
         </tbody>
       </table>
@@ -213,99 +180,16 @@
     <!-- 목록 태그 끝 -->
   </div>
   <!-- 목록 박스 끝 -->
-
-  <!-- 반품처리 박스 시작 -->
-  <div
-    class="container mt-4 RWD"
-    style="
-      border: 1px solid black;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      height: 60px;
-    "
-  >
-    <div
-      style="display: flex; justify-content: space-between; align-items: center"
-    >
-      <label> 반품 처리 </label>
-      <label style="align-items: right">
-        <button type="button" class="btn RBtn" style="margin-left: 10px">
-          수거 완료 처리
-        </button>
-        <button type="button" class="btn RBtn" style="margin-left: 10px">
-          반품 완료 처리
-        </button>
-        <button type="button" class="btn RBtn" style="margin-left: 10px">
-          반품 거부(철회) 처리
-        </button>
-        <button type="button" class="btn RBtn" style="margin-left: 10px">
-          교환으로 변경
-        </button>
-      </label>
-    </div>
-  </div>
-  <!-- 반품처리 박스 끝 -->
-
-  <!-- 환불보류 박스 시작 -->
-  <div
-    class="container mt-4 RWD"
-    style="
-      border: 1px solid black;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      height: 60px;
-    "
-  >
-    <div
-      style="display: flex; justify-content: space-between; align-items: center"
-    >
-      <label> 환불 보류 </label>
-      <label style="align-items: right">
-        <button type="button" class="btn RBtn" style="margin-left: 10px">
-          환불 보류 설정
-        </button>
-        <button type="button" class="btn RBtn" style="margin-left: 10px">
-          환불 보류 해제
-        </button>
-      </label>
-    </div>
-  </div>
-  <!-- 환불보류 박스 끝 -->
-
-  <!-- 정보 수정 박스 시작 -->
-  <div
-    class="container mt-4 mb-4 RWD"
-    style="
-      border: 1px solid black;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      height: 60px;
-    "
-  >
-    <div
-      style="display: flex; justify-content: space-between; align-items: center"
-    >
-      <label> 정보 수정 </label>
-      <label style="align-items: right">
-        <button type="button" class="btn RBtn" style="margin-left: 10px">
-          반품 사유 수정
-        </button>
-        <button type="button" class="btn RBtn" style="margin-left: 10px">
-          수거 정보 수정
-        </button>
-      </label>
-    </div>
-  </div>
-  <!-- 정보 수정 박스 끝 -->
 </template>
 
 <script>
 import VueDatePicker from "@vuepic/vue-datepicker";
 import "@vuepic/vue-datepicker/dist/main.css";
+
 import AdminHeaderCom from "@/components/common/AdminHeaderCom.vue";
+
+import AdminRefundService from "@/services/admin/AdminRefundService";
+
 
 export default {
   components: {
@@ -314,8 +198,14 @@ export default {
   },
   data() {
     return {
+      // 달력 시작 날짜와 마지막 날짜 값 초기화
       startDate: null,
       endDate: null,
+
+      searchQuery: "",
+      searchType: "orderId", // 검색 유형 초기화
+      filteredOrders: [],
+
     };
   },
   methods: {
@@ -362,6 +252,59 @@ export default {
       this.startDate = start;
       this.endDate = today;
     },
+    async searchOrders() {
+      let response;
+      // 검색 유형에 따라 적절한 함수 호출
+      switch (this.searchType) {
+        case "orderId":
+          console.log(this.searchType);
+          console.log(this.searchQuery);
+          response = await AdminRefundService.findByOrderId(this.searchQuery);
+          this.filteredOrders = response.data;
+          console.log(response.data);
+          break;
+        case "orderTime":
+          response = await AdminRefundService.findByOrderTime(this.searchQuery);
+          this.filteredOrders = response.data;
+          break;
+        case "orderStatus":
+          response = await AdminRefundService.findByOrderStatus(
+            this.searchQuery
+          );
+          this.filteredOrders = response.data;
+          break;
+        case "orderPrice":
+          response = await AdminRefundService.findByOrderPrice(
+            this.searchQuery
+          );
+          this.filteredOrders = response.data;
+          break;
+      }
+      // 결과를 filteredOrders에 저장
+      if (response && response.data) {
+        this.filteredOrders = response.data;
+      } else {
+        this.filteredOrders = [];
+      }
+    },
+    // 환불 완료 처리 함수
+async handleRefund(orderId) {
+  try {
+    console.log("환불", orderId);
+    const response = await AdminRefundService.completeRefund(orderId);
+    if (response.status === 200) {
+      console.log(response.status);
+      console.log("환불 처리가 완료되었습니다.");
+      alert("환불 처리가 완료되었습니다."); // 사용자에게 환불 완료 알림
+      this.searchOrders(); // 환불 처리가 완료된 후 searchOrders 함수 호출하여 화면 새로고침
+    } else {
+      console.log(response);
+    }
+  } catch (error) {
+    console.error("Error during refund processing", error);
+    alert(`환불 처리 중 오류가 발생했습니다: ${error.message}`);
+  }
+},
   },
   computed: {
     disabledDates() {
@@ -371,88 +314,100 @@ export default {
       };
     },
   },
+  mounted() {},
 };
 </script>
 
 <style scoped>
-/* 기본 스타일 */
 .RWD {
   display: flex;
-  flex-wrap: wrap; /* 아이템들이 넘칠 경우 다음 줄로 이동 */
-  justify-content: space-around; /* 아이템들 사이에 공간을 균등하게 배분 */
-  transition: width 0.3s ease; /* 부드러운 전환 효과 적용 */
+  flex-wrap: wrap;
+  justify-content: space-around;
+  transition: width 0.3s ease;
   box-sizing: border-box;
 }
+.input-box {
+  height: 35px;
+  margin-right: 10px;
+  border: 1px solid #ccc;
+  padding: 0 10px;
+  color: black;
+}
+.input-box:focus {
+  outline: none;
+  border-color: #342a26;
+}
 
-/* 모바일 디바이스 */
 @media (max-width: 600px) {
   .RWD {
-    width: 90%; /* 90% 너비 */
+    width: 90%;
   }
   .sch > div {
-    width: 100%; /* 모바일 환경에서는 각 div가 전체 너비를 차지하도록 설정 */
-    margin-bottom: 10px; /* 아이템들 사이에 수직 간격 추가 */
+    width: 100%;
+    margin-bottom: 10px;
   }
 }
 
-/* 태블릿 디바이스 */
 @media (min-width: 601px) and (max-width: 1024px) {
   .RWD {
-    width: 80%; /* 80% 너비 */
+    width: 80%;
   }
   .sch > div {
-    width: 48%; /* 태블릿 환경에서는 각 div가 대략 반 너비를 차지하도록 설정 */
+    width: 48%;
   }
 }
 
-/* 데스크탑 디바이스 */
 @media (min-width: 1025px) {
   .RWD {
-    width: 100%; /* 70% 너비 */
+    width: 100%;
   }
   .sch > div {
-    width: auto; /* 데스크탑 환경에서는 원래대로 돌아감 */
+    width: auto;
   }
 }
 
 @media (max-width: 768px) {
   .sch > div {
-    margin-left: 0; /* 모바일 화면에서는 왼쪽 여백을 제거 */
-    padding-right: 0; /* 모바일 화면에서는 오른쪽 패딩을 제거 */
-    margin-bottom: 20px; /* 요소들 사이의 세로 간격 */
+    margin-left: 0;
+    padding-right: 0;
+    margin-bottom: 20px;
   }
   .dur,
   .cal {
     flex-direction: column;
     align-items: flex-start;
   }
+
   /* 버튼과 달력 컨테이너 간격 조정 */
+
+
   .period-btn,
   .datepicker-container {
     margin-bottom: 10px;
   }
 
-  .period-btn,
+
   .datepicker-container {
     width: auto; /* 버튼과 날짜 선택기의 너비를 자동으로 조절 */
     margin-bottom: 10px; /* 요소 사이의 간격 조정 */
   }
 
-  .datepicker-container {
-    max-width: 100%; /* 화면이 작을 때는 최대 너비를 100%로 설정 */
-  }
 
   /* 날짜 선택기와 관련된 추가 조정이 필요한 경우 */
+  .datepicker-container {
+    max-width: 100%;
+  }
+
+
   .datepicker-container .vuejs-datepicker {
-    width: 100%; /* Vue.js 날짜 선택기의 너비를 조정 */
+    width: 100%;
   }
 }
 
-/* 날짜 선택기 컨테이너 기본 스타일 */
 .datepicker-container {
-  width: 100%; /* 부모 요소의 너비에 맞춰 조정 */
-  max-width: 400px; /* 최대 너비 설정 */
-  margin: 0 auto; /* 중앙 정렬 */
+  width: 100%;
+  max-width: 400px;
+  margin: 0 auto;
 }
 
 .RBtn {
@@ -470,7 +425,7 @@ export default {
   align-items: center;
 }
 .label {
-  margin-right: 20px; /* 라벨 간 간격 */
+  margin-right: 20px;
   flex-grow: 1;
   text-align: center;
 }
@@ -483,7 +438,6 @@ export default {
 
 .sch {
   margin-top: 10px;
-  /* margin-left: 100px; */
   display: flex;
   justify-content: space-between;
   width: 100%;
@@ -492,8 +446,8 @@ export default {
 }
 
 .sch > div {
-  margin-left: 100px; /* 첫 번째 div에 대한 스타일 */
-  padding-right: 100px; /* 두 번째 div에 대한 스타일 */
+  margin-left: 100px;
+  padding-right: 100px;
 }
 
 .slbox {
@@ -531,16 +485,15 @@ export default {
 }
 
 .period-btn:hover {
-  background-color: #f0f0f0; /* 마우스 오버시 배경색 */
-  transform: translateY(-2px); /* 마우스 오버시 약간 위로 */
+  background-color: #f0f0f0;
+  transform: translateY(-2px);
 }
 
 .datepicker-container button {
-  width: 100px; /* 버튼의 너비 */
-  height: 30px; /* 버튼의 높이 */
+  width: 100px;
+  height: 30px;
 }
 
-/* 버튼 기본 스타일 */
 .button-style {
   background-color: #5d4037;
   color: white;
@@ -548,16 +501,16 @@ export default {
   font-size: 14px;
   border: none;
   border-radius: 5px;
-  cursor: pointer; /* 마우스 오버 시 커서 변경 */
-  transition: background-color 0.3s; /* 배경색 변경 애니메이션 */
+  cursor: pointer;
+  transition: background-color 0.3s;
 }
 
-/* 버튼 호버 스타일 */
 .button-style:hover {
+
   background-color: #4e342e; /* 호버 시 더 짙은 브라운으로 변경 */
+
 }
 
-/* 세로 구분선 스타일 */
 .divider-style {
   display: flex;
   flex-direction: column;

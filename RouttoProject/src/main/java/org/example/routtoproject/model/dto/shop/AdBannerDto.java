@@ -24,9 +24,7 @@ public interface AdBannerDto {
 
     String getBannerContent();
 
-    byte[] getBannerImg1();
 
-    byte[] getBannerImg2();
 
     String getBannerImg1Url();
 

@@ -35,6 +35,13 @@ public class ProductService {
     private final ProductRepository productRepository;       // DI
 
     // todo 전체조회
+    public Page<Product> findAllByProdName(String prodName, Pageable pageable){
+        Page<Product> product = productRepository.findAllByProdNameContaining(prodName, pageable);
+        return product;
+    }
+
+
+    // todo 전체조회
     public List<Product> findAll(){
         List<Product> product = productRepository.findAll();
         return product;
@@ -71,7 +78,10 @@ public class ProductService {
                         int discountRate,
                         int prodStock,
                         String prodImgUrl,// 파일 업로드 클래스로, 이 형태로 파일이 이동되므로 이 형태로 파일을  받아야한다는 거을 정해주는 것.
-                        String prodDetailPageUrl// 파일 업로드 클래스로, 이 형태로 파일이 이동되므로 이 형태로 파일을  받아야한다는 거을 정해주는 것.
+                        String prodDetailPageUrl,// 파일 업로드 클래스로, 이 형태로 파일이 이동되므로 이 형태로 파일을  받아야한다는 거을 정해주는 것.
+                        String prodImgUuid,
+                        String prodDetailPageUuid
+
     ) { // 파일을 만들때는 예외처리가 필요하다. 그리고 매개변수를 객체로 받으면 복잡할 수 있어서 변수로 받는다.
         Product product2 = null;
         try {
@@ -79,8 +89,8 @@ public class ProductService {
             if (prodImgUrl.equals("") && prodDetailPageUrl.equals("")) {
                 // todo : 기본키가 없을때 : insert
                 //      1-1) uuid 생성하기
-                String prodImgUuid = UUID.randomUUID().toString().replace("-", ""); // uuid 만드는 방법T
-                String prodDetailPageUuid = UUID.randomUUID().toString().replace("-", ""); // uuid 만드는 방법
+                 prodImgUuid = UUID.randomUUID().toString().replace("-", ""); // uuid 만드는 방법T
+                 prodDetailPageUuid = UUID.randomUUID().toString().replace("-", ""); // uuid 만드는 방법
                 // xxxx-xxxx-xxxx-xx...이런 형태로 만들어진다. 근데 "-"가 보기 좋지 않으니 없애보자. replace 함수 이용
 
                 // todo  1-2) 다운로드 url 생성 -> 자바함수를 이용 ※여기서 다운로드란 jsp이 spring에서 이미지를 다운받아 가져오는 것.
@@ -108,7 +118,21 @@ public class ProductService {
                         prodImgUuid,
                         prodDetailPageUuid); // 우리가 만든 url
                 product2 = productRepository.save(product);
-            } else {
+
+            }else {
+                // todo  1-3) 생성자에 만든 url넣어주기
+                Product product = new Product(prodName,
+                        defaultPrice,
+                        prodCategory,
+                        prodImg.getBytes(), // 파일 데이터
+                        prodDetailPage.getBytes(), // 파일 데이터
+                        discountRate,
+                        prodStock,
+                        prodImgUrl,
+                        prodDetailPageUrl,
+                        prodImgUuid,
+                        prodDetailPageUuid); // 우리가 만든 url
+                product2 = productRepository.save(product);
 
             }
         } catch (Exception e) {

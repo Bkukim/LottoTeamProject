@@ -81,10 +81,20 @@
 </template>
 <script>
 import RefundPopup from './RefundPopup.vue';
+import { computed } from 'vue';
+import { useStore } from 'vuex';
 
 export default {
   components: {
     RefundPopup,
+  },
+  setup() {
+    const store = useStore();
+    const selectedOption = computed(() => store.state.selectedOption);
+
+    return {
+      selectedOption
+    };
   },
   data() {
     return {
@@ -94,8 +104,6 @@ export default {
       prodAmount: "50,000",
 
       refundWay: "토스뱅크카드 / 일시불 ",
-
-      selectedOption: this.$route.params.selectedOption,
 
       // 팝업창 표시 여부 제어 속성  
       isPopupVisible: false,
@@ -108,6 +116,9 @@ export default {
     showPopup() {
       this.isPopupVisible = true; // 팝업창을 띄우는 메소드
     }
+  },
+  mounted() {
+    console.log(this.$route.query.selectedOption);
   },
 };
 </script>
@@ -128,26 +139,26 @@ export default {
 
 .product-info {
   display: flex;
-  align-items: flex-start; /* 상단 정렬 */
+  align-items: flex-start;
 }
 
 .product-image {
-  height: 100px; /* 이미지 높이 고정 */
-  width: auto; /* 이미지 비율 유지 */
+  height: 100px;
+  width: auto;
 }
 
 .product-details {
   display: flex;
   flex-direction: column;
-  justify-content: center; /* 세로 방향 중앙 정렬 */
-  padding-left: 12px; /* 이미지와 텍스트 사이 간격 */
+  justify-content: center;
+  padding-left: 12px;
 }
 
 /* 선택적: 상품 정보 텍스트 스타일 조정 */
 .product-details h5,
 .product-details p {
-  margin: 0; /* 상하 간격 제거 */
-  padding: 2px 0; /* 필요시 적절한 간격 추가 */
+  margin: 0;
+  padding: 2px 0;
 }
 
 .refInfo {
@@ -158,29 +169,29 @@ export default {
 
 .divider {
   height: 1px;
-  background-color: #ccc; /* 옅은 회색 구분선 */
+  background-color: #ccc;
   width: 100%;
-  margin: 0 auto; /* 중앙 정렬 */
+  margin: 0 auto;
 }
 
 .buttons {
   display: flex;
   justify-content: space-between;
   margin-top: 30px;
-  width: 80%; /* 부모 요소의 가로 길이에 맞추기 */
+  width: 80%;
   max-width: 750px;
-  margin-left: auto; /* 가로 중앙 정렬을 위해 */
-  margin-right: auto; /* 가로 중앙 정렬을 위해 */
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .btn {
   flex-grow: 1;
-  padding: 10px 20px; /* 버튼 내부의 패딩을 조정하여 크기를 키움 */
-  font-size: 16px; /* 글자 크기를 키움 */
-  margin: 0 10px; /* 버튼들 사이의 간격을 지정 */
-  cursor: pointer; /* 마우스 오버 시 커서 변경 */
-  border: 1px solid #ccc; /* 테두리 스타일 지정 */
-  transition: background-color 0.3s ease; /* 배경색 변경 시 애니메이션 효과 */
+  padding: 10px 20px;
+  font-size: 16px;
+  margin: 0 10px;
+  cursor: pointer;
+  border: 1px solid #ccc; 
+  transition: background-color 0.3s ease; 
 }
 
 .prev {
@@ -189,7 +200,7 @@ export default {
 }
 
 .next {
-  background-color: #808080;
+  background-color: #342a26;
   color: #ffffff;
 }
 
@@ -198,7 +209,7 @@ export default {
 }
 
 .next:hover {
-  background-color: #666666; /* 다음단계 버튼의 배경색을 마우스 오버 시 더 어둡게 */
+  background-color: #8a7465;
 }
 
 .inner {
