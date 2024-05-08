@@ -12,15 +12,13 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 /**
  * packageName : org.example.routtoproject.controller.admin.shop
@@ -101,6 +99,42 @@ public class AdminProductController {
             }
         } catch (Exception e) {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+//      TODO: 상세 조회 : 관리자 조회/수정 페이지 -> 상세 페이지에서 상세조회한 값 불러오기
+@GetMapping("/product/modify/{prodId}")
+public ResponseEntity<Object> findById(
+        @PathVariable int prodId
+) {
+    try {
+        Optional<Product> optionalProduct = productService.findById(prodId);
+        if (optionalProduct.isEmpty() == true) {
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        } else {
+            return new ResponseEntity<>(optionalProduct.get()
+                    , HttpStatus.OK);
+        }
+    } catch (Exception e) {
+        return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+}
+
+    //    TODO: 수정 함수 : 수정 페이지 열기 함수       (x) : vue 제작
+//    TODO: 관리자 조회/수정 페이지 -> 상세 페이지 -> 수정 함수 : 수정 버튼 클릭시 실행될 함수
+    @PutMapping("/prodModify/{prodId}")
+    public ResponseEntity<Object> update(
+            @PathVariable int prodId,
+            @RequestBody Product product
+    ) {
+        try {
+            Product product1 = productService.save(product);  // 수정한 값을 dept2 변수에 담음
+            return new ResponseEntity<>(product1, HttpStatus.OK);
+            // 수정한 값을 우리가 보고싶기 때문에 dept2 변수에 담아서 보려고 하는 것
+            // 사실 수정한 값은 전체조회 페이지에서 보기때문에, 우리가 따로 볼 필요가 없어서 dept2는 프론트에서 쓰지는 않음.
+        } catch (Exception e) {
+//            DB 에러 (서버 에러) -> 500 신호(INTERNAL_SERVER_ERROR)
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR); // 에러났다는건 우리가 볼 필요가 없으니 프론트에 신호만 보냄
         }
     }
 }

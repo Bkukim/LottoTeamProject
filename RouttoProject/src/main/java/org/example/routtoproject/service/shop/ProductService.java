@@ -118,7 +118,7 @@ public class ProductService {
                         prodImgUuid,
                         prodDetailPageUuid); // 우리가 만든 url
                 product2 = productRepository.save(product);
-            }else {
+           }else {
                 // todo  1-3) 생성자에 만든 url넣어주기
                 Product product = new Product(prodName,
                         defaultPrice,
@@ -132,6 +132,7 @@ public class ProductService {
                         prodImgUuid,
                         prodDetailPageUuid); // 우리가 만든 url
                 product2 = productRepository.save(product);
+
             }
         } catch (Exception e) {
             log.debug(e.getMessage());
@@ -155,5 +156,14 @@ public class ProductService {
     public List<IProdNameDto> findByProdName(String prodName) {
         List<IProdNameDto> product = productRepository.findByProdName(prodName);
         return product;
+    }
+
+    //    todo: 관리자 조회/수정 상세 페이지 : 저장/수정 : 1) 기본키가 없으면 저장(insert)
+//              2) 기본키가 있으면 수정(update)
+//              => JPA에는 내부적으로 if문이 있음 : 알아서 실행됨
+    public Product save(Product product) {
+//        JPA의 저장함수 save : dept 객체안에 기본키가 있는지, 없는지 -> insert, update
+        Product product1 = productRepository.save(product);
+        return product1;
     }
 }
