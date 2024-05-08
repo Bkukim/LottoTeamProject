@@ -35,8 +35,8 @@ public class ProductService {
     private final ProductRepository productRepository;       // DI
 
     // todo 전체조회
-    public List<Product> findAllByProdName(String prodName){
-        List<Product> product = productRepository.findAllByProdName(prodName);
+    public Page<Product> findAllByProdName(String prodName, Pageable pageable){
+        Page<Product> product = productRepository.findAllByProdNameContaining(prodName, pageable);
         return product;
     }
 
