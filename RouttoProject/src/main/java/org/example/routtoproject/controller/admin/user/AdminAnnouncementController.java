@@ -81,6 +81,8 @@ public ResponseEntity<Object> createAnnouncement(
             @RequestParam(defaultValue = "") String announcementImgUuid
     ){
         try{
+            log.debug("여기는 컨트롤러 수정try");
+
 //            DB 수정 서비스 함수 실행
             announcementService.save(Integer.parseInt(announcementId), title, content, announcementImg, announcementImgUrl,announcementImgUuid );
             return new ResponseEntity<>("업로드 수정 성공", HttpStatus.OK);
