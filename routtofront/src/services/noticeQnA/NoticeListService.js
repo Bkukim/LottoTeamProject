@@ -1,6 +1,7 @@
 // NoticeListService.js
 // 목적 : 부서 CRUD 공통 함수들 정의
 import http from "@/utils/http-common"; // spring 통신 정의 파일
+import AuthHeader from "../auth/AuthHeader";
 
 class NoticeListService {
   // 속성(x), 생성자(x), 공통함수
@@ -32,6 +33,9 @@ class NoticeListService {
       headers: {
         "Content-Type": "multipart/form-data",
       },
+    },
+    {
+      headers: AuthHeader()
     });
   }
 
@@ -59,6 +63,9 @@ class NoticeListService {
         //헤더쪽에다가 멀티파트 보냄~~
         "Content-Type": "multipart/form-data",
       },
+    },
+    {
+      headers: AuthHeader()
     });
   }
 
@@ -66,7 +73,10 @@ class NoticeListService {
   // TODO: 삭제(delete) -> delete 방식 -> @DeleteMapping
   // TODO: 사용법 : http.delete(`/컨트롤러함수url/${dno}`)
   delete(announcementId) {
-    return http.delete(`/admin/notice/deletion/${announcementId}`);
+    return http.delete(`/admin/notice/deletion/${announcementId}`,
+    {
+      headers: AuthHeader()
+    });
   }
 }
 
