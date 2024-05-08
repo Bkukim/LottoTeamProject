@@ -17,6 +17,8 @@ class AdminProductService {
     formData.append("prodStock", data.prodStock);
     formData.append("prodImgUrl", data.prodImgUrl);
     formData.append("prodDetailPageUrl", data.prodDetailPageUrl);
+    formData.append("prodImgUuid", data.prodImgUuid);
+    formData.append("prodDetailPageUuid", data.prodDetailPageUuid);
     return http.post("/admin/shop/product", formData, {
       headers: {
         "Content-Type": "multipart/form-data",
