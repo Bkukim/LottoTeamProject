@@ -8,6 +8,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
 import java.util.Optional;
 
 /**
@@ -39,5 +40,15 @@ public interface ProductRepository extends JpaRepository<Product, Integer> {
     Page<Product> findAllByProdNameContaining(@Param("prodName") String prodName,
                                            Pageable pageable
     );
+
+    // todo 검색상세에서 사용될 함수
+    @Query(value = "SELECT * FROM LOTTO_PRODUCT\n" +
+            "WHERE PROD_NAME LIKE '%' || :prodName || '%'"
+            ,countQuery = "SELECT count(*) FROM LOTTO_PRODUCT\n" +
+            "WHERE PROD_NAME LIKE '%' || :prodName || '%'"
+            ,nativeQuery = true
+    )
+    List<Product> findAllByProdName(@Param("prodName") String prodName);
+
 
 }

@@ -34,6 +34,13 @@ public class ProductService {
     private final ProductRepository productRepository;       // DI
 
     // todo 전체조회
+    public List<Product> findAllByProdName(String prodName){
+        List<Product> product = productRepository.findAllByProdName(prodName);
+        return product;
+    }
+
+
+    // todo 전체조회
     public List<Product> findAll(){
         List<Product> product = productRepository.findAll();
         return product;

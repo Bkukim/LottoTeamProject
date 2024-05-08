@@ -16,6 +16,10 @@ class ProductService {
     return http.get("/normal/shop/product/all");
   }
 
+  getSearchProductAll(prodName){
+    return http.get(`/normal/shop/searchProduct?prodName=${prodName}`);
+  }
+
   create(data) {
     // TODO: formData 는 무조건 문자열로 전송됨 -> 벡엔드에서 문자열로 받고 정수로 형변환하면 됨
 
