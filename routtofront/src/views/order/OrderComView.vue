@@ -203,6 +203,7 @@
               <div
                 class="col-md-10 col-form-label"
                 style="border-bottom: 1px solid rgba(0, 0, 0, 0.1)"
+                v-for="product in products" :key="product.id"
               >
                 상품 정보
                 <br />
@@ -366,18 +367,14 @@ export default {
         payPg: "",
       },
 
-      deliv: {
-        // 배송지 정보를 저장할 객체
-        orderName: "",
-        addr: "",
-        phNum: "",
-        orderRequest: "",
-      },
+      deliv: {},
+
+      exampleOrderInfo: {}, // TODO: 주문 정보 예시
 
       // 주문완료 이미지 경로
       ordercompleteimg: require("@/assets/images/ordercomplete_icon.png"),
 
-      products: [], // 주문 상품 정보 배열
+      products: [], // TODO: 지금 테스트 중인 주문 상품 정보 배열
 
       paymentInfo: null,
     };
@@ -405,25 +402,20 @@ export default {
       this.odid.depositor = retrievedOdid.depositor;
     },
 
-    retrievedAddr() {
-      // 배송 정보 박스에 사용할 함수
-      let AddrBox = {
-        orderName: "홍길동",
-        addr: "부산광역시",
-        phNum: "010-0000-000",
-        orderRequest: "없음",
-      };
-
-      // 조회된 데이터를 deliv 객체에 저장
-      this.deliv.orderName = AddrBox.orderName;
-      this.deliv.addr = AddrBox.addr;
-      this.deliv.phNum = AddrBox.phNum;
-      this.deliv.orderRequest = AddrBox.orderRequest;
+    async retrievedAddr() {
+      try {
+        // API 요청을 통해 주문 정보를 조회
+        const response = await axios.get('/api/user/shop/order/:prodId');
+        // 조회된 데이터를 deliv 객체에 저장
+        this.deliv = response.data;
+      } catch (error) {
+        console.error("배송 정보 조회 중 에러 발생:", error);
+      }
     },
 
     fetchProducts() {
       axios
-        .get("http://localhost:8080/api/products") // 여기 URL은 실제 백엔드 API 주소로 대체해야 합니다.
+        .get("http://localhost:8080/api/user/shop")
         .then((response) => {
           this.products = response.data;
         })
@@ -444,15 +436,21 @@ export default {
     goToHome() {
       this.$router.push("/");
     },
+    // TODO: 주문정보 조회를 위한 함수 예제
+    async fetchUserData() {
+            try {
+                const response = await axios.get('http://your-backend-api.com/user/1');
+                this.userInfo = response.data;
+            } catch (error) {
+                console.error("Error fetching user data:", error);
+            }
+        },
   },
-  created() {
+  mounted() {
     this.retrieveOrder(); // 컴포넌트 생성 시 주문 정보 조회
     this.retrievedAddr();
     this.fetchProducts(); // 주문 상품 정보 조회
-    
-    // const orderId = this.$route.query.orderId;
-    // const paymentMethod = this.$route.query.paymentMethod;
-    // const bankAccountNumber = this.$route.query.bankAccountNumber;
+    this.fetchUserData(); // TODO: 주문 정보 조회를 위한 예제
   },
 };
 </script>

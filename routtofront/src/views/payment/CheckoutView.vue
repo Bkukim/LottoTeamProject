@@ -21,74 +21,83 @@
 <script>
 import { loadPaymentWidget, ANONYMOUS } from "@tosspayments/payment-widget-sdk";
 import { nanoid } from "nanoid";
+import OrderService from '@/services/product/OrderService';
 
 export default {
   data() {
     return {
+      order:[], // 주문 정보 객체
+
       paymentWidget: null,
       paymentMethodWidget: null,
-      clientKey: "test_ck_5OWRapdA8dYakkjpB21W3o1zEqZK",
+      clientKey: "test_gck_docs_Ovk5rk1EwkEbP0W43n07xlzm",
       customerKey: nanoid(),
       amount: 50000,
       inputEnabled: false,
       isModalVisible: true,
-
-      // 무통장 입금 선택시 생성된 계좌번호 저장할 
-      bankAccountNumber: '', // 계좌번호를 저장할 새로운 데이터 속성 추가
-      isBankTransfer: false, // 무통장 입금 여부를 저장할 새로운 데이터 속성 추가
     };
   },
   methods: {
-async requestPayment() {
-  try {
-    const orderId = nanoid();
-    const response = await this.paymentWidget.requestPayment({
-      orderId,
-      orderName: "토스 티셔츠 외 2건",
-      customerName: "김토스",
-      customerEmail: "asdasd@a.com",
-      customerMobilePhone: "01011111111",
-      successUrl: `${window.location.origin}/order/completed`,
-      failUrl: `${window.location.origin}/order/fail`,
-    });
+    // TODO: 주문 상세 조회
+    async retrieveOrder(orderId) {
+      try {
+        let response = await OrderService.get(orderId);
+        this.order = response.data;
 
-    // 결제 성공 후 응답에서 무통장 입금 계좌번호 추출
-    if (response.paymentMethod === '가상계좌') {
-      this.bankAccountNumber = response.bankAccountNumber; // 계좌번호 저장
-      this.isBankTransfer = true; // 무통장 입금 선택됨을 표시
-    }
-
-    // 결제 성공 후 OrderComView.vue로 리디렉션하고 필요한 데이터를 query로 전달
-    this.$router.push({
-      name: 'OrderComView', // Vue Router에 정의된 경로의 이름
-      query: {
-        orderId: orderId,
-        paymentMethod: response.paymentMethod,
-        bankAccountNumber: response.paymentMethod === '가상계좌' ? response.bankAccountNumber : null,
-      },
-    });
-
-  } catch (error) {
-    console.error(error);
-  }
-},
+        console.log(response.data);
+      } catch (e) {
+        console.log(e);
+      }
+    },
+    // TODO: 토스 API 결제
+    async requestPayment() {
+      try {
+          if (this.paymentWidget) {
+          // TODO: 결재 요청 임시 정보
+          let data = {
+            orderId: this.$route.params.orderId,                // TODO: 주문번호(6자리이상이어야함), 필수
+            orderName: "테스트 이름",                           // 필수
+            successUrl: `${window.location.origin}/success`, // 성공 url, 필수
+            failUrl: `${window.location.origin}/fail`,       // 실패 url, 필수
+          };
+          console.log(data);
+          // ------ '결제하기' 버튼 누르면 결제창 띄우기 ------
+          // 결제를 요청하기 전에 orderId, amount를 서버에 저장하세요.
+          // 결제 과정에서 악의적으로 결제 금액이 바뀌는 것을 확인하는 용도입니다.
+          // @docs https://docs.tosspayments.com/reference/widget-sdk#requestpayment결제-정보
+          await this.paymentWidget.requestPayment(data);
+        }
+      } catch (error) {
+        console.error(error);
+      }
+    },
     closeModal() {
       this.isModalVisible = false;
     },
   },
   async mounted() {
+    // TODO: 주문조회 : 비동기로 실행
+    await this.retrieveOrder(this.$route.params.orderId);
+
+    // TODO: 토스 API ------  결제위젯 초기화 ------
+    // @docs https://docs.tosspayments.com/reference/widget-sdk#sdk-설치-및-초기화
     this.paymentWidget = await loadPaymentWidget(this.clientKey, ANONYMOUS);
 
+    // TODO: 토스 API ------  결제 UI 렌더링 ------
+    // @docs https://docs.tosspayments.com/reference/widget-sdk#renderpaymentmethods선택자-결제-금액-옵션
     this.paymentMethodWidget = this.paymentWidget.renderPaymentMethods(
       "#payment-method",
-      { value: this.amount },
+      { value: this.order.orderAmount },
       { variantKey: "DEFAULT" }
     );
 
+    // TODO: 토스 API ------  이용약관 UI 렌더링 ------
+    // @docs https://docs.tosspayments.com/reference/widget-sdk#renderagreement선택자-옵션
     this.paymentWidget.renderAgreement("#agreement", {
       variantKey: "AGREEMENT",
     });
 
+    // TODO: 토스 API  
     this.paymentMethodWidget.on("ready", () => {
       this.inputEnabled = true;
     });

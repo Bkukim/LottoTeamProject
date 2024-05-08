@@ -16,6 +16,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Optional;
 
 
 /**
@@ -38,7 +39,6 @@ public class OrderService {
 
     private final OrderRepository orderRepository;
     private final OrderProdRepository orderProdRepository;
-
     ModelMapper modelMapper = new ModelMapper();
 //    TODO: 주문/결제 페이지에서 주문 정보 입력시 DB에 저장하는 함수
 
@@ -80,5 +80,38 @@ public class OrderService {
     public Page<Order> findAll(int orderId, Pageable pageable){
         Page<Order> page = orderRepository.findAllByOrderIdContaining(orderId, pageable);
         return page;
+    }
+
+//  결제 함수
+    @Transactional
+    //    저장함수
+    public Order insert(OrderDto orderDto) {
+
+//     1) DTO -> Model 변환
+        Order order = modelMapper.map(orderDto, Order.class);
+
+        Order order2 = orderRepository.save(order); // 부모 테이블 저장
+
+//      자식 테이블 저장
+        for (int i = 0; i < orderDto.getOrderProds().size(); i++) {
+            orderDto.getOrderProds().get(i).setOrderId(order2.getOrderId()); // 기본키는 부모쪽 값을 넣기
+            orderProdRepository.save(orderDto.getOrderProds().get(i));
+        }
+
+        return order2;
+    }
+
+    //    수정함수 : 카프카에서 사용
+    public void update(Order order) {
+
+//      1) 수정
+        orderRepository.save(order);
+    }
+
+    //    상세조회
+    public Optional<Order> findById(int orderId) {
+        Optional<Order> optionalOrder = orderRepository.findById(orderId);
+
+        return optionalOrder;
     }
 }

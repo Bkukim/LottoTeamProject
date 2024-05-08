@@ -2,8 +2,12 @@
 import http from "@/utils/http-common";
 
 class PaymentService {
-    getPaymentDetails(orderId) {
-        return http.get(`/order/completed/${orderId}`);
+    create(data) {
+        return http.post("/normal/shop/payment", data);
+    }
+    
+    remove(paymentCode) {
+        return http.delete(`/normal/shop/payment/deletion/${paymentCode}`);
     }
 }
 
