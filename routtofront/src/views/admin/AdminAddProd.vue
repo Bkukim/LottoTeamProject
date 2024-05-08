@@ -321,7 +321,7 @@ export default {
         // 로깅
         console.log(response.data);
         // 장바구니 담기 성공 메세지 출력
-        // this.$router.push("/shop/admin/order");
+        this.$router.push("/shop/admin/manage");
       } catch (e) {
         console.log(e);
       }

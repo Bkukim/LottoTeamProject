@@ -317,6 +317,7 @@ export default {
       try {
         let response = await UserService.updateUser(data);
         console.log(response.data);
+        alert("회원 정보가 수정되었습니다.")
         this.$router.push("/member/mypage");
       } catch (e) {
         console.log(e); // 에러 출력
