@@ -16,7 +16,11 @@
     <div class="row">
       <!-- 왼쪽 -->
       <div class="col-sm-6">
-        <img :src="product.prodImgUrl" alt="prodImgUrl" style="max-width : 500px; max-height : 600px;" />
+        <img
+          :src="product.prodImgUrl"
+          alt="prodImgUrl"
+          style="max-width: 500px; max-height: 600px"
+        />
 
         <!-- 1. 리뷰 평점 -->
         <div class="box mt-5 text-center">
@@ -101,9 +105,11 @@
           <h4>
             총 상품 금액 :
             {{
-              Math.ceil((product.defaultPrice -
-                (product.defaultPrice * product.discountRate) / 100) *
-              productCount)
+              Math.ceil(
+                (product.defaultPrice -
+                  (product.defaultPrice * product.discountRate) / 100) *
+                  productCount
+              )
             }}
             원
           </h4>
@@ -115,10 +121,12 @@
             <h5>
               총 주문 금액 :
               {{
-                Math.ceil((product.defaultPrice -
-                  (product.defaultPrice * product.discountRate) / 100) *
-                  productCount +
-                3000)
+                Math.ceil(
+                  (product.defaultPrice -
+                    (product.defaultPrice * product.discountRate) / 100) *
+                    productCount +
+                    3000
+                )
               }}
               원
             </h5>
@@ -165,7 +173,10 @@
     <!-- 상세 페이지 -->
     <div class="mt-5">
       <div id="page">
-        <img :src="product.prodDetailPageUrl" style="max-width : 400px; max-height : 600px;" />
+        <img
+          :src="product.prodDetailPageUrl"
+          style="max-width: 400px; max-height: 600px"
+        />
       </div>
     </div>
     <!-- 상세 페이지 끝 -->
@@ -232,25 +243,24 @@ export default {
         let data = {
           prodId: this.product.prodId, // 상품번호
           cartProdCount: this.productCount, // 장바구니 개수
-          userId: this.$store.state.user.userId // userId
-        
+          userId: this.$store.state.user.userId, // userId
         };
         // console.log("확인", data);
         // TODO: 공통 저장 서비스 함수 실행, async ~ await
         let response = await CartService.create(data);
-        if (response.data) {
+        if (response.data == true) {
+          // alert(response.data)
           alert("장바구니에 이미 상품이 존재합니다.");
+          this.$router.push("/order/cart");
+          return; // 장바구니에 상품 추가하지 않고 함수 종료
         } else {
-          
-        // 로깅
-        console.log(response.data);
-        // 장바구니 담기 성공 메세지 출력
-        // alert("장바구니에 잘 담겼습니다.");
 
-        alert("장바구니에 상품이 담겼습니다.");
+          // 로깅
+          console.log(response.data);
+          // 장바구니 담기 성공 메세지 출력
+          alert("장바구니에 상품이 담겼습니다.");
+          this.$router.push("/order/cart");
 
-        this.$router.push("/order/cart");
-        // this.$store.state.orderAmount = this.productCount;
         }
       } catch (e) {
         console.log(e);

@@ -84,13 +84,19 @@ public class NormalCartController {
     @PostMapping("/cart")
     public ResponseEntity<Object> create(@RequestBody Cart cart) {
         try {
+            log.debug("error"+cart.getProdId().toString());
             if (cartService.existById(cart.getProdId())) {
+                // 이미 장바구니에 상품이 존재하는 경우
+                log.debug("adfadsfjal;dsk");
                 return new ResponseEntity<>(true, HttpStatus.OK);
             } else {
-                Cart cart1 = cartService.save(cart);
+                // 장바구니에 상품이 존재하지 않는 경우, 새로운 상품 저장
+                Cart cart1  = cartService.save(cart);
                 return new ResponseEntity<>(cart1, HttpStatus.OK);
             }
         } catch (Exception e) {
+            log.debug(e.getMessage());
+            // 예외 발생 시 서버 오류 응답
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
