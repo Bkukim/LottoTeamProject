@@ -138,6 +138,33 @@
     </div>
   </div>
   <!-- 이미지 추가 끝 -->
+  <!-- 이미지 미리보기 시작 -->
+  <div
+    class="container mt-4"
+    style="
+      border: 1px solid black;
+      display: flex;
+      justify-content: space-between;
+      height: auto;
+    "
+  >
+    <label class="mt-3"><b>배너 이미지 미리보기</b> </label>
+    <hr />
+    <div>
+      <div id="img-add">
+        <label class="mt-3 mb-3"></label>
+        <br />
+
+        <div class="text-center">
+          <div class="file-upload-form mb-3">
+            <!-- TODO: file01 추가 -->
+            <img :src="banner.bannerImg1Url">
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- 이미지 미리보기 끝 -->
   
   <!-- 이미지2 추가 시작 -->
   <div

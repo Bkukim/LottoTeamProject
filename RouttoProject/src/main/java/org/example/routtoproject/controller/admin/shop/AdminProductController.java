@@ -53,9 +53,13 @@ public class AdminProductController {
                                                 @RequestParam(defaultValue = "0") String discountRate,
                                                 @RequestParam(defaultValue = "0") String prodStock,
 
-                                                @RequestParam(defaultValue = "") String prodImgUrl,
-                                                @RequestParam(defaultValue = "") String prodDetailPageUrl
-    ) {
+
+                                                @RequestParam (defaultValue = "")String prodImgUrl,
+                                                @RequestParam (defaultValue = "")String prodDetailPageUrl,
+                                                @RequestParam (defaultValue = "")String prodDetailPageUuid,
+                                                @RequestParam (defaultValue = "")String prodImgUuid
+    ){
+
         try {
 //
 //                log.debug("확인용" + prodImg);
@@ -69,7 +73,9 @@ public class AdminProductController {
                     Integer.parseInt(discountRate), // TODO: 정수로 변경
                     Integer.parseInt(prodStock),    // TODO: 정수로 변경
                     prodImgUrl,
-                    prodDetailPageUrl);
+                    prodDetailPageUrl,
+                    prodDetailPageUuid,
+                    prodImgUuid);
             return new ResponseEntity<>(/*product1,*/ HttpStatus.OK);
 
 
