@@ -2,6 +2,7 @@ package org.example.routtoproject.service.shop;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.example.routtoproject.model.dto.shop.IProdNameDto;
 import org.example.routtoproject.model.entity.shop.Product;
 import org.example.routtoproject.repository.shop.ProductRepository;
 import org.springframework.data.domain.Page;
@@ -115,12 +116,20 @@ public class ProductService {
         return product2;
     }
 
+//    todo: 상품페이지 이미지
     public Optional<Product> findImgByUuid(String uuid){
         Optional<Product> product = productRepository.findByProdImgUuid(uuid);
         return product;
     }
+//    todo: 상품페이지 상세이미지
     public Optional<Product> findPageByUuid(String uuid){
         Optional<Product> product = productRepository.findByProdDetailPageUuid(uuid);
+        return product;
+    }
+
+//    TODO: 관리자 조회/수정 페이지 : 전체 조회 + 상품 이름으로 검색
+    public List<IProdNameDto> findByProdName(String prodName) {
+        List<IProdNameDto> product = productRepository.findByProdName(prodName);
         return product;
     }
 }
