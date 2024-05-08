@@ -40,11 +40,13 @@ class NoticeListService {
           "Content-Type": "multipart/form-data",
         },
       },
+
       // 권한
       {
         headers: AuthHeader(),
       },
     );
+
   }
 
   // TODO: 상세조회 함수1 : 공지사항 :announcementId
@@ -76,18 +78,22 @@ class NoticeListService {
           "Content-Type": "multipart/form-data",
         },
       },
+
       {
         headers: AuthHeader(),
       },
     );
+
   }
 
   // TODO: 삭제함수 : announcementId
   // TODO: 삭제(delete) -> delete 방식 -> @DeleteMapping
   // TODO: 사용법 : http.delete(`/컨트롤러함수url/${dno}`)
   delete(announcementId) {
+
     return http.delete(`/admin/notice/deletion/${announcementId}`, {
       headers: AuthHeader(),
+
     });
   }
 }

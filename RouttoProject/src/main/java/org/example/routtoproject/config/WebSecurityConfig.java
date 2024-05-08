@@ -67,14 +67,19 @@ public class WebSecurityConfig {
         http.formLogin(req -> req.disable()); // form 태그 action 을 이용한 로그인 사용않함 -> axios 통신함
 
         http.authorizeHttpRequests(req -> req // todo 여기서 부터 controller의 url을 제한함으로 db와의 접근을 제한한다.
-                .dispatcherTypeMatchers(DispatcherType.FORWARD).permitAll()
-//                .requestMatchers("/api/auth/**").permitAll()       // 로그인 및 회원가입 함수
-//                .requestMatchers("/api/user/**").hasRole("USER")       // user관련 모든 함수
-//                .requestMatchers("/api/admin/**").hasRole("ADMIN")       // 관리자의 모든 함수
-//                .requestMatchers("/api/normal/**").permitAll()       // 관리자의 모든 함수
-//                .anyRequest()
-//                .authenticated());
-                .anyRequest().permitAll());
+
+//                .dispatcherTypeMatchers(DispatcherType.FORWARD).permitAll()
+
+
+                .requestMatchers("/api/auth/**").permitAll()       // 로그인 및 회원가입 함수
+                .requestMatchers("/api/user/**").hasRole("USER")       // user관련 모든 함수
+                .requestMatchers("/api/admin/**").hasRole("ADMIN")       // 관리자의 모든 함수
+                .requestMatchers("/api/normal/**").permitAll()       // 관리자의 모든 함수
+
+                .anyRequest()
+                .authenticated());
+
+
 
 
 //        TODO: 웹토큰 클래스를 스프링시큐리티 설정에 끼워넣기 : 모든 조회(CRUD)에서 아래 인증을 실행함

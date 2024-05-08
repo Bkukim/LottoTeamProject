@@ -2,6 +2,7 @@ package org.example.routtoproject.service.shop;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.example.routtoproject.model.dto.shop.IProdNameDto;
 import org.example.routtoproject.model.entity.shop.Product;
 import org.example.routtoproject.repository.shop.ProductRepository;
 import org.springframework.data.domain.Page;
@@ -32,6 +33,13 @@ import java.util.UUID;
 @RequiredArgsConstructor
 public class ProductService {
     private final ProductRepository productRepository;       // DI
+
+    // todo 전체조회
+    public Page<Product> findAllByProdName(String prodName, Pageable pageable){
+        Page<Product> product = productRepository.findAllByProdNameContaining(prodName, pageable);
+        return product;
+    }
+
 
     // todo 전체조회
     public List<Product> findAll(){
@@ -70,7 +78,10 @@ public class ProductService {
                         int discountRate,
                         int prodStock,
                         String prodImgUrl,// 파일 업로드 클래스로, 이 형태로 파일이 이동되므로 이 형태로 파일을  받아야한다는 거을 정해주는 것.
-                        String prodDetailPageUrl// 파일 업로드 클래스로, 이 형태로 파일이 이동되므로 이 형태로 파일을  받아야한다는 거을 정해주는 것.
+                        String prodDetailPageUrl,// 파일 업로드 클래스로, 이 형태로 파일이 이동되므로 이 형태로 파일을  받아야한다는 거을 정해주는 것.
+                        String prodImgUuid,
+                        String prodDetailPageUuid
+
     ) { // 파일을 만들때는 예외처리가 필요하다. 그리고 매개변수를 객체로 받으면 복잡할 수 있어서 변수로 받는다.
         Product product2 = null;
         try {
@@ -78,8 +89,8 @@ public class ProductService {
             if (prodImgUrl.equals("") && prodDetailPageUrl.equals("")) {
                 // todo : 기본키가 없을때 : insert
                 //      1-1) uuid 생성하기
-                String prodImgUuid = UUID.randomUUID().toString().replace("-", ""); // uuid 만드는 방법T
-                String prodDetailPageUuid = UUID.randomUUID().toString().replace("-", ""); // uuid 만드는 방법
+                 prodImgUuid = UUID.randomUUID().toString().replace("-", ""); // uuid 만드는 방법T
+                 prodDetailPageUuid = UUID.randomUUID().toString().replace("-", ""); // uuid 만드는 방법
                 // xxxx-xxxx-xxxx-xx...이런 형태로 만들어진다. 근데 "-"가 보기 좋지 않으니 없애보자. replace 함수 이용
 
                 // todo  1-2) 다운로드 url 생성 -> 자바함수를 이용 ※여기서 다운로드란 jsp이 spring에서 이미지를 다운받아 가져오는 것.
@@ -107,6 +118,23 @@ public class ProductService {
                         prodImgUuid,
                         prodDetailPageUuid); // 우리가 만든 url
                 product2 = productRepository.save(product);
+
+           }else {
+
+                // todo  1-3) 생성자에 만든 url넣어주기
+                Product product = new Product(prodName,
+                        defaultPrice,
+                        prodCategory,
+                        prodImg.getBytes(), // 파일 데이터
+                        prodDetailPage.getBytes(), // 파일 데이터
+                        discountRate,
+                        prodStock,
+                        prodImgUrl,
+                        prodDetailPageUrl,
+                        prodImgUuid,
+                        prodDetailPageUuid); // 우리가 만든 url
+                product2 = productRepository.save(product);
+
             }
         } catch (Exception e) {
             log.debug(e.getMessage());
@@ -115,12 +143,29 @@ public class ProductService {
         return product2;
     }
 
+//    todo: 상품페이지 이미지
     public Optional<Product> findImgByUuid(String uuid){
         Optional<Product> product = productRepository.findByProdImgUuid(uuid);
         return product;
     }
+//    todo: 상품페이지 상세이미지
     public Optional<Product> findPageByUuid(String uuid){
         Optional<Product> product = productRepository.findByProdDetailPageUuid(uuid);
         return product;
+    }
+
+//    TODO: 관리자 조회/수정 페이지 : 전체 조회 + 상품 이름으로 검색
+    public List<IProdNameDto> findByProdName(String prodName) {
+        List<IProdNameDto> product = productRepository.findByProdName(prodName);
+        return product;
+    }
+
+    //    todo: 관리자 조회/수정 상세 페이지 : 저장/수정 : 1) 기본키가 없으면 저장(insert)
+//              2) 기본키가 있으면 수정(update)
+//              => JPA에는 내부적으로 if문이 있음 : 알아서 실행됨
+    public Product save(Product product) {
+//        JPA의 저장함수 save : dept 객체안에 기본키가 있는지, 없는지 -> insert, update
+        Product product1 = productRepository.save(product);
+        return product1;
     }
 }

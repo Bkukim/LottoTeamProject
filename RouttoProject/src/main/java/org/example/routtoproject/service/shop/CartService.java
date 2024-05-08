@@ -70,10 +70,10 @@ public class CartService {
     }
 // todo: id가 존재하는지 확인
     public boolean existById(int prodId){
-        if (cartRepository.existsById(prodId) == true) {
-            return true;
+        if (cartRepository.existsByProdId(prodId) != null) {
+            return true;    // 상품이 이미 존재하면
         } else {
-            return false;
+            return false;   // 상품이 없으면
         }
     }
 

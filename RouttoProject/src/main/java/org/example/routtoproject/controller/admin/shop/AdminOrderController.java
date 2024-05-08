@@ -7,6 +7,7 @@ import org.example.routtoproject.model.dto.shop.OrderProductDetailDto;
 import org.example.routtoproject.model.entity.shop.Order;
 import org.example.routtoproject.model.entity.shop.Product;
 import org.example.routtoproject.service.shop.OrderService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -73,6 +74,7 @@ public class AdminOrderController {
         }
     }
 
+
     //    todo: 상품 상세조회 함수 : 관리자 주문확인 페이지에서 상세보기 클릭 시 나옴
     @GetMapping("/order/{orderId}")
     public ResponseEntity<Object> findOrderProductAll(@PathVariable Integer orderId) {
@@ -105,4 +107,5 @@ public class AdminOrderController {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);   // 500 에러 전송
         }
     }
+
 }

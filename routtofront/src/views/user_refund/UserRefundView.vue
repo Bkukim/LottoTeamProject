@@ -3,17 +3,21 @@
     <div class="container text-center">
       <label>취소사유를 선택해주세요</label>
     </div>
-    <div class="container col-md-8 inner">
-  <div class="radio-option">
-    <input type="radio" id="option1" class="radiobtn" name="radio" value="상품이 마음에 들지 않음 (단순 변심)" v-model="selectedOption" />
-    <label for="option1" class="lab">상품이 마음에 들지 않음 (단순 변심)</label>
+  <div class="container col-md-8 inner">
+    <div class="radio-option">
+      <input type="radio" id="option1" class="radiobtn" name="radio" 
+             value="상품이 마음에 들지 않음 (단순 변심)" 
+             v-model="selectedOption" @change="updateSelectedOption" />
+      <label for="option1" class="lab">상품이 마음에 들지 않음 (단순 변심)</label>
+    </div>
+    <div class="divider"></div>
+    <div class="radio-option">
+      <input type="radio" id="option2" class="radiobtn" name="radio" 
+             value="다른 상품 추가 후 재주문 예정" 
+             v-model="selectedOption" @change="updateSelectedOption" />
+      <label for="option2" class="lab">다른 상품 추가 후 재주문 예정</label>
+    </div>
   </div>
-  <div class="divider"></div> <!-- 구분선 추가 -->
-  <div class="radio-option">
-    <input type="radio" id="option2" class="radiobtn" name="radio" value="다른 상품 추가 후 재주문 예정" v-model="selectedOption" />
-    <label for="option2" class="lab">다른 상품 추가 후 재주문 예정</label>
-  </div>
-</div>
     <!-- 버튼 태그 시작 -->
     <div class="buttons">
       <button class="btn prev" @click="goToMyPage">{{ "< 이전단계" }}</button>
@@ -24,21 +28,34 @@
 </template>
 
 <script>
+import { ref } from 'vue';
+import { useStore } from 'vuex';
+
 export default {
+  setup() {
+    const store = useStore();
+    const selectedOption = ref('');
+
+    const updateSelectedOption = () => {
+      store.commit('setSelectedOption', selectedOption.value);
+    };
+
+    return {
+      selectedOption,
+      updateSelectedOption
+    };
+  },
   data() {
     return {
-      selectedOption: null, // 라디오 버튼 선택값을 저장할 데이터 속성
     }
   },
   methods: {
     goToMyPage() {
-      this.$router.push('/mypage');
+      this.$router.push('/member/mypage');
     },
     // 환불 정보 확인 페이지로 이동
     goToRefundInfo() {
       this.$router.push({ name: 'refund-info', params: { selectedOption: this.selectedOption } });
-      // this.$store.dispatch('updateSelectedOption', this.selectedOption); // 라디오 버튼선택값 저장
-      // this.$router.push('/order/refund-info'); // 동시에 페이지 이동
     }
   },
 };
@@ -115,7 +132,7 @@ export default {
 }
 
 .next {
-  background-color: #808080;
+  background-color: #342a26;
   color: #ffffff;
 }
 
@@ -124,7 +141,7 @@ export default {
 }
 
 .next:hover {
-  background-color: #666666; /* 다음단계 버튼의 배경색을 마우스 오버 시 더 어둡게 */
+  background-color: #8a7465;
 }
 
 .inner {

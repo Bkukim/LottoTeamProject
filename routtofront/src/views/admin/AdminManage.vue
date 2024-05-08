@@ -14,53 +14,11 @@
         height: 50px;
       "
     >
-      <label><b>상품 조회</b></label>
+      <label><b>상품 조회 / 수정</b></label>
     </div>
     <!-- 조회 배너 끝 -->
 
-    <!-- 2) 전체 상태 -->
-    <div
-      class="container mt-4"
-      style="
-        border: 1px solid #342a26;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        height: 200px;
-        flex-direction: row;
-      "
-    >
-      <div class="circle"></div>
-      <div class="text-container">
-        <div>전체</div>
-        <div>0건</div>
-      </div>
-      <div class="circle"></div>
-      <div class="text-container">
-        <div>판매중</div>
-        <div>0건</div>
-      </div>
-      <div class="circle"></div>
-      <div class="text-container">
-        <div>판매중지</div>
-        <div>0건</div>
-      </div>
-      <div class="circle"></div>
-      <div class="text-container">
-        <div>품절</div>
-        <div>0건</div>
-      </div>
-      <div class="circle"></div>
-      <div class="text-container">
-        <div>판매종료</div>
-        <div>0건</div>
-      </div>
-    </div>
-    <!-- 전체 상태 끝-->
-
-    <!-- <br /> -->
-
-    <!-- 3) 검색어 시작 -->
+    <!-- 2) 검색어 시작 -->
     <div
       class="container mt-4"
       style="
@@ -83,38 +41,6 @@
         <!-- 상품번호 시작 -->
 
         <div class="form-check" id="prodNum">
-          <input
-            class="form-check-input"
-            type="radio"
-            name="flexRadioDefault"
-            id="flexRadioDefault1"
-            checked
-          />
-          <label
-            class="form-check-label"
-            for="flexRadioDefault1"
-            id="form-check-label"
-          >
-            상품번호
-          </label>
-        </div>
-        <div class="col">
-          <input class="form-control" type="text" name="prodNum" />
-        </div>
-
-        <!-- 상품번호 끝 -->
-
-        <!-- <label style="align-items: right"> -->
-        <!-- 상품명 시작 -->
-
-        <div class="form-check" id="prodId">
-          <input
-            class="form-check-input"
-            type="radio"
-            name="flexRadioDefault"
-            id="flexRadioDefault1"
-            checked
-          />
           <label
             class="form-check-label"
             for="flexRadioDefault1"
@@ -124,132 +50,21 @@
           </label>
         </div>
         <div class="col">
-          <input class="form-control" type="text" name="prodName" />
+          <input
+            class="form-control"
+            type="text"
+            name="prodNum"
+            v-model="findProdName"
+          />
         </div>
 
-        <!-- 상품명 끝 -->
+        <!-- 상품번호 끝 -->
+
         <!-- </label> -->
       </div>
     </div>
     <!-- 검색어 끝 -->
 
-    <!-- 4) 판매상태 시작 -->
-    <div
-      class="container mt-4"
-      style="
-        border: 1px solid black;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        height: 60px;
-      "
-    >
-      <div
-        style="
-          display: flex;
-          justify-content: space-between;
-          align-items: center;
-        "
-      >
-        <label id="salaryStatus"> 판매 상태 </label>
-        <!-- 전체 버튼 -->
-        <div class="form-check">
-          <input
-            class="form-check-input"
-            type="radio"
-            name="flexRadioDefault"
-            id="flexRadioDefault1"
-            checked
-          />
-          <label class="form-check-label" for="flexRadioDefault1" id="status">
-            전체
-          </label>
-        </div>
-        <!-- 판매중 버튼 -->
-        <div class="form-check">
-          <input
-            class="form-check-input"
-            type="radio"
-            name="flexRadioDefault"
-            id="flexRadioDefault1"
-            checked
-          />
-          <label class="form-check-label" for="flexRadioDefault1" id="status">
-            판매중
-          </label>
-        </div>
-        <!-- 판매중지 버튼 -->
-        <div class="form-check">
-          <input
-            class="form-check-input"
-            type="radio"
-            name="flexRadioDefault"
-            id="flexRadioDefault1"
-            checked
-          />
-          <label class="form-check-label" for="flexRadioDefault1" id="status">
-            판매중지
-          </label>
-        </div>
-        <!-- 품절 버튼 -->
-        <div class="form-check">
-          <input
-            class="form-check-input"
-            type="radio"
-            name="flexRadioDefault"
-            id="flexRadioDefault1"
-            checked
-          />
-          <label class="form-check-label" for="flexRadioDefault1" id="status">
-            품절
-          </label>
-        </div>
-        <!-- 판매종료 버튼 -->
-        <div class="form-check">
-          <input
-            class="form-check-input"
-            type="radio"
-            name="flexRadioDefault"
-            id="flexRadioDefault1"
-            checked
-          />
-          <label class="form-check-label" for="flexRadioDefault1" id="status">
-            판매종료
-          </label>
-        </div>
-      </div>
-    </div>
-    <!-- 판매상태 끝 -->
-
-    <!-- 5) 카테고리 시작 -->
-    <div
-      class="container mt-4"
-      style="
-        border: 1px solid black;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        height: 60px;
-      "
-    >
-      <div
-        style="
-          display: flex;
-          justify-content: space-between;
-          align-items: center;
-        "
-      >
-        <label id="category"> 카테고리 </label>
-        <label style="align-items: right">
-          <select class="form-select" aria-label="Default select example">
-            <option selected>스킨케어</option>
-            <option value="1">메이크업</option>
-            <option value="2">바디</option>
-            <option value="3">헤어</option>
-          </select>
-        </label>
-      </div>
-    </div>
     <!-- 카테고리 끝 -->
   </div>
 
@@ -261,35 +76,22 @@
       type="button"
       class="text-light signUpBtn btn-sm mt-4"
       style="margin-left: 10px"
+      @click="retrieveProduct"
     >
       검색
     </button>
-    <button
+    <!-- <button
       type="button"
       class="text-light signUpBtn btn-sm mt-4"
       style="margin-left: 10px"
     >
       초기화
-    </button>
+    </button> -->
   </div>
 
   <!-- 3. 수정 페이지 -->
   <div class="container">
-    <!-- 1) 수정 배너 시작 -->
-    <div
-      class="container mt-5"
-      style="
-        border: 1px solid black;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        height: 50px;
-      "
-    >
-      <label><b>상품 수정</b></label>
-    </div>
-    <!-- 수정 배너 끝 -->
-
+    <br />
     <br />
 
     <!-- 2) 상품 항목 시작 -->
@@ -299,197 +101,65 @@
         <!-- 테이블 제목 행 -->
         <thead>
           <tr class="text-center">
-            <th scope="col">
+            <!-- <th scope="col">
               <input
                 class="form-check-input"
                 type="checkbox"
                 value=""
                 id="flexCheckDefault"
               />
-            </th>
-            <th scope="col" id="modifyCol">수정</th>
-            <th scope="col" id="modifyCol">복사</th>
-            <th scope="col">상품번호</th>
+            </th> -->
+            <!-- <th scope="col" id="modifyCol">수정</th> -->
+            <th scope="col" id="prodNumber">상품번호</th>
             <th scope="col">상품명</th>
-            <th scope="col">상세설명</th>
             <th scope="col">판매상태</th>
-            <th scope="col">재고수량</th>
+            <th scope="col" id="prodCategory">카테고리</th>
             <th scope="col">판매가</th>
+            <th scope="col" id="prodNumber">재고수량</th>
+            <th scope="col" id="modifyCol">수정</th>
           </tr>
         </thead>
         <tbody>
-          <!-- 1행 -->
-          <tr class="text-center">
-            <th scope="row">
-              <label class="form-label" for="user"
-                ><input
-                  class="form-check-input"
-                  type="checkbox"
-                  value=""
-                  id="flexCheckDefault"
-              /></label>
-            </th>
+          <!-- 반복문 돌리기 -->
+          <tr
+            class="text-center"
+            v-for="(data, index) in products"
+            :key="index"
+          >
             <td>
-              <button
-                type="button"
-                class="text-light updateBtn btn btn-success"
-              >
+              <div>
+                <p>{{ data.prodId }}</p>
+              </div>
+            </td>
+            <td>
+              <div>
+                <p>{{ data.prodName }}</p>
+              </div>
+            </td>
+            <td>
+              <div>
+                <p>{{ data.prodStatus }}</p>
+              </div>
+            </td>
+            <td>
+              <div>
+                <p>{{ data.prodCategory }}</p>
+              </div>
+            </td>
+            <td>
+              {{
+               data.prodPrice
+              }}
+            </td>
+            <td>
+              <div>
+                <p>{{ data.prodStock }}</p>
+              </div>
+            </td>
+            <td>
+              <button type="button" class="text-ligh btn" id="modifySaveBtn" @click="goModifyPage(data.prodId)">
                 수정
               </button>
-            </td>
-            <td>
-              <button
-                type="button"
-                class="text-light updateBtn btn btn-success"
-              >
-                복사
-              </button>
-            </td>
-            <td>
-              <div>
-                <input class="form-control" type="text" name="user" />
-              </div>
-            </td>
-            <td>
-              <div>
-                <input class="form-control" type="text" name="user" />
-              </div>
-            </td>
-            <td>
-              <div>
-                <input class="form-control" type="text" name="user" />
-              </div>
-            </td>
-            <td>
-              <div>
-                <input class="form-control" type="text" name="user" />
-              </div>
-            </td>
-            <td>
-              <div>
-                <input class="form-control" type="text" name="user" />
-              </div>
-            </td>
-            <td>
-              <div>
-                <input class="form-control" type="text" name="user" />
-              </div>
-            </td>
-          </tr>
-          <!-- 2행 tr -->
-          <tr class="text-center">
-            <th scope="row">
-              <label class="form-label" for="user"
-                ><input
-                  class="form-check-input"
-                  type="checkbox"
-                  value=""
-                  id="flexCheckDefault"
-              /></label>
-            </th>
-            <td>
-              <button
-                type="button"
-                class="text-light updateBtn btn btn-success"
-              >
-                수정
-              </button>
-            </td>
-            <td>
-              <button
-                type="button"
-                class="text-light updateBtn btn btn-success"
-              >
-                복사
-              </button>
-            </td>
-            <td>
-              <div>
-                <input class="form-control" type="text" name="user" />
-              </div>
-            </td>
-            <td>
-              <div>
-                <input class="form-control" type="text" name="user" />
-              </div>
-            </td>
-            <td>
-              <div>
-                <input class="form-control" type="text" name="user" />
-              </div>
-            </td>
-            <td>
-              <div>
-                <input class="form-control" type="text" name="user" />
-              </div>
-            </td>
-            <td>
-              <div>
-                <input class="form-control" type="text" name="user" />
-              </div>
-            </td>
-            <td>
-              <div>
-                <input class="form-control" type="text" name="user" />
-              </div>
-            </td>
-          </tr>
-          <!-- 3행 tr -->
-          <tr class="text-center">
-            <th scope="row">
-              <label class="form-label" for="user"
-                ><input
-                  class="form-check-input"
-                  type="checkbox"
-                  value=""
-                  id="flexCheckDefault"
-              /></label>
-            </th>
-            <td>
-              <button
-                type="button"
-                class="text-light updateBtn btn btn-success"
-              >
-                수정
-              </button>
-            </td>
-            <td>
-              <button
-                type="button"
-                class="text-light updateBtn btn btn-success"
-              >
-                복사
-              </button>
-            </td>
-            <td>
-              <div>
-                <input class="form-control" type="text" name="user" />
-              </div>
-            </td>
-            <td>
-              <div>
-                <input class="form-control" type="text" name="user" />
-              </div>
-            </td>
-            <td>
-              <div>
-                <input class="form-control" type="text" name="user" />
-              </div>
-            </td>
-            <td>
-              <div>
-                <input class="form-control" type="text" name="user" />
-              </div>
-            </td>
-            <td>
-              <div>
-                <input class="form-control" type="text" name="user" />
-              </div>
-            </td>
-            <td>
-              <div>
-                <input class="form-control" type="text" name="user" />
-              </div>
             </td>
           </tr>
         </tbody>
@@ -497,27 +167,42 @@
     </div>
     <!-- 상품 항목 끝 -->
   </div>
-  <!-- 4. 수정 항목 저장 버튼 -->
-  <div class="container text-center">
-    <button
-      type="button"
-      class="text-light signUpBtn btn-sm mt-4"
-      style="margin-left: 10px"
-    >
-      수정 항목 저장
-    </button>
-  </div>
-
-  <br />
-  <br />
 </template>
 
 <script>
 import AdminHeaderCom from "@/components/common/AdminHeaderCom.vue";
+import AdminManageService from "@/services/admin/AdminManageService";
 
 export default {
   components: {
     AdminHeaderCom,
+  },
+  data() {
+    return {
+      findProdName: "", // 사용자가 검색할 검색어
+      products: [], // 테이블에 나오는 배열정보들
+    };
+  },
+  methods: {
+    // 전체조회 + prodName으로 검색해서 결과 나오기
+    async retrieveProduct() {
+      try {
+        let response = await AdminManageService.getAll(this.findProdName);
+        this.products = response.data; // 부서 배열(백엔드에서 배열을 이름없이 전송했음. 이걸 products 라는 배열에 집어넣기)
+        // console.log("나와주세요" + response.data);
+        // console.log(response.data);   // 콘솔로 찍기
+      } catch (e) {
+        console.log(e);
+      }
+    },
+    // 수정 버튼 클릭 시 상품 수정 페이지로 이동
+    goModifyPage(prodId) {
+      this.$router.push(`/shop/admin/prod-modify/${prodId}`);
+    },
+  },
+  mounted() {
+    // 최초 화면이 뜰 때 전체조회 실행(장바구니)
+    this.retrieveProduct();
   },
 };
 </script>
@@ -579,5 +264,19 @@ export default {
 }
 #modifyCol {
   width: 5vw;
+}
+
+.updateBtn {
+  width: 5vw;
+}
+
+#modifySaveBtn {
+  background-color: #342a26;
+  color: white;
+  width: 5vw;
+}
+
+#prodNumber {
+  width: 7vw;
 }
 </style>

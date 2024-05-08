@@ -39,4 +39,9 @@ public interface CartRepository extends JpaRepository<Cart, Integer> {
             "WHERE LC.PROD_ID = LP.PROD_ID",
     nativeQuery = true)
     Page<ICartDto> selectByTitleContaining(@Param("title") String title, Pageable pageable);
+
+    @Query(value = "SELECT CART_ID FROM LOTTO_CART\n" +
+            "WHERE PROD_ID = :prodId"
+            , nativeQuery = true)
+    public Integer existsByProdId(@Param("prodId") int prodId);
 }
