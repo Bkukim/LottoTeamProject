@@ -19,5 +19,32 @@
   </template>
   <script></script>
   <style>
-  
+  body, html {
+    height: 100%;
+    margin: 0;
+    display: flex;
+    justify-content: center; /* 수평 중앙 정렬 */
+    align-items: center; /* 수직 중앙 정렬 */
+    flex-direction: column; /* 자식 요소들을 수직 방향으로 정렬 */
+  }
+
+  /* .box_section 스타일 */
+  .box_section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 600px; /* 너비 설정 */
+    text-align: center; /* 텍스트 중앙 정렬 */
+  }
+
+  .p-grid {
+    width: 100%;
+    display: flex;
+    justify-content: space-around; /* 버튼 사이의 공간을 동일하게 설정 */
+  }
+
+  .p-grid-col5 {
+    flex: 1; /* 버튼이 공간을 균등하게 차지하도록 설정 */
+  }
 </style>

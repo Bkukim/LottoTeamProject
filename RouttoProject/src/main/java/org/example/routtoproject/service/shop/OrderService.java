@@ -17,6 +17,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Optional;
 
 
 /**
@@ -37,8 +38,10 @@ import java.util.List;
 @RequiredArgsConstructor
 public class OrderService {
 
+
     private final OrderRepository orderRepository;          // DI
     private final OrderProdRepository orderProdRepository;  // DI
+
 
     ModelMapper modelMapper = new ModelMapper();
 
@@ -83,6 +86,7 @@ public class OrderService {
         return page;
     }
 
+
 //    todo: 관리자 주문확인 페이지 : 상세보기 클릭 시 나오는 상품 정보
     public List<OrderProductDetailDto> findOrderProdDetail(Integer orderId){
         List<OrderProductDetailDto> order = orderProdRepository.findAllByorderProdIdContaining(orderId);
@@ -94,4 +98,38 @@ public class OrderService {
         Order order2 = orderRepository.save(order);
         return order2;
     }
+
+//  결제 함수
+    @Transactional
+    //    저장함수
+    public Order insert(OrderDto orderDto) {
+
+//     1) DTO -> Model 변환
+        Order order = modelMapper.map(orderDto, Order.class);
+
+        Order order2 = orderRepository.save(order); // 부모 테이블 저장
+
+//      자식 테이블 저장
+        for (int i = 0; i < orderDto.getOrderProds().size(); i++) {
+            orderDto.getOrderProds().get(i).setOrderId(order2.getOrderId()); // 기본키는 부모쪽 값을 넣기
+            orderProdRepository.save(orderDto.getOrderProds().get(i));
+        }
+
+        return order2;
+    }
+
+    //    수정함수 : 카프카에서 사용
+    public void update(Order order) {
+
+//      1) 수정
+        orderRepository.save(order);
+    }
+
+    //    상세조회
+    public Optional<Order> findById(int orderId) {
+        Optional<Order> optionalOrder = orderRepository.findById(orderId);
+
+        return optionalOrder;
+    }
+
 }
