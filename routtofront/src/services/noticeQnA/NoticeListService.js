@@ -40,10 +40,13 @@ class NoticeListService {
           "Content-Type": "multipart/form-data",
         },
       },
-    
-    {
-      headers: AuthHeader()
-    });
+
+
+      // 권한
+      {
+        headers: AuthHeader(),
+      },
+    );
 
   }
 
@@ -81,6 +84,7 @@ class NoticeListService {
         headers: AuthHeader(),
       },
     );
+
   }
 
   // TODO: 삭제함수 : announcementId
