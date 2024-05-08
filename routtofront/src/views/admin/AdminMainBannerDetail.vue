@@ -23,7 +23,7 @@
         placeholder="상품 번호을 입력하세요"
         style="height: 35px; margin-right: 10px"
         class="input-box"
-        v-model="product.prodId"
+        v-model="banner.prodId"
       />
       
       <button
@@ -49,7 +49,7 @@
   >
     <label><b>상품명</b></label
     ><label style="display: flex; align-items: center; height: 100%">
-    {{ product.prodName }}
+    {{ banner.prodName }}
     </label>
   </div>
   <!-- 상품명 끝 -->
@@ -157,6 +157,7 @@ export default {
     async getBanner(){
       try {
         let response = await AdminAdBannerService.findBabber("메인 배너")
+        console.log(response.data);
         this.banner=response.data;
       } catch (error) {
         console.log(error);

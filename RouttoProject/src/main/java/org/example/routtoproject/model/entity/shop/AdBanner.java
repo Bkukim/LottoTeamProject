@@ -1,9 +1,6 @@
 package org.example.routtoproject.model.entity.shop;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.SequenceGenerator;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.*;
 import org.example.routtoproject.model.common.BaseTimeEntity;
 import org.hibernate.annotations.DynamicInsert;
@@ -40,10 +37,14 @@ public class AdBanner extends BaseTimeEntity {
     private String bannerTitle;
     private String  bannerContent;
     private byte[] bannerImg1;
+    @Column(name = "BANNER_IMG1_URL")
     private String bannerImg1Url;
+    @Column(name = "BANNER_IMG1_UUID")
     private String bannerImg1Uuid;
     private byte[] bannerImg2;
+    @Column(name = "BANNER_IMG2_URL")
     private String bannerImg2Url;
+    @Column(name = "BANNER_IMG2_UUID")
     private String bannerImg2Uuid;
     private String insertTime;
     private String updateTime;
