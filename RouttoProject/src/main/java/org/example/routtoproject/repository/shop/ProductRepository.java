@@ -44,6 +44,7 @@ public interface ProductRepository extends JpaRepository<Product, Integer> {
                                            Pageable pageable
     );
 
+
     //    todo: 상품명으로 조회하는 SELECT 쿼리문
     @Query(value = "SELECT PROD_ID AS prodId\n" +
             ", PROD_NAME AS prodName\n" +

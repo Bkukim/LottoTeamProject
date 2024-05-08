@@ -16,7 +16,7 @@ class ProductService {
     return http.get("/normal/shop/product/all");
   }
 
-  
+
 }
 
 export default new ProductService();

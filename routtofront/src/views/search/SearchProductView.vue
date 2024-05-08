@@ -17,24 +17,19 @@
                 id="prodName"
                 placeholder="prodName"
                 name="prodName"
+                v-model="searchProduct"
               />
 
-              <router-link to="/">
+              <div @click="retrieveProduct">
                 <img class="search" src="@/assets/images/search.png" />
-              </router-link>
+              </div>
             </div>
           </div>
 
           <div class="col-md-8">
-            <div class="row">
+            <div class="row" v-for="(data, index) in products" :key="index">
               <div class="col-md-4 mr-4">
-                <div class="serch_box">상품목록</div>
-              </div>
-              <div class="col-md-4 mr-4">
-                <div class="serch_box">상품목록</div>
-              </div>
-              <div class="col-md-4">
-                <div class="serch_box">상품목록</div>
+                <div class="serch_box"><img :src="data.prodImgUrl"></div>
               </div>
             </div>
           </div>
@@ -44,11 +39,35 @@
   </div>
 </template>
   <script>
-export default {};
+  import ProductService from '@/services/product/ProductService';
+export default {
+  data() {
+    return {
+      products:[],
+      searchProduct:""
+
+    }
+  },methods: {
+    retrieveProduct(){
+      try {
+        let response = ProductService.getSearchProductAll(this.searchProduct)
+        console.log(response.data);
+        this.products = response.data;
+      } catch (error) {
+        console.log(error);
+      }
+    }
+  },
+  mounted() {
+    this.retrieveProduct();
+  },
+};
 </script>
   <style>
 .container {
-  height: 1000px;
+
+min-height: 1000px;
+height: auto;
   /* margin-top: 250px; */
 }
 .search {
