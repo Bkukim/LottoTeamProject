@@ -118,7 +118,9 @@ public class ProductService {
                         prodImgUuid,
                         prodDetailPageUuid); // 우리가 만든 url
                 product2 = productRepository.save(product);
+
            }else {
+
                 // todo  1-3) 생성자에 만든 url넣어주기
                 Product product = new Product(prodName,
                         defaultPrice,
