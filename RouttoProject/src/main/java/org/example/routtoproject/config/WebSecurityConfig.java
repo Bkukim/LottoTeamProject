@@ -67,6 +67,7 @@ public class WebSecurityConfig {
         http.formLogin(req -> req.disable()); // form 태그 action 을 이용한 로그인 사용않함 -> axios 통신함
 
         http.authorizeHttpRequests(req -> req // todo 여기서 부터 controller의 url을 제한함으로 db와의 접근을 제한한다.
+
 //                .dispatcherTypeMatchers(DispatcherType.FORWARD).permitAll()
 
 //
@@ -78,6 +79,7 @@ public class WebSecurityConfig {
                 .anyRequest()
                 .permitAll());
 //                .authenticated());
+
 
 
 
