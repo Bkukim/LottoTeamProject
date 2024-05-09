@@ -17,6 +17,7 @@ package org.example.routtoproject.model.dto.shop;
 public interface ICartDto {
 
 
+
     Integer getCartId(); // 기본키  시퀀스 장바구니 번호
 
     String getUserId(); //회원번호
@@ -32,6 +33,9 @@ public interface ICartDto {
     Integer getDefaultPrice(); // 원가
 
     Integer getDiscountRate(); // 할인율
+
+
+
 
  Integer getCartId(); // 기본키  시퀀스 장바구니 번호
  String getUserId(); //회원번호
