@@ -16,6 +16,7 @@ package org.example.routtoproject.model.dto.shop;
  */
 public interface ICartDto {
 
+
  Integer getCartId(); // 기본키  시퀀스 장바구니 번호
  String getUserId(); //회원번호
  Integer getCartProdCount(); // 각 상품의 갯수
@@ -27,5 +28,6 @@ public interface ICartDto {
  String getProdImgUrl(); // 상품 이미지 Url
  Integer getProdPrice(); // 할인율 적용한 상품 가격
  Integer getTotalPrice(); // 배송비 포함한 총 가격
+
 
 }

@@ -352,6 +352,16 @@ export default {
   border-radius: 5px; /* 모서리 둥글게 : 5px로 설정 */
 }
 
+#btn2 :hover{
+  width: 9vw;
+  height: 4vw;
+  margin-right: 1.5vw;
+  background-color: rgb(240, 92, 92);
+  border: 1px solid #e2e2e2;
+  color: black;
+  border-radius: 5px; /* 모서리 둥글게 : 5px로 설정 */
+}
+
 #btn3 {
   width: 9vw;
   height: 4vw;

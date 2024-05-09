@@ -1,7 +1,7 @@
 <!-- InquiryUpdate.vue :: 
     문의글 수정페이지 -->
 <template>
-  <div class="mt-5 mb-5 col-13">
+  <div class="mb-5 col-13">
     <!-- 카테고리 -->
     <h5 class="text-center main_text">문의글 수정</h5>
     <br />
@@ -77,6 +77,7 @@ export default {
         console.log(e);
       }
     },
+    
     // 수정요청함수
     async updateFaq() {
       try {
@@ -95,6 +96,7 @@ export default {
   },
   mounted() {
     this.getFaqId(this.$route.params.faqId); // 상세조회 실행
+    
     this.message = ""; //초기화
   },
 };

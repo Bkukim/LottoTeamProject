@@ -1,7 +1,7 @@
 <!-- Notice view -->
 <template>
   <div class="container">
-    <div class="mt-5">
+    <div class="main_text">
       <router-link class="top_notice router-link-exact-active fs-5" to="/shop/notice"
         >공지사항</router-link
       >
@@ -128,6 +128,7 @@ export default {
   // 조회
   mounted() {
     this.retrieveNotice();
+    window.scrollTo(0, 0); 
   },
 };
 </script>
