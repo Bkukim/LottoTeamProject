@@ -41,6 +41,7 @@ class NoticeListService {
         },
       },
 
+
       // 권한
       {
         headers: AuthHeader(),
@@ -93,7 +94,6 @@ class NoticeListService {
 
     return http.delete(`/admin/notice/deletion/${announcementId}`, {
       headers: AuthHeader(),
-
     });
   }
 }

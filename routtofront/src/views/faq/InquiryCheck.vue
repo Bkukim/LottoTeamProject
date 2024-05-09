@@ -1,10 +1,10 @@
 <!-- inquiryCheck.vue :: Add문의 등록 form-->
 <template>
-  <div class="mt-5 mb-5 col-13" v-if="faqList">
+  <div class="mb-5 col-13" v-if="faqList">
     <!-- 카테고리 -->
     <div class="container">
       <h2 class="mb-5 main_text">문의사항</h2>
-      <table class="table table-bordered">
+      <table class="borderA table table-bordered">
         <tbody>
           <tr>
             <th scope="row" class="col-2">제목</th>
@@ -15,7 +15,7 @@
             <td>{{ faqList.faqType }}</td>
           </tr>
           <tr>
-            <th scope="row">내용</th>
+            <th scope="row" class="table_check">내용</th>
             <td>
               {{ faqList.faqContent }}
             </td>
@@ -27,43 +27,56 @@
     <!-- 문의사항 등록 버튼  :: 공지사항거 들고오기-->
     <div class="d-grid gap-2 d-md-flex justify-content-md-end">
       <!-- 등록시 고객센터 글 목록으로 재이동 -->
-      <!-- <router-link :to="'/shop/inquiry-update/' + faqList.userId">
-        <button id="button1" class="btn btn-primary" type="button">수정</button>
-      </router-link>
-      <button
-        
-        id="button1"
-        class="btn btn-primary"
-        type="button"
-        @click="deleteFaq"
-      >
-        삭제
-        {{ faqList.userId }}
-      </button> -->
-      <!-- <router-link
-        v-if="faqList.userId === this.$store.state.user.userId"
-        :to="'/shop/inquiry-update/' + faqList.faqId"
-      >
-        <button id="button1" class="btn btn-primary" type="button">수정</button>
-      </router-link> -->
+      <div v-if="faqList.userId === this.$store.state.user.userId">
+        <router-link :to="'/shop/inquiry-update/' + faqList.faqId">
+          <button id="button1" class="btn btn-primary" type="button">
+            수정
+          </button>
+        </router-link>
+        <button id="button1" class="btn" type="button" @click="deleteFaq">
+          삭제
+        </button>
+      </div>
+    </div>
 
-      <!-- <button
-        v-if="faqList?.userId === this.$store.state.user.userId"
-        id="button1"
-        class="btn btn-primary"
-        type="button"
-        @click="deleteFaq"
-      >
-        삭제
-      </button> -->
-      <button
-        id="button1"
-        class="btn btn-primary"
-        type="button"
-        @click="deleteFaq"
-      >
-        삭제
-      </button>
+    <!-- TODO: 관리자 수정 댓글 창 -->
+    <div class="mt-5 row rebox text-aling"
+    v-if="this.$store.state.user.role=='ROLE_ADMIN'"
+    >
+      <label for="username" class="mt-5 col-sm-1 col-form-label">제목</label>
+      <div class="col-sm-8">
+        <input
+          type="text"
+          class="mt-5 borderA form-control"
+          id="username"
+          v-model="reTitle"
+          placeholder="이름을 입력하세요"
+        />
+      </div>
+      <!-- 댓글 입력 -->
+      <div class="row mt-3">
+        <label for="comment" class="col-sm-1 col-form-label">답변</label>
+        <div class="col-sm-11">
+          <textarea
+            class="borderA form-control"
+            id="comment"
+            rows="5"
+            placeholder="답변을 입력하세요"
+          ></textarea>
+        </div>
+
+        <!-- 등록답변 -->
+        <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+          <button
+            id="button1"
+            class="mt-4 btn"
+            type="button"
+            @click="deleteFaq"
+          >
+            답변
+          </button>
+        </div>
+      </div>
     </div>
   </div>
 </template>
@@ -109,13 +122,15 @@ export default {
         console.log(e);
       }
     },
-    // 패스워드 쓰지않음
-    // goUapdate() {
-    //   this.$router.push('/inquiry-update'+faq.faqId);
-    // },
   },
   mounted() {
     this.get(this.$route.params.faqId);
+    window.scrollTo(0, 0);
+  },
+  computed: {
+    reTitle() {
+      return "RE:  " + this.faqList.faqTitle;
+    },
   },
 };
 </script>
