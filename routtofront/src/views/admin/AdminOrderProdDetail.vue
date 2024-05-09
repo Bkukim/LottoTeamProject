@@ -88,6 +88,8 @@ export default {
     },
   },
   mounted() {
+            // 화면 뜰때 상단이 뜨게 해주는 함수
+    window.scrollTo(0, 0); 
     this.retrieveOrderProduct(this.$route.params.orderId);  // 화면이 처음 뜰 때 orderId로 조회
   },
 };

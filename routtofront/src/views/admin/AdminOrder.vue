@@ -343,7 +343,7 @@ export default {
     },
     // 상세보기 클릭 시 상품 상세조회로 가는 페이지
     goProdDetail(orderId) {
-      this.$router.push(`/orderProduct/${orderId}`);
+      this.$router.push(`/shop/admin/order/detail/${orderId}`);
     },
     // 전체조회(장바구니) 함수 : 검색어 버튼, 화면이뜰때 자동 실행
     async retrieveOrder() {
