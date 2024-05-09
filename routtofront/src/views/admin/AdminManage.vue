@@ -1,107 +1,110 @@
 // 관리자 조회/수정 페이지
 <template>
   <AdminHeaderCom />
-  <!-- 1. 조회 -->
-  <div class="container">
-    <!-- 1) 조회 배너 시작 -->
-    <div
-      class="container mt-5"
-      style="
-        border: 1px solid black;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        height: 50px;
-      "
-    >
-      <label><b>상품 조회 / 수정</b></label>
-    </div>
-    <!-- 조회 배너 끝 -->
-
-    <!-- 2) 검색어 시작 -->
-    <div
-      class="container mt-4"
-      style="
-        border: 1px solid black;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        height: 60px;
-      "
-    >
+ 
+    
+    <!-- 1. 조회 -->
+    <div class="container">
+      <h2 class="mb-3">상품 조회수정</h2>
+      <!-- 1) 조회 배너 시작 -->
       <div
+        class="container mt-5"
         style="
+          border: 1px solid black;
           display: flex;
           justify-content: space-between;
           align-items: center;
+          height: 50px;
         "
       >
-        <label id="searchWord">검색어</label>
-
-        <!-- 상품번호 시작 -->
-
-        <div class="form-check" id="prodNum">
-          <label
-            class="form-check-label"
-            for="flexRadioDefault1"
-            id="form-check-label"
-          >
-            상품명
-          </label>
-        </div>
-        <div class="col">
-          <input
-            class="form-control"
-            type="text"
-            name="prodNum"
-            v-model="findProdName"
-          />
-        </div>
-
-        <!-- 상품번호 끝 -->
-
-        <!-- </label> -->
+        <label><b>상품 조회 / 수정</b></label>
       </div>
+      <!-- 조회 배너 끝 -->
+
+      <!-- 2) 검색어 시작 -->
+      <div
+        class="container mt-4"
+        style="
+          border: 1px solid black;
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          height: 60px;
+        "
+      >
+        <div
+          style="
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+          "
+        >
+          <label id="searchWord">검색어</label>
+
+          <!-- 상품번호 시작 -->
+
+          <div class="form-check" id="prodNum">
+            <label
+              class="form-check-label"
+              for="flexRadioDefault1"
+              id="form-check-label"
+            >
+              상품명
+            </label>
+          </div>
+          <div class="col">
+            <input
+              class="form-control"
+              type="text"
+              name="prodNum"
+              v-model="findProdName"
+            />
+          </div>
+
+          <!-- 상품번호 끝 -->
+
+          <!-- </label> -->
+        </div>
+      </div>
+      <!-- 검색어 끝 -->
+
+      <!-- 카테고리 끝 -->
     </div>
-    <!-- 검색어 끝 -->
 
-    <!-- 카테고리 끝 -->
-  </div>
+    <br />
 
-  <br />
-
-  <!-- 2. 검색/초기화 버튼 -->
-  <div class="container text-center">
-    <button
-      type="button"
-      class="text-light signUpBtn btn-sm mt-4"
-      style="margin-left: 10px"
-      @click="retrieveProduct"
-    >
-      검색
-    </button>
-    <!-- <button
+    <!-- 2. 검색/초기화 버튼 -->
+    <div class="container text-center">
+      <button
+        type="button"
+        class="text-light signUpBtn btn-sm mt-4"
+        style="margin-left: 10px"
+        @click="retrieveProduct"
+      >
+        검색
+      </button>
+      <!-- <button
       type="button"
       class="text-light signUpBtn btn-sm mt-4"
       style="margin-left: 10px"
     >
       초기화
     </button> -->
-  </div>
+    </div>
 
-  <!-- 3. 수정 페이지 -->
-  <div class="container">
-    <br />
-    <br />
+    <!-- 3. 수정 페이지 -->
+    <div class="container">
+      <br />
+      <br />
 
-    <!-- 2) 상품 항목 시작 -->
-    <div>
-      <!-- 기본 정보 테이블 시작-->
-      <table class="table table-bordered" style="border: 1px solid #342a26">
-        <!-- 테이블 제목 행 -->
-        <thead>
-          <tr class="text-center">
-            <!-- <th scope="col">
+      <!-- 2) 상품 항목 시작 -->
+      <div>
+        <!-- 기본 정보 테이블 시작-->
+        <table class="table table-bordered" style="border: 1px solid #342a26">
+          <!-- 테이블 제목 행 -->
+          <thead>
+            <tr class="text-center">
+              <!-- <th scope="col">
               <input
                 class="form-check-input"
                 type="checkbox"
@@ -109,62 +112,65 @@
                 id="flexCheckDefault"
               />
             </th> -->
-            <!-- <th scope="col" id="modifyCol">수정</th> -->
-            <th scope="col" id="prodNumber">상품번호</th>
-            <th scope="col">상품명</th>
-            <th scope="col">판매상태</th>
-            <th scope="col" id="prodCategory">카테고리</th>
-            <th scope="col">판매가</th>
-            <th scope="col" id="prodNumber">재고수량</th>
-            <th scope="col" id="modifyCol">수정</th>
-          </tr>
-        </thead>
-        <tbody>
-          <!-- 반복문 돌리기 -->
-          <tr
-            class="text-center"
-            v-for="(data, index) in products"
-            :key="index"
-          >
-            <td>
-              <div>
-                <p>{{ data.prodId }}</p>
-              </div>
-            </td>
-            <td>
-              <div>
-                <p>{{ data.prodName }}</p>
-              </div>
-            </td>
-            <td>
-              <div>
-                <p>{{ data.prodStatus }}</p>
-              </div>
-            </td>
-            <td>
-              <div>
-                <p>{{ data.prodCategory }}</p>
-              </div>
-            </td>
-            <td>
-              {{
-               data.prodPrice
-              }}
-            </td>
-            <td>
-              <div>
-                <p>{{ data.prodStock }}</p>
-              </div>
-            </td>
-            <td>
-              <button type="button" class="text-ligh btn" id="modifySaveBtn" @click="goModifyPage(data.prodId)">
-                수정
-              </button>
-            </td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
+              <!-- <th scope="col" id="modifyCol">수정</th> -->
+              <th scope="col" id="prodNumber">상품번호</th>
+              <th scope="col">상품명</th>
+              <th scope="col">판매상태</th>
+              <th scope="col" id="prodCategory">카테고리</th>
+              <th scope="col">판매가</th>
+              <th scope="col" id="prodNumber">재고수량</th>
+              <th scope="col" id="modifyCol">수정</th>
+            </tr>
+          </thead>
+          <tbody>
+            <!-- 반복문 돌리기 -->
+            <tr
+              class="text-center"
+              v-for="(data, index) in products"
+              :key="index"
+            >
+              <td>
+                <div>
+                  <p>{{ data.prodId }}</p>
+                </div>
+              </td>
+              <td>
+                <div>
+                  <p>{{ data.prodName }}</p>
+                </div>
+              </td>
+              <td>
+                <div>
+                  <p>{{ data.prodStatus }}</p>
+                </div>
+              </td>
+              <td>
+                <div>
+                  <p>{{ data.prodCategory }}</p>
+                </div>
+              </td>
+              <td>
+                {{ data.prodPrice }}
+              </td>
+              <td>
+                <div>
+                  <p>{{ data.prodStock }}</p>
+                </div>
+              </td>
+              <td>
+                <button
+                  type="button"
+                  class="text-ligh btn"
+                  id="modifySaveBtn"
+                  @click="goModifyPage(data.prodId)"
+                >
+                  수정
+                </button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
     <!-- 상품 항목 끝 -->
   </div>
 </template>

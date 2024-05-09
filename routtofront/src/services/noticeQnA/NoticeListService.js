@@ -3,6 +3,7 @@
 import http from "@/utils/http-common"; // spring 통신 정의 파일
 import AuthHeader from "../auth/AuthHeader";
 
+import AuthHeaderUpload from "../auth/AuthHeaderUpload";
 class NoticeListService {
   // 속성(x), 생성자(x), 공통함수
   // TODO: 전체 조회
@@ -31,7 +32,7 @@ class NoticeListService {
     console.log("announcementImg", announcementImg);
     return http.post("/admin/notice/save", formData, {
       headers: {
-        "Content-Type": "multipart/form-data",
+        headers: AuthHeaderUpload()
       },
     },
     {
@@ -61,7 +62,7 @@ class NoticeListService {
     return http.put(`/admin/notice/update/${announcement.announcementId}`, formData, {
       headers: {
         //헤더쪽에다가 멀티파트 보냄~~
-        "Content-Type": "multipart/form-data",
+        headers: AuthHeader(),
       },
     },
     {

@@ -1,6 +1,7 @@
 <template>
-  <h2>배너 관리</h2>
-  <div>
+  <AdminHeaderCom />
+  <div class="container">
+    <h2 class="mb-5">배너 관리</h2>
     <!-- 5. 테이블 시작-->
     <table class="table table-bordered" style="border: 1px solid #342a26">
       <!-- 테이블 제목 행 -->
@@ -16,25 +17,26 @@
       </thead>
       <tbody>
         <tr class="text-center" v-for="(data, index) in banner" :key="index">
-          <td>
+          <td :style="{ 'vertical-align': 'middle', 'text-align': 'center' }">
             <div class="mt-2">{{ data.bannerId }}</div>
           </td>
 
-          <td>
+          <td :style="{ 'vertical-align': 'middle', 'text-align': 'center' }">
             <div class="mt-2">{{ data.prodName }}</div>
           </td>
 
-          <td>
+          <td :style="{ 'vertical-align': 'middle', 'text-align': 'center' }">
             <div class="mt-2">{{ data.bannerTitle }}</div>
           </td>
 
-          <td>
-            <div class="mt-2"><img :src="data.bannerImg1Url" style="max-width: 250px;"></div>
+          <td :style="{ 'vertical-align': 'middle', 'text-align': 'center' }">
+            <div class="mt-2"><img :src="data.bannerImg1Url" style="max-width: 250px; max-height: 150px;"></div>
           </td>
-          <td>
-            <div class="mt-2"><img :src="data.bannerImg2Url"></div>
+          <td :style="{ 'vertical-align': 'middle', 'text-align': 'center' }">
+            <div class="mt-2" v-if="data.bannerId == '배너 2'"><img :src="data.bannerImg2Url" style="max-width: 250px; max-height: 150px;"></div>
+            <div class="mt-2" v-else>이미지 없음</div>
           </td>
-          <td>
+          <td :style="{ 'vertical-align': 'middle', 'text-align': 'center' }">
             <div>
               <button
                 type="button"
@@ -53,8 +55,12 @@
 </template>
 <script>
 import AdminAdBannerService from "@/services/admin/AdminAdBannerService";
+import AdminHeaderCom from "@/components/common/AdminHeaderCom.vue";
 
 export default {
+  components: {
+    AdminHeaderCom,
+  },
   data() {
     return {
       banner: [
@@ -72,7 +78,7 @@ export default {
   methods: {
     async getAllBanner() {
       try {
-        let response = await AdminAdBannerService.findAllBanner();
+        let response = await AdminAdBannerService.findAllBannerAdmin();
         this.banner = response.data;
         console.log(response.data);
       } catch (error) {

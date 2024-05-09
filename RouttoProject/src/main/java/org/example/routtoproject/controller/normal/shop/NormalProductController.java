@@ -2,6 +2,7 @@ package org.example.routtoproject.controller.normal.shop;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.example.routtoproject.model.dto.shop.IProductDto;
 import org.example.routtoproject.model.dto.shop.OrderDto;
 import org.example.routtoproject.model.entity.shop.Order;
 import org.example.routtoproject.model.entity.shop.Product;
@@ -59,9 +60,9 @@ public class NormalProductController {
     // todo 전체조회 함수 : 1. 홈페이지 상품 조회
 
     @GetMapping("/product/all")
-    public ResponseEntity<Object> normalGetAll() {
+    public ResponseEntity<Object> findAllImg() {
         try {
-            List<Product> products = productService.findAll();
+            List<IProductDto> products = productService.findAllImg();
             return new ResponseEntity<>(products, HttpStatus.OK);
         } catch (Exception e) {
             log.debug(e.getMessage());

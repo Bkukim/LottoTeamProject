@@ -1,6 +1,7 @@
 package org.example.routtoproject.repository.shop;
 
 import org.example.routtoproject.model.dto.shop.IProdNameDto;
+import org.example.routtoproject.model.dto.shop.IProductDto;
 import org.example.routtoproject.model.dto.shop.OrderProductDetailDto;
 import org.example.routtoproject.model.entity.shop.Order;
 import org.example.routtoproject.model.entity.shop.Product;
@@ -30,6 +31,18 @@ import java.util.Optional;
 @Repository
 public interface ProductRepository extends JpaRepository<Product, Integer> {
 
+    // todo 상품 홈페이지에서 사진만 띄울건데 너무 많은 정보가 보여져서 필요한 것만 담기 위해 만드는 함수
+    @Query(value = "SELECT PROD_ID AS prodId,\n" +
+            "PROD_NAME AS prodName,\n" +
+            "DEFAULT_PRICE AS defaultPrice,\n" +
+            "DISCOUNT_RATE AS discountRate,\n" +
+            "DEFAULT_PRICE*(100-DISCOUNT_RATE)/100 AS prodPrice,\n" +
+            "PROD_IMG_URL AS prodImgUrl\n" +
+            "FROM LOTTO_PRODUCT\n" +
+            "WHERE PROD_STOCK <> 0 AND PROD_STATUS = '판매중'\n" +
+            "ORDER BY SOLD_COUNT"
+    ,nativeQuery = true)
+    List<IProductDto> findAllImg();
 
     Optional<Product> findByProdImgUuid(String prodImgUuid);
     Optional<Product> findByProdDetailPageUuid(String prodDetailPageUuid);
@@ -59,4 +72,7 @@ public interface ProductRepository extends JpaRepository<Product, Integer> {
     )
     List<IProdNameDto> findByProdName(@Param("prodName") String prodName);
 
+
+    // todo 카테고리 검색
+//    @Query(value = "SELECT ")
 }

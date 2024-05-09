@@ -1,6 +1,8 @@
 <template>
   <AdminHeaderCom/>
+  
   <div class="container">
+    <h2 class="mb-3">주문 관리</h2>
     <!-- 1) 주문 조회 배너 시작 -->
     <div
       class="container mt-5"
@@ -343,7 +345,7 @@ export default {
     },
     // 상세보기 클릭 시 상품 상세조회로 가는 페이지
     goProdDetail(orderId) {
-      this.$router.push(`/orderProduct/${orderId}`);
+      this.$router.push(`/shop/admin/order/detail/${orderId}`);
     },
     // 전체조회(장바구니) 함수 : 검색어 버튼, 화면이뜰때 자동 실행
     async retrieveOrder() {
@@ -418,6 +420,8 @@ export default {
   mounted() {
     // 최초 화면이 뜰 때 전체조회 실행(장바구니)
     this.retrieveOrder();
+    
+    window.scrollTo(0, 0);
   },
 };
 </script>

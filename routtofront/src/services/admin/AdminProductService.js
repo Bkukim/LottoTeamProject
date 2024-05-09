@@ -1,6 +1,6 @@
 // 주문 공통 CRUD 함수
 import http from "@/utils/http-common";
-import AuthHeader from "@/services/auth/AuthHeader";
+import AuthHeaderUpload from "../auth/AuthHeaderUpload";
 
 class AdminProductService {
  
@@ -20,13 +20,9 @@ class AdminProductService {
     formData.append("prodDetailPageUrl", data.prodDetailPageUrl);
     formData.append("prodImgUuid", data.prodImgUuid);
     formData.append("prodDetailPageUuid", data.prodDetailPageUuid);
-    return http.post("/admin/shop/product", formData, {
-      headers: {
-        "Content-Type": "multipart/form-data",
-      },
-    },
+    return http.post("/admin/shop/product", formData, 
     {
-      headers: AuthHeader()
+      headers: AuthHeaderUpload()
     });
   }
 }
