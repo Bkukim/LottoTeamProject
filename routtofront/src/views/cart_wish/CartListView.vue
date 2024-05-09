@@ -7,16 +7,16 @@
     <table class="table mt-5 text-center row-auto">
       <thead>
         <tr>
-          <!-- 전체선택 체크박스 -->
           <th class="text-center col-1">번호</th>
+          <th class="text-center col-1">상품</th>
 
-          <th class="text-center">
+          <!-- <th class="text-center">
             <input
               type="checkbox"
               v-model="selectAll"
               @click="selectAllProducts"
             />
-          </th>
+          </th> -->
           <th class="text-center">상품명</th>
           <th class="text-center">수량</th>
           <th class="text-center">가격</th>
@@ -30,8 +30,14 @@
           <td class="text-center">
             {{ data.cartId }}
           </td>
-          <!-- 체크박스 -->
-          <td class="check_td text-center"><input type="checkbox" v-model="data.checked" @change="selectProduct"/></td>
+
+          <!-- 상품IMG -->
+          <td class="text-center">
+           이미지예정, 쿼리문수정해야함
+          </td>
+          <!-- 체크박스 보류, TODO: 시간나면 이미지만 넣기-->
+          <!-- <td class="check_td text-center"><input type="checkbox" v-model="data.checked" @change="selectProduct"/></td> -->
+
           <!-- 상품명 -->
           <td class="text-center">
             {{ data.prodName }}
@@ -78,7 +84,7 @@
                 <button
                   id="button_bg1"
                   class="btn btn-primary btn-block"
-                  @click="sendOrderList"
+                  @click="oneCart"
                 >
                   구매하기
                 </button>
@@ -158,7 +164,8 @@
           class="btn btn-primary"
           @click="deleteAllCart(cart)"
         >
-          전체상품 삭제하기
+          전체상품 삭제하기 
+          <br>//해결요망
         </button>
       </div>
       <div class="col-auto mb-5">
@@ -166,7 +173,7 @@
           type="button"
           id="button2"
           class="btn btn-secondary"
-          @click="sendOrderList"
+          @click="goOrder"
         >
           선택상품 주문하기
         </button>
@@ -190,8 +197,6 @@ export default {
   data() {
     return {
       cart: [], //장바구니에 담긴 프로덕트 들
-      selectCart: [], //선택된 물건만 장바구니에 담을 객체
-      //장바구니 갯수
 
       // 공통 페이징 속성 정의
       page: 1, // 현재페이지번호
@@ -199,10 +204,6 @@ export default {
       pageSize: 100, // 화면에 보여질 개수
 
       total: 0,
-      // 전체 선택 체크박스 상태
-      selectAll: false,
-      //전체주문하기 order로 전해줄 객체
-      orderList: [],
     };
   },
   // TODO: 함수
@@ -306,37 +307,18 @@ export default {
       }
     },
 
-    // TODO: 선택함수
-    // 체크박스 전체선택
-    checkedAll() {
-      if (this.orderList.length === this.cart.length) {
-        this.orderList = [];
-      } else {
-        this.orderList = [...this.cart]; // 카트에 있는 배열을 모두 orderList로 넣기
-      }
+    // // TODO: 공통 페이징 함수 : select 태그
+    // pageSizeChange() {
+    //   this.page = 1; // 현재페이지번호 : 1
+    //   this.retrieveCart(); // 재조회
+    // },
+
+ 
+    goOrder(){
+      this.$router.push("/order");
     },
 
-    // TODO: 공통 페이징 함수 : select 태그
-    pageSizeChange() {
-      this.page = 1; // 현재페이지번호 : 1
-      this.retrieveCart(); // 재조회
-    },
 
-    // 전체 선택 체크박스 클릭 이벤트 핸들러
-    selectAllProducts() {
-      if (this.selectAll) {
-        // 전체 선택 체크박스가 체크되었을 때, 모든 상품을 선택
-        this.orderList = [...this.cart]; // 모든 상품을 선택된 상품 목록에 추가
-      } else {
-        // 전체 선택 체크박스가 해제되었을 때, 모든 상품 선택 해제
-        this.orderList = []; // 선택된 상품 목록 비우기
-      }
-    },
-    // 각 상품의 체크박스가 변경될 때 호출되는 메서드
-    selectProduct() {
-      // 전체 선택 체크박스 상태 업데이트
-      this.selectAll = this.orderList.length === this.cart.length;
-    },
   },
   //   TODO: 화면이 뜰때 자동 실행 함수
   mounted() {

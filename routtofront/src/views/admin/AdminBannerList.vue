@@ -29,7 +29,7 @@
           </td>
 
           <td>
-            <div class="mt-2"><img :src="data.bannerImg1Url"></div>
+            <div class="mt-2"><img :src="data.bannerImg1Url" style="max-width: 250px;"></div>
           </td>
           <td>
             <div class="mt-2"><img :src="data.bannerImg2Url"></div>

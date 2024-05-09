@@ -1,13 +1,20 @@
 // 주문 공통 CRUD 함수
 import http from "@/utils/http-common";
+import AuthHeader from "../auth/AuthHeader";
 
 class AdminAdBannerService {
   findAllBanner(){
-    return http.get("/admin/shop/banner");
+    return http.get("/admin/shop/banner",
+    {
+      headers: AuthHeader()
+    });
   }
 
   findBabber(bannerId){
-    return http.get(`/admin/shop/banner/${bannerId}`);
+    return http.get(`/admin/shop/banner/${bannerId}`,
+    {
+      headers: AuthHeader()
+    });
   }
 
   updateBanner(data){
@@ -22,6 +29,9 @@ class AdminAdBannerService {
       headers: {
         "Content-Type": "multipart/form-data",
       },
+    },
+    {
+      headers: AuthHeader()
     });
   }
 

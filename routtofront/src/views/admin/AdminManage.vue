@@ -117,6 +117,7 @@
             <th scope="col">판매가</th>
             <th scope="col" id="prodNumber">재고수량</th>
             <th scope="col" id="modifyCol">수정</th>
+            <!-- <th scope="col" id="modifyCol">삭제</th> -->
           </tr>
         </thead>
         <tbody>
@@ -148,10 +149,7 @@
             </td>
             <td>
               {{
-                Math.ceil(
-                  data.defaultPrice -
-                    (data.defaultPrice * data.discountRate) / 100
-                )
+               data.prodPrice
               }}
             </td>
             <td>
@@ -163,7 +161,12 @@
               <button type="button" class="text-ligh btn" id="modifySaveBtn" @click="goModifyPage(data.prodId)">
                 수정
               </button>
-            </td>
+            </td>            
+            <!-- <td>
+              <button type="button" class="text-ligh btn" id="modifySaveBtn" @click="deleteProduct(data.prodId)">
+                삭제
+              </button>
+            </td> -->
           </tr>
         </tbody>
       </table>
@@ -187,13 +190,13 @@ export default {
     };
   },
   methods: {
-    // 전체조회 + prodName으로 검색해서 결과 나오기
+    // 전체조회 + prodName으로 검색
     async retrieveProduct() {
       try {
         let response = await AdminManageService.getAll(this.findProdName);
         this.products = response.data; // 부서 배열(백엔드에서 배열을 이름없이 전송했음. 이걸 products 라는 배열에 집어넣기)
-        console.log("나와주세요" + response.data);
-        console.log(response.data);   // 콘솔로 찍기
+        // console.log("나와주세요" + response.data);
+        // console.log(response.data);   // 콘솔로 찍기
       } catch (e) {
         console.log(e);
       }
@@ -202,6 +205,24 @@ export default {
     goModifyPage(prodId) {
       this.$router.push(`/shop/admin/prod-modify/${prodId}`);
     },
+    // // 상품 삭제 버튼
+    // async deleteProduct(prodId){
+    //         try {
+    //     if (confirm("정말로 삭제하시겠습니까?")) {
+    //       // 삭제 동작을 수행하는 코드
+    //       let response = await AdminManageService.delete(prodId);
+    //       console.log(response);
+    //       alert("삭제되었습니다.");
+    //        this.retrieveProduct();
+    //     } else {
+    //       // 삭제를 취소하는 코드
+    //       console.log("삭제가 취소되었습니다.");
+    //       this.$router.push("/shop/admin/manage");
+    //     }
+    //   } catch (e) {
+    //     console.log(e);
+    //   }
+    // }
   },
   mounted() {
     // 최초 화면이 뜰 때 전체조회 실행(장바구니)

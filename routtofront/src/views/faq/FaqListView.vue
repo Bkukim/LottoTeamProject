@@ -15,7 +15,7 @@
     <div class="mt-5 text-center">
       <!-- 서치 -->
       <div class="row justify-content-end">
-        <form class="d-flex mt-3 col-5" role="search">
+        <form class="d-flex mt-3 col-5 " role="search">
           <input
             class="form-control me-2"
             type="search"
@@ -47,7 +47,7 @@
                 {{ data.faqId }}
               </router-link>
             </th>
-            <td>
+            <td class="col-8">
               <router-link
                 :to="'/shop/inquiry-check/' + data.faqId"
                 class="router-link-exact-active cencle"

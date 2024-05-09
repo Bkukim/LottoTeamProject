@@ -152,29 +152,6 @@
   </div>
   <!-- 재고 배너 끝 -->
 
-  <!-- 옵션 배너 시작 -->
-  <!-- <div
-    class="container mt-4"
-    style="
-      border: 1px solid black;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      height: 60px;
-    "
-  >
-    <label><b>옵션 입력</b></label
-    ><label style="display: flex; align-items: center; height: 100%">
-      <input
-        type="text"
-        placeholder="옵션을 입력하세요"
-        style="height: 35px; margin-right: 10px"
-        class="input-box"
-      />
-    </label>
-  </div> -->
-  <!-- 옵션 배너 끝 -->
-
   <!-- 이미지 추가 배너 시작 -->
   <div
     class="container mt-4"
@@ -185,7 +162,7 @@
       height: auto;
     "
   >
-    <label class="mt-3"><b>상품 이미지 추가</b> </label>
+    <label class="mt-3"><b>상품 이미지 수정</b> </label>
     <hr />
     <div>
       <div id="img-add">
@@ -219,7 +196,7 @@
       height: auto;
     "
   >
-    <label class="mt-3"><b>상품 상세 페이지 추가</b> </label>
+    <label class="mt-3"><b>상품 상세 페이지 수정</b> </label>
     <hr />
     <div>
       <div id="img-add">
@@ -252,11 +229,11 @@
         <button
           class="btn text-light btn-sm mt-4 log-form"
           id="addFile-btn"
-          @click="saveProduct"
+          @click="updateProduct"
         >
-          저장
+          수정
         </button>
-        <button class="btn text-light btn-sm mt-4 log-form" id="addFile-btn">
+        <button class="btn text-light btn-sm mt-4 log-form" id="addFile-btn" @click="deleteProduct">
           취소
         </button>
       </div>
@@ -266,7 +243,8 @@
 
 <script>
 import AdminHeaderCom from "@/components/common/AdminHeaderCom.vue";
-import AdminProductService from "@/services/admin/AdminProductService";
+import AdminManageService from '@/services/admin/AdminManageService';
+
 
 export default {
   components: {
@@ -274,57 +252,57 @@ export default {
   },
   data() {
     return {
-      product: {
-        prodName: "",
-        defaultPrice: undefined,
-        prodCategory: "",
-        discountRate: undefined,
-        prodStock: undefined,
-        prodImgUrl: "",
-        prodDetailPageUrl: "",
-      },
+            // product: null, // product 초기값
+      product: {},
       // TODO: 수정 , 파일은 "" 초기화하면 안됨(문자열이므로)
       prodImage: undefined,
       prodDetailPage: undefined,
     };
   },
   methods: {
+        // TODO: 상세조회 요청하는 함수 : 화면 뜰 때
+    // TODO: 비동기 코딩 : async ~ await
+    async getProduct(prodId) {
+      try {
+        // TODO: 상세조회 공통함수 실행 : DeptService.get()
+        let response = await AdminManageService.get(prodId);
+        this.product = response.data; // 전체조회에서는 배열이었으나, 여기서는 객체 한개다. spring 결과를 바인딩 속성변수 product 에 저장
+        // 로깅
+        console.log(response.data);
+      } catch (e) {
+        console.log(e);
+      }
+    },
+        // TODO: 수정요청 함수
+    async updateProduct() {
+      try {
+        // TODO: 공통 수정함수
+        // TODO: 비동기 코딩 : async ~ await
+        let response = await AdminManageService.update(this.product); // 수정버튼을 누른다는것은, 이미 상세조회가 끝난이후며 dno에 값이 다 들어와있음.
+        console.log(response.data); // 로깅
+        alert("수정이 완료되었습니다."); // 화면에 성공메세지 출력 : message 바인딩 변수
+        this.$router.push("/shop/admin/manage");
+      } catch (e) {
+        console.log(e);
+      }
+    },
+        // TODO: 삭제요청 함수 : 비동기 코딩 : async ~ await
+    async deleteProduct() {
+      try {
+        if (confirm("수정을 취소하시겠습니까?")) {
+          console.log("수정이 취소되었습니다.");
+          this.$router.push("/shop/admin/manage");
+        } 
+      } catch (e) {
+        console.log(e);
+      }
+    },
     previewProdImage: function () {
       this.prodImage = this.$refs.file01.files[0];
     },
 
     previewProdDetailPage: function () {
       this.prodDetailPage = this.$refs.file02.files[0];
-    },
-
-    async saveProduct() {
-      try {
-        // 임시 객체
-        let data = {
-          prodName: this.product.prodName,
-          defaultPrice: this.product.defaultPrice,
-          prodCategory: this.product.prodCategory,
-          prodImg: this.prodImage,
-          prodDetailPage: this.prodDetailPage,
-          prodImgUrl: this.product.prodImgUrl,
-          prodDetailPageUrl: this.product.prodDetailPageUrl,
-          discountRate: this.product.discountRate,
-          prodStock: this.product.prodStock,
-        };
-        console.log(
-          "prodImg ::" + data.prodImg,
-          "prodDetailPageUrl :: " + data.prodDetailPageUrl
-        );
-        // TODO: 공통 저장 서비스 함수 실행
-        // TODO: async ~ await
-        let response = await AdminProductService.createProduct(data);
-        // 로깅
-        console.log(response.data);
-        // 장바구니 담기 성공 메세지 출력
-        // this.$router.push("/shop/admin/order");
-      } catch (e) {
-        console.log(e);
-      }
     },
     checkInput(event) {
       const inputValue = event.target.value;
@@ -335,6 +313,12 @@ export default {
         event.target.value = inputValue.replace(/[^\d]/g, '');
       }
     }
+  },
+    // TODO: 화면이 뜰 때 자동으로 실행되는 함수
+  mounted() {
+    // this.message = ""; // 변수 초기화
+    // TODO: 변수명 확인 : router/index.js 에서 url 정의한곳에서 확인(/dept/:dno)
+    this.getProduct(this.$route.params.prodId); // 상세조회 함수 실행
   },
 };
 </script>
