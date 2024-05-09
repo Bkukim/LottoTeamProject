@@ -44,7 +44,5 @@ public class OrderProd {
     private int orderProdId;
     private int prodId;
     private int orderId;
-    private String orderOptionName;
-    private int orderOptionPrice;
     private int orderAmount;
 }

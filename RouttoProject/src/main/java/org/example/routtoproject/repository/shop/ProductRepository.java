@@ -1,6 +1,7 @@
 package org.example.routtoproject.repository.shop;
 
 import org.example.routtoproject.model.dto.shop.IProdNameDto;
+import org.example.routtoproject.model.dto.shop.IProductDto;
 import org.example.routtoproject.model.dto.shop.OrderProductDetailDto;
 import org.example.routtoproject.model.entity.shop.Order;
 import org.example.routtoproject.model.entity.shop.Product;
@@ -30,16 +31,57 @@ import java.util.Optional;
 @Repository
 public interface ProductRepository extends JpaRepository<Product, Integer> {
 
-
-    Optional<Product> findByProdImgUuid(String prodImgUuid);
-    Optional<Product> findByProdDetailPageUuid(String prodDetailPageUuid);
-
-    @Query(value = "SELECT * FROM LOTTO_PRODUCT\n" +
-            "WHERE PROD_NAME LIKE '%' || :prodName || '%'"
+    // todo 카테고리 별로 조회 함수
+    @Query(value = "SELECT PROD_ID AS prodId,\n" +
+            "PROD_NAME AS prodName,\n" +
+            "DEFAULT_PRICE AS defaultPrice,\n" +
+            "DISCOUNT_RATE AS discountRate,\n" +
+            "DEFAULT_PRICE*(100-DISCOUNT_RATE)/100 AS prodPrice,\n" +
+            "PROD_IMG_URL AS prodImgUrl\n" +
+            "FROM LOTTO_PRODUCT\n" +
+            "WHERE PROD_STOCK <> 0 AND PROD_STATUS = '판매중'\n" +
+            "AND PROD_CATEGORY = :prodCategory\n" +
+            "ORDER BY SOLD_COUNT"
             ,countQuery = "SELECT count(*) FROM LOTTO_PRODUCT\n" +
-            "WHERE PROD_NAME LIKE '%' || :prodName || '%'"
-            ,nativeQuery = true
-    )
+            "WHERE PROD_STOCK <> 0 AND PROD_STATUS = '판매중'\n" +
+            "AND PROD_CATEGORY = :prodCategory\n" +
+            "ORDER BY SOLD_COUNT"
+             ,nativeQuery = true)
+    Page<IProductDto> findAllByProdCategory(@Param("prodCategory") String prodCategory, Pageable pageable);
+
+// todo 판매량 별로 조회 함수
+    @Query(value = "SELECT PROD_ID AS prodId,\n" +
+            "PROD_NAME AS prodName,\n" +
+            "DEFAULT_PRICE AS defaultPrice,\n" +
+            "DISCOUNT_RATE AS discountRate,\n" +
+            "DEFAULT_PRICE*(100-DISCOUNT_RATE)/100 AS prodPrice,\n" +
+            "PROD_IMG_URL AS prodImgUrl\n" +
+            "FROM LOTTO_PRODUCT\n" +
+            "WHERE PROD_STOCK <> 0 AND PROD_STATUS = '판매중'\n" +
+            "ORDER BY SOLD_COUNT"
+            ,countQuery = "SELECT count(*) FROM LOTTO_PRODUCT\n" +
+            "WHERE PROD_STOCK <> 0 AND PROD_STATUS = '판매중'\n" +
+            "ORDER BY SOLD_COUNT"
+             ,nativeQuery = true)
+    Page<IProductDto> findAllBySoldCount(Pageable pageable);
+
+
+
+    @Query(value = "SELECT PROD_ID AS prodId,\n" +
+            "PROD_NAME AS prodName,\n" +
+            "DEFAULT_PRICE AS defaultPrice,\n" +
+            "DISCOUNT_RATE AS discountRate,\n" +
+            "DEFAULT_PRICE*(100-DISCOUNT_RATE)/100 AS prodPrice,\n" +
+            "PROD_IMG_URL AS prodImgUrl\n" +
+            "FROM LOTTO_PRODUCT\n" +
+            "WHERE PROD_STOCK <> 0 AND PROD_STATUS = '판매중'\n" +
+            "AND PROD_NAME = :prodName\n" +
+            "ORDER BY SOLD_COUNT"
+            ,countQuery = "SELECT count(*) FROM LOTTO_PRODUCT\n" +
+            "WHERE PROD_STOCK <> 0 AND PROD_STATUS = '판매중'\n" +
+            "AND PROD_NAME = :prodName\n" +
+            "ORDER BY SOLD_COUNT"
+            ,nativeQuery = true)
     Page<Product> findAllByProdNameContaining(@Param("prodName") String prodName,
                                            Pageable pageable
     );
@@ -59,4 +101,6 @@ public interface ProductRepository extends JpaRepository<Product, Integer> {
     )
     List<IProdNameDto> findByProdName(@Param("prodName") String prodName);
 
+    Optional<Product> findByProdImgUuid(String prodImgUuid);
+    Optional<Product> findByProdDetailPageUuid(String prodDetailPageUuid);
 }

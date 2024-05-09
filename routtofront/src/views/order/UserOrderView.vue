@@ -259,38 +259,31 @@
         </tr>
       </thead>
       <tbody>
-        <tr>
+        <tr v-for="(data, index) in cartList" :key="index">
           <!-- 1) 배송 상품 -->
           <td scope="row">
             <img
-              :src="product.prodImgUrl"
+              :src="data.prodImgUrl"
               style="width: 100px; height: 100px"
             />
           </td>
           <td>
-            <p style="margin-top: 35px">{{ product.prodName }}</p>
+            <p style="margin-top: 35px">{{ data.prodName }}</p>
           </td>
           <!-- 2) 상품가격 -->
           <td>
             <p style="margin-top: 35px">
-              {{
-                Math.ceil(this.product.defaultPrice *
-                (1 - this.product.discountRate / 100))
-              }}원
+              {{Math.ceil(data.prodPrice)}}원
             </p>
           </td>
           <!-- 3) 수량 -->
           <td style="text-align: left">
-            <p style="margin-top: 35px">{{ orderAmount }}개</p>
+            <p style="margin-top: 35px">{{ data.cartProdCount }}개</p>
           </td>
           <!-- 4) 총 상품가격 -->
           <td style="text-align: left">
             <p style="margin-top: 35px">
-              {{
-                Math.ceil(this.product.defaultPrice *
-                (1 - this.product.discountRate / 100) *
-                orderAmount)
-              }}원
+              {{Math.ceil(data.totalPrice)}}원
             </p>
           </td>
         </tr>
@@ -467,18 +460,16 @@
                 <div class="payTitle">총 상품 금액</div>
                 <div class="price">
                   {{
-                    Math.ceil(this.product.defaultPrice *
-                    (1 - this.product.discountRate / 100) *
-                    orderAmount)
+                   cartTotalPrice
                   }}
                   원
                 </div>
               </div>
               <!-- 쿠폰 할인 금액 -->
-              <div class="paymentTr">
+              <!-- <div class="paymentTr">
                 <div class="payTitle">쿠폰 할인 금액</div>
                 <div class="price">00 원</div>
-              </div>
+              </div> -->
               <!-- 총 배송비 -->
               <div class="paymentTr">
                 <div class="payTitle">총 배송비</div>
@@ -487,13 +478,8 @@
               <!-- 최종 결제 금액 -->
               <div class="paymentTr">
                 <div class="payTitle">최종 결제 금액</div>
-                <div class="price">
-                  {{
-                    Math.ceil(this.product.defaultPrice *
-                      (1 - this.product.discountRate / 100) *
-                      orderAmount +
-                    shoppingFee)
-                  }}
+                <div class="price" >
+                 {{cartTotalPrice+3000}}
                   원
                 </div>
               </div>
@@ -516,7 +502,6 @@
         <!-- 7. 결제 버튼 -->
         <div class="mt-4">
           <button type="button" id="btnPay" @click="togglePaymentModal">결제하기</button>
-
         </div>
       </div>
     </div>
@@ -550,7 +535,6 @@ import CheckoutViewVue from "../payment/CheckoutView.vue";
 import UserService from "@/services/user/UserService";
 import ProductService from "@/services/product/ProductService";
 import OrderService from "@/services/product/OrderService";
-// import OrderService from "@/services/product/OrderService";
 
 export default {
   components: {
@@ -558,6 +542,23 @@ export default {
   },
   data() {
     return {
+      cartList: [
+  //         CartId(); // 기본키  시퀀스 장바구니 번호
+  // UserId(); //회원번호
+  // CartProdCount(); // 각 상품의 갯수
+
+  // ProdId();       // 상품번호
+  // ProdName();      // 상품 이름
+  // DefaultPrice(); // 원가
+  // DiscountRate(); // 할인율
+  // ProdImgUrl(); // 상품 이미지 Url
+  // ProdPrice(); // 할인율 적용한 상품 가격
+  // TotalPrice(); // 배송비 포함한 총 가격
+
+      ], // cart에서 목록 가져오는 배열
+
+      cartTotalPrice:0,
+
       address: {
         normalAddress: "",
         extraAddress: "",
@@ -609,6 +610,17 @@ export default {
     };
   },
   methods: {
+    async retreiveCartAll(userId) {
+      try {
+        let response = await OrderService.get(userId);
+        console.log(response.data);
+        this.cartList = response.data;
+        this.sumTotalPrice();
+        // this.user = response.data;
+      } catch (error) {
+        console.log(error);
+      }
+    },
     // // TODO: 결제 수단 저장
     // savePaymentMethod() {
     //   // 선택한 결제 수단을 저장하거나 처리하는 로직
@@ -625,30 +637,36 @@ export default {
       // 일 : noew.getDate()
       // 시 : now.getHours()
       // 분 : now.getMinutes()
-      // 초 : noww.getSeconds()
+      // 초 : now.getSeconds()
       let formatNow = `${now.getFullYear()}-${
         now.getMonth() + 1
       }-${now.getDate()} ${now.getHours()}:${now.getMinutes()}:${now.getSeconds()}`;
       // 주문 상품 객체 : 선택한 상품의 id, 주문 수량을 orderProduct 객체에 저장
-      let orderProd = {
-        prodId: this.product.prodId,
-        orderAmount: this.orderAmount,
-      };
-
+     
       // 배열 생성
       let orderProds = [];
 
+      // cartList 배열만큼 prodId, cartProdCount 넣기 (OrderProd에도 DB저장되어야하는데 orderProdId, orderId는 알아서 들어옴)
+      for (let i = 0; i < this.cartList.length; i++) {
+        let orderProd={
+          prodId: this.cartList[i].prodId,
+        orderAmount: this.cartList[i].cartProdCount,
+        }
+         orderProds.push(orderProd);
+        
+      }
+
       // 이를 orderProductList 주문 상품 배열로 값 넣기
-      orderProds.push(orderProd);
+     
 
       // 주문 정보 객체 생성 : 임시 객체 data에 dto 주문 속성 넣기
       let data = {
         userId: this.user.userId,
         orderName: this.user.userName,
-        orderPrice:
-          this.product.defaultPrice *
-          (1 - this.product.discountRate / 100) *
-          this.orderAmount,
+        orderPrice: this.cartTotalPrice,
+          // this.product.defaultPrice *
+          // (1 - this.product.discountRate / 100) *
+          // this.orderAmount,
         shoppingFee: 3000,
         zipCode: this.zipCode,
         orderAddress:
@@ -694,7 +712,7 @@ export default {
         this.product = response.data;
         this.orderPrice = response.data.defaultPrice; // 비동기 함수이기에 언제 값이 들어올지 모른다. 그러면 이 함수에 의한 데이터가 들어가기 전에 먼저 orderprice가 값이 안 들어간 product에서 값을 가져오게 된다.
         this.orderAmount = this.$store.state.orderAmount;
-         this.$store.state.orderAmount=1;
+        this.$store.state.orderAmount = 1;
         // todo : 진짜 해야하는 일 = amount를 가져오게 되면 orderPrice의 값 바꾸기
       } catch (error) {
         console.log(error);
@@ -767,18 +785,21 @@ export default {
         // 주문 저장 중 오류가 발생한 경우에 대한 처리
       }
     },
-  },
+    sumTotalPrice(){
+      for (let i = 0; i < this.cartList.length; i++) {
+        this.cartTotalPrice += this.cartList[i].totalPrice;
+    }
+  },},
   mounted() {
-      // alert(this.$store.state.user.userId);
-    // TODO: userId로 조회해서 주문자에 자동입력 후 -> prodId로 주문 페이지 뜸
+    // 화면 뜰때 상단이 뜨게 해주는 함수
+    window.scrollTo(0, 0);
+    // alert(this.$store.state.user.userId);
+    // userId로 조회해서 주문자에 자동입력 후 -> prodId로 주문 페이지 뜸
     // this.retrieveUser(this.$store.state.userId).then(() => {
     //   this.order.orderName = this.user.userName; // retrieveUser 완료 후에 호출
     // });
     this.retrieveUser(this.$store.state.user.userId);
-    this.retrieveProduct(this.$route.params.prodId);
-    console.log(this.product); // console로 찍기
-
-    // TODO: 배송 요청 사항 : 직접 입력 옵션을 선택했을 때 텍스트 상자
+    // 배송 요청 사항 : 직접 입력 옵션을 선택했을 때 텍스트 상자
     document
       .querySelector("select.form-select")
       .addEventListener("change", function () {
@@ -791,11 +812,15 @@ export default {
         }
       });
 
-    // TODO: 페이지 로드 시 초기 설정
+    // 페이지 로드 시 초기 설정
     document.addEventListener("DOMContentLoaded", function () {
       var orderMessageInput = document.getElementById("ordermessage");
       orderMessageInput.style.display = "none"; // 페이지 로드 시 텍스트 상자 숨기기
     });
+
+    // 페이지 초기 화면 : 상품 뜨게 하기
+    this.retreiveCartAll(this.$store.state.user.userId);
+
   },
 };
 </script>
@@ -829,13 +854,13 @@ ul {
   align-items: center;
 }
 .payment-section h2 {
-  text-align: center; 
+  text-align: center;
   margin: 0 auto;
   width: 100%;
 }
 .payment-section {
   width: 80%;
-  margin-bottom: 20px; 
+  margin-bottom: 20px;
 }
 
 .paymentInfo {

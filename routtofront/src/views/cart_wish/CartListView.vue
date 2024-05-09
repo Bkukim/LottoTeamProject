@@ -408,6 +408,8 @@ export default {
       this.$router.push("/order");
     },
 
+
+
   },
   //   TODO: 화면이 뜰때 자동 실행 함수
   mounted() {
