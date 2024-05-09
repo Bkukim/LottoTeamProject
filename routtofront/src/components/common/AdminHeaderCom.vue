@@ -127,5 +127,5 @@ export default {
 </script>
 
 <style>
-@import "@/assets/css/Header.css";
+@import "@/assets/css/AdminHeader.css";
 </style>
