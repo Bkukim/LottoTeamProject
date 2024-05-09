@@ -14,4 +14,10 @@ package org.example.routtoproject.model.dto.shop;
  * 2024-05-01(001)         hayj6          최초 생성
  */
 public interface IProductDto {
+    Integer getProdId();
+    String getProdName();
+    Integer getDefaultPrice();
+    Integer getDiscountRate();
+    Integer getProdPrice();
+    String getProdImgUrl();
 }

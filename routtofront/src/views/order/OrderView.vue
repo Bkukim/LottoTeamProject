@@ -478,10 +478,10 @@
                 </div>
               </div>
               <!-- 쿠폰 할인 금액 -->
-              <div class="paymentTr">
+              <!-- <div class="paymentTr">
                 <div class="payTitle">쿠폰 할인 금액</div>
                 <div class="price">00 원</div>
-              </div>
+              </div> -->
               <!-- 총 배송비 -->
               <div class="paymentTr">
                 <div class="payTitle">총 배송비</div>
@@ -519,7 +519,6 @@
         <!-- 7. 결제 버튼 -->
         <div class="mt-4">
           <button type="button" id="btnPay" @click="togglePaymentModal">결제하기</button>
-
         </div>
       </div>
     </div>
@@ -772,6 +771,8 @@ export default {
     },
   },
   mounted() {
+    // 화면 뜰때 상단이 뜨게 해주는 함수
+    window.scrollTo(0, 0); 
       // alert(this.$store.state.user.userId);
     // TODO: userId로 조회해서 주문자에 자동입력 후 -> prodId로 주문 페이지 뜸
     // this.retrieveUser(this.$store.state.userId).then(() => {
