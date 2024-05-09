@@ -30,12 +30,14 @@
           <td class="text-center">
             {{ index + 1 }}
           </td>
+
           <!-- 상품IMG -->
           <!-- 체크박스 보류, TODO: 시간나면 이미지만 넣기-->
           <td class="text-center">
             <img :src="data.prodImgUrl" class="cartImg" />
           </td>
           <!-- <td class="check_td text-center"><input type="checkbox" v-model="data.checked" @change="selectProduct"/></td> -->
+
           <!-- 상품명 -->
           <td class="text-left">
             {{ data.prodName }}
@@ -405,6 +407,7 @@ export default {
     goOrderProd() {
       this.$router.push("/order");
     },
+
   },
   //   TODO: 화면이 뜰때 자동 실행 함수
   mounted() {
