@@ -162,7 +162,7 @@
       height: auto;
     "
   >
-    <label class="mt-3"><b>상품 이미지 추가</b> </label>
+    <label class="mt-3"><b>상품 이미지 수정</b> </label>
     <hr />
     <div>
       <div id="img-add">
@@ -196,7 +196,7 @@
       height: auto;
     "
   >
-    <label class="mt-3"><b>상품 상세 페이지 추가</b> </label>
+    <label class="mt-3"><b>상품 상세 페이지 수정</b> </label>
     <hr />
     <div>
       <div id="img-add">

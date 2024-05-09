@@ -31,7 +31,13 @@
             {{ data.cartId }}
           </td>
           <!-- 체크박스 -->
-          <td class="check_td text-center"><input type="checkbox" v-model="data.checked" @change="selectProduct"/></td>
+          <td class="check_td text-center">
+            <input
+              type="checkbox"
+              v-model="data.checked"
+              @change="selectProduct"
+            />
+          </td>
           <!-- 상품명 -->
           <td class="text-center">
             {{ data.prodName }}
@@ -336,6 +342,9 @@ export default {
     selectProduct() {
       // 전체 선택 체크박스 상태 업데이트
       this.selectAll = this.orderList.length === this.cart.length;
+    },
+    goOrder() {
+      this.$router.push("/order");
     },
   },
   //   TODO: 화면이 뜰때 자동 실행 함수

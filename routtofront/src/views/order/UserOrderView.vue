@@ -1,8 +1,5 @@
 <template>
-  <br />
-  <br />
-  <br />
-  <div class="container mt-5">
+  <div class="container">
     <h1 class="mt-4">주문/결제</h1>
     <hr />
 
