@@ -39,7 +39,7 @@ public class AdBannerController {
     public ResponseEntity<Object> findAllBanner(){
         try {
             List<AdBannerDto> banners = adBannerService.findAllBanner();
-            log.debug(" 여기는 컨트롤러 배너 배열 = " + String.valueOf(banners));
+            log.debug(" 여기는 컨트롤러 배너 배열 = " + banners);
             return new ResponseEntity<>(banners, HttpStatus.OK);
         }catch (Exception e){
             log.debug(e.getMessage());
