@@ -122,7 +122,7 @@ public ResponseEntity<Object> findById(
 
     //    TODO: 수정 함수 : 수정 페이지 열기 함수       (x) : vue 제작
 //    TODO: 관리자 조회/수정 페이지 -> 상세 페이지 -> 수정 함수 : 수정 버튼 클릭시 실행될 함수
-    @PutMapping("/prodModify/{prodId}")
+    @PutMapping("/product/modify/{prodId}")
     public ResponseEntity<Object> update(
             @PathVariable int prodId,
             @RequestBody Product product
@@ -135,6 +135,25 @@ public ResponseEntity<Object> findById(
         } catch (Exception e) {
 //            DB 에러 (서버 에러) -> 500 신호(INTERNAL_SERVER_ERROR)
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR); // 에러났다는건 우리가 볼 필요가 없으니 프론트에 신호만 보냄
+        }
+    }
+
+    //    TODO: 삭제 함수
+    @DeleteMapping("/product/deletion/{prodId}")
+    public ResponseEntity<Object> delete(
+            @PathVariable int prodId
+    ) {
+        try {
+//            DB 서비스 삭제 함수 실행
+            boolean success = productService.removeById(prodId);
+//            success 여부에 따라 신호 다르게 보내기
+            if(success == true){
+                return new ResponseEntity<>(HttpStatus.OK); // 삭제하고나면 데이터가 없어서 프론트에 보내줄 데이터가 없음으로 그냥 OK 만 보내기
+            } else{
+                return new ResponseEntity<>(HttpStatus.NO_CONTENT); // 서버에러가 아님, 삭제를 실행했으나 삭제가 0건 됨(삭제할 데이터가 없어서)
+            }
+        } catch (Exception e) {
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);  // 500 에러 전송
         }
     }
 }

@@ -168,4 +168,20 @@ public class ProductService {
         Product product1 = productRepository.save(product);
         return product1;
     }
+
+//      todo: 관리자 조회/수정 페이지 -> 삭제 버튼
+public boolean removeById(int prodId) {
+//        JPA 삭제 함수 : deleteById(기본키)
+//        1) 먼저 기본키가 테이블에 있으면 삭제, true로 리턴
+//        2) 없으면 false 리턴
+//        TODO: 사용법 : jpa레포지토리.existById(기본키)
+//                     => 기본키가 테이블에 있는지 확인 -> 있으면 true, 없으면 false
+    if (productRepository.existsById(prodId) == true) {
+        productRepository.deleteById(prodId);
+        return true;
+    } else {
+        return false;
+    }
+}
+
 }
