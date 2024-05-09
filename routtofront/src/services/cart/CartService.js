@@ -7,9 +7,9 @@ import AuthHeader from "../auth/AuthHeader";
 class CartService {
   // todo: 상품 전체 조회
   // 전체 조회
-  getAll(title, page, size) {
+  getAll(userId, page, size) {
     // todo: 장바구니 전체조회
-    return http.get(`/user/order/cart?title=${title}&page=${page}&size=${size}`, 
+    return http.get(`/user/order/cart?userId=${userId}&page=${page}&size=${size}`, 
     {
       headers: AuthHeader()
     }
@@ -47,13 +47,35 @@ class CartService {
     });
   } 
   // 전체 삭제 0508기준 제대로 안됐음
-  removeAll(cart){ //simple cart number
-    return http.delete("/user/order/cart/deletion", cart,
+  removeAll(data){ //simple cart number
+    return http.delete("/user/order/cart/deletion", data,
     {
       headers: AuthHeader()
     });
   }
-  // todo: 주문하기 함수
+  // todo: prodCOunt 수정
+    // TODO: 수정함수 : qnaId, 
+    updateProdCountAll(data) {
+      // TODO: 수정(update) -> put 방식 -> @PutMapping
+      // TODO: 사용법 : http.put(`/컨트롤러함수url/${dno}`, 수정할객체)
+      return http.put("/user/order/cart/update-prodcount/", data,
+      {
+        headers: AuthHeader()
+      }
+      );
+    }
+   // todo: prodCOunt 수정 단일 수정용으로 복붙
+    // TODO: 수정함수 : qnaId, 
+    updateProdCount(cartProdCount, userId, prodId) {
+      // TODO: 수정(update) -> put 방식 -> @PutMapping
+      // TODO: 사용법 : http.put(`/컨트롤러함수url/${dno}`, 수정할객체)
+      return http.put(`/user/order/cart/update-prodcount/${cartProdCount}/${userId}/${prodId}`,
+      {
+        headers: AuthHeader()
+      }
+      );
+    }
+  
   
 }
 
