@@ -319,24 +319,7 @@ export default {
     },
 
 
-    // 전체 선택 체크박스 클릭 이벤트 핸들러
-    selectAllProducts() {
-      if (this.selectAll) {
-        // 전체 선택 체크박스가 체크되었을 때, 모든 상품을 선택
-        this.orderList = [...this.cart]; // 모든 상품을 선택된 상품 목록에 추가
-      } else {
-        // 전체 선택 체크박스가 해제되었을 때, 모든 상품 선택 해제
-        this.orderList = []; // 선택된 상품 목록 비우기
-      }
-    },
-    // 각 상품의 체크박스가 변경될 때 호출되는 메서드
-    selectProduct() {
-      // 전체 선택 체크박스 상태 업데이트
-      this.selectAll = this.orderList.length === this.cart.length;
-    },
-    goOrder() {
-      this.$router.push("/order");
-    },
+
 
   },
   //   TODO: 화면이 뜰때 자동 실행 함수
