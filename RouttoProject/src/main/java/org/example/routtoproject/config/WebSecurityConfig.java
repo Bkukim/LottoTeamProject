@@ -68,7 +68,9 @@ public class WebSecurityConfig {
 
         http.authorizeHttpRequests(req -> req // todo 여기서 부터 controller의 url을 제한함으로 db와의 접근을 제한한다.
 
+
 //                .dispatcherTypeMatchers(DispatcherType.FORWARD).permitAll()
+
 
 //
 //                .requestMatchers("/api/auth/**").permitAll()       // 로그인 및 회원가입 함수
@@ -79,6 +81,8 @@ public class WebSecurityConfig {
                 .anyRequest()
                 .permitAll());
 //                .authenticated());
+
+
 
 
 
