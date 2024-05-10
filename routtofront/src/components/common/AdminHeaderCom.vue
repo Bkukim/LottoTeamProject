@@ -16,7 +16,7 @@
         <router-link to="/shop/admin/order" class="kim-div3"
           >주문관리</router-link
         >
-        <router-link to="/admin-notice" class="kim-div3">공지사항</router-link>
+        <router-link to="/shop/notice" class="kim-div3">공지사항</router-link>
         <router-link to="/shop/admin/add-product" class="kim-div3"
           >상품등록</router-link
         >
