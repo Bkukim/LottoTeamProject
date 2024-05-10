@@ -22,6 +22,21 @@
           style="max-width: 500px; max-height: 600px"
         />
 
+
+        <!-- 1. 리뷰 평점 -->
+        <!-- <div class="box mt-5 text-center"> -->
+        <!-- <h2>리뷰 평점 : {{ product.point }}</h2> -->
+        <!-- <h2 id="star"> -->
+        <!-- ★★★★★ -->
+        <!-- 별점 표시를 위한 반복문 -->
+        <!-- <template v-for="★ in product.point"> ★ </template> -->
+        <!-- </h2> -->
+        <!-- </div> -->
+        <!-- 2. 리뷰 -->
+        <!-- <div class="box mt-5 text-center"> -->
+        <!-- <h2>리뷰 : {{ product.reviewContent }}</h2> -->
+        <!-- </div> -->
+
         <!-- 1. 리뷰 조회 테이블 -->
         <div class="box mt-5 text-center">
       <table class="table mt-5">
@@ -171,6 +186,7 @@
         <!-- <div class="box mt-5 text-center"> -->
         <!-- <h2>리뷰 : {{ product.reviewContent }}</h2> -->
         <!-- </div> -->
+
       </div>
 
       <div class="col-sm-1"></div>
@@ -510,6 +526,11 @@ export default {
     };
   },
   methods: {
+
+    // 상품문의 글 작성 페이지로 넘어가는 함수
+    goCheck() {
+      this.$router.push("/products/check");
+
     // 리뷰 작성 저장
     async saveReview() {
       try {
@@ -545,6 +566,7 @@ export default {
     // 상품문의 글 작성 페이지로 넘어가는 함수
     goCheck() {
       this.$router.push("/products/check");
+
     },
     // TODO: 상품 개수 증가 함수
     increaseCount() {
@@ -826,6 +848,7 @@ h4 {
   /* border: 1px solid #cccccc; */
 }
 
+
 /* #btn1:hover::after {
   content: "♥"; 
 }
@@ -847,6 +870,16 @@ h4 {
 
 #btn1:hover::after {
   content: "♥"; /* 호버 시 새로운 텍스트로 변경 */
+
+#btn2 :hover {
+  width: 9vw;
+  height: 4vw;
+  margin-right: 1.5vw;
+  background-color: rgb(240, 92, 92);
+  border: 1px solid #e2e2e2;
+  color: black;
+  border-radius: 5px; /* 모서리 둥글게 : 5px로 설정 */
+
 }
 
 .shop_button > #btn2 {
@@ -891,5 +924,18 @@ h4 {
   background-color: #5e0000d2;
   color: #ffffff;
   border: none;
+}
+
+#addReview-btn {
+  width: 3.8vw;
+  height: 43px;
+  background-color: #342a26;
+  margin: 20px;
+  color: white;
+}
+
+#reviewWrite {
+  background-color: #342a26;
+  color: white;
 }
 </style>

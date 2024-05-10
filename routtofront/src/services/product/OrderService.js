@@ -12,6 +12,17 @@ class OrderService {
     });
   }
 
+  getOrderId(orderId) {
+    return http.get(`/admin/shop/order/${orderId}`, {
+      headers: AuthHeader(),
+    });
+  }
+
+  // TODO: 여기 붙혀넣기 (지영-상세조회-마이페이지)
+  get(userId) {
+    // TODO: 사용법 : http.get(`/컨트롤러함수url/${부서번호}`)
+    return http.get(`/user/shop/mypage-order/${userId}`);
+
 
   // get(orderId,) {
   //   return http.get(`/user/shop/order/${orderId}`)
@@ -42,6 +53,7 @@ class OrderService {
   get(userId) {
     // TODO: 사용법 : http.get(`/컨트롤러함수url/${부서번호}`)
     return http.get(`/user/shop/mypage-order/${userId}`);
+
 
   }
 }
