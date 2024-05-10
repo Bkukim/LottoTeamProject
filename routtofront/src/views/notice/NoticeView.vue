@@ -25,7 +25,7 @@
       </div>
 
       <!-- 테이블 시작 -->
-      <table class="table mt-5">
+      <table class="table mt-5 ">
         <thead>
           <tr>
             <th scope="col">번호</th>
@@ -72,7 +72,9 @@
       </div>
 
       <!-- 관리자 등록 버튼 :: 공지사항 글등록으로 이동-->
-      <div class="row justify-content-end">
+      <!-- <div v-if="this.$store.state.user.role=='ROLE_ADMIN'" class="row justify-content-end"> -->
+        <!-- 상단 v-if 오류나서 추가함 ::Null 체크: 버튼을 렌더링하기 전에 $store.state.user가 null인지 확인하는 것입니다. 오류방지 -->
+      <div v-if="this.$store.state.user && this.$store.state.user.role === 'ROLE_ADMIN'" class="row justify-content-end">
         <button type="button" id="button1" class="mt-5 btn">
           <router-link to="/shop/admin-notice" class="router-link-exact-active"
             >공지사항 등록</router-link

@@ -3,11 +3,11 @@
   <div class="mt-5 mb-5 col-13">
     <!-- 카테고리 -->
     <div class="container">
-      <h2 class="mb-5 main_text">공지사항</h2>
-      <table class="table table-bordered">
+      <h4 class="main_text">공지사항</h4>
+      <table scope="row" class="table table-bordered borderA">
         <tbody>
           <tr>
-            <th scope="row" class="col-2">제목</th>
+            <th scope="row" class="col-1">제목</th>
             <td>{{ announcement.title }}</td>
           </tr>
 
@@ -15,12 +15,13 @@
             <th scope="row">내용</th>
             <td>
               {{ announcement.content }}
-            </td>
-          </tr>
-          <tr>
-            <th scope="row">첨부파일</th>
-            <td>
-              <img :src="announcement.announcementImgUrl" class="img_size" alt="첨부이미지">
+              <br />
+              <br />
+              <img
+                :src="announcement.announcementImgUrl"
+                class="img_size"
+                alt="첨부이미지"
+              />
             </td>
           </tr>
           <!-- Add more rows as needed -->
@@ -29,14 +30,13 @@
     </div>
 
     <!-- 문의사항 등록 버튼  :: 공지사항거 들고오기-->
-    <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+    <div v-if="this.$store.state.user?.role=='ROLE_ADMIN'" class="row justify-content-end">
+
       <!-- 등록시 고객센터 글 목록으로 재이동 -->
-      <router-link :to="'/shop/notice-update/'+announcement.announcementId">
-        <button id="button1" class="btn btn-primary" type="button">
-        수정
-      </button>
+      <router-link :to="'/shop/notice-update/' + announcement.announcementId">
+        <button id="button1" class="btn btn-primary" type="button">수정</button>
       </router-link>
-      
+
       <button
         id="button1"
         class="btn btn-primary"
@@ -54,21 +54,19 @@ import NoticeListService from "@/services/noticeQnA/NoticeListService";
 export default {
   data() {
     return {
-
       announcement: {
         // 웹 매개변수 전달방식 :: 필기옮겨오기
         // todo: 사용법 : this.$router.params.기본키명
         // todo: 참조) router/index.js=>path: /fileDb/:uuid
         // tpdo : 2개의 변수명이 일치해야함 : uuid
         // 아래의 거 쓸때 /:announcementId가 붙어있어야함
-        announcementId:this.$route.params.announcementId,
+        announcementId: this.$route.params.announcementId,
         title: "",
-        content: "", 
+        content: "",
         announcementImg: "",
         announcementImgUrl: "",
         announcementImgUuid: "",
       },
-
     };
   },
   methods: {
@@ -99,7 +97,9 @@ export default {
     async deleteNotice() {
       try {
         // todo: 공통 장바구니 삭제 서비스 함수 실행
-        let response = await NoticeListService.delete(this.announcement.announcementId);
+        let response = await NoticeListService.delete(
+          this.announcement.announcementId
+        );
         this.$router.push("/shop/notice");
         // 로깅
         console.log(response.data);
@@ -118,5 +118,4 @@ export default {
 
 <style>
 @import "@/assets/css/Button.css";
-
 </style>

@@ -53,5 +53,6 @@ public class Faq extends BaseTimeEntity {
     private String userId;
     private String faqTitle;
     private String faqContent;
-    private String faqType; //유형 ->이거 삭제했던 거같은데
+    private String faqType;
+    private String faqAnswer;
 }

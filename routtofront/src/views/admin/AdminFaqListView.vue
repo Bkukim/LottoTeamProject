@@ -1,6 +1,8 @@
 <!-- 고객센터 faq view -->
 <template>
-
+  <AdminHeaderCom />
+  <br />
+  <br />
   <div class="container">
     <div class="main_text">
       <router-link
@@ -16,7 +18,7 @@
     <div class="mt-5 text-center">
       <!-- 서치 -->
       <div class="row justify-content-end">
-        <form class="d-flex mt-3 col-5 " role="search">
+        <form class="d-flex mt-3 col-5" role="search">
           <input
             class="form-control me-2"
             type="search"
@@ -98,8 +100,12 @@
 
 <script>
 import FaqListService from "@/services/noticeQnA/FaqListService";
+import AdminHeaderCom from "@/components/common/AdminHeaderCom.vue";
 
 export default {
+  components: {
+    AdminHeaderCom,
+  },
   data() {
     return {
       faqList: [],
@@ -134,7 +140,7 @@ export default {
   },
   mounted() {
     this.retrieveFaq();
-    window.scrollTo(0, 0); 
+    window.scrollTo(0, 0);
   },
 };
 </script>
