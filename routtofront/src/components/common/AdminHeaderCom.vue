@@ -82,7 +82,7 @@ export default {
         this.scrolled = true;
         document.querySelector(".kim-frame-14").classList.add("scrolled"); // 헤더 클래스 변경
         document.querySelector(".kim-frame-14").style.height = "6vw"; // 스크롤 시 헤더 높이 변경
-        document.querySelector(".kim-routto-logo").style.width = "7vw"; // 로고 너비 변경
+        document.querySelector(".kim-routto-logo").style.width = "3vw"; // 로고 너비 변경
         document.querySelectorAll(".kim-div3").forEach((item) => {
           item.style.fontSize = "0.6vw"; // 메뉴 폰트 크기 변경
         });
@@ -105,6 +105,8 @@ export default {
         document.querySelector(".kim-routto-logo").style.bottom = "3.125vw"; // 로고 위치 조정
         document.querySelector(".kim-routto-logo").style.top = "-3.4375vw"; // 로고 위치 조정
       }
+
+
     },
 
     // 검색창

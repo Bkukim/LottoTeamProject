@@ -6,7 +6,7 @@
     </div>
 
     <!-- mysave -->
-    <div class="mysave container text-center">
+    <!-- <div class="mysave container text-center">
       <div class="row">
         <div class="col">
           보유 마일리지
@@ -18,7 +18,7 @@
           <button type="button" class="btn btn-outline-secondary">조회</button>
         </div>
       </div>
-    </div>
+    </div> -->
     <!-- mysave -->
 
     <div class="mypage_all_box container mt-5 mb-5">
@@ -33,30 +33,34 @@
 
       <div class="container text-center mt-3 mb-3">
         <div class="row mapage_b2">
-          <div class="col">
-            입금 전<br /><br />
-            {값}
-          </div>
           <div class="col mapage_b2">
-            배송 준비중 <br /><br />
-            {값}
-          </div>
-          <div class="col mapage_b2">
-            배송중 <br /><br />
-            {값}
-          </div>
-          <div class="col mapage_b2">
-            배송완료 <br /><br />
+            회원 ID <br /><br />
             {값}
           </div>
 
-          <div class="col no-border2">
+          <div class="col mapage_b2">
+            주문번호 <br /><br />
+            {값}
+          </div>
+
+          <div class="col">
+            주문상태<br /><br />
+            {{order?.orderStatus}}
+          </div>
+        
+         
+          <!-- <div class="col mapage_b2">
+            배송완료 <br /><br />
+            {값}
+          </div> -->
+
+          <!-- <div class="col no-border2">
             <div class="row container text-center">취소{값}</div>
             <br />
             <div class="row container text-center">교환{값}</div>
             <br />
             <div class="row container text-center">반품{값}</div>
-          </div>
+          </div> -->
         </div>
       </div>
       <!-- container -->
@@ -110,7 +114,7 @@
           </p>
         </div>
 
-        <router-link to="/" class="col no-border3 ">
+        <router-link to="/" class="col no-border3">
           <img src="@/assets/images/mypage_5.png" />
           <br />
           <b>Board</b> <br />
@@ -120,15 +124,45 @@
             관리하는 공간입니다.
           </p>
         </router-link>
-
-
       </div>
     </div>
     <!-- mysave2 -->
   </div>
 </template>
 <script>
-export default {};
+import OrderService from '@/services/product/OrderService';
+
+export default {
+  data() {
+    return {
+      order: null, // 초기값
+    };
+  },
+  methods: {
+    // TODO: 상세조회요청 함수 : 화면 뜰때
+    // TODO: 비동기 코딩 : async ~ await
+    async getOrder(orderId) {
+      try {
+        // 상세조회 공통함수 실행 : DeptService.get()
+        let response = await OrderService.get(orderId);
+        this.dept = response.data; // spring 결과를 바인딩 속성변수 dept 저장
+        // 로깅
+        console.log(response.data);
+      } catch (e) {
+        console.log(e);
+      }
+    },
+  },
+
+  // TODO: 화면에 뜰때 자동 실행되는 함수
+  mounted() {
+    this.message = ""; // 변수 초기화
+    // TODO: 뷰 사용법 : 주소(라우터주소)에서 변수 가져오기 방법
+    // TODO: 사용법 : this.$route.params.변수명
+    // TODO: 변수명 확인 : router/index.js => url 정의 (:dno)
+    this.getOrder(this.$store.state.user?.userId); // 상세조회 함수 실행
+  },
+};
 </script>
 <style>
 @font-face {
@@ -138,11 +172,6 @@ export default {};
   font-weight: 400;
   font-style: normal;
 }
-
-
-
-
-
 
 .btn {
   width: 50px;
@@ -176,7 +205,7 @@ export default {};
 }
 
 .mypage_all_box_in1 {
-  background-color: #342a26;
+  background-color: #342a26ee;
   padding: 10px 0 0 0;
   border-bottom: 1px solid #cccccc;
 }
@@ -201,34 +230,27 @@ export default {};
   padding-top: 50px;
 }
 
-
 .no-border3:hover {
   border-top: 3px solid #342a26;
   border-radius: 30px 0 30px 0;
   color: #2e2e2e;
-
 }
 
 .no-border3 {
-  color: #2e2e2e; 
-  text-decoration: none; 
-}
-
-.no-border3 >  b {
   color: #2e2e2e;
-  text-decoration: none; 
+  text-decoration: none;
 }
 
-
-
+.no-border3 > b {
+  color: #2e2e2e;
+  text-decoration: none;
+}
 
 img {
   height: 70px;
   width: 70px;
   margin-bottom: 20px;
 }
-
-
 
 .mapage_b {
   font-size: 15px;

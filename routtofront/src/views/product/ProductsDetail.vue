@@ -158,13 +158,26 @@
             </div>
           </div>
         </div>
+        <!-- 1. 리뷰 평점 -->
+        <!-- <div class="box mt-5 text-center"> -->
+        <!-- <h2>리뷰 평점 : {{ product.point }}</h2> -->
+        <!-- <h2 id="star"> -->
+        <!-- ★★★★★ -->
+        <!-- 별점 표시를 위한 반복문 -->
+        <!-- <template v-for="★ in product.point"> ★ </template> -->
+        <!-- </h2> -->
+        <!-- </div> -->
+        <!-- 2. 리뷰 -->
+        <!-- <div class="box mt-5 text-center"> -->
+        <!-- <h2>리뷰 : {{ product.reviewContent }}</h2> -->
+        <!-- </div> -->
       </div>
 
       <div class="col-sm-1"></div>
       <!-- 오른쪽 -->
       <div class="col-sm-5">
         <!-- 1. 상품 이름 -->
-        <div id="name" class="text-center">
+        <div id="name" class="text-left">
           <h2>{{ product.prodName }}</h2>
         </div>
 
@@ -180,18 +193,19 @@
         <!-- 4. 상품 최종가 -->
         <div id="price">
           <h4>
-            원가 :
-            {{ product.defaultPrice }} 원
+            <span id="price_1">판매가격 </span>
+            {{ product.defaultPrice }}<span> won</span>
           </h4>
         </div>
-        <br />
         <hr />
 
         <!-- 위아래로 수량조절 -->
-        <td class="col-2">
-          <b>수량을 선택하세요</b>
+        <td class="col-2 text-center">
+          <h5 id="quantity_jy1">{{ product.prodName }}</h5>
+          <b class="quantity_jy2">수량을 선택하세요.</b>
           <br />
           <br />
+          <!-- <br /> -->
           <!-- 1) 드롭다운 이름 -->
           <div
             class="btn-group col"
@@ -219,6 +233,9 @@
               +
             </button>
           </div>
+
+          <br />
+          <br />
         </td>
         <hr />
         <br />
@@ -226,83 +243,231 @@
         <!-- 6. 총 상품 금액 -->
         <div id="total">
           <h4>
-            총 상품 금액 :
-            {{
-              Math.ceil(
-                (product.defaultPrice -
-                  (product.defaultPrice * product.discountRate) / 100) *
-                  productCount
-              )
-            }}
-            원
-          </h4>
-          <div class="mt-3">
-            <h5>배송비 : 3000 원</h5>
-          </div>
-          <hr />
-          <div class="mb-3">
-            <h5>
-              총 주문 금액 :
+            <span class="won_1">총 상품 금액 </span>
+            <span class="won_2 text-right">
               {{
                 Math.ceil(
                   (product.defaultPrice -
                     (product.defaultPrice * product.discountRate) / 100) *
-                    productCount +
-                    3000
+                    productCount
                 )
               }}
               원
-            </h5>
+            </span>
+          </h4>
+
+          <hr />
+
+          <div>
+            <div>
+              <h5 class="shipping">배송비 : 3000 원</h5>
+            </div>
+            <h4>
+              <br />
+              <br />
+              <span class="won_1_2">총 주문 금액 </span>
+              <span class="won_2">
+                {{
+                  Math.ceil(
+                    (product.defaultPrice -
+                      (product.defaultPrice * product.discountRate) / 100) *
+                      productCount +
+                      3000
+                  )
+                }}
+                원
+              </span>
+            </h4>
+            <hr />
           </div>
         </div>
 
-        <!-- 7. 버튼 -->
-        <div class="mt-5">
-          <!-- 즐겨찾기 하트 버튼 -->
-          <button
-            type="button"
-            id="btn5"
-            @click="addToFavorites"
-            style="
-              background-color: white;
-              border: 1px solid #cccccc;
-              margin-right: 15px;
-            "
-          >
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="25"
-              height="25"
-              fill="pink"
-              class="bi bi-heart-fill"
-              viewBox="0 0 16 16"
-            >
-              <path
-                fill-rule="evenodd"
-                d="M8 1.314C12.438-3.248 23.534 4.735 8 15-7.534 4.736 3.562-3.248 8 1.314"
-              />
-            </svg>
-          </button>
+        <!-- ------------------------------- 찜뽕 -->
+        <!-- ------------------------------- 장바구니-->
+        <!-- ------------------------------- 주문하기-->
+        <!-- ------------------------------- 상품문의-->
+        <!-- ------------------------------- 버    튼-->
+        <div class="container text-center">
+          <div class="shop_button row container text-center">
+            <!-- 즐겨찾기 하트 버튼 -->
+            <button type="button" id="btn1" @click="addToFavorites"></button>
+          </div>
 
-          <button type="button" id="btn2" @click="saveCart">장바구니</button>
+          <div class="shop_button row container text-center">
+            <button type="button" id="btn2" @click="saveCart">장바구니</button>
+          </div>
 
-          <button type="button" id="btn3" @click="goOrder">주문하기</button>
+          <div class="shop_button row container text-center">
+            <button type="button" id="btn3" @click="goOrder">주문하기</button>
+          </div>
 
-          <button type="button" id="btn4" @click="goOrder">상품문의</button>
+          <div class="shop_button row container text-center">
+            <button type="button" id="btn4" @click="goCheck">Q&A</button>
+          </div>
         </div>
+        <!-- ------------------------------- 버 튼 끝-->
       </div>
     </div>
 
     <!-- 상세 페이지 -->
     <div class="mt-5">
+      <div class="mysave container text-center">
+        <div class="row">
+          <div
+            id="mysave"
+            class="col"
+            @click="scrollToSection('detail')"
+            button
+            type="button"
+          >
+            상품상세
+          </div>
+
+          <div
+            id="mysave"
+            class="col no-border1"
+            @click="scrollToReviewSection"
+            button
+            type="button"
+          >
+            상품후기
+          </div>
+          <div
+            id="mysave"
+            class="col no-border1"
+            @click="scrollToInquirySection"
+            button
+            type="button"
+          >
+            상품문의
+          </div>
+        </div>
+      </div>
+
       <div id="page">
         <img
           :src="product.prodDetailPageUrl"
           style="max-width: 400px; max-height: 600px"
         />
       </div>
+
+
+      <br>
+      <br>
+      <br>
+      <br>
+      <br>
+      <br>
+      <br>
+      <br>
+      <!-- 2. 리뷰 -->
+      <div class="box mt-5 text-center" ref="reviewSection">
+        <h2>리뷰 : {{ product.reviewContent }}</h2>
+      </div>
     </div>
     <!-- 상세 페이지 끝 -->
+  </div>
+
+  <!-- 상품문의 내려가는 부분 -->
+  <div class="container" ref="inquirySection">
+    <div class="mt-5">
+      <br>
+      <br>
+      <br>
+      <br>
+      <br>
+      <br>
+      <br>
+      <br>
+      <br>
+      <br>
+      <h3>상품문의</h3>
+      <!-- <router-link
+        class="top_notice router-link-exact-active fs-5"
+        to="/shop/notice"
+        >공지사항</router-link
+      >
+      |
+      <router-link class="top_notice2 text-decoration-none" to="/shop/faqList"
+        >FAQ</router-link
+      > -->
+    </div>
+    <div class="mt-5 text-center">
+      <!-- 서치 -->
+      <div class="row justify-content-end">
+        <form class="d-flex mt-3 col-5" role="search">
+          <input
+            class="form-control me-2"
+            type="search"
+            placeholder="검색"
+            aria-label="Search"
+          />
+          <button class="btn btn-outline-success" type="submit">검색</button>
+        </form>
+      </div>
+
+      <!-- 테이블 시작 -->
+      <table class="table mt-5">
+        <thead>
+          <tr>
+            <th scope="col">번호</th>
+            <th scope="col">제목</th>
+            <th scope="col">작성자</th>
+          </tr>
+        </thead>
+        <tbody>
+          <!-- 반복문 시작할 행 -->
+
+          <tr
+            v-for="(data, index) in notice"
+            :key="index"
+            @click="goNoticeCheck"
+          >
+            <th scope="col">
+              <router-link
+                :to="'/shop/notice-check/' + data.announcementId"
+                class="router-link-exact-active cencle"
+              >
+                {{ data.announcementId }}</router-link
+              >
+            </th>
+
+            <th scope="col">
+              <router-link
+                :to="'/shop/notice-check/' + data.announcementId"
+                class="router-link-exact-active cencle"
+              >
+                {{ data.title }}
+              </router-link>
+            </th>
+            <th scope="col">ADMIN</th>
+          </tr>
+        </tbody>
+      </table>
+
+      <!-- 페이징 -->
+      <!-- {/* paging 시작 */} -->
+      <div class="row justify-content-center mt-4">
+        <div class="col-auto">
+          <b-pagination
+            class="col-12 mb-3"
+            v-model="page"
+            :total-rows="count"
+            :per-page="pageSize"
+            @click="retrieveNotice"
+          ></b-pagination>
+        </div>
+      </div>
+
+      <!-- 관리자 등록 버튼 :: 공지사항 글등록으로 이동-->
+      <div class="row justify-content-end">
+        <button type="button" id="button1" class="mt-5 btn">
+          <router-link to="/shop/admin-notice" class="router-link-exact-active"
+            >공지사항 등록</router-link
+          >
+        </button>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -377,6 +542,9 @@ export default {
     // 리뷰 이미지 추가
     previewReviewImage: function () {
       this.review.reviewImage = this.$refs.file01.files[0];  // 첨부파일은 여러개 선택할수있어서 배열로 되어있다 우리는 처음선택한게 0번
+    // 상품문의 글 작성 페이지로 넘어가는 함수
+    goCheck() {
+      this.$router.push("/products/check");
     },
     // TODO: 상품 개수 증가 함수
     increaseCount() {
@@ -433,6 +601,25 @@ export default {
       this.$router.push("/order/" + this.$route.params.prodId);
       this.$store.state.orderAmount = this.productCount;
     },
+
+    // 스크롤 함수
+    scrollToReviewSection() {
+      // 리뷰 섹션의 ID를 사용하여 해당 섹션의 위치를 계산
+      const reviewSection = this.$refs.reviewSection;
+      if (reviewSection) {
+        // smooth한 스크롤 효과로 해당 섹션으로 이동
+        reviewSection.scrollIntoView({ behavior: "smooth", block: "start" });
+      }
+    },
+
+    scrollToInquirySection() {
+      // 상품문의 섹션의 ID를 사용하여 해당 섹션의 위치를 계산
+      const inquirySection = this.$refs.inquirySection;
+      if (inquirySection) {
+        // smooth한 스크롤 효과로 해당 섹션으로 이동
+        inquirySection.scrollIntoView({ behavior: "smooth", block: "start" });
+      }
+    },
   },
   mounted() {
     // 화면 뜰때 상단이 뜨게 해주는 함수
@@ -444,10 +631,48 @@ export default {
 </script>
 
 <style>
+/* @font-face {
+  font-family: "Pretendard-Regular";
+  src: url("https://fastly.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Regular.woff")
+    format("woff");
+  font-weight: 400;
+  font-style: normal;
+} */
+
+#mysave {
+  border: 1px solid #cccccc;
+  height: 70px;
+  padding: 25px;
+  margin-top: 60px;
+  letter-spacing: -1.5px;
+  font-size: 13px;
+}
+
+#mysave:hover {
+  /* background-color: #342a26; */
+  /* color: #ffffff; */
+  border-top: 10px solid #342a26;
+  /* border-left: none;
+  border-right: none;
+  border-bottom: none; */
+}
+
+hr {
+  opacity: 0.2;
+}
+
+h1 {
+  font-family: "Lora", serif;
+  font-optical-sizing: auto;
+  font-style: normal;
+  font-weight: bold;
+  font-size: 30px;
+}
+
 .box {
   background-color: white;
   max-width: 100%;
-  height: 5vw;
+  height: 50vw;
   border: 1px solid #e2e2e2;
   /* padding: 1vw; */
 }
@@ -455,24 +680,51 @@ export default {
 #name {
   background-color: white;
   height: 5vw;
-  border: 1px solid #e2e2e2;
+  font-weight: 200;
+  letter-spacing: -1.8px;
+  /* border: 1px solid #e2e2e2; */
 }
 
 #page {
   background-color: white;
   border: 1px solid #e2e2e2;
   color: black;
-  height: 40vw;
+  height: 100vw;
   border-radius: 5px; /* 모서리 둥글게 : 5px로 설정 */
 }
 
 #price {
-  background-color: white;
   width: 16vw;
-  height: vw;
-  border: 1px solid #e2e2e2;
   padding: 0.5vx;
-  border-radius: 5px; /* 모서리 둥글게 : 5px로 설정 */
+  /* border-radius: 5px;  */
+  /* border: 1px solid #e2e2e2; */
+  /* background-color: white; */
+}
+
+#price_1 {
+  color: #999999;
+  font-size: 16px;
+  letter-spacing: -1.8px;
+  margin-right: 40px;
+}
+
+h4 {
+  font-size: 20px;
+  font-weight: 500;
+}
+
+/* 두번째 상품명(수량선택 위) */
+#quantity_jy1 {
+  font-size: 15px;
+  font-weight: lighter;
+  margin: 20px 0 0 0;
+  color: #999999;
+}
+
+.quantity_jy {
+  font-size: 15px;
+  font-weight: bold;
+  margin: 20px 0 20px 0;
 }
 
 /* .dropdown {
@@ -487,32 +739,29 @@ export default {
   border-radius: 5px; /* 모서리 둥글게 : 5px로 설정 */
 }
 
+/* 총 상품금액/ 총 주문 금액 */
 #total {
   background-color: white;
   height: auto;
-  border: 1px solid #e2e2e2;
+  /* border: 1px solid #e2e2e2; */
   padding: 0.5vw;
   z-index: 0;
   border-radius: 5px; /* 모서리 둥글게 : 5px로 설정 */
 }
 
-#btn1 {
-  width: 100%;
-  height: 3vw;
-  background-color: white;
-  border-color: #e2e2e2;
-  color: black;
-  border-radius: 5px; /* 모서리 둥글게 : 5px로 설정 */
+.shipping {
+  font-size: 15px;
+  letter-spacing: -1px;
+  margin-top: 53px;
+  color: #727272;
+  font-weight: 600;
 }
 
-#btn2 {
-  width: 9vw;
-  height: 4vw;
-  margin-right: 1.5vw;
-  background-color: white;
-  border: 1px solid #e2e2e2;
-  color: black;
-  border-radius: 5px; /* 모서리 둥글게 : 5px로 설정 */
+.won_1 {
+  font-size: 1vw;
+  letter-spacing: -1.7px;
+  margin: 0 300px 100px 0;
+  font-weight: 500;
 }
 
 #btn2 :hover {
@@ -523,25 +772,18 @@ export default {
   border: 1px solid #e2e2e2;
   color: black;
   border-radius: 5px; /* 모서리 둥글게 : 5px로 설정 */
+.won_1_2 {
+  font-size: 1vw;
+  letter-spacing: -1.7px;
+  margin: 0 300px 100px 0;
+  font-weight: bold;
 }
 
-#btn3 {
-  width: 9vw;
-  height: 4vw;
-  margin-right: 1.5vw;
-  background-color: #342a26;
-  color: white;
-  border-radius: 5px; /* 모서리 둥글게 : 5px로 설정 */
-}
-
-#btn4 {
-  width: 9vw;
-  height: 4vw;
-  border: #fff16c;
-  background-color: #fff16c;
-  color: black;
-  border-radius: 5px; /* 모서리 둥글게 : 5px로 설정 */
-  border: 2px solid #fff16c; /* 빨간색 테두리, 두께는 2px */
+.won_2 {
+  font-size: 23px;
+  letter-spacing: -1.5px;
+  font-weight: bold;
+  color: #252525;
 }
 
 #star {
@@ -559,5 +801,95 @@ export default {
 #reviewWrite {
   background-color: #342a26;
   color: white;
+/* 장바구니 버튼 */
+.shop_button {
+  /* border: 1px solid #cccccc; */
+  padding: auto;
+}
+
+.shop_button {
+  margin-bottom: 15px;
+  letter-spacing: -1.7px;
+}
+
+.shop_button > #btn1 {
+  width: 100%;
+  height: 3vw;
+  background-color: #ffffff;
+  border: 1px solid #cccccc;
+  font-size: 20px;
+}
+
+#btn1:hover {
+  color: #ff0000;
+  font-size: 35px;
+  /* border: 1px solid #cccccc; */
+}
+
+/* #btn1:hover::after {
+  content: "♥"; 
+}
+#btn1:hover::before {
+  content: none 
+} */
+
+#btn1::before {
+  content: attr(data-original-text); /* 원래 텍스트를 보여주는 가상 요소 */
+}
+
+#btn1:hover::before {
+  content: none; /* 호버 시 원래 텍스트를 숨김 */
+}
+
+#btn1::after {
+  content: "♡"; /* 기본 텍스트 설정 */
+}
+
+#btn1:hover::after {
+  content: "♥"; /* 호버 시 새로운 텍스트로 변경 */
+}
+
+.shop_button > #btn2 {
+  width: 100%;
+  height: 3vw;
+  background-color: #ffffff;
+  border: 1px solid #cccccc;
+  letter-spacing: -1px;
+}
+
+#btn2:hover {
+  background-color: #5e0000d2;
+  color: #ffffff;
+  border: none;
+}
+
+.shop_button > #btn3 {
+  width: 100%;
+  height: 3vw;
+  background-color: #342a26;
+  border: none;
+  color: #ffffff;
+  letter-spacing: -1px;
+}
+
+#btn3:hover {
+  background-color: #5e0000d2;
+  color: #ffffff;
+  border: none;
+}
+
+.shop_button > #btn4 {
+  width: 100%;
+  height: 3vw;
+  background-color: #342a2635;
+  border: none;
+  letter-spacing: -1px;
+  color: #ffffff;
+}
+
+#btn4:hover {
+  background-color: #5e0000d2;
+  color: #ffffff;
+  border: none;
 }
 </style>
