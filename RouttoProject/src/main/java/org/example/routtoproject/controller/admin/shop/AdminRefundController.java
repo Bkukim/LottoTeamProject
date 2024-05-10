@@ -10,10 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * packageName : org.example.routtoproject.controller.admin.shop
@@ -86,14 +83,49 @@ public class AdminRefundController {
     }
 
     // 주문의 환불 상태를 '환불 완료'로 변경하는 메소드
-    @PutMapping("/refund/{orderId}/complete")
-    public ResponseEntity<?> completeRefund(@PathVariable int orderId) {
-        boolean result = adminRefundService.completeRefund(orderId);
+//    @PutMapping("/refund/{orderId}/complete")
+//    public ResponseEntity<?> completeRefund(@PathVariable int orderId) {
+//        boolean result = adminRefundService.completeRefund(orderId);
+//
+//        if(result) {
+//            return ResponseEntity.ok().body("환불이 완료되었습니다.");
+//        } else {
+//            return ResponseEntity.notFound().build();
+//        }
+//    }
 
-        if(result) {
-            return ResponseEntity.ok().body("환불이 완료되었습니다.");
-        } else {
-            return ResponseEntity.notFound().build();
+//  TODO: 상세 조회
+    @GetMapping("/refund/{orderId}")
+    public ResponseEntity<Object> findById(
+            @PathVariable int orderId
+    ) {
+        try {
+            Optional<Order> optionalOrder = adminRefundService.findById(orderId);
+
+            if (optionalOrder.isEmpty() == true) {
+                return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+            } else {
+                return new ResponseEntity<>(optionalOrder.get(), HttpStatus.OK);
+            }
+        } catch (Exception e) {
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+//  TODO: 수정
+    @PutMapping("/refund/{orderId}/complete")
+    public ResponseEntity<Object> requestRefund(
+            @PathVariable int orderId,
+            @RequestBody Order order
+    ) {
+        try {
+            Order order2 = adminRefundService.requestRefund(order); // 수정
+
+            return new ResponseEntity<>(order2, HttpStatus.OK);
+        } catch (Exception e) {
+            log.debug("error" + e.getMessage());
+//          DB 에러 (서버 에러) -> 500 신호 (INTERNAL_SERVER_ERROR)
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 }

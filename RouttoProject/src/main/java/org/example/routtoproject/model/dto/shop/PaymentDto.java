@@ -23,14 +23,11 @@ import java.util.Date;
 @AllArgsConstructor
 @NoArgsConstructor
 public class PaymentDto {
-    private String paymentCode;
+    private Integer paymentCode;
     private Integer orderId;
     private String paymentType;
     private Integer totalPrice;
-    private Integer depositAmount;
-    private String bank;
-    private String depositor;
     private String payPg;
-    private Date approveTime;
-    private Date payTime;
+    private String approveTime;
+    private String payTime;
 }
