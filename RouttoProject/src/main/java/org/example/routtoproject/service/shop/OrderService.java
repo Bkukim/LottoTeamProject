@@ -106,6 +106,10 @@ public class OrderService {
     }
 
 
+
+//  결제 요청을 위한 함수
+
+
     //    todo: user의 장바구니 -> 전체 주문하기  : 상품 정보
     public List<ICartDto> findByUserIdContaining(String userId) {
 
@@ -116,7 +120,6 @@ public class OrderService {
 
     //  결제 함수
 
-//  결제 요청을 위한 함수
 
     @Transactional
     //    저장함수
