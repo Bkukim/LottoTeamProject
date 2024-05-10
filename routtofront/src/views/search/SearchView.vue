@@ -12,11 +12,11 @@
         />
         <img
           class="search_underbar"
-          src="../../src/assets/images/search_underbar2.png"
+          src="@/assets/images/search_underbar2.png"
         />
 
         <router-link to="#"
-          ><img class="search" src="../../src/assets/images/search.png" />
+          ><img class="search" src="@/assets/images/search.png" />
         </router-link>
       </div>
 
@@ -24,6 +24,7 @@
       <div class="search_box"></div>
     </div>
   </div>
+
 </template>
 <script>
 export default {};
