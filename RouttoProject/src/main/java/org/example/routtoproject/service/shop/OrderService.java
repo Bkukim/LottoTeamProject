@@ -99,7 +99,7 @@ public class OrderService {
         return order2;
     }
 
-//  결제 함수
+//  결제 요청을 위한 함수
     @Transactional
     //    저장함수
     public Order insert(OrderDto orderDto) {
@@ -120,8 +120,6 @@ public class OrderService {
 
     //    수정함수 : 카프카에서 사용
     public void update(Order order) {
-
-//      1) 수정
         orderRepository.save(order);
     }
 

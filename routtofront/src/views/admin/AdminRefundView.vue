@@ -186,8 +186,7 @@
 import VueDatePicker from "@vuepic/vue-datepicker";
 import "@vuepic/vue-datepicker/dist/main.css";
 
-import AdminHeaderCom from "@/components/common/AdminHeaderCom.vue";
-
+import AdminHeaderCom from "@/components/common/AdminHeaderCom.vue"
 import AdminRefundService from "@/services/admin/AdminRefundService";
 
 
@@ -202,6 +201,9 @@ export default {
       startDate: null,
       endDate: null,
 
+      order: null,
+      message: "",
+
       searchQuery: "",
       searchType: "orderId", // 검색 유형 초기화
       filteredOrders: [],
@@ -209,6 +211,17 @@ export default {
     };
   },
   methods: {
+    //   async getOrder(orderId) {
+    //     console.log(orderId);
+    //   try {
+    //     let response = await AdminRefundService.get(orderId);
+    //     this.order = response.data;
+
+    //     console.log(response.data);
+    //   } catch (e) {
+    //     console.log(e);
+    //   }
+    // },
     handleDateInput(date) {
       // 사용자가 날짜를 선택하면 실행되는 메소드
       const formattedDate = this.formatDate(date);
@@ -288,23 +301,44 @@ export default {
       }
     },
     // 환불 완료 처리 함수
-async handleRefund(orderId) {
-  try {
-    console.log("환불", orderId);
-    const response = await AdminRefundService.completeRefund(orderId);
-    if (response.status === 200) {
-      console.log(response.status);
-      console.log("환불 처리가 완료되었습니다.");
-      alert("환불 처리가 완료되었습니다."); // 사용자에게 환불 완료 알림
-      this.searchOrders(); // 환불 처리가 완료된 후 searchOrders 함수 호출하여 화면 새로고침
-    } else {
-      console.log(response);
-    }
-  } catch (error) {
-    console.error("Error during refund processing", error);
-    alert(`환불 처리 중 오류가 발생했습니다: ${error.message}`);
-  }
-},
+// async handleRefund(orderId) {
+//   try {
+//     console.log("환불", orderId);
+//     const response = await AdminRefundService.completeRefund(orderId);
+//     if (response.status === 200) {
+//       console.log(response.status);
+//       console.log("환불 처리가 완료되었습니다.");
+//       alert("환불 처리가 완료되었습니다."); // 사용자에게 환불 완료 알림
+//       this.searchOrders(); // 환불 처리가 완료된 후 searchOrders 함수 호출하여 화면 새로고침
+//     } else {
+//       console.log(response);
+//     }
+//   } catch (error) {
+//     console.error("Error during refund processing", error);
+//     alert(`환불 처리 중 오류가 발생했습니다: ${error.message}`);
+//   }
+// },
+    async handleRefund(orderId) {
+      try {
+        console.log("핸들",orderId);
+        let data = {
+          orderId: orderId,
+          userId: this.$store.state.user.userId,
+          orderStatus: "환불완료",
+        };
+        let response = await AdminRefundService.completeRefund(
+         orderId,data);
+
+        console.log(response.data);
+
+        this.message = "환불 처리되었습니다.";
+        alert("환불 처리가 완료되었습니다.");
+
+        this.searchOrders(); // 환불 처리가 완료된 후 searchOrders 함수 호출하여 화면 새로고침
+      } catch (e) {
+        console.log(e);
+      }
+    },
   },
   computed: {
     disabledDates() {
@@ -314,7 +348,10 @@ async handleRefund(orderId) {
       };
     },
   },
-  mounted() {},
+  mounted() {
+    this.message = "";
+    // this.getOrder(this.$route.params.orderId);
+  },
 };
 </script>
 

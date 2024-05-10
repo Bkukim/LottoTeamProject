@@ -32,14 +32,16 @@ public class PaymentController {
     private final PaymentService paymentService;
 
     //    저장 함수
-    @PostMapping("/payment")
+    @PostMapping("/payment/success")
     public ResponseEntity<Object> create(@RequestBody PaymentDto paymentDto) {
 
         try {
+            log.debug("매개변수 " + paymentDto);
             Payment payment = paymentService.save(paymentDto); // db 저장
-
+            log.debug("2");
             return new ResponseEntity<>(payment, HttpStatus.OK);
         } catch (Exception e) {
+            log.debug("결재 " + e.getMessage());
 //            DB 에러가 났을경우 : INTERNAL_SERVER_ERROR 프론트엔드로 전송
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
@@ -47,7 +49,7 @@ public class PaymentController {
 
     // 삭제함수
     @DeleteMapping("/payment/deletion/{paymentCode}")
-    public ResponseEntity<Object> delete(@PathVariable String paymentCode) {
+    public ResponseEntity<Object> delete(@PathVariable Integer paymentCode) {
 
         try {
             boolean bSuccess = paymentService.removeByPaymentCode(paymentCode);

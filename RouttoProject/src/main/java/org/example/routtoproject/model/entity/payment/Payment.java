@@ -41,14 +41,11 @@ public class Payment {
     @GeneratedValue(strategy = GenerationType.SEQUENCE
             , generator = "SQ_LOTTO_PAYMENT_GENERATOR"
     )
-    private String paymentCode;
+    private Integer paymentCode;
     private Integer orderId;
     private String paymentType;
     private Integer totalPrice;
-    private Integer depositAmount;
-    private String bank;
-    private String depositor;
     private String payPg;
-    private Date approveTime;
-    private Date payTime;
+    private String approveTime;
+    private String payTime;
 }
