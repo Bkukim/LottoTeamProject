@@ -9,18 +9,7 @@
         <div class="col log col-divider">
           <h5 class="mb-4 mt-4 log-form"><strong>회원 로그인</strong></h5>
           
-            <div class="mb-3">
-              <label class="insert-id log-form mb-2" for="id">회원유형</label>
-              <select
-                class="form-select log-form"
-                aria-label="Default select example"
-                v-model="role"
-                id="login-role"
-              >
-                <option selected value="ROE_USER">회원</option>
-                <option value="ROLE_ADMIN">관리자</option>
-              </select>
-            </div><div class="mb-3">
+          <div class="mb-3">
               <label class="insert-id log-form mb-2" for="id">아이디</label>
               <input
                 class="form-control log-form"
@@ -56,7 +45,7 @@
         </div>
         <!-- 회원가입 시작 -->
         <div class="col join">
-          <h5 class="mb-1 mt-4 mb-4 join-form"><strong>회원가입</strong></h5>
+          <h5 class="mb-1 mt-4 join-form"><strong>회원가입</strong></h5>
           
             <div class="mb-3 join-form">
               <button
@@ -67,11 +56,11 @@
               >
                 회원가입
               </button>
-              <div class="mt-5 mb-4">
-                <h5 class="mt-4 mb-4" ><strong>ID/PW 찾기</strong></h5>
+              <div class=" mb-4">
+                <h5 class="mt-4 " ><strong>ID/PW 찾기</strong></h5>
               </div>
             </div>
-            <div class="join-form mt-5">
+            <div class="join-form ">
               <button class="btn btn-sm mb-3" id="find-idpw" type="button" @click="goFindId">
                 아이디 찾기
               </button>

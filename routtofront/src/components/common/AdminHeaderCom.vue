@@ -4,7 +4,7 @@
     <!-- header 중앙 정렬박스 -->
     <div class="kim-frame-14-in">
       <!--로고이미지  -->
-      <router-link to="/">
+      <router-link to="/shop/admin/order">
         <img
           class="kim-routto-logo"
           src="../../../src/assets/images/routto__4__1.png"
@@ -16,7 +16,7 @@
         <router-link to="/shop/admin/order" class="kim-div3"
           >주문관리</router-link
         >
-        <router-link to="/admin-notice" class="kim-div3">공지사항</router-link>
+        <router-link to="/shop/notice" class="kim-div3">공지사항</router-link>
         <router-link to="/shop/admin/add-product" class="kim-div3"
           >상품등록</router-link
         >
