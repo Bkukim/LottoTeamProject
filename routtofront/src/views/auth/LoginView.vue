@@ -151,8 +151,13 @@ export default {
   created() {
       // dept와 emp사이에서는 서로 접근이 불가능하여서(의존성을 낮추기 위해) 속성을 공유해서 사용할 수 없다. 그래서 풀옵스와 공유저장소를 이용해서 통신해야한다.
       // vue의 공유저장소인 vuex를 사용하자, 만약 vuex에 로그인이 true이면 로그인이 되어있는상태이므로 login을 할 필요가 없다. 그래서 강제로 home으로 이동시킨다.
-      if (this.$store.state.loggedIn) {
+      try {
+        if (this.$store.state.loggedIn) {
         this.$router.push("/"); // 로그인이 되어있으므로 강제이동
+      }
+      } catch (error) {
+        alert("error");
+        console.log(error);
       }
     },
 };
