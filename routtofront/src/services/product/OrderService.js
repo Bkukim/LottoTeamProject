@@ -13,9 +13,9 @@ class OrderService {
     });
   }
 
-  get(orderId,) {
-    return http.get(`/user/shop/order/${orderId}`)
-  }
+  // get(orderId,) {
+  //   return http.get(`/user/shop/order/${orderId}`)
+  // }
 
   getOrderId(orderId){
 
