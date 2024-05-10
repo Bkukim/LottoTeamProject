@@ -48,13 +48,13 @@
                 <option selected value="자신이 가장 존경하는 인물은">
                   자신이 가장 존경하는 인물은?
                 </option>
-                <option value="기억에 남는 추억의 장소는?">
+                <option value="기억에 남는 추억의 장소는">
                   기억에 남는 추억의 장소는?
                 </option>
-                <option value="자신의 인생 좌우명은?">
+                <option value="자신의 인생 좌우명은">
                   자신의 인생 좌우명은?
                 </option>
-                <option value="인상깊게 읽은 책 이름은?">
+                <option value="인상깊게 읽은 책 이름은">
                   인상깊게 읽은 책 이름은?
                 </option>
               </select>
@@ -131,9 +131,10 @@ export default {
           this.$router.push("/member/new-pw")
         } else {
           this.message =
-            "존재하지 않는 회원이거나 비밀번호 질문확인이 올바르지 않습니다. ";
+            "존재하지 않는 회원이거나 \n" + "비밀번호 질문확인이 올바르지 않습니다.";
         }
       } catch (e) {
+        alert("회원정보를 입력해주세요")
         console.log(e);
       }
     },

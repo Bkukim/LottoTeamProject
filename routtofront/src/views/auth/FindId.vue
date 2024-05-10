@@ -73,7 +73,7 @@
               </div>
             </div>
             <div>
-              <div v-if="message" class="mt-5 text-center">
+              <div class="mt-5 text-center">
                 <h4>{{ message }}</h4>
               </div>
             </div>
@@ -145,15 +145,17 @@ export default {
           data.userName,
           data.phoneNum
         );
-        if (response.data.message == "존재하지 않는 회원입니다.") {
-          this.message = response.data.message;
+        console.log(response.data);
+        if (!response.data) {
+          this.message = "존재하지 않는 회원입니다";
         } else {
           this.message = response.data.userName + "님의 회원 ID는 \"" + response.data.userId + "\" 입니다.";
         }
         
 
-        console.log(response.data);
+       
       } catch (e) {
+        alert("회원 정보를 입력해주세요")
         console.log(e);
       }
     },
