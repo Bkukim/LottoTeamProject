@@ -5,16 +5,20 @@ import AuthHeader from "@/services/auth/AuthHeader";
 class OrderService {
   // TODO: 주문 저장 함수
   saveOrder(data) {
-    return http.post("/user/shop/order", data,
-    {
-      headers: AuthHeader()
+    return http.post("/user/shop/order", data, {
+      headers: AuthHeader(),
     });
   }
-  getOrderId(orderId){
-    return http.get(`/admin/shop/order/${orderId}`,
-    {
-      headers: AuthHeader()
+  getOrderId(orderId) {
+    return http.get(`/admin/shop/order/${orderId}`, {
+      headers: AuthHeader(),
     });
+  }
+
+  // TODO: 여기 붙혀넣기 (지영-상세조회-마이페이지)
+  get(userId) {
+    // TODO: 사용법 : http.get(`/컨트롤러함수url/${부서번호}`)
+    return http.get(`/user/shop/mypage-order/${userId}`);
   }
 }
 
