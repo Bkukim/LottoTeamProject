@@ -24,7 +24,7 @@ class OrderService {
       headers: AuthHeader()
     });
   }
-   // user의 cart에서 전체주문 -> 주문페이지
+   // TODO: user의 cart에서 전체주문 -> 주문페이지
    get(userId){
     return http.get(`/user/shop/order/product/${userId}`,
     {

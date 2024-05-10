@@ -20,6 +20,8 @@ public interface ICartDto {
 
 
 
+
+
  Integer getCartId(); // 기본키  시퀀스 장바구니 번호
  String getUserId(); //회원번호
  Integer getCartProdCount(); // 각 상품의 갯수

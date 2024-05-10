@@ -13,7 +13,7 @@
 
       <!-- 메뉴 바 -->
       <div class="kim-navbar">
-        <router-link to="/product/example" class="kim-div3">BEST</router-link>
+        <router-link to="/product/81" class="kim-div3">BEST</router-link>
         <router-link to="/" class="kim-div3">SKIN</router-link>
         <router-link to="/" class="kim-div3">HAIR</router-link>
         <router-link to="/" class="kim-div3">MAKE UP</router-link>
