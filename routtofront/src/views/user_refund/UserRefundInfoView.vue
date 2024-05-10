@@ -80,7 +80,7 @@
   </div>
 </template>
 <script>
-import RefundPopup from './RefundPopup.vue';
+import RefundPopup from './RefundPopupView.vue';
 import { computed } from 'vue';
 import { useStore } from 'vuex';
 

@@ -55,7 +55,7 @@ public class PaymentService {
     }
 //
 //  삭제함수
-    public boolean removeByPaymentCode(String paymentCode) {
+    public boolean removeByPaymentCode(Integer paymentCode) {
         if (paymentRepository.existsById(paymentCode)) {
             Optional<Payment> optionalPayment = paymentRepository.findById(paymentCode);
 
@@ -72,7 +72,7 @@ public class PaymentService {
     }
 //
 //  상세조회
-    public Optional<Payment> findById(String paymentCode) {
+    public Optional<Payment> findById(Integer paymentCode) {
         Optional<Payment> optionalPayment = paymentRepository.findById(paymentCode);
 
         return optionalPayment;
