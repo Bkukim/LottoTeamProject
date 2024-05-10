@@ -46,19 +46,6 @@ public class AdBanner extends BaseTimeEntity {
     private String bannerImg2Url;
     @Column(name = "BANNER_IMG2_UUID")
     private String bannerImg2Uuid;
-    private String insertTime;
-    private String updateTime;
 
-    public AdBanner(String bannerId, int prodId, String bannerTitle, String bannerContent, byte[] bannerImg1, String bannerImg1Url, String bannerImg1Uuid, byte[] bannerImg2, String bannerImg2Url, String bannerImg2Uuid) {
-        this.bannerId = bannerId;
-        this.prodId = prodId;
-        this.bannerTitle = bannerTitle;
-        this.bannerContent = bannerContent;
-        this.bannerImg1 = bannerImg1;
-        this.bannerImg1Url = bannerImg1Url;
-        this.bannerImg1Uuid = bannerImg1Uuid;
-        this.bannerImg2 = bannerImg2;
-        this.bannerImg2Url = bannerImg2Url;
-        this.bannerImg2Uuid = bannerImg2Uuid;
-    }
+
 }

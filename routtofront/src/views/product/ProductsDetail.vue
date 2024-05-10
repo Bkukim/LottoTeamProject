@@ -276,6 +276,7 @@ export default {
             // 화면 뜰때 상단이 뜨게 해주는 함수
     window.scrollTo(0, 0); 
     this.getProd(this.$route.params.prodId); // 상세조회 함수 실행
+    window.scrollTo(0, 0);
   },
 };
 </script>

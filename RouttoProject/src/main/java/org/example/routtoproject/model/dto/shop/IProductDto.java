@@ -16,8 +16,9 @@ package org.example.routtoproject.model.dto.shop;
 public interface IProductDto {
     Integer getProdId();
     String getProdName();
-    Integer getDefaultPrice();
-    Integer getDiscountRate();
-    Integer getProdPrice();
+
+    String getDefaultPrice();
+    String getDiscountRate();
+    String getProdPrice();
     String getProdImgUrl();
 }

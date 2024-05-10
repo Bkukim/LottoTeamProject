@@ -1,6 +1,8 @@
 <template>
   <AdminHeaderCom/>
+  
   <div class="container">
+    <h2 class="mb-3">주문 관리</h2>
     <!-- 1) 주문 조회 배너 시작 -->
     <div
       class="container mt-5"
@@ -418,6 +420,8 @@ export default {
   mounted() {
     // 최초 화면이 뜰 때 전체조회 실행(장바구니)
     this.retrieveOrder();
+    
+    window.scrollTo(0, 0);
   },
 };
 </script>

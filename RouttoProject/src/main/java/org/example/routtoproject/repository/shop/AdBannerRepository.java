@@ -33,6 +33,9 @@ public interface AdBannerRepository extends JpaRepository<AdBanner, String>{
     @Query(value = "SELECT * FROM LOTTO_AD_BANNER WHERE BANNER_IMG1_UUID = :bannerImg1Uuid", nativeQuery = true)
     Optional<AdBanner> findByBannerImg1Uuid(String bannerImg1Uuid);
 
+  @Query(value = "SELECT * FROM LOTTO_AD_BANNER WHERE BANNER_IMG2_UUID = :bannerImg2Uuid", nativeQuery = true)
+    Optional<AdBanner> findByBannerImg2Uuid(String bannerImg2Uuid);
+
     @Query(value = "SELECT AB.BANNER_ID AS bannerId,\n" +
             "PR.PROD_ID AS prodId,\n" +
             "PR.PROD_NAME AS prodName,\n" +

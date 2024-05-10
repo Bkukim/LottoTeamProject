@@ -54,8 +54,8 @@ public class ProductService {
 
 
     // todo 전체조회
-    public List<Product> findAll(){
-        List<Product> product = productRepository.findAll();
+    public List<IProductDto> findAllImg(){
+        List<IProductDto> product = productRepository.findAllImg();
         return product;
     }
 
