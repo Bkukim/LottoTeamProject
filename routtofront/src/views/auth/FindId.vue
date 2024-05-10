@@ -24,7 +24,7 @@
                 aria-label="Default select example"
                 v-model="role"
               >
-                <option selected value="ROE_USER">회원</option>
+                <option selected value="ROLE_USER">회원</option>
                 <option value="ROLE_ADMIN">관리자</option>
               </select>
             </div>

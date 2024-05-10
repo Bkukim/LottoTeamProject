@@ -126,7 +126,7 @@ export default {
           this.pwQuestion,
           this.pwAnswer
         );
-        if (response.data != null) {
+        if (response.data) {
           this.$store.state.userId = this.userId;
           this.$router.push("/member/new-pw")
         } else {

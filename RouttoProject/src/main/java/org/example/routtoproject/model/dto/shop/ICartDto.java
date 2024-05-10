@@ -18,23 +18,6 @@ public interface ICartDto {
 
 
 
-    Integer getCartId(); // 기본키  시퀀스 장바구니 번호
-
-    String getUserId(); //회원번호
-
-    Integer getCartProdCount();
-
-    String getProdImgUrl();
-
-    Integer getProdId();       // 상품번호
-
-    String getProdName();      // 상품 이름
-
-    Integer getDefaultPrice(); // 원가
-
-    Integer getDiscountRate(); // 할인율
-
-
 
 
  Integer getCartId(); // 기본키  시퀀스 장바구니 번호
