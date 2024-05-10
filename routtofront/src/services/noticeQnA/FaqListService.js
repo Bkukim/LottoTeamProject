@@ -25,7 +25,8 @@ class FaqListService {
       headers: AuthHeader()
     }
     );
-}
+} 
+
 
   // TODO: 상세조회 함수1 : 내가쓴글 확인하기? : 회원번호 userId
   // // TODO: 조회(select) -> get 방식 -> @GetMapping
@@ -55,6 +56,17 @@ class FaqListService {
     // TODO: 수정(update) -> put 방식 -> @PutMapping
     // TODO: 사용법 : http.put(`/컨트롤러함수url/${dno}`, 수정할객체)
     return http.put(`/user/member/faq/update/${faqId}`, data,
+    {
+      headers: AuthHeader()
+    }
+    );
+  }
+  
+  // TODO: 관리자 :: 답변으로 수정함수 : qnaId, 
+  updateAnswer(faqId, data) {
+    // TODO: 수정(update) -> put 방식 -> @PutMapping
+    // TODO: 사용법 : http.put(`/컨트롤러함수url/${dno}`, 수정할객체)
+    return http.put(`/admin/faq/updateanswer/${faqId}`, data,
     {
       headers: AuthHeader()
     }
