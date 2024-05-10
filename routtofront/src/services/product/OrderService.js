@@ -1,6 +1,8 @@
 // 주문 공통 CRUD 함수
 import http from "@/utils/http-common";
+
 import AuthHeader from "@/services/auth/AuthHeader";
+
 
 class OrderService {
   // TODO: 주문 저장 함수
@@ -10,7 +12,13 @@ class OrderService {
       headers: AuthHeader()
     });
   }
+
+  // get(orderId,) {
+  //   return http.get(`/user/shop/order/${orderId}`)
+  // }
+
   getOrderId(orderId){
+
     return http.get(`/admin/shop/order/${orderId}`,
     {
       headers: AuthHeader()
@@ -22,6 +30,7 @@ class OrderService {
     {
       headers: AuthHeader()
     });
+
   }
 }
 

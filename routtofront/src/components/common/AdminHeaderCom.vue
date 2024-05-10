@@ -4,7 +4,7 @@
     <!-- header 중앙 정렬박스 -->
     <div class="kim-frame-14-in">
       <!--로고이미지  -->
-      <router-link to="/">
+      <router-link to="/shop/admin/order">
         <img
           class="kim-routto-logo"
           src="../../../src/assets/images/routto__4__1.png"
@@ -28,7 +28,7 @@
         >
         <router-link to="" class="kim-div3">상품 QNA</router-link>
         <router-link to="" class="kim-div3">고객문의</router-link>
-        <router-link to="" class="kim-div3">홍보배너관리</router-link>
+        <router-link to="/admin/banner-list" class="kim-div3">홍보배너관리</router-link>
       </div>
 
       <!-- 오른쪽 박스 -->
@@ -59,6 +59,7 @@
 <script>
 import AuthService from "@/services/auth/AuthService";
 export default {
+  
   data() {
     return {
       scrolled: false, // 헤더의 스크롤 상태를 나타내는 데이터 변수

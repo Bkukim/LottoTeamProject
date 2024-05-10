@@ -130,10 +130,9 @@ public class AuthController {
                                          @PathVariable String phoneNum){
         try {
             User user = userService.findId(role, userName, phoneNum);
-            FindId findId = new FindId("존재하지 않는 회원입니다.");
-            log.debug("asdfa" + user);
+            FindId findId = new FindId("존재하지 않는 회원입니다");
             if (user == null) {
-                return new ResponseEntity<>(findId, HttpStatus.OK);
+                return new ResponseEntity<>(false, HttpStatus.OK);
             }else {
                 return new ResponseEntity<>(user, HttpStatus.OK);
             }
@@ -150,8 +149,8 @@ public class AuthController {
                                            @PathVariable String pwQuestion,
                                            @PathVariable String pwAnswer){
         try {
-            User user = userService.getForPw(role, userId, pwQuestion, pwAnswer);
-            if (user != null) {
+            boolean user = userService.getForPw(role, userId, pwQuestion, pwAnswer);
+            if (user) {
 
                 return new ResponseEntity<>(true, HttpStatus.OK);
             }else {

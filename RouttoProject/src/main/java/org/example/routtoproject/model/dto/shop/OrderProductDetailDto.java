@@ -20,5 +20,6 @@ public interface OrderProductDetailDto {
     String getProdName();       // 상품 이름
     Integer getOrderAmount();   // 상품 수량
     Integer getTotalPrice();       // 최종 상품 가격
+    String getProdImgUrl();       // 최종 상품 가격
 
 }

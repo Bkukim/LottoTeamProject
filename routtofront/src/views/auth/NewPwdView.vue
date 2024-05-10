@@ -34,6 +34,7 @@
                 name="id"
                 v-model="newPw"
                 style="height: 50px"
+                @input="checkPasswordMatch"
               />
             </div>
 

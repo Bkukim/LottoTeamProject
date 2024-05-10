@@ -31,6 +31,7 @@ public interface OrderProdRepository extends JpaRepository<OrderProd, Integer> {
 //          예) 상품id가 95번인 상품-상품상세 테이블 조인
     @Query(value = "SELECT LP.PROD_NAME AS prodName" +
             ", OP.ORDER_AMOUNT AS orderAmount" +
+            ", LP.PROD_IMG_URL AS prodImgUrl" +
             ", LP.DEFAULT_PRICE * (1-LP.DISCOUNT_RATE/100)*OP.ORDER_AMOUNT + 3000 AS totalPrice\n" +
             "            FROM LOTTO_PRODUCT LP, LOTTO_ORDER_PROD OP\n" +
             "            WHERE LP.PROD_ID = OP.PROD_ID\n" +

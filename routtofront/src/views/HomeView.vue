@@ -3,28 +3,28 @@
     <!-- 전체 중앙정렬 -->
     <div class="frame-22">
       <!-- 메인배너 -->
-      <img class="baner_divbox" src="@/assets/images/main_banner.jpg" />
+      <img class="baner_divbox" :src="banner[0]?.bannerImg1Url" />
       <!-- src="@/assets/images/main_banner.jpg -->
 
       <!-- product -->
       <div class="product">
         <!--  product 메뉴 버튼-->
         <div class="menu_bt">
-        <router-link to="/product/example" class="frame-18">ALL</router-link>
-        <router-link to="/" class="frame-19">BEST</router-link>
-        <router-link to="/" class="frame-20">SKIN</router-link>
-        <router-link to="/" class="frame-21">BODY</router-link>
+          <router-link to="/product/example" class="frame-18">ALL</router-link>
+          <router-link to="/" class="frame-19">BEST</router-link>
+          <router-link to="/" class="frame-20">SKIN</router-link>
+          <router-link to="/" class="frame-21">BODY</router-link>
         </div>
       </div>
 
       <!-- best product2 상품 -->
 
       <!-- product2_all 전체박스 -->
-      <div class="product2_all">
+      <div class="product2_all product-kim">
         <!-- product 왼쪽 문구 -->
         <div class="product2">product</div>
-        
-        <div class="product2_in" v-for="(data, index) in product" :key="index">
+
+        <div class="product2_in image-kim" v-for="(data, index) in product" :key="index">
           <!-- 홀수 번째인 경우에만 odd 클래스를 추가 -->
           <div class="div10" :class="{ odd: index % 2 !== 0 }">
             <!-- 상품이미지 -->
@@ -70,37 +70,41 @@
           <div class="abcdefg2">shop></div>
         </div>
       </div>
-
-      <img class="_2" src="../../src/assets/images/main_s3_slide_dex_pc.jpg" />
+      
+        <img class="_2" :src="banner[1]?.bannerImg2Url" />
+      
       <img class="_3" src="../../src/assets/images/ROUTTO_logo_wh.png" />
 
       <div class="best-menu-2">
         <div class="_22">
-          <img class="div2" src="../../src/assets/images/prd_image_01_v2.png" />
-          <div class="abcdefgefghijk">Texture Curl Cream</div>
+          <img class="div2" :src="banner[1]?.bannerImg1Url" /><!-- 배너 2-1 -->
+          <div class="abcdefgefghijk">{{banner[1]?.bannerTitle}}</div>
           <div class="div3">
-            쉽고 빠른 스타일링, 모발 케어 성분은 물론 향기까지 완벽한 프리미엄
-            퍼퓸 컬크림
+            {{ banner[1]?.bannerContent }}
           </div>
-          <div class="shop-more">SHOP MORE &gt;</div>
+          <div class="shop-more"><router-link :to="'/product/'+banner[1]?.prodId" >SHOP MORE  &gt;</router-link> </div>
         </div>
         <div class="_22">
-          <img class="div4" src="../../src/assets/images/prd_image_02.png" />
-          <div class="abcdefgefghijk2">All In One! Essence</div>
+          <img
+            class="div4"
+            :src="banner[2]?.bannerImg1Url"
+          /><!-- 배너 3 -->
+          <div class="abcdefgefghijk2">{{banner[2]?.bannerTitle}}</div>
           <div class="div5">
-            진정 / 보습장벽 / 모공 / 피지케어까지 한번에 남성 피부 맞춤 올인원
-            솔루션
+            {{ banner[2]?.bannerContent }}
           </div>
-          <div class="shop-more2">SHOP MORE &gt;</div>
+          <div class="shop-more2"><router-link :to="'/product/'+banner[2]?.prodId" >SHOP MORE  &gt;</router-link></div>
         </div>
         <div class="_22">
-          <img class="div6" src="../../src/assets/images/prd_image_03.png" />
-          <div class="abcdefgefghijk3">Style! Setting Fixer</div>
+          <img
+            class="div6"
+            :src="banner[3]?.bannerImg1Url"
+          /><!-- 배너 4 -->
+          <div class="abcdefgefghijk3">{{banner[3]?.bannerTitle}}</div>
           <div class="div7">
-            자연스러운 헤어 고정, 탈모완화기능성은 물론 향기까지 완벽한 프리미엄
-            퍼퓸 픽서
+            {{ banner[3]?.bannerContent }}
           </div>
-          <div class="shop-more3">SHOP MORE &gt;</div>
+          <div class="shop-more3"><router-link :to="'/product/'+banner[3]?.prodId" >SHOP MORE  &gt;</router-link></div>
         </div>
       </div>
 
@@ -109,11 +113,14 @@
   </div>
 </template>
 <script>
+import AdminAdBannerService from "@/services/admin/AdminAdBannerService";
 import ProductService from "@/services/product/ProductService";
 
 export default {
   data() {
     return {
+      // prodImgUrl:["http://localhost:8000/api/normal/shop/product/img/3e89a3876b87444a88965fb0a2f2ba8f", "http://localhost:8000/api/normal/shop/product/img/5b456b748e944e63bdb4591b20c2403b"],
+      banner: [],
       product: [],
       searchTitle: "", // 검색어
 
@@ -128,7 +135,18 @@ export default {
       pageSizes: [3, 6, 9], // 화면에 보여질 개수배열
     };
   },
+
   methods: {
+  
+    async getAllBanner() {
+      try {
+        let response = await AdminAdBannerService.findAllBannerHome();
+        this.banner = response.data;
+        console.log("배너 ::: " , response.data);
+      } catch (error) {
+        console.log(error);
+      }
+    },
     // TODO: 전체조회 함수    : 검색어 버튼 태그
     async retrieveSimpleProduct() {
       try {
@@ -138,7 +156,7 @@ export default {
         this.product = response.data; // spring 전달 객체배열
         // 전체페이지개수
         // 로깅(디버깅)
-        console.log(response.data); // 웹브라우저 콘솔탭에 spring 전달 객체배열이 표시됨
+        // console.log(response.data); // 웹브라우저 콘솔탭에 spring 전달 객체배열이 표시됨
       } catch (e) {
         console.log(e); // 웹브라우저 콘솔탭에 에러메세지가 표시됨
       }
@@ -152,10 +170,53 @@ export default {
   //   TODO: 화면이 뜰때 자동 실행 함수
   mounted() {
     // TODO: 전체 조회 자동 실행
+    this.getAllBanner();
     this.retrieveSimpleProduct();
+    
+    window.scrollTo(0, 0);
   },
+  
 };
 </script>
 <style>
 @import "@/assets/css/main.css";
+.product-kim{
+  display: flex;
+  }
+  /* .image-kim{ */
+  /* margin-right: 10px; 이미지 간격 조절 */
+/* } */
+
+.image-kim {
+  display: flex;
+  flex-wrap: wrap; /* 요소가 화면 크기를 넘어갈 때 줄 바꿈 */
+}
+
+.image-container {
+  flex: 0 0 25%; /* 4개의 이미지를 한 줄에 표시하도록 설정 */
+  margin-right: 10px; /* 이미지 간격 조절 */
+}
+
+.image-container img {
+  width: 100%; /* 이미지가 부모 요소에 맞게 표시되도록 설정 */
+}
+
+.odd {
+  background-color: lightgray; /* 홀수 번째 요소에 배경색 적용 (테스트용) */
+}
+
+.div10 {
+  flex: 0 0 50%; /* 한 줄에 4개의 이미지를 표시하기 위한 설정 */
+  margin-right: 10px; /* 이미지 사이의 간격 설정 */
+}
+
+.frame-11 {
+  width: 100%; /* 이미지의 너비 100%로 설정하여 부모 요소에 맞추어 표시 */
+  height: auto; /* 이미지의 높이를 자동으로 조정하여 비율 유지 */
+}
+
+.product2_in {
+  display: flex;
+  flex-wrap: wrap; /* Flexbox에서 요소가 넘칠 때 줄바꿈 설정 */
+}
 </style>

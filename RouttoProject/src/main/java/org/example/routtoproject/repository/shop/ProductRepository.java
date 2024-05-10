@@ -31,7 +31,9 @@ import java.util.Optional;
 @Repository
 public interface ProductRepository extends JpaRepository<Product, Integer> {
 
-    // todo 카테고리 별로 조회 함수
+
+    // todo 상품 홈페이지에서 사진만 띄울건데 너무 많은 정보가 보여져서 필요한 것만 담기 위해 만드는 함수
+
     @Query(value = "SELECT PROD_ID AS prodId,\n" +
             "PROD_NAME AS prodName,\n" +
             "DEFAULT_PRICE AS defaultPrice,\n" +
@@ -42,11 +44,7 @@ public interface ProductRepository extends JpaRepository<Product, Integer> {
             "WHERE PROD_STOCK <> 0 AND PROD_STATUS = '판매중'\n" +
             "AND PROD_CATEGORY = :prodCategory\n" +
             "ORDER BY SOLD_COUNT"
-            ,countQuery = "SELECT count(*) FROM LOTTO_PRODUCT\n" +
-            "WHERE PROD_STOCK <> 0 AND PROD_STATUS = '판매중'\n" +
-            "AND PROD_CATEGORY = :prodCategory\n" +
-            "ORDER BY SOLD_COUNT"
-             ,nativeQuery = true)
+    ,nativeQuery = true)
     Page<IProductDto> findAllByProdCategory(@Param("prodCategory") String prodCategory, Pageable pageable);
 
 // todo 판매량 별로 조회 함수
@@ -66,7 +64,7 @@ public interface ProductRepository extends JpaRepository<Product, Integer> {
     Page<IProductDto> findAllBySoldCount(Pageable pageable);
 
 
-
+   //    todo: 상품명으로 조회하는 SELECT 쿼리문
     @Query(value = "SELECT PROD_ID AS prodId,\n" +
             "PROD_NAME AS prodName,\n" +
             "DEFAULT_PRICE AS defaultPrice,\n" +
@@ -86,6 +84,19 @@ public interface ProductRepository extends JpaRepository<Product, Integer> {
                                            Pageable pageable
     );
 
+    //    todo: 상품명으로 조회하는 SELECT 쿼리문
+    @Query(value = "SELECT PROD_ID AS prodId,\n" +
+            "PROD_NAME AS prodName,\n" +
+            "DEFAULT_PRICE AS defaultPrice,\n" +
+            "DISCOUNT_RATE AS discountRate,\n" +
+            "DEFAULT_PRICE*(100-DISCOUNT_RATE)/100 AS prodPrice,\n" +
+            "PROD_IMG_URL AS prodImgUrl\n" +
+            "FROM LOTTO_PRODUCT\n" +
+            "WHERE PROD_STOCK <> 0 AND PROD_STATUS = '판매중'\n" +
+            "ORDER BY SOLD_COUNT"
+
+            ,nativeQuery = true)
+    List<IProductDto> findAllImg();
 
     //    todo: 상품명으로 조회하는 SELECT 쿼리문
     @Query(value = "SELECT PROD_ID AS prodId\n" +
@@ -101,6 +112,8 @@ public interface ProductRepository extends JpaRepository<Product, Integer> {
     )
     List<IProdNameDto> findByProdName(@Param("prodName") String prodName);
 
+
     Optional<Product> findByProdImgUuid(String prodImgUuid);
     Optional<Product> findByProdDetailPageUuid(String prodDetailPageUuid);
+
 }

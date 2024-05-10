@@ -95,11 +95,6 @@
               <label class="col-md-9 col-form-label">{{ odid.payPg }}</label>
             </div>
           </div>
-
-          <div class="mb-1 row" v-if="odid.paymentType === '가상계좌'">
-            <label class="col-md-2 col-form-label">입금 계좌번호</label>
-            <label class="col-md-10 col-form-label">{{ accountNumber }}</label>
-          </div>
           <!-- 결제수단 박스 끝 -->
 
           <!-- 배송지 박스 시작 -->
@@ -213,11 +208,10 @@
                 <br />
                 <label>금액 : {{ product.price }}</label>
                 <br />
-                <label>할인 금액 : {{ product.discount }}</label>
+                <label>할인 금액 : 0원</label>
               </div>
             </div>
             <div>
-              {{ jsonData }}
             </div>
           </div>
           <!-- 주문 상품 정보 박스 끝 -->
@@ -257,7 +251,7 @@
                 >배송비</label
               >
               <label class="col-md-10 col-form-label" style="text-align: right"
-                >원</label
+                >3000원</label
               >
             </div>
             <!-- 총 결제금액 -->
@@ -266,7 +260,7 @@
                 >결제금액</label
               >
               <label class="col-md-10 col-form-label" style="text-align: right"
-                >원</label
+                >{{jsonData.totalAmount}}원</label
               >
             </div>
           </div>
@@ -305,50 +299,12 @@
 </template>
 
 <script>
-import axios from "axios";
 import { mapState } from "vuex";
 import CheckoutView from '../payment/CheckoutView.vue';
 
-  import { ref, onMounted } from "vue";
-  import { useRoute, useRouter } from "vue-router";
-  import { confirmPayment } from '@/services/payment/confirmPayment';
-
 export default {
       setup() {
-      const route = useRoute();
-      const router = useRouter();
-      const confirmed = ref(false);
-      const jsonData = ref(null);
-  
-      onMounted(async () => {
-        const requestData = {
-          orderId: route.query.orderId,
-          amount: route.query.amount,
-          paymentKey: route.query.paymentKey,
-        };
-  
-        async function confirm() {
-          try {
-            const { response, json } = await confirmPayment(requestData);
-            console.log(json);
-            if (!response.ok) {
-              router.push(`/fail?message=${json.message}&code=${json.code}`);
-            } else {
-              confirmed.value = true;
-              jsonData.value = json;
-            }
-          } catch (error) {
-            console.log(error);
-          }
-        }
-  
-        confirm();
-      });
-  
-      return {
-        confirmed,
-        jsonData,
-      };
+
     },
   computed: {
     // Vuex 스토어의 상태를 매핑합니다.
@@ -357,76 +313,14 @@ export default {
   },
   data() {
     return {
-      odid: {
-        // 주문 정보를 저장할 객체
-        orderId: "",
-        orderPrice: "",
-        paymentType: "",
-        bank: "",
-        depositor: "",
-        payPg: "",
-      },
-
-      deliv: {},
-
-      exampleOrderInfo: {}, // TODO: 주문 정보 예시
 
       // 주문완료 이미지 경로
       ordercompleteimg: require("@/assets/images/ordercomplete_icon.png"),
 
-      products: [], // TODO: 지금 테스트 중인 주문 상품 정보 배열
-
-      paymentInfo: null,
     };
   },
   methods: {
-    retrieveOrder() {
-      // API 요청 등을 통해 주문번호와 주문금액을 조회하는 로직 구현
-      // 예시를 위해 임시 데이터 사용
-      // 결제 정보 박스에 사용할 함수
-      let retrievedOdid = {
-        orderId: "123456789",
-        orderPrice: "45000",
-        paymentType: "계좌이체",
-        bank: "국민은행",
-        depositor: "공민식",
-        payPg: "토스뱅크카드",
-      };
 
-      // 조회된 데이터를 odid 객체에 저장
-      this.odid = retrievedOdid;
-      this.odid.orderId = retrievedOdid.orderId;
-      this.odid.orderPrice = retrievedOdid.orderPrice;
-      this.odid.paymentType = retrievedOdid.paymentType;
-      this.odid.bank = retrievedOdid.bank;
-      this.odid.depositor = retrievedOdid.depositor;
-    },
-
-    async retrievedAddr() {
-      try {
-        // API 요청을 통해 주문 정보를 조회
-        const response = await axios.get('/api/user/shop/order/:prodId');
-        // 조회된 데이터를 deliv 객체에 저장
-        this.deliv = response.data;
-      } catch (error) {
-        console.error("배송 정보 조회 중 에러 발생:", error);
-      }
-    },
-
-    fetchProducts() {
-      axios
-        .get("http://localhost:8080/api/user/shop")
-        .then((response) => {
-          this.products = response.data;
-        })
-        .catch((e) => {
-          console.error("상품 데이터를 가져오는데 실패했습니다.", e);
-        });
-    },
-
-        handlePaymentSuccess(info) {
-      this.paymentInfo = info;
-    },
 
     // 주문 확인하기 버튼 클릭시 실행될 함수
     goToMyPage() {
@@ -436,21 +330,8 @@ export default {
     goToHome() {
       this.$router.push("/");
     },
-    // TODO: 주문정보 조회를 위한 함수 예제
-    async fetchUserData() {
-            try {
-                const response = await axios.get('http://your-backend-api.com/user/1');
-                this.userInfo = response.data;
-            } catch (error) {
-                console.error("Error fetching user data:", error);
-            }
-        },
   },
   mounted() {
-    this.retrieveOrder(); // 컴포넌트 생성 시 주문 정보 조회
-    this.retrievedAddr();
-    this.fetchProducts(); // 주문 상품 정보 조회
-    this.fetchUserData(); // TODO: 주문 정보 조회를 위한 예제
   },
 };
 </script>
