@@ -1,6 +1,8 @@
 // 주문 공통 CRUD 함수
 import http from "@/utils/http-common";
+
 import AuthHeader from "@/services/auth/AuthHeader";
+
 
 class OrderService {
   // TODO: 주문 저장 함수
@@ -9,6 +11,7 @@ class OrderService {
       headers: AuthHeader(),
     });
   }
+
   getOrderId(orderId) {
     return http.get(`/admin/shop/order/${orderId}`, {
       headers: AuthHeader(),
@@ -19,6 +22,27 @@ class OrderService {
   get(userId) {
     // TODO: 사용법 : http.get(`/컨트롤러함수url/${부서번호}`)
     return http.get(`/user/shop/mypage-order/${userId}`);
+
+
+  // get(orderId,) {
+  //   return http.get(`/user/shop/order/${orderId}`)
+  // }
+
+  getOrderId(orderId){
+
+    return http.get(`/admin/shop/order/${orderId}`,
+    {
+      headers: AuthHeader()
+    });
+  }
+   // TODO: user의 cart에서 전체주문 -> 주문페이지
+   get(userId){
+    return http.get(`/user/shop/order/product/${userId}`,
+    {
+      headers: AuthHeader()
+    });
+
+
   }
 }
 

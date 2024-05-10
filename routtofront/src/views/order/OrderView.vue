@@ -478,10 +478,10 @@
                 </div>
               </div>
               <!-- 쿠폰 할인 금액 -->
-              <div class="paymentTr">
+              <!-- <div class="paymentTr">
                 <div class="payTitle">쿠폰 할인 금액</div>
                 <div class="price">00 원</div>
-              </div>
+              </div> -->
               <!-- 총 배송비 -->
               <div class="paymentTr">
                 <div class="payTitle">총 배송비</div>
@@ -518,7 +518,9 @@
         </div>
         <!-- 7. 결제 버튼 -->
         <div class="mt-4">
-          <button type="button" id="btnPay" @click="togglePaymentModal">결제하기</button>
+
+          <button type="button" id="btnPay" @click="saveOrder">결제하기</button>
+
 
         </div>
       </div>
@@ -540,6 +542,7 @@
     <div>
       <!-- 결제 모달 -->
       <CheckoutViewVue
+      :orderInfo="orderData"
         v-if="isModalVisible"
         @close="isModalVisible = false"
       ></CheckoutViewVue>
@@ -567,6 +570,7 @@ export default {
       },
 
       isModalVisible: false,
+      orderData: null, // 서버로부터 받은 주문 정보 저장
 
       // 주문 수량
       orderAmount: 1,
@@ -668,10 +672,15 @@ export default {
         data.orderRequest = this.orderRequestDetail;
       }
 
-      try {
+
+      // TODO: 결제 창으로 주문정보 전송 및 결제창 오픈
+        try {
         let response = await OrderService.saveOrder(data); // 주문 정보를 서버에 전송(post 요청 수행)
-        console.log(response.data);
-        this.$router.push("/order/payment");
+        console.log("결제 클릭 ", response.data);
+        // this.orderData = response.data; // 주문 정보를 orderData에 저장
+        // this.isModalVisible = true; // 모달 창을 보여준다
+        this.$router.push("/order/payment/" + response.data.orderId);
+        // this.isModalVisible = !this.isModalVisible; // 결제하기 버튼 클릭 시 모달 상태 토글
       } catch (error) {
         console.log(error);
       }
@@ -745,33 +754,55 @@ export default {
       }).open();
     },
     // TODO: 주문 저장, 결제하기로 이동하는 함수
-    async goPayment() {
-      // saveOrder 함수 호출
-      try {
-        let response = await this.saveOrder(); // saveOrder 함수 호출 및 await로 비동기 처리
-        console.log(response);
-      } catch (error) {
-        console.error("에러 발생 : ", error);
-        // 주문 저장 중 오류가 발생한 경우에 대한 처리
-      }
-      this.$router.push("/order/Payment");
-    },
+    // async goPayment() {
+    //   // saveOrder 함수 호출
+    //   try {
+    //     let response = await this.saveOrder(); // saveOrder 함수 호출 및 await로 비동기 처리
+    //     console.log(response);
+    //   } catch (error) {
+    //     console.error("에러 발생 : ", error);
+    //     // 주문 저장 중 오류가 발생한 경우에 대한 처리
+    //   }
+    //   this.$router.push("/order/Payment");
+    // },
 
     // TODO: 결제 모달 여는 로직 (비동기, saveOrder 추가했음)
-    async togglePaymentModal() {
-      this.isModalVisible = !this.isModalVisible; // 결제하기 버튼 클릭 시 모달 상태 토글
-
-      // saveOrder 함수 호출
-      try {
-        let response = await this.saveOrder(); // saveOrder 함수 호출 및 await로 비동기 처리
-        console.log(response);
-      } catch (error) {
-        console.error("에러 발생 : ", error);
-        // 주문 저장 중 오류가 발생한 경우에 대한 처리
-      }
-    },
+    // async togglePaymentModal() {
+    //   // saveOrder 함수 호출
+    //   try {
+    //     let response = await this.saveOrder(); // saveOrder 함수 호출 및 await로 비동기 처리
+    //     console.log(response.data);
+    //     console.log(response.data.orderId)
+    //       this.$router.push("/order/payment/" + response.data.orderId);
+    //   } catch (error) {
+    //     console.log("에러 발생 : ", error);
+    //     // 주문 저장 중 오류가 발생한 경우에 대한 처리
+    //   }
+    //     // this.$router.push("/order/payment");
+    //     // this.isModalVisible = !this.isModalVisible; // 결제하기 버튼 클릭 시 모달 상태 토글
+    // },
+    // TODO: 결제 모달 여는 로직 (비동기, saveOrder 추가했음)
+// async togglePaymentModal() {
+//   // saveOrder 함수 호출
+//   try {
+//     let response = await this.saveOrder(); // saveOrder 함수 호출 및 await로 비동기 처리
+//     console.log(response.data);
+//     // orderId 값을 응답으로부터 추출
+//     const orderId = response.data.orderId; // 이 부분에서 orderId를 추출
+//     console.log(orderId);
+//     // orderId를 URL 파라미터로 사용하여 결제 페이지로 이동
+//     this.$router.push("/order/payment/" + orderId);
+//   } catch (error) {
+//     console.log("에러 발생 : ", error);
+//     // 주문 저장 중 오류가 발생한 경우에 대한 처리
+//   }
+//     // this.$router.push("/order/payment");
+    // this.isModalVisible = !this.isModalVisible; // 결제하기 버튼 클릭 시 모달 상태 토글
+// },
   },
   mounted() {
+    // 화면 뜰때 상단이 뜨게 해주는 함수
+    window.scrollTo(0, 0); 
       // alert(this.$store.state.user.userId);
     // TODO: userId로 조회해서 주문자에 자동입력 후 -> prodId로 주문 페이지 뜸
     // this.retrieveUser(this.$store.state.userId).then(() => {

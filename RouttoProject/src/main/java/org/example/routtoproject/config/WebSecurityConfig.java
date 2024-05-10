@@ -71,19 +71,15 @@ public class WebSecurityConfig {
 
 //                .dispatcherTypeMatchers(DispatcherType.FORWARD).permitAll()
 
+                .requestMatchers("/api/auth/**").permitAll()       // 로그인 및 회원가입 함수
 
-//
-//                .requestMatchers("/api/auth/**").permitAll()       // 로그인 및 회원가입 함수
-//                .requestMatchers("/api/user/**").hasRole("USER")       // user관련 모든 함수
-//                .requestMatchers("/api/admin/**").hasRole("ADMIN")       // 관리자의 모든 함수
-//                .requestMatchers("/api/normal/**").permitAll()       // 관리자의 모든 함수
+                .requestMatchers("/api/user/**").hasRole("USER")       // user관련 모든 함수
+                .requestMatchers("/api/admin/**").hasRole("ADMIN")       // 관리자의 모든 함수
+                .requestMatchers("/api/normal/**").permitAll()       // 관리자의 모든 함수
 
                 .anyRequest()
-                .permitAll());
-//                .authenticated());
-
-
-
+                .authenticated());
+//        .permitAll());
 
 
 

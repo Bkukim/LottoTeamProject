@@ -2,15 +2,14 @@ package org.example.routtoproject.service.shop;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.example.routtoproject.model.dto.shop.ICartDto;
 import org.example.routtoproject.model.dto.shop.OrderDto;
 import org.example.routtoproject.model.dto.shop.OrderProductDetailDto;
 import org.example.routtoproject.model.entity.shop.Order;
 import org.example.routtoproject.model.entity.shop.OrderProd;
-import org.example.routtoproject.model.entity.shop.Product;
 import org.example.routtoproject.repository.shop.OrderProdRepository;
 import org.example.routtoproject.repository.shop.OrderRepository;
 import org.modelmapper.ModelMapper;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -79,18 +78,14 @@ public class OrderService {
         return order2;    // 저장된 주문 객체
     }
 
-    // 페이징 주문 전체 조회
-    // todo: 전체조회 : 관리자 주문확인 페이지에서 사용
+    //   todo: 전체조회 : 관리자 주문확인 페이지에서 사용
     public Page<Order> findAll(String orderTime, String orderStatus, Pageable pageable) {
         Page<Order> page = orderRepository.findAllByOrderIdContaining(orderTime, orderStatus, pageable);
         return page;
     }
 
-
-
-//    todo: 관리자 주문확인 페이지 : 상세보기 클릭 시 나오는 상품 정보
-    public List<OrderProductDetailDto> findOrderProdDetail(Integer orderId){
-
+    //    todo: 관리자 주문확인 페이지 : 상세보기 클릭 시 나오는 상품 정보
+    public List<OrderProductDetailDto> findOrderProdDetail(Integer orderId) {
         List<OrderProductDetailDto> order = orderProdRepository.findAllByorderProdIdContaining(orderId);
         return order;
     }
@@ -102,7 +97,21 @@ public class OrderService {
     }
 
 
-//  결제 함수
+
+//  결제 요청을 위한 함수
+
+
+    //    todo: user의 장바구니 -> 전체 주문하기  : 상품 정보
+    public List<ICartDto> findByUserIdContaining(String userId) {
+
+        List<ICartDto> order = orderProdRepository.findByUserIdContaining(userId);
+        return order;
+    }
+
+
+    //  결제 함수
+
+
     @Transactional
     //    저장함수
     public Order insert(OrderDto orderDto) {
@@ -123,8 +132,6 @@ public class OrderService {
 
     //    수정함수 : 카프카에서 사용
     public void update(Order order) {
-
-//      1) 수정
         orderRepository.save(order);
     }
 

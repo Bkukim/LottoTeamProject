@@ -1,7 +1,8 @@
 <!-- 고객센터 faq view -->
 <template>
+
   <div class="container">
-    <div class="mt-5">
+    <div class="main_text">
       <router-link
         class="top_notice router-link-exact-active fs-5"
         to="/faqList"
@@ -97,6 +98,7 @@
 
 <script>
 import FaqListService from "@/services/noticeQnA/FaqListService";
+
 export default {
   data() {
     return {
@@ -132,6 +134,7 @@ export default {
   },
   mounted() {
     this.retrieveFaq();
+    window.scrollTo(0, 0); 
   },
 };
 </script>

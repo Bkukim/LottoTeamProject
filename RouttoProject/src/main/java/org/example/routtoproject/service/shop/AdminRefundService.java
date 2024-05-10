@@ -53,16 +53,36 @@ public class AdminRefundService {
     }
 
     // 주문 상태를 변경하는 메소드
-    public boolean completeRefund(int orderId) {
-        Optional<Order> orderOptional = adminRefundRepository.findById(orderId);
+//    public boolean completeRefund(int orderId) {
+//        Optional<Order> orderOptional = adminRefundRepository.findById(orderId);
+//
+//        if (orderOptional.isPresent()) {
+//            Order order = orderOptional.get();
+//            order.setOrderStatus("환불완료"); // ORDER_STATUS 컬럼의 값을 '환불 완료'로 변경
+//            adminRefundRepository.save(order); // 변경된 상태를 데이터베이스에 저장
+//            return true;
+//        } else {
+//            return false;
+//        }
+//    }
 
-        if (orderOptional.isPresent()) {
-            Order order = orderOptional.get();
-            order.setOrderStatus("환불완료"); // ORDER_STATUS 컬럼의 값을 '환불 완료'로 변경
-            adminRefundRepository.save(order); // 변경된 상태를 데이터베이스에 저장
-            return true;
-        } else {
-            return false;
-        }
+//  TODO: 상세조회 함수
+    public Optional<Order> findById(int orderId) {
+        Optional<Order> optionalOrder = adminRefundRepository.findById(orderId);
+        return optionalOrder;
+    }
+
+//  TODO: 저장/수정
+    public Order requestRefund(Order order) {
+//        TODO: 상세조회
+        Optional<Order> optionalOrder = adminRefundRepository.findById(order.getOrderId());
+        Order order2 = optionalOrder.get();
+
+        order2.setOrderStatus(order.getOrderStatus()); // 환불 수정
+
+//        TODO: 저장
+        Order order3 = adminRefundRepository.save(order2);
+
+        return order3;
     }
 }

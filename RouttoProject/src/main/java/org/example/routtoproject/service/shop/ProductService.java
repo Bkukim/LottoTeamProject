@@ -3,6 +3,7 @@ package org.example.routtoproject.service.shop;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.example.routtoproject.model.dto.shop.IProdNameDto;
+import org.example.routtoproject.model.dto.shop.IProductDto;
 import org.example.routtoproject.model.entity.shop.Product;
 import org.example.routtoproject.repository.shop.ProductRepository;
 import org.springframework.data.domain.Page;
@@ -34,6 +35,17 @@ import java.util.UUID;
 public class ProductService {
     private final ProductRepository productRepository;       // DI
 
+    // todo 카테고리에 따른 상품 조회
+    public Page<IProductDto> findAllByProdCategory(String prodCategory, Pageable pageable){
+        Page<IProductDto> products = productRepository.findAllByProdCategory(prodCategory, pageable);
+        return products;
+    }
+    // todo 판매량에 따른 상품 조회
+    public Page<IProductDto> findAllBySoldCount( Pageable pageable){
+        Page<IProductDto> products = productRepository.findAllBySoldCount( pageable);
+        return products;
+    }
+
     // todo 전체조회
     public Page<Product> findAllByProdName(String prodName, Pageable pageable){
         Page<Product> product = productRepository.findAllByProdNameContaining(prodName, pageable);
@@ -42,8 +54,8 @@ public class ProductService {
 
 
     // todo 전체조회
-    public List<Product> findAll(){
-        List<Product> product = productRepository.findAll();
+    public List<IProductDto> findAllImg(){
+        List<IProductDto> product = productRepository.findAllImg();
         return product;
     }
 

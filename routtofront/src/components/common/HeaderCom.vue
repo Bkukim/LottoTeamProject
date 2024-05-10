@@ -13,17 +13,17 @@
 
       <!-- 메뉴 바 -->
       <div class="kim-navbar">
-        <router-link to="/product/example" class="kim-div3">BEST</router-link>
+        <router-link to="/product/81" class="kim-div3">BEST</router-link>
         <router-link to="/" class="kim-div3">SKIN</router-link>
         <router-link to="/" class="kim-div3">HAIR</router-link>
         <router-link to="/" class="kim-div3">MAKE UP</router-link>
         <router-link to="/" class="kim-div3">BODY</router-link>
-        <router-link to="/shop/notice" class="kim-div3">NOTICE</router-link>
+        <router-link to="/shop-notice" class="kim-div3">NOTICE</router-link>
       </div>
 
       <!-- 왼쪽 박스 -->
       <div class="kim-frame-142">
-        <router-link to="/shop/notice" class="kim-div4">공지사항</router-link>
+        <router-link to="/shop-notice" class="kim-div4">공지사항</router-link>
         <router-link to="/shop/faqList" class="kim-div4">FAQ</router-link>
       </div>
 
@@ -35,7 +35,7 @@
         </div>
         <div class="kim-frame-15" v-else>
           <li>
-            <a href class="kim-login" @click.prevent="handleLogout"> LOGOUT </a>
+            <router-link to="#" class="kim-login" @click.prevent="handleLogout"> LOGOUT </router-link>
           </li>
           <router-link to="/order/cart" class="kim-cart">CART</router-link>
           <router-link to="/member/mypage" class="kim-my-page"

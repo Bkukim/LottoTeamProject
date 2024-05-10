@@ -22,6 +22,7 @@
           style="max-width: 500px; max-height: 600px"
         />
 
+
         <!-- 1. 리뷰 평점 -->
         <!-- <div class="box mt-5 text-center"> -->
         <!-- <h2>리뷰 평점 : {{ product.point }}</h2> -->
@@ -35,6 +36,144 @@
         <!-- <div class="box mt-5 text-center"> -->
         <!-- <h2>리뷰 : {{ product.reviewContent }}</h2> -->
         <!-- </div> -->
+
+        <!-- 1. 리뷰 조회 테이블 -->
+        <div class="box mt-5 text-center">
+      <table class="table mt-5">
+        <thead>
+          <tr>
+            <th scope="col">아이디</th>
+            <th scope="col">별점</th>
+            <th scope="col">내용</th>
+            <th scope="col">사진</th>
+          </tr>
+        </thead>
+        <tbody>
+          <!-- 반복문 시작할 행 -->
+          <tr v-for="(data, index) in review" :key="index">
+            <td scope="row">
+              <!-- <router-link
+                :to="'/shop/inquiry-check/' + data.reviewId"
+                class="router-link-exact-active cencle"
+              >
+                {{ data.userId }}
+              </router-link> -->
+            </td>
+            <!-- <td class="col-8">
+              <router-link
+                :to="'/shop/inquiry-check/' + data.reviewId"
+                class="router-link-exact-active cencle"
+              >
+                {{ data.point }}
+              </router-link>
+            </td> -->
+            <td>
+              <!-- <router-link
+                :to="'/shop/inquiry-check/' + data.reviewId"
+                class="router-link-exact-active cencle"
+              >
+                {{ data.reviewContent }}
+              </router-link> -->
+            </td>
+            <!-- <td>{{ data.reviewImage }}</td> -->
+          </tr>
+        </tbody>
+      </table>
+        </div>
+        <!-- 2. 리뷰 -->
+        <!-- <div class="box mt-5 text-center ">
+          <h2>리뷰작성 : {{ product.reviewContent }}</h2>
+        </div> -->
+
+        <button
+          type="button"
+          class="btn"
+          data-bs-toggle="modal"
+          data-bs-target="#exampleModal"
+          data-bs-whatever="@mdo"
+          id="reviewWrite"
+        >
+          리뷰 작성
+        </button>
+        <div
+          class="modal fade"
+          id="exampleModal"
+          tabindex="-1"
+          aria-labelledby="exampleModalLabel"
+          aria-hidden="true"
+        >
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h1 class="modal-title fs-5" id="exampleModalLabel">
+                  리뷰 작성
+                </h1>
+                <button
+                  type="button"
+                  class="btn-close"
+                  data-bs-dismiss="modal"
+                  aria-label="Close"
+                ></button>
+              </div>
+              <div class="modal-body">
+                <form>
+                  <div class="mb-3">
+                    <label for="message-text" class="col-form-label"
+                      >내용</label
+                    >
+                    <textarea class="form-control" id="message-text" v-model="review.reviewContent"></textarea>
+                  </div>
+                  <div class="mb-3">
+                    <label for="recipient-name" class="col-form-label"
+                      >별점</label
+                    >
+                    <input
+                      type="number"
+                      min="1"
+                      max="5"
+                      class="form-control"
+                      id="recipient-name"
+                      v-model="review.point"
+                    />
+                  </div>
+                  <div class="mb-3">
+                    <label for="message-text" class="col-form-label"
+                      >사진</label
+                    >
+                    <div class="file-upload-form mb-3">
+                      <!-- TODO: file01 추가 -->
+                      <input
+                        type="file"
+                        @change="previewReviewImage"
+                        accept="image/*"
+                        ref="file01"
+                        style="color: black"
+                      />
+                    </div>
+                  </div>
+                </form>
+              </div>
+              <div class="modal-footer">
+                <button
+                  type="button"
+                  class="btn btn-secondary"
+                  data-bs-dismiss="modal"
+                >
+                  닫기
+                </button>
+                <button
+                  type="button"
+                  class="btn"
+                  id="addReview-btn"
+                  @click="saveReview"
+                >
+                  저장
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+
       </div>
 
       <div class="col-sm-1"></div>
@@ -338,10 +477,18 @@
 <script>
 import ProductService from "@/services/product/ProductService";
 import CartService from "@/services/product/CartService";
+import ReviewService from "@/services/product/ReviewService";
 
 export default {
   data() {
     return {
+      // todo: 리뷰 관련
+      review: {
+        point:1, // 별점
+        reviewContent:"", // 리뷰 내용
+        reviewImage: undefined, // 수정 , 파일은 "" 초기화하면 안됨(문자열이므로)
+      },
+
       productCount: 1, // 상품 수량
       // image: require("@/assets/images/skincare.jpg"),
       product: {
@@ -358,17 +505,52 @@ export default {
         // saleStart: "",
         // prodStatus: "",
         // soldCount:""
-        point: 5,
-        reviewContent: "만족스럽습니다.",
+        // point: 5,
+        // reviewContent: "만족스럽습니다.",
       },
       message: "", // 장바구니 추가 성공메세지(화면에 출력)
       // cartCount: 0, // 장바구니 개수
     };
   },
   methods: {
+
     // 상품문의 글 작성 페이지로 넘어가는 함수
     goCheck() {
       this.$router.push("/products/check");
+
+    // 리뷰 작성 저장
+    async saveReview() {
+      try {
+        // 임시 객체
+        let data = {
+          //   reviewId;       // 리뷰 ID
+          //   userId;          // 회원 ID
+          //   prodId;         // 상품 ID
+          //   point;          // 별점
+          //   reviewContent;   // 리뷰 내용
+          //   reviewImage;     // 리뷰 사진
+          //   reviewImgUrl;      // 리뷰 이미지 url
+          //   reviewImgUuid;     // 리뷰 이미지 uuid
+          userId: this.$store.state.user?.userId,
+          prodId: this.$route.params.prodId,
+          point: this.review.point,
+          reviewContent: this.review.reviewContent,
+          reviewImage: this.review.reviewImage,
+        };
+        // TODO: 공통 저장 서비스 함수 실행
+        // TODO: async ~ await
+        let response = await ReviewService.createReview(data);
+        console.log(response.data);
+        alert("리뷰가 성공적으로 등록되었습니다.");
+      } catch (e) {
+        console.log(e);
+      }
+    },
+
+    // 리뷰 이미지 추가
+    previewReviewImage: function () {
+      this.review.reviewImage = this.$refs.file01.files[0];  // 첨부파일은 여러개 선택할수있어서 배열로 되어있다 우리는 처음선택한게 0번
+
     },
     // TODO: 상품 개수 증가 함수
     increaseCount() {
@@ -446,7 +628,10 @@ export default {
     },
   },
   mounted() {
+    // 화면 뜰때 상단이 뜨게 해주는 함수
+    window.scrollTo(0, 0);
     this.getProd(this.$route.params.prodId); // 상세조회 함수 실행
+    window.scrollTo(0, 0);
   },
 };
 </script>
@@ -628,6 +813,7 @@ h4 {
   /* border: 1px solid #cccccc; */
 }
 
+
 /* #btn1:hover::after {
   content: "♥"; 
 }
@@ -649,6 +835,16 @@ h4 {
 
 #btn1:hover::after {
   content: "♥"; /* 호버 시 새로운 텍스트로 변경 */
+
+#btn2 :hover {
+  width: 9vw;
+  height: 4vw;
+  margin-right: 1.5vw;
+  background-color: rgb(240, 92, 92);
+  border: 1px solid #e2e2e2;
+  color: black;
+  border-radius: 5px; /* 모서리 둥글게 : 5px로 설정 */
+
 }
 
 .shop_button > #btn2 {
@@ -693,5 +889,18 @@ h4 {
   background-color: #5e0000d2;
   color: #ffffff;
   border: none;
+}
+
+#addReview-btn {
+  width: 3.8vw;
+  height: 43px;
+  background-color: #342a26;
+  margin: 20px;
+  color: white;
+}
+
+#reviewWrite {
+  background-color: #342a26;
+  color: white;
 }
 </style>

@@ -1,16 +1,16 @@
-package org.example.routtoproject.controller.normal.user;
+package org.example.routtoproject.controller.user.shop;
 
 import lombok.extern.slf4j.Slf4j;
 import org.example.routtoproject.model.dto.shop.ICartDto;
-import org.example.routtoproject.model.dto.shop.OrderDto;
+import org.example.routtoproject.model.entity.shop.Announcement;
 import org.example.routtoproject.model.entity.shop.Cart;
-import org.example.routtoproject.model.entity.shop.Faq;
-import org.example.routtoproject.model.entity.shop.Order;
+import org.example.routtoproject.model.entity.shop.Product;
 import org.example.routtoproject.service.shop.CartService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -35,7 +35,7 @@ import java.util.Map;
 @Slf4j
 @RestController
 @RequestMapping("/api/user/order")
-public class NormalCartController {
+public class UserCartController {
     @Autowired
     CartService cartService;
 
@@ -44,7 +44,7 @@ public class NormalCartController {
 //    조회(select) -> get 방식 -> @GetMapping
     @GetMapping("/cart")
     public ResponseEntity<Object> findAll(
-            @RequestParam(defaultValue = "") String title,
+            @RequestParam(defaultValue = "") String userId,
             @RequestParam(defaultValue = "0") int page,
             @RequestParam(defaultValue = "100") int size
     ) {
@@ -55,7 +55,7 @@ public class NormalCartController {
 //            전체 조회 서비스 실행
             Page<ICartDto> iCartDtoPage
                     = cartService
-                    .selectByTitleContaining(title, pageable);
+                    .selectByTitleContaining(userId, pageable);
 
 //            공통 페이징 객체 생성 : 자료구조 맵 사용
             Map<String, Object> response = new HashMap<>();
@@ -79,19 +79,30 @@ public class NormalCartController {
         }
     }
 
+    // 이미지 가져오기 함수, 상세조회
+//    @GetMapping("/cart/prodimg{uuid}")
+//    public ResponseEntity<byte[]> findImg(@PathVariable String prodImgUrl) {
+//        Product product = cartService.findImgByUuid(prodImgUrl).get();
+//
+//        return ResponseEntity.ok()
+////           Todo : attachment: => attachment;
+//                .header(HttpHeaders.CONTENT_DISPOSITION, "product; filename=\"" + product.getProdImgUrl() + "\"")
+//                .body(product.getProdImgUrl());
+//    }
+
 
     //        TODO: 장바구니에 상품 저장 함수
     @PostMapping("/cart")
     public ResponseEntity<Object> create(@RequestBody Cart cart) {
         try {
-            log.debug("error"+cart.getProdId().toString());
+            log.debug("error" + cart.getProdId().toString());
             if (cartService.existById(cart.getProdId())) {
                 // 이미 장바구니에 상품이 존재하는 경우
                 log.debug("adfadsfjal;dsk");
                 return new ResponseEntity<>(true, HttpStatus.OK);
             } else {
                 // 장바구니에 상품이 존재하지 않는 경우, 새로운 상품 저장
-                Cart cart1  = cartService.save(cart);
+                Cart cart1 = cartService.save(cart);
                 return new ResponseEntity<>(cart1, HttpStatus.OK);
             }
         } catch (Exception e) {
@@ -101,6 +112,21 @@ public class NormalCartController {
         }
     }
 
+    @PutMapping("/cart/update-prodcount/{cartProdCount}/{userId}/{prodId}")
+    public ResponseEntity<Object> updateProdCount(
+            @PathVariable Integer cartProdCount,
+            @PathVariable String userId,
+            @PathVariable Integer prodId
+    ) {
+        try {
+            cartService.updateProdCount(cartProdCount, userId, prodId);
+            return new ResponseEntity<>(HttpStatus.OK);
+        } catch (Exception e) {
+            log.debug(e.getMessage());
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+
+        }
+    }
 
 
     //    TODO: 삭제 함수

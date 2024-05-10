@@ -96,7 +96,7 @@ public class AdBannerService {
                 String bannerImg1Uuid = UUID.randomUUID().toString().replace("-", ""); // uuid 만드는 방법T
 
 
-                // todo  1-2) 다운로드 url 생성 -> 자바함수를 이용 ※여기서 다운로드란 jsp이 spring에서 이미지를 다운받아 가져오는 것.
+                // todo  1-2) 다운로드 url 생성 -> 자바함수를 이용 ※여기서 다운로드란 spring에서 이미지를 다운받아 가져오는 것.
                 String bannerImg1Url = ServletUriComponentsBuilder
                         .fromCurrentContextPath()// 스프링 서버 기본 주소 : localhost:8000
                         .path("/api/normal/shop/banner/img1/") // 추가 경로 넣기 : /advanced/fileDb
@@ -158,6 +158,11 @@ public class AdBannerService {
     // todo 이미지 불러오기 위한 상세조회
     public Optional<AdBanner> findByBannerImg1Uuid(String uuid){
         Optional<AdBanner> adBanner = adBannerRepository.findByBannerImg1Uuid(uuid);
+        return adBanner;
+    }
+    // todo 이미지 불러오기 위한 상세조회
+    public Optional<AdBanner> findByBannerImg2Uuid(String uuid){
+        Optional<AdBanner> adBanner = adBannerRepository.findByBannerImg2Uuid(uuid);
         return adBanner;
     }
 }

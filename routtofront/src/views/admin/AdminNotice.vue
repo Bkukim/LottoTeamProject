@@ -1,64 +1,70 @@
 <!-- /adimn-notice ::공지사항 등록폼ADD -->
 <template>
   <AdminHeaderCom />
-  <div class="mt-3 mb-5 col-13">
-    <!-- 카테고리 -->
-    <h5 class="text-center main_text">공지사항등록</h5>
-    <br />
-    <div class="box_border ">
-      <div class="col-12 mb-3">
-      <label class="mb-3 text-left">제목 </label>
-      <input
-        type="text"
-        class="borderA form-control"
-        id="exampleFormControlInput1"
-        placeholder="제목 적어주세요"
-        v-model="announcement.title"
-      />
-    </div>
-    <!-- 본문적는곳 -->
-    <div class="mb-3">
-      <label for="exampleFormControlTextarea1" class="mt-3 form-label text-left"
-        >내용</label
-      >
-      <textarea
-        class="borderA form-control"
-        id="exampleFormControlTextarea1"
-        rows="15"
-        v-model="announcement.content"
-      ></textarea>
-    </div>
-    <!-- 첨부파일 -->
-    <div class="mb-3">
-      <label for="borderA formFileSm" class="form-label text-left">첨부파일 </label>
-      <input
-        class="borderA form-control"
-        id="formFileSm"
-        ref="file"
-        type="file"
-        @change="selectImage"
-      />
-    </div>
+  <div class="container">
+    <h2 class="mb-3">공지사항 등록</h2>
+    <div class="mt-3 mb-5 col-13">
+      <!-- 카테고리 -->
 
-    </div>
-   
-    <!-- 관리자-공지사항 등록 버튼 -->
-    <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-      <!-- 취소시 관리자 페이지로 이동 -->
-      <button id="button2" class="btn btn-primary me-md-2" type="button">
-        <router-link to="/shop/notice" class="cencle router-link-exact-active"
-          >취소</router-link
+      <br />
+      <div class="box_border">
+        <div class="col-12 mb-3">
+          <label class="mb-3 text-left">제목 </label>
+          <input
+            type="text"
+            class="borderA form-control"
+            id="exampleFormControlInput1"
+            placeholder="제목 적어주세요"
+            v-model="announcement.title"
+          />
+        </div>
+        <!-- 본문적는곳 -->
+        <div class="mb-3">
+          <label
+            for="exampleFormControlTextarea1"
+            class="mt-3 form-label text-left"
+            >내용</label
+          >
+          <textarea
+            class="borderA form-control"
+            id="exampleFormControlTextarea1"
+            rows="15"
+            v-model="announcement.content"
+          ></textarea>
+        </div>
+        <!-- 첨부파일 -->
+        <div class="mb-3">
+          <label for="borderA formFileSm" class="form-label text-left"
+            >첨부파일
+          </label>
+          <input
+            class="borderA form-control"
+            id="formFileSm"
+            ref="file"
+            type="file"
+            @change="selectImage"
+          />
+        </div>
+      </div>
+
+      <!-- 관리자-공지사항 등록 버튼 -->
+      <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+        <!-- 취소시 관리자 페이지로 이동 -->
+        <button id="button2" class="btn btn-primary me-md-2" type="button">
+          <router-link to="/shop/notice" class="cencle router-link-exact-active"
+            >취소</router-link
+          >
+        </button>
+        <!-- 등록시 공지사항 목록으로 재이동 -->
+        <button
+          id="button1"
+          class="btn btn-primary"
+          type="button"
+          @click="createNotice"
         >
-      </button>
-      <!-- 등록시 공지사항 목록으로 재이동 -->
-      <button
-        id="button1"
-        class="btn btn-primary"
-        type="button"
-        @click="createNotice"
-      >
-        등록
-      </button>
+          등록
+        </button>
+      </div>
     </div>
   </div>
 </template>

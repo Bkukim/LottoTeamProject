@@ -9,18 +9,7 @@
         <div class="col log col-divider">
           <h5 class="mb-4 mt-4 log-form"><strong>회원 로그인</strong></h5>
           
-            <div class="mb-3">
-              <label class="insert-id log-form mb-2" for="id">회원유형</label>
-              <select
-                class="form-select log-form"
-                aria-label="Default select example"
-                v-model="role"
-                id="login-role"
-              >
-                <option selected value="ROE_USER">회원</option>
-                <option value="ROLE_ADMIN">관리자</option>
-              </select>
-            </div><div class="mb-3">
+          <div class="mb-3">
               <label class="insert-id log-form mb-2" for="id">아이디</label>
               <input
                 class="form-control log-form"
@@ -56,7 +45,7 @@
         </div>
         <!-- 회원가입 시작 -->
         <div class="col join">
-          <h5 class="mb-1 mt-4 mb-4 join-form"><strong>회원가입</strong></h5>
+          <h5 class="mb-1 mt-4 join-form"><strong>회원가입</strong></h5>
           
             <div class="mb-3 join-form">
               <button
@@ -67,11 +56,11 @@
               >
                 회원가입
               </button>
-              <div class="mt-5 mb-4">
-                <h5 class="mt-4 mb-4" ><strong>ID/PW 찾기</strong></h5>
+              <div class=" mb-4">
+                <h5 class="mt-4 " ><strong>ID/PW 찾기</strong></h5>
               </div>
             </div>
-            <div class="join-form mt-5">
+            <div class="join-form ">
               <button class="btn btn-sm mb-3" id="find-idpw" type="button" @click="goFindId">
                 아이디 찾기
               </button>
@@ -151,8 +140,13 @@ export default {
   created() {
       // dept와 emp사이에서는 서로 접근이 불가능하여서(의존성을 낮추기 위해) 속성을 공유해서 사용할 수 없다. 그래서 풀옵스와 공유저장소를 이용해서 통신해야한다.
       // vue의 공유저장소인 vuex를 사용하자, 만약 vuex에 로그인이 true이면 로그인이 되어있는상태이므로 login을 할 필요가 없다. 그래서 강제로 home으로 이동시킨다.
-      if (this.$store.state.loggedIn) {
+      try {
+        if (this.$store.state.loggedIn) {
         this.$router.push("/"); // 로그인이 되어있으므로 강제이동
+      }
+      } catch (error) {
+        alert("error");
+        console.log(error);
       }
     },
 };

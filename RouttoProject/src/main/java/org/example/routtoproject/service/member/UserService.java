@@ -54,9 +54,13 @@ public class UserService {
     }
 
     // todo 비밀번호 찾기위해 회원 확인 함수
-    public User getForPw(String  role,String userId, String pwQuestion, String pwAnswer){
+    public boolean getForPw(String  role,String userId, String pwQuestion, String pwAnswer){
         User user = userRepository.getForPw(role, userId, pwQuestion, pwAnswer);
-        return user;
+        if (user != null) {
+            return true;
+        }else {
+            return false;
+        }
     }
 
     // todo 새로운 비밀번호 update함수

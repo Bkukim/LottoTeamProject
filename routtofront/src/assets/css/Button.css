@@ -1,45 +1,76 @@
-*{
-	text-decoration: none;
-  padding:0;
-  margin:0;
+* {
+  text-decoration: none;
+  padding: 0;
+  margin: 0;
+}
+/* 카트이미지 10vhvw */
+.cartImg {
+  width: 10vw;
+}
+
+/* 댓글답변 디자인 */
+.rebox {
+  /* text-align: center;
+  width:65vw; */
+  padding: 30px;
+  /* border-top: #342a26 solid 1px; */
+  /* border-bottom: #342a26 solid 1px; */
+}
+
+/* 답변창 */
+.re_div {
+  /* border: #342a26 solid 0.5px; */
+  background-color: #ffffff; /* div의 배경색 */
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5); /* 그림자 효과 추가 */
+  padding: 15px;
+  /* width: 80vw; */
+  height: 15vh;
+}
+.updateTime{
+  text-align: right;
+  color:#888;
+  /* position: absolute;
+  bottom: 0;
+  right: 0; */
 }
 /* 상자 테두리  */
-.box_border{
+.box_border {
   border: #342a26 solid 1px;
   padding: 30px;
   margin-bottom: 50px;
   height: inherit;
 }
-.borderA{
+.borderA {
   border: #342a26 solid 1px;
+  padding: 10px;
   /* background-color: #342a26;
   color: #fff; */
-
 }
-.main_text{
+.table_check {
+  height: 50vh;
+}
+.main_text {
   font-weight: 700;
   margin-bottom: 3vh;
 }
 
-.img_size{
-  width: 20vw;
+.img_size {
+  width: 50vw;
 }
 .router-link-exact-active {
   text-decoration: none;
 }
-.cencle{
+.cencle {
   color: #342a26;
-
 }
 
-
-.top_notice{
+.top_notice {
   font-weight: 3vw;
   color: #342a26;
   margin-left: 1vw;
   margin-right: 1vw;
 }
-.top_notice2{
+.top_notice2 {
   font-weight: 2vw;
   color: #342a26;
   opacity: 50%;
@@ -48,11 +79,11 @@
 
 /* router-link{
 } */
-#button_bg1{
-  background:  #342a26;
+#button_bg1 {
+  background: #342a26;
   color: #fff;
 }
-#button_bg2{
+#button_bg2 {
   background: #fff;
   color: #342a26;
 }
@@ -67,13 +98,11 @@
   font-size: 14px; /* 부모 요소의 폰트 크기를 상속 */
   font-weight: 2vw; /* 부모 요소의 폰트 두께를 상속 */
   text-decoration: none; /* 밑줄 제거 */
-  background:  #342a26;
+  background: #342a26;
   padding: 0.1vw;
   margin-bottom: 5vh;
-
-  
-
-}#button2 {
+}
+#button2 {
   width: 180px;
   height: 40px;
   color: #342a26 !important;
@@ -84,12 +113,12 @@
   font-size: 14px; /* 부모 요소의 폰트 크기를 상속 */
   font-weight: 2vw; /* 부모 요소의 폰트 두께를 상속 */
   text-decoration: none; /* 밑줄 제거 */
-  background:  #fff;
+  background: #fff;
   border: 0.1vw solid #342a26;
   padding: 0.1vw;
   margin-bottom: 5vh;
 }
 
-#bg{
-  background-color:#342a26  !important;
+#bg {
+  background-color: #342a26 !important;
 }

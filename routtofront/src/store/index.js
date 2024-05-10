@@ -64,8 +64,10 @@ export default createStore({
     updateSelectedOption({ commit }, option) {
       commit("setSelectedOption", option);
     },
+
     
   },
+
 
   // 공유 저장소를 여러개 사용할 경우 모듈로 정의해서 분리가능하다. 모듈 정의하는 곳
   modules: {},

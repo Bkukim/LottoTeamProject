@@ -18,5 +18,5 @@ import org.springframework.stereotype.Repository;
  * 2024-04-28         BALLBAT          최초 생성
  */
 @Repository
-public interface PaymentRepository extends JpaRepository<Payment, String> {
+public interface PaymentRepository extends JpaRepository<Payment, Integer> {
 }

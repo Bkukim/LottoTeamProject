@@ -41,10 +41,8 @@ public class OrderProd {
     @GeneratedValue(strategy = GenerationType.SEQUENCE
             , generator = "SQ_LOTTO_ORDER_PROD_GENERATOR"
     )
-    private int orderProdId;
+    private Integer orderProdId;
     private int prodId;
     private int orderId;
-    private String orderOptionName;
-    private int orderOptionPrice;
     private int orderAmount;
 }
