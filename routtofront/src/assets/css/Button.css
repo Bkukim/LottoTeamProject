@@ -3,6 +3,44 @@
   padding:0;
   margin:0;
 }
+/* 카트이미지 10vhvw */
+.cartImg{
+  width: 10vw;
+}
+
+/* 댓글답변 디자인 */
+.rebox{
+  /* text-align: center;
+  width:65vw; */
+  padding: 30px;
+  /* border-top: #342a26 solid 1px; */
+  /* border-bottom: #342a26 solid 1px; */ 
+}
+
+
+
+
+/* 상자 테두리  */
+.box_border{
+  border: #342a26 solid 1px;
+  padding: 30px;
+  margin-bottom: 50px;
+  height: inherit;
+}
+.borderA{
+  border: #342a26 solid 1px;
+  /* background-color: #342a26;
+  color: #fff; */
+
+}
+.table_check{
+  height: 50vh;
+}
+.main_text{
+  font-weight: 700;
+  margin-bottom: 3vh;
+}
+
 .img_size{
   width: 20vw;
 }
@@ -13,6 +51,7 @@
   color: #342a26;
 
 }
+
 
 .top_notice{
   font-weight: 3vw;

@@ -1,7 +1,9 @@
 // 관리자 환불 페이지
 <template>
   <AdminHeaderCom />
+  <div class="container">
   <!-- 반품관리 배너 시작 -->
+  <h2 class="mb-3">환불 관리</h2>
   <div
     class="container mt-5 RWD"
     style="
@@ -180,6 +182,7 @@
     <!-- 목록 태그 끝 -->
   </div>
   <!-- 목록 박스 끝 -->
+</div>
 </template>
 
 <script>

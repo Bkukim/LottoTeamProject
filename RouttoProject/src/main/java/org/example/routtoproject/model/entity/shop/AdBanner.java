@@ -1,9 +1,6 @@
 package org.example.routtoproject.model.entity.shop;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.SequenceGenerator;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.*;
 import org.example.routtoproject.model.common.BaseTimeEntity;
 import org.hibernate.annotations.DynamicInsert;
@@ -40,24 +37,15 @@ public class AdBanner extends BaseTimeEntity {
     private String bannerTitle;
     private String  bannerContent;
     private byte[] bannerImg1;
+    @Column(name = "BANNER_IMG1_URL")
     private String bannerImg1Url;
+    @Column(name = "BANNER_IMG1_UUID")
     private String bannerImg1Uuid;
     private byte[] bannerImg2;
+    @Column(name = "BANNER_IMG2_URL")
     private String bannerImg2Url;
+    @Column(name = "BANNER_IMG2_UUID")
     private String bannerImg2Uuid;
-    private String insertTime;
-    private String updateTime;
 
-    public AdBanner(String bannerId, int prodId, String bannerTitle, String bannerContent, byte[] bannerImg1, String bannerImg1Url, String bannerImg1Uuid, byte[] bannerImg2, String bannerImg2Url, String bannerImg2Uuid) {
-        this.bannerId = bannerId;
-        this.prodId = prodId;
-        this.bannerTitle = bannerTitle;
-        this.bannerContent = bannerContent;
-        this.bannerImg1 = bannerImg1;
-        this.bannerImg1Url = bannerImg1Url;
-        this.bannerImg1Uuid = bannerImg1Uuid;
-        this.bannerImg2 = bannerImg2;
-        this.bannerImg2Url = bannerImg2Url;
-        this.bannerImg2Uuid = bannerImg2Uuid;
-    }
+
 }

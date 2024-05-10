@@ -138,6 +138,33 @@
     </div>
   </div>
   <!-- 이미지 추가 끝 -->
+  <!-- 이미지 미리보기 시작 -->
+  <div
+    class="container mt-4"
+    style="
+      border: 1px solid black;
+      display: flex;
+      justify-content: space-between;
+      height: auto;
+    "
+  >
+    <label class="mt-3"><b>배너 이미지 미리보기</b> </label>
+    <hr />
+    <div>
+      <div id="img-add">
+        <label class="mt-3 mb-3"></label>
+        <br />
+
+        <div class="text-center">
+          <div class="file-upload-form mb-3">
+            <!-- TODO: file01 추가 -->
+            <img :src="banner.bannerImg1Url">
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- 이미지 미리보기 끝 -->
   
   <!-- 이미지2 추가 시작 -->
   <div
@@ -173,6 +200,34 @@
     </div>
   </div>
   <!-- 이미지2 추가 끝 -->
+  <!-- 이미지2 미리보기 시작 -->
+  <div
+    class="container mt-4"
+    style="
+      border: 1px solid black;
+      display: flex;
+      justify-content: space-between;
+      height: auto;
+    "
+     v-if="banner.bannerId == '배너 2'"
+  >
+    <label class="mt-3"><b>배너 이미지2 미리보기</b> </label>
+    <hr />
+    <div>
+      <div id="img-add">
+        <label class="mt-3 mb-3"></label>
+        <br />
+
+        <div class="text-center">
+          <div class="file-upload-form mb-3">
+            <!-- TODO: file01 추가 -->
+            <img :src="banner.bannerImg2Url">
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- 이미지2 미리보기 끝 -->
   <div class="container text-center mt-5 mb-5">
     <div class="row">
       <div class="col"></div>
@@ -261,7 +316,9 @@ export default {
     async updateBanner() {
       try {
         // 임시 객체
-        let data = {
+        let data = {};
+        if (this.banner.bannerImg2 != null) {
+           data = {
           bannerId: this.banner.bannerId,
           prodId: this.banner.prodId,
           bannerTitle: this.banner.bannerTitle,
@@ -269,14 +326,20 @@ export default {
           bannerImg1: this.banner.bannerImg1,
           bannerImg2: this.banner.bannerImg2,
         };
+        } else {
+           data = {
+          bannerId: this.banner.bannerId,
+          prodId: this.banner.prodId,
+          bannerTitle: this.banner.bannerTitle,
+          bannerContent: this.banner.bannerContent,
+          bannerImg1: this.banner.bannerImg1,
+          bannerImg2: this.banner.bannerImg1,
+        };
+        }
+       
       
-        console.log("여기는 프론트 ::: "+data.bannerId);
-        console.log("여기는 프론트 ::: "+data.prodId);
-        console.log("여기는 프론트 ::: "+data.bannerTitle);
-        console.log("여기는 프론트 ::: "+data.bannerContent);
-        console.log("여기는 프론트 ::: "+data.bannerImg1);
-        console.log("여기는 프론트 ::: "+data.bannerImg2);
         let response = await AdminAdBannerService.updateBanner(data);
+        this.$router.push("/admin/banner-list");
         // 로깅
         console.log(response.data);
       } catch (e) {

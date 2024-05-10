@@ -19,6 +19,7 @@
       <thead>
         <tr>
           <!-- 제목 : 상품정보, 판매가, 수량, 구매가 -->
+          <th scope="col">상품</th>
           <th scope="col">상품이름</th>
           <!-- <th scope="col"></th> -->
           <!-- <th scope="col">상품가격</th> -->
@@ -36,6 +37,9 @@
             />
           </td> -->
           <td>
+            <img :src="data.prodImgUrl" style="width: 150px; height: 100px;">
+          </td>
+           <td>
             <p style="margin-top: 35px">{{ data.prodName }}</p>
           </td>
           <!-- 2) 상품가격 -->
@@ -88,6 +92,8 @@ export default {
     },
   },
   mounted() {
+            // 화면 뜰때 상단이 뜨게 해주는 함수
+    window.scrollTo(0, 0); 
     this.retrieveOrderProduct(this.$route.params.orderId);  // 화면이 처음 뜰 때 orderId로 조회
   },
 };

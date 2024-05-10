@@ -35,17 +35,20 @@ public class AdBannerController {
 
     private final AdBannerService adBannerService;
 
+    // todo 배너 전체조회
     @GetMapping("/banner")
     public ResponseEntity<Object> findAllBanner(){
         try {
             List<AdBannerDto> banners = adBannerService.findAllBanner();
-            log.debug(" 여기는 컨트롤러 배너 배열 = " + String.valueOf(banners));
+            log.debug(" 여기는 컨트롤러 배너 배열 = " + banners);
             return new ResponseEntity<>(banners, HttpStatus.OK);
         }catch (Exception e){
             log.debug(e.getMessage());
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
+
+
 
     // todo 배너 상세 조회 함수
     @GetMapping("/banner/{bannerId}")
@@ -84,25 +87,4 @@ public class AdBannerController {
         }
     }
 
-//    // todo 배너 수정 함수
-//    @PutMapping("/banner/update/two/{bannerId}")
-//    public ResponseEntity<Object> updateTwoBanner(@PathVariable String bannerId,
-//                                               @RequestParam (defaultValue = "0") String prodId,
-//                                               @RequestParam (defaultValue = "") String bannerTitle,
-//                                               @RequestParam (defaultValue = "") String bannerContent,
-//                                               @RequestParam MultipartFile bannerImg1
-//                                               ){
-//        try {
-//             adBannerService.updateTwoBanner(
-//                    bannerId,
-//                    Integer.parseInt(prodId), // TODO: 정수로 변경
-//                    bannerTitle,
-//                    bannerContent,
-//                    bannerImg1);
-//            return new ResponseEntity<>( HttpStatus.OK);
-//        }catch (Exception e){
-//            log.debug(e.getMessage());
-//            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
-//        }
-//    }
 }

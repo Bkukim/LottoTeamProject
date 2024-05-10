@@ -56,11 +56,6 @@ export default createStore({
     setSelectedOption(state, option) {
       state.selectedOption = option;
     },
-
-    // 계좌번호 상태 업데이트
-    setAccountNumber(state, accountNumber) {
-      state.accountNumber = accountNumber;
-    },
   },
 
   // 비동기 함수들을 정의하는 곳
@@ -70,8 +65,10 @@ export default createStore({
       commit("setSelectedOption", option);
     },
 
- 
+    
   },
+
+
   // 공유 저장소를 여러개 사용할 경우 모듈로 정의해서 분리가능하다. 모듈 정의하는 곳
   modules: {},
 });

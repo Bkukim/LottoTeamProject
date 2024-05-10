@@ -1,22 +1,22 @@
 <!-- CartList.vue -->
 <template>
   <div class="container mt-5 mb-5">
-    <h5 class="text-center mt-5">장바구니</h5>
+    <h5 class="text-center main_text">장바구니</h5>
     <!-- 상품리스트 테이블 -->
 
     <table class="table mt-5 text-center row-auto">
       <thead>
         <tr>
-          <!-- 전체선택 체크박스 -->
           <th class="text-center col-1">번호</th>
+          <th class="text-center col-1">상품</th>
 
-          <th class="text-center">
+          <!-- <th class="text-center">
             <input
               type="checkbox"
               v-model="selectAll"
               @click="selectAllProducts"
             />
-          </th>
+          </th> -->
           <th class="text-center">상품명</th>
           <th class="text-center">수량</th>
           <th class="text-center">가격</th>
@@ -28,12 +28,18 @@
         <tr v-for="(data, index) in cart" :key="index" class="mb-3">
           <!-- 상품ID -->
           <td class="text-center">
-            {{ data.cartId }}
+            {{ index + 1 }}
           </td>
-          <!-- 체크박스 -->
-          <td class="check_td text-center"><input type="checkbox" v-model="data.checked" @change="selectProduct"/></td>
-          <!-- 상품명 -->
+
+          <!-- 상품IMG -->
+          <!-- 체크박스 보류, TODO: 시간나면 이미지만 넣기-->
           <td class="text-center">
+            <img :src="data.prodImgUrl" class="cartImg" />
+          </td>
+          <!-- <td class="check_td text-center"><input type="checkbox" v-model="data.checked" @change="selectProduct"/></td> -->
+
+          <!-- 상품명 -->
+          <td class="text-left">
             {{ data.prodName }}
           </td>
           <!-- 위아래로 수량조절 -->
@@ -67,8 +73,10 @@
           </td>
           <!-- 총가격 -->
           <td class="text-center">
-            {{
-              data.defaultPrice - data.defaultPrice * (data.discountRate * 0.01)
+            <i style="text-decoration: line-through">{{ data.defaultPrice }}</i>
+            <br />
+            {{ formatCurrency( data.defaultPrice - data.defaultPrice * (data.discountRate * 0.01))
+             
             }}
           </td>
           <!-- 구매하기 ::버튼 -->
@@ -78,7 +86,24 @@
                 <button
                   id="button_bg1"
                   class="btn btn-primary btn-block"
-                  @click="sendOrderList"
+                  @click="
+                    updateProdCount(
+                      data.cartProdCount,
+                      data.userId,
+                      data.prodId
+                    )
+                  "
+                >
+                  수량확정
+                </button>
+              </div>
+            </div>
+            <div class="row mb-1">
+              <div class="col">
+                <button
+                  id="button_bg1"
+                  class="btn btn-primary btn-block"
+                  @click="oneCart"
                 >
                   구매하기
                 </button>
@@ -139,10 +164,10 @@
           <td class="text-center">{{ getCartTotal().deliveryFee }}</td>
           <!-- 최종 총 금액 -->
           <td class="text-center">
-            {{
+            {{formatCurrency(
               getCartTotal().totalPrice -
               getCartTotal().discountedPrice +
-              getCartTotal().deliveryFee
+              getCartTotal().deliveryFee)
             }}
           </td>
         </tr>
@@ -159,17 +184,19 @@
           @click="deleteAllCart(cart)"
         >
           전체상품 삭제하기
+          <br />//해결요망
         </button>
       </div>
       <div class="col-auto mb-5">
-        <button
+        <!-- <button
           type="button"
           id="button2"
           class="btn btn-secondary"
-          @click="sendOrderList"
+          @click="goOrder"
         >
           선택상품 주문하기
-        </button>
+          시간관걔상 뺌
+        </button> -->
         <button
           type="button"
           id="button1"
@@ -190,8 +217,6 @@ export default {
   data() {
     return {
       cart: [], //장바구니에 담긴 프로덕트 들
-      selectCart: [], //선택된 물건만 장바구니에 담을 객체
-      //장바구니 갯수
 
       // 공통 페이징 속성 정의
       page: 1, // 현재페이지번호
@@ -199,10 +224,6 @@ export default {
       pageSize: 100, // 화면에 보여질 개수
 
       total: 0,
-      // 전체 선택 체크박스 상태
-      selectAll: false,
-      //전체주문하기 order로 전해줄 객체
-      orderList: [],
     };
   },
   // TODO: 함수
@@ -210,12 +231,35 @@ export default {
     // TODO: 장바구니 개수 증가 함수
     increaseCount(index) {
       this.cart[index].cartProdCount += 1;
+      // this.updateProdCount(this.cart[index].cartProdCount,this.cart[index].userId,this.cart[index].prodId);
     },
     // TODO: 장바구니 개수 감소 함수
     decreaseCount(index) {
       if (this.cart[index].cartProdCount > 0) {
         this.cart[index].cartProdCount -= 1;
+        // this.updateProdCount(this.cart[index].cartProdCount,this.cart[index].userId,this.cart[index].prodId);
+        // 수량을 감소시킨 후에는 수정 함수 호출
       }
+
+      // TODO:챗지피티 사용
+      // 배열 내에서 prodId와 일치하는 상품의 인덱스를 찾기
+      // const productIndex = this.cart.findIndex(
+      //   (item) => item.prodId === this.cart.prodId
+      // );
+
+      // // 해당 상품이 존재하는 경우
+      // if (productIndex !== -1) {
+      //   // 상품의 수량을 감소시킴
+      //   if (this.cart[productIndex].cartProdCount > 0) {
+      //     this.cart[productIndex].cartProdCount -= 1;
+
+      //     // 수량을 감소시킨 후에는 수정 함수 호출
+      //     this.updateProdCount(productIndex);
+      //   }
+      // } else {
+      //   // 해당 상품이 장바구니에 없는 경우 처리할 내용 추가
+      //   console.log("수량오류났음~")
+      // }
     },
     // TODO: NEW 계산하기 함수
     getCartTotal() {
@@ -237,10 +281,19 @@ export default {
         deliveryFee: deliveryFee,
       };
     },
-    // 배송비
-    getDeliveryFee(totalPrice) {
+    // 회계형식
+    formatCurrency(price) {
+      return new Intl.NumberFormat('ko-KR', {
+        style: 'currency',
+        currency: 'KRW',
+        currencyDisplay: 'narrowSymbol' 
+      }).format(price);
+    }
+  
+    // 배송비 - 안쓰는데 나중에 필요할까봐 그냥 같이 3천원으로 놔둠
+   , getDeliveryFee(totalPrice) {
       if (totalPrice >= 50000) {
-        return 0; // 5만원 이상 주문일 때 배송비 0
+        return 3000; // 5만원 이상 주문일 때 배송비 0
       } else {
         return 3000; // 5만원 미만 주문일 때 배송비 3000원
       }
@@ -253,15 +306,18 @@ export default {
         // todo: 공통 장바구니 전체 조회 서비스 함수 실행
         //   todo: 비동기 코딩 : async~await
         console.log(this.page);
+        console.log(this.$store.state.user.userId);
         console.log(this.pageSize);
         let response = await CartService.getAll(
-          this.searchTitle,
+          this.$store.state.user.userId,
           this.page - 1,
           this.pageSize
         );
         const { cart, totalItems } = response.data;
         this.cart = cart;
         this.count = totalItems;
+        // alert(this.cart[1].cartProdCount);
+        console.log("asdfasdfasdf", cart[0]);
         // 로깅
         console.log("카트조회", response.data); //웹브라우저 콘솔탭에 백엔드 데이터 표시
       } catch (e) {
@@ -306,37 +362,54 @@ export default {
       }
     },
 
-    // TODO: 선택함수
-    // 체크박스 전체선택
-    checkedAll() {
-      if (this.orderList.length === this.cart.length) {
-        this.orderList = [];
-      } else {
-        this.orderList = [...this.cart]; // 카트에 있는 배열을 모두 orderList로 넣기
+    //count수정요청함수
+    async updateProdCount(cartProdCount, userId, prodId) {
+      try {
+        // TODO: 공통 수정함수 : DeptService.update()
+        // TODO: 비동기 코딩 : async ~ await
+
+        let response = await CartService.updateProdCount(
+          cartProdCount,
+          userId,
+          prodId
+        );
+        console.log(response.data);
+
+        // 로깅
+        console.log(response.data);
+        // 화면에 성공메세지 출력 : message
+        this.message = "수정이 성공했습니다.";
+      } catch (e) {
+        console.log(e);
       }
     },
 
-    // TODO: 공통 페이징 함수 : select 태그
-    pageSizeChange() {
-      this.page = 1; // 현재페이지번호 : 1
-      this.retrieveCart(); // 재조회
+    // TODO: 전체 수정 함수 ::배열사용실패
+    // async updateProdCountAll() {
+    //   try {
+    //     let response;
+    //     for (let item of this.cart) {
+    //       response = await CartService.updateProdCountAll(item);
+    //       console.log(response.data);
+    //     }
+    //     // 로깅
+    //     console.log(response.data);
+    //     // 화면에 성공메세지 출력 : message
+    //     this.message = "수정이 성공했습니다.";
+    //   } catch (e) {
+    //     console.log(e);
+    //   }
+    // },
+
+    goOrder() {
+      this.$router.push("/order");
+    },
+    goOrderProd() {
+      this.$router.push("/order");
     },
 
-    // 전체 선택 체크박스 클릭 이벤트 핸들러
-    selectAllProducts() {
-      if (this.selectAll) {
-        // 전체 선택 체크박스가 체크되었을 때, 모든 상품을 선택
-        this.orderList = [...this.cart]; // 모든 상품을 선택된 상품 목록에 추가
-      } else {
-        // 전체 선택 체크박스가 해제되었을 때, 모든 상품 선택 해제
-        this.orderList = []; // 선택된 상품 목록 비우기
-      }
-    },
-    // 각 상품의 체크박스가 변경될 때 호출되는 메서드
-    selectProduct() {
-      // 전체 선택 체크박스 상태 업데이트
-      this.selectAll = this.orderList.length === this.cart.length;
-    },
+
+
   },
   //   TODO: 화면이 뜰때 자동 실행 함수
   mounted() {

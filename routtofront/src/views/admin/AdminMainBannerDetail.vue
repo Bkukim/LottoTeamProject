@@ -23,7 +23,7 @@
         placeholder="상품 번호을 입력하세요"
         style="height: 35px; margin-right: 10px"
         class="input-box"
-        v-model="product.prodId"
+        v-model="banner.prodId"
       />
       
       <button
@@ -49,7 +49,7 @@
   >
     <label><b>상품명</b></label
     ><label style="display: flex; align-items: center; height: 100%">
-    {{ product.prodName }}
+    {{ banner.prodName }}
     </label>
   </div>
   <!-- 상품명 끝 -->
@@ -143,7 +143,7 @@ export default {
     // 상품 상세조회
     async getProduct(){
       try {
-        let response = await ProductService.get(this.product.prodId);
+        let response = await ProductService.get(this.banner.prodId);
         console.log(response.data);
         this.product =response.data;
         this.banner.prodName = response.data.prodName;
@@ -156,7 +156,8 @@ export default {
     // 베너 상세조회 (현재 관련 상품 조회 위해)
     async getBanner(){
       try {
-        let response = await AdminAdBannerService.findBabber("메인 배너")
+        let response = await AdminAdBannerService.findBanner("메인 배너")
+        console.log(response.data);
         this.banner=response.data;
       } catch (error) {
         console.log(error);
@@ -169,17 +170,18 @@ export default {
         // 임시 객체
         let data = {
           bannerId: "메인 배너",
-          prodId: this.product.prodId,
+          prodId: this.banner.prodId,
           bannerTitle: "",
           bannerContent: "",
           bannerImg1: this.banner.bannerImg1,
-          bannerImg2: this.banner.bannerImg2,
-          
+          bannerImg2: this.banner.bannerImg1,
         };
-      
         let response = await AdminAdBannerService.updateBanner(data);
+        
+        this.$router.push("/admin/banner-list");
         // 로깅
         console.log(response.data);
+        
       } catch (e) {
         console.log(e);
       }

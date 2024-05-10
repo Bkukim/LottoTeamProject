@@ -273,7 +273,10 @@ export default {
     },
   },
   mounted() {
+            // 화면 뜰때 상단이 뜨게 해주는 함수
+    window.scrollTo(0, 0); 
     this.getProd(this.$route.params.prodId); // 상세조회 함수 실행
+    window.scrollTo(0, 0);
   },
 };
 </script>
@@ -345,6 +348,16 @@ export default {
   height: 4vw;
   margin-right: 1.5vw;
   background-color: white;
+  border: 1px solid #e2e2e2;
+  color: black;
+  border-radius: 5px; /* 모서리 둥글게 : 5px로 설정 */
+}
+
+#btn2 :hover{
+  width: 9vw;
+  height: 4vw;
+  margin-right: 1.5vw;
+  background-color: rgb(240, 92, 92);
   border: 1px solid #e2e2e2;
   color: black;
   border-radius: 5px; /* 모서리 둥글게 : 5px로 설정 */

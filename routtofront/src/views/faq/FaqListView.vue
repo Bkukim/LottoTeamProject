@@ -1,7 +1,7 @@
 <!-- 고객센터 faq view -->
 <template>
   <div class="container">
-    <div class="mt-5">
+    <div class="main_text">
       <router-link
         class="top_notice router-link-exact-active fs-5"
         to="/faqList"
@@ -15,7 +15,7 @@
     <div class="mt-5 text-center">
       <!-- 서치 -->
       <div class="row justify-content-end">
-        <form class="d-flex mt-3 col-5" role="search">
+        <form class="d-flex mt-3 col-5 " role="search">
           <input
             class="form-control me-2"
             type="search"
@@ -47,7 +47,7 @@
                 {{ data.faqId }}
               </router-link>
             </th>
-            <td>
+            <td class="col-8">
               <router-link
                 :to="'/shop/inquiry-check/' + data.faqId"
                 class="router-link-exact-active cencle"
@@ -132,6 +132,7 @@ export default {
   },
   mounted() {
     this.retrieveFaq();
+    window.scrollTo(0, 0); 
   },
 };
 </script>
