@@ -612,7 +612,7 @@ export default {
   methods: {
     async retreiveCartAll(userId) {
       try {
-        let response = await OrderService.get(userId);
+        let response = await OrderService.getOrder(userId);
         console.log(response.data);
         this.cartList = response.data;
         this.sumTotalPrice();
