@@ -530,7 +530,7 @@ export default {
     // 상품문의 글 작성 페이지로 넘어가는 함수
     goCheck() {
       this.$router.push("/products/check");
-
+    },
     // 리뷰 작성 저장
     async saveReview() {
       try {
@@ -563,11 +563,8 @@ export default {
     // 리뷰 이미지 추가
     previewReviewImage: function () {
       this.review.reviewImage = this.$refs.file01.files[0];  // 첨부파일은 여러개 선택할수있어서 배열로 되어있다 우리는 처음선택한게 0번
-    // 상품문의 글 작성 페이지로 넘어가는 함수
-    goCheck() {
-      this.$router.push("/products/check");
-
     },
+   
     // TODO: 상품 개수 증가 함수
     increaseCount() {
       this.productCount += 1;
@@ -794,6 +791,7 @@ h4 {
   border: 1px solid #e2e2e2;
   color: black;
   border-radius: 5px; /* 모서리 둥글게 : 5px로 설정 */
+}
 .won_1_2 {
   font-size: 1vw;
   letter-spacing: -1.7px;
@@ -823,6 +821,7 @@ h4 {
 #reviewWrite {
   background-color: #342a26;
   color: white;
+}
 /* 장바구니 버튼 */
 .shop_button {
   /* border: 1px solid #cccccc; */
@@ -870,7 +869,7 @@ h4 {
 
 #btn1:hover::after {
   content: "♥"; /* 호버 시 새로운 텍스트로 변경 */
-
+}
 #btn2 :hover {
   width: 9vw;
   height: 4vw;
