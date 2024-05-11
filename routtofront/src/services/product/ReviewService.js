@@ -10,9 +10,6 @@ class ReviewService {
   // TODO: 리뷰 상세 조회
   getReview(reviewId) {
     return http.get(`/normal/shop/review/${reviewId}`,
-    {
-      headers: AuthHeader()
-    }
     );
   }
 

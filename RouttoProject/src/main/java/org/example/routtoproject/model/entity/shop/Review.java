@@ -58,8 +58,13 @@ public class Review extends BaseTimeEntity {
     private String reviewImgUuid;     // 리뷰 이미지 uuid
 
     // TODO 리뷰 등록시 상품들의 정보를 저장하기위한 생성자
-
-    public Review(String userId, Integer prodId, Integer point, String reviewContent, byte[] reviewImage, String reviewImgUrl, String reviewImgUuid) {
+    public Review(String userId
+            , Integer prodId
+            , Integer point
+            , String reviewContent
+            , byte[] reviewImage
+            , String reviewImgUrl
+            , String reviewImgUuid) {
         this.userId = userId;
         this.prodId = prodId;
         this.point = point;

@@ -21,172 +21,6 @@
           alt="prodImgUrl"
           style="max-width: 500px; max-height: 600px"
         />
-
-
-        <!-- 1. 리뷰 평점 -->
-        <!-- <div class="box mt-5 text-center"> -->
-        <!-- <h2>리뷰 평점 : {{ product.point }}</h2> -->
-        <!-- <h2 id="star"> -->
-        <!-- ★★★★★ -->
-        <!-- 별점 표시를 위한 반복문 -->
-        <!-- <template v-for="★ in product.point"> ★ </template> -->
-        <!-- </h2> -->
-        <!-- </div> -->
-        <!-- 2. 리뷰 -->
-        <!-- <div class="box mt-5 text-center"> -->
-        <!-- <h2>리뷰 : {{ product.reviewContent }}</h2> -->
-        <!-- </div> -->
-
-        <!-- 1. 리뷰 조회 테이블 -->
-        <div class="box mt-5 text-center">
-      <table class="table mt-5">
-        <thead>
-          <tr>
-            <th scope="col">아이디</th>
-            <th scope="col">별점</th>
-            <th scope="col">내용</th>
-            <th scope="col">사진</th>
-          </tr>
-        </thead>
-        <tbody>
-          <!-- 반복문 시작할 행 -->
-          <tr v-for="(data, index) in review" :key="index">
-            <td scope="row">
-              <!-- <router-link
-                :to="'/shop/inquiry-check/' + data.reviewId"
-                class="router-link-exact-active cencle"
-              >
-                {{ data.userId }}
-              </router-link> -->
-            </td>
-            <!-- <td class="col-8">
-              <router-link
-                :to="'/shop/inquiry-check/' + data.reviewId"
-                class="router-link-exact-active cencle"
-              >
-                {{ data.point }}
-              </router-link>
-            </td> -->
-            <td>
-              <!-- <router-link
-                :to="'/shop/inquiry-check/' + data.reviewId"
-                class="router-link-exact-active cencle"
-              >
-                {{ data.reviewContent }}
-              </router-link> -->
-            </td>
-            <!-- <td>{{ data.reviewImage }}</td> -->
-          </tr>
-        </tbody>
-      </table>
-        </div>
-        <!-- 2. 리뷰 -->
-        <!-- <div class="box mt-5 text-center ">
-          <h2>리뷰작성 : {{ product.reviewContent }}</h2>
-        </div> -->
-
-        <button
-          type="button"
-          class="btn"
-          data-bs-toggle="modal"
-          data-bs-target="#exampleModal"
-          data-bs-whatever="@mdo"
-          id="reviewWrite"
-        >
-          리뷰 작성
-        </button>
-        <div
-          class="modal fade"
-          id="exampleModal"
-          tabindex="-1"
-          aria-labelledby="exampleModalLabel"
-          aria-hidden="true"
-        >
-          <div class="modal-dialog">
-            <div class="modal-content">
-              <div class="modal-header">
-                <h1 class="modal-title fs-5" id="exampleModalLabel">
-                  리뷰 작성
-                </h1>
-                <button
-                  type="button"
-                  class="btn-close"
-                  data-bs-dismiss="modal"
-                  aria-label="Close"
-                ></button>
-              </div>
-              <div class="modal-body">
-                <form>
-                  <div class="mb-3">
-                    <label for="message-text" class="col-form-label"
-                      >내용</label
-                    >
-                    <textarea class="form-control" id="message-text" v-model="review.reviewContent"></textarea>
-                  </div>
-                  <div class="mb-3">
-                    <label for="recipient-name" class="col-form-label"
-                      >별점</label
-                    >
-                    <input
-                      type="number"
-                      min="1"
-                      max="5"
-                      class="form-control"
-                      id="recipient-name"
-                      v-model="review.point"
-                    />
-                  </div>
-                  <div class="mb-3">
-                    <label for="message-text" class="col-form-label"
-                      >사진</label
-                    >
-                    <div class="file-upload-form mb-3">
-                      <!-- TODO: file01 추가 -->
-                      <input
-                        type="file"
-                        @change="previewReviewImage"
-                        accept="image/*"
-                        ref="file01"
-                        style="color: black"
-                      />
-                    </div>
-                  </div>
-                </form>
-              </div>
-              <div class="modal-footer">
-                <button
-                  type="button"
-                  class="btn btn-secondary"
-                  data-bs-dismiss="modal"
-                >
-                  닫기
-                </button>
-                <button
-                  type="button"
-                  class="btn"
-                  id="addReview-btn"
-                  @click="saveReview"
-                >
-                  저장
-                </button>
-              </div>
-            </div>
-          </div>
-        </div>
-        <!-- 1. 리뷰 평점 -->
-        <!-- <div class="box mt-5 text-center"> -->
-        <!-- <h2>리뷰 평점 : {{ product.point }}</h2> -->
-        <!-- <h2 id="star"> -->
-        <!-- ★★★★★ -->
-        <!-- 별점 표시를 위한 반복문 -->
-        <!-- <template v-for="★ in product.point"> ★ </template> -->
-        <!-- </h2> -->
-        <!-- </div> -->
-        <!-- 2. 리뷰 -->
-        <!-- <div class="box mt-5 text-center"> -->
-        <!-- <h2>리뷰 : {{ product.reviewContent }}</h2> -->
-        <!-- </div> -->
-
       </div>
 
       <div class="col-sm-1"></div>
@@ -210,7 +44,8 @@
         <div id="price">
           <h4>
             <span id="price_1">판매가격 </span>
-            {{ product.defaultPrice }}<span> won</span>
+            {{ Math.ceil(product.defaultPrice).toLocaleString()
+            }}<span> 원</span>
           </h4>
         </div>
         <hr />
@@ -266,7 +101,7 @@
                   (product.defaultPrice -
                     (product.defaultPrice * product.discountRate) / 100) *
                     productCount
-                )
+                ).toLocaleString()
               }}
               원
             </span>
@@ -276,7 +111,7 @@
 
           <div>
             <div>
-              <h5 class="shipping">배송비 : 3000 원</h5>
+              <h5 class="shipping">배송비 : 3,000 원</h5>
             </div>
             <h4>
               <br />
@@ -289,7 +124,7 @@
                       (product.defaultPrice * product.discountRate) / 100) *
                       productCount +
                       3000
-                  )
+                  ).toLocaleString()
                 }}
                 원
               </span>
@@ -361,24 +196,180 @@
       </div>
 
       <div id="page">
+        <div>
         <img
           :src="product.prodDetailPageUrl"
           style="max-width: 400px; max-height: 600px"
         />
+        </div>
+        <div>
+        <img src="@/assets/images/best_seller_02.png">
+        </div>
       </div>
 
-
-      <br>
-      <br>
-      <br>
-      <br>
-      <br>
-      <br>
-      <br>
-      <br>
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
       <!-- 2. 리뷰 -->
-      <div class="box mt-5 text-center" ref="reviewSection">
-        <h2>리뷰 : {{ product.reviewContent }}</h2>
+      <div class="mt-5" ref="reviewSection">
+        <h3>상품 후기</h3>
+        <br>
+        <br>
+        <!-- 5. 테이블 시작-->
+        <table class="table table-bordered" style="border: 1px solid #342a26">
+          <!-- 테이블 제목 행 -->
+          <thead>
+            <tr class="text-center">
+              <th scope="col">아이디</th>
+              <th scope="col">별점</th>
+              <th scope="col">내용</th>
+              <th scope="col">사진</th>
+            </tr>
+          </thead>
+          <tbody>
+            <!-- 1행 -->
+            <tr
+              class="text-center"
+              v-for="(data, index) in reviews"
+              :key="index"
+            >
+              <!-- 아이디 -->
+              <td>
+                <div>
+                  <p>{{ data.userId }}</p>
+                </div>
+              </td>
+              <!-- 별점 -->
+              <td>
+                <div>
+                  <p>{{ data.point }}</p>
+                </div>
+              </td>
+              <!-- 내용-->
+              <td>
+                <div>
+                  <p>{{ data.reviewContent }}</p>
+                </div>
+              </td>
+              <!-- 리뷰 사진 -->
+              <td>
+                <img
+                  :src="data.reviewImgUrl"
+                  style="width: 150px; height: 100px"
+                />
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- 페이징 -->
+      <!-- {/* paging 시작 */} -->
+      <div class="row justify-content-center mt-4">
+        <div class="col-auto">
+          <b-pagination
+            class="col-12 mb-3"
+            v-model="page"
+            :total-rows="count"
+            :per-page="pageSize"
+            @click="retrieveReview"
+          ></b-pagination>
+        </div>
+      </div>
+
+      <!-- 리뷰 작성 버튼 -->
+      <button
+        type="button"
+        class="btn"
+        data-bs-toggle="modal"
+        data-bs-target="#exampleModal"
+        data-bs-whatever="@mdo"
+        id="reviewWrite"
+        style="float: right"
+      >
+        리뷰 작성
+      </button>
+      <!-- 리뷰 작성 모달 -->
+      <div
+        class="modal fade"
+        id="exampleModal"
+        tabindex="-1"
+        aria-labelledby="exampleModalLabel"
+        aria-hidden="true"
+      >
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h1 class="modal-title fs-5" id="exampleModalLabel">리뷰 작성</h1>
+              <button
+                type="button"
+                class="btn-close"
+                data-bs-dismiss="modal"
+                aria-label="Close"
+              ></button>
+            </div>
+            <div class="modal-body">
+              <form>
+                <div class="mb-3">
+                  <label for="message-text" class="col-form-label">내용</label>
+                  <textarea
+                    class="form-control"
+                    id="message-text"
+                    v-model="review.reviewContent"
+                  ></textarea>
+                </div>
+                <div class="mb-3">
+                  <label for="recipient-name" class="col-form-label"
+                    >별점</label
+                  >
+                  <input
+                    type="number"
+                    min="1"
+                    max="5"
+                    class="form-control"
+                    id="recipient-name"
+                    v-model="review.point"
+                  />
+                </div>
+                <div class="mb-3">
+                  <label for="message-text" class="col-form-label">사진</label>
+                  <div class="file-upload-form mb-3">
+                    <!-- TODO: file01 추가 -->
+                    <input
+                      type="file"
+                      @change="previewReviewImage"
+                      accept="image/*"
+                      ref="file01"
+                      style="color: black"
+                    />
+                  </div>
+                </div>
+              </form>
+            </div>
+            <div class="modal-footer">
+              <button
+                type="button"
+                class="btn btn-secondary"
+                data-bs-dismiss="modal"
+              >
+                닫기
+              </button>
+              <button
+                type="button"
+                class="btn"
+                id="addReview-btn"
+                @click="saveReview"
+              >
+                저장
+              </button>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
     <!-- 상세 페이지 끝 -->
@@ -387,16 +378,16 @@
   <!-- 상품문의 내려가는 부분 -->
   <div class="container" ref="inquirySection">
     <div class="mt-5">
-      <br>
-      <br>
-      <br>
-      <br>
-      <br>
-      <br>
-      <br>
-      <br>
-      <br>
-      <br>
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
       <h3>상품문의</h3>
       <!-- <router-link
         class="top_notice router-link-exact-active fs-5"
@@ -495,11 +486,14 @@ import ReviewService from "@/services/product/ReviewService";
 export default {
   data() {
     return {
-      // todo: 리뷰 관련
+      // 리뷰 테이블에 불러오는 배열
+      reviews: [], // reviewImgUrl도 들어있지 않나
+
+      // 리뷰 작성 저장하는 객체
       review: {
-        point:1, // 별점
-        reviewContent:"", // 리뷰 내용
-        reviewImage: undefined, // 수정 , 파일은 "" 초기화하면 안됨(문자열이므로)
+        point: 1, // 별점
+        reviewContent: "", // 리뷰 내용
+        reviewImage: undefined, // 리뷰 사진 등록, 파일은 "" 초기화하면 안됨(문자열이므로)
       },
 
       productCount: 1, // 상품 수량
@@ -523,9 +517,29 @@ export default {
       },
       message: "", // 장바구니 추가 성공메세지(화면에 출력)
       // cartCount: 0, // 장바구니 개수
+
+      // 공통 속성(현재페이지, 전체데이터개수,1페이지당개수)
+      page: 1, // 현재페이지번호
+      count: 0, // 전체데이터개수
+      pageSize: 3, // 1페이지당개수(select태그)
     };
   },
   methods: {
+    // 리뷰 전체조회 함수 : 화면이뜰때 자동 실행
+    async retrieveReview() {
+      try {
+        // 공통 장바구니 전체 조회 서비스 함수 실행
+        let response = await ReviewService.getAll(this.page - 1, this.pageSize);
+        console.log(response.data);
+        const { reviews, totalItems } = response.data;
+        this.reviews = reviews; // 리뷰 배열(벡엔드 전송)
+        this.count = totalItems; // 전체페이지수(벡엔드 전송)
+        // 로깅
+        // console.log("결과출력", response.data); // 웹브라우저 콘솔탭에 벡엔드 데이터 표시
+      } catch (e) {
+        console.log(e); // 웹브라우저 콘솔탭에 에러 표시
+      }
+    },
 
     // 상품문의 글 작성 페이지로 넘어가는 함수
     goCheck() {
@@ -549,6 +563,7 @@ export default {
           point: this.review.point,
           reviewContent: this.review.reviewContent,
           reviewImage: this.review.reviewImage,
+          reviewImgUrl: this.review.reviewImgUrl,
         };
         // TODO: 공통 저장 서비스 함수 실행
         // TODO: async ~ await
@@ -562,9 +577,9 @@ export default {
 
     // 리뷰 이미지 추가
     previewReviewImage: function () {
-      this.review.reviewImage = this.$refs.file01.files[0];  // 첨부파일은 여러개 선택할수있어서 배열로 되어있다 우리는 처음선택한게 0번
+      this.review.reviewImage = this.$refs.file01.files[0]; // 첨부파일은 여러개 선택할수있어서 배열로 되어있다 우리는 처음선택한게 0번
     },
-   
+
     // TODO: 상품 개수 증가 함수
     increaseCount() {
       this.productCount += 1;
@@ -644,7 +659,7 @@ export default {
     // 화면 뜰때 상단이 뜨게 해주는 함수
     window.scrollTo(0, 0);
     this.getProd(this.$route.params.prodId); // 상세조회 함수 실행
-    window.scrollTo(0, 0);
+    this.retrieveReview();
   },
 };
 </script>
@@ -710,6 +725,7 @@ h1 {
   color: black;
   height: 100vw;
   border-radius: 5px; /* 모서리 둥글게 : 5px로 설정 */
+  text-align: center;
 }
 
 #price {
@@ -847,7 +863,6 @@ h4 {
   /* border: 1px solid #cccccc; */
 }
 
-
 /* #btn1:hover::after {
   content: "♥"; 
 }
@@ -878,7 +893,6 @@ h4 {
   border: 1px solid #e2e2e2;
   color: black;
   border-radius: 5px; /* 모서리 둥글게 : 5px로 설정 */
-
 }
 
 .shop_button > #btn2 {
