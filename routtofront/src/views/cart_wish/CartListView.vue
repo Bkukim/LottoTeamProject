@@ -10,13 +10,6 @@
           <th class="text-center col-1">번호</th>
           <th class="text-center col-1">상품</th>
 
-          <!-- <th class="text-center">
-            <input
-              type="checkbox"
-              v-model="selectAll"
-              @click="selectAllProducts"
-            />
-          </th> -->
           <th class="text-center">상품명</th>
           <th class="text-center">수량</th>
           <th class="text-center">가격</th>
@@ -32,11 +25,9 @@
           </td>
 
           <!-- 상품IMG -->
-          <!-- 체크박스 보류, TODO: 시간나면 이미지만 넣기-->
           <td class="text-center">
             <img :src="data.prodImgUrl" class="cartImg" />
           </td>
-          <!-- <td class="check_td text-center"><input type="checkbox" v-model="data.checked" @change="selectProduct"/></td> -->
 
           <!-- 상품명 -->
           <td class="text-left">
@@ -103,7 +94,7 @@
                 <button
                   id="button_bg1"
                   class="btn btn-primary btn-block"
-                  @click="oneCart"
+                  @click="goOrderProd"
                 >
                   구매하기
                 </button>
@@ -184,7 +175,7 @@
           @click="deleteAllCart(cart)"
         >
           전체상품 삭제하기
-          <br />//해결요망
+          
         </button>
       </div>
       <div class="col-auto mb-5">
@@ -347,7 +338,7 @@ export default {
     async deleteAllCart(cart) {
       try {
         // todo: 공통 장바구니 삭제 서비스 함수 실행
-        let response = await CartService.remove(cart);
+        let response = await CartService.removeAll(cart);
         // 로깅
         console.log(response.data);
         // alert 대화상자
@@ -405,7 +396,8 @@ export default {
       this.$router.push("/order");
     },
     goOrderProd() {
-      this.$router.push("/order");
+      // '/shop/notice-check/' + data.announcementId
+      this.$router.push('/order'+this.cart.prodId);
     },
 
 
