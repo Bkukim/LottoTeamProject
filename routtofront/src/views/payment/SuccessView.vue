@@ -120,6 +120,7 @@ export default {
   },
   mounted() {
     this.confirm();
+    window.scrollTo(0, 0);
   },
 };
 </script>

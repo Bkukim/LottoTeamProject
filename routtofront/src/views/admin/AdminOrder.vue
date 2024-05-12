@@ -420,6 +420,7 @@ export default {
   mounted() {
     // 최초 화면이 뜰 때 전체조회 실행(장바구니)
     this.retrieveOrder();
+    window.scrollTo(0, 0);
     
     window.scrollTo(0, 0);
   },

@@ -60,6 +60,7 @@ export default {
   },
   mounted() {
     this.retrieveProduct();
+    window.scrollTo(0, 0);
   },
 };
 </script>

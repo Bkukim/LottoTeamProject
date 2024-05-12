@@ -397,6 +397,7 @@ export default {
   },
   mounted() {
     this.getUser(this.$store.state.user.userId);
+    window.scrollTo(0, 0);
   },
 };
 </script>

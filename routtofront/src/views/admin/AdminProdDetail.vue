@@ -325,6 +325,7 @@ export default {
     // this.message = ""; // 변수 초기화
     // TODO: 변수명 확인 : router/index.js 에서 url 정의한곳에서 확인(/dept/:dno)
     this.getProduct(this.$route.params.prodId); // 상세조회 함수 실행
+    window.scrollTo(0, 0);
   },
 };
 </script>

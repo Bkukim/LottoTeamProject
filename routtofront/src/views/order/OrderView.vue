@@ -830,6 +830,8 @@ export default {
       var orderMessageInput = document.getElementById("ordermessage");
       orderMessageInput.style.display = "none"; // 페이지 로드 시 텍스트 상자 숨기기
     });
+    
+    window.scrollTo(0, 0);
   },
 };
 </script>

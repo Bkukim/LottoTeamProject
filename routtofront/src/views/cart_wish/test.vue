@@ -289,6 +289,7 @@ export default {
   },
   mounted() {
     this.allCart(this.$store.state.user.userId);
+    window.scrollTo(0, 0);
   },
 };
 </script>

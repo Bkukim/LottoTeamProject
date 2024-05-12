@@ -122,6 +122,9 @@ export default {
         console.log(e);
       }
     },
+  },mounted() {
+    
+    window.scrollTo(0, 0);
   },
 };
 </script>

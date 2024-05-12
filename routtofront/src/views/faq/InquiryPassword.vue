@@ -44,6 +44,9 @@ export default {
         goUpdate(){
             this.$router.push("/inquiry-update");
         }
+    },mounted() {
+      
+    window.scrollTo(0, 0);
     },
 };
 </script>

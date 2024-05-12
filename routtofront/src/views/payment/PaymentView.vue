@@ -95,6 +95,10 @@ export default {
       this.inputEnabled = true;
     });
   },
+  mounted() {
+    
+    window.scrollTo(0, 0);
+  },
 };
 </script>
 
