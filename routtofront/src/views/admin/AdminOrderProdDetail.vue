@@ -30,12 +30,6 @@
       <tbody>
         <tr v-for="(data, index) in orderProds" :key="index">
           <!-- 1) 배송 상품 -->
-          <!-- <td scope="row">
-            <img
-              :src="product.prodImgUrl"
-              style="width: 100px; height: 100px"
-            />
-          </td> -->
           <td>
             <img :src="data.prodImgUrl" style="width: 150px; height: 100px;">
           </td>
