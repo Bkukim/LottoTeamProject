@@ -29,15 +29,15 @@ class FaqListService {
 
 
   // TODO: 상세조회 함수1 : 내가쓴글 확인하기? : 회원번호 userId
-  // // TODO: 조회(select) -> get 방식 -> @GetMapping
-  // getUserId(userId) {
-  //   // TODO: 사용법 : http.get(`/컨트롤러함수url/${부서번호}`)
-  //   return http.get(`/user/member/faq/${userId}`,
-  //   {
-  //     headers: AuthHeader()
-  //   }
-  //   );
-  // }
+  // TODO: 조회(select) -> get 방식 -> @GetMapping
+  getUserId(userId) {
+    // TODO: 사용법 : http.get(`/컨트롤러함수url/${부서번호}`)
+    return http.get(`/user/member/faq/${userId}`,
+    {
+      headers: AuthHeader()
+    }
+    );
+  }
 
   // TODO: 상세조회 함수2 : 쓴 글 조회 후 수정할때 상세조회용
   // TODO: 조회(select) -> get 방식 -> @GetMapping
@@ -55,7 +55,7 @@ class FaqListService {
   update(faqId, data) {
     // TODO: 수정(update) -> put 방식 -> @PutMapping
     // TODO: 사용법 : http.put(`/컨트롤러함수url/${dno}`, 수정할객체)
-    return http.put(`/user/member/faq/update/${faqId}`, data,
+    return http.put(`/user/mdember/faq/update/${faqId}`, data,
     {
       headers: AuthHeader()
     }

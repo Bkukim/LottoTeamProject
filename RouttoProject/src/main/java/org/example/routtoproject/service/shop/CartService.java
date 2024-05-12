@@ -3,19 +3,14 @@ package org.example.routtoproject.service.shop;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.example.routtoproject.model.dto.shop.ICartDto;
-import org.example.routtoproject.model.entity.shop.Announcement;
 import org.example.routtoproject.model.entity.shop.Cart;
-import org.example.routtoproject.model.entity.shop.Order;
-import org.example.routtoproject.model.entity.shop.Product;
 import org.example.routtoproject.repository.shop.CartRepository;
-import org.example.routtoproject.repository.shop.OrderRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.util.Collections;
 import java.util.List;
-import java.util.Optional;
 
 /**
  * packageName : org.example.routtoproject.service.shop
@@ -42,17 +37,13 @@ public class CartService {
         return cart1;
     }
 
-    //
-//   todo: 이미지 불러오는 함수
-
-
     //    todo: 전체 수정함수
-    public void updateAll(
-    ) {
+//    public void updateAll(
+//    ) {
+//
+//    }
 
-    }
-
-    //todo: 단일 수정함수
+    //todo: 수량수정함수
     public void updateProdCount(
             Integer cartProdCount,
             String userId,
@@ -93,6 +84,13 @@ public class CartService {
             return false;
         }
     }
+
+//    todo: 전체 삭제 : chat gpt
+public void removeAll() {
+    cartRepository.deleteAll(); // 모든 카트 삭제
+}
+
+
 
     // todo: id가 존재하는지 확인
     public boolean existById(int prodId) {
