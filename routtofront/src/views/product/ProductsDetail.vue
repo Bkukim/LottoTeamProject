@@ -202,9 +202,6 @@
           style="max-width: 400px; max-height: 600px"
         />
         </div>
-        <div>
-        <img src="@/assets/images/best_seller_02.png">
-        </div>
       </div>
 
       <br />
