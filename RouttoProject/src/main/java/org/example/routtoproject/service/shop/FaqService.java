@@ -55,11 +55,19 @@ public Optional<Faq> findById(int faqId) {
             = faqRepository.findById(faqId); //crud레포짓토리
     return faqOptional;
 }
+//TODO : userId 상세조회
+public Optional<Faq> findByUserId(String userId) {
+    log.debug("서비스는 실행되니?");
+
+//        DB 상세조회 실행
+    Optional<Faq> faqOptional
+            = faqRepository.findById(Integer.valueOf(userId)); //crud레포짓토리
+    return faqOptional;
+}
 
 // todo: 저장
 public Faq save(Faq faq) {
 //        JPA 저장 함수 실행 : return 값 : 저장된 객체
-    log.debug("서비스는 실행되니?");
     Faq faq1 = faqRepository.save(faq);
     return faq1;
 }

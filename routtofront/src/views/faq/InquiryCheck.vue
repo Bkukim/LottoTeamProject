@@ -1,4 +1,8 @@
-<!-- inquiryCheck.vue :: Add문의 등록 form-->
+<!-- inquiryCheck.vue :: 
+  등록글 상세조회
+  댓글
+  admin v-if로 댓글 답변 등록가능
+  Add문의 등록 form-->
 <template>
   <!-- v-ㅑㄹ -->
   <div class="mb-5 col-13">
@@ -30,7 +34,7 @@
       <!-- 등록시 고객센터 글 목록으로 재이동 :: -->
       <!-- TODO: v-if , 본인아이디가 아니면 수정과 삭제가 안보이게 해둠-->
       <!--챗지피티가 제시해준 오류수정 
-        근데 role null오류가 또 뜸
+        근데 role null오류가 또 뜸-> TODO: 선생님이 널값 방지용으로 ? 사용법 알려줌 user?.userId로 수정하니 됨
         <div v-if="faqList && this.$store.state.user && faqList.userId === this.$store.state.user.userId"> -->
       <div v-if="faqList.userId === this.$store.state.user?.userId">
         <router-link :to="'/shop/inquiry-update/' + faqList.faqId">
@@ -45,7 +49,7 @@
     </div>
 
     <div class="container">
-      <!-- TODO: 회원한테 보이는 답변 (상세)조회창 ::faqID저장 -->
+      <!-- TODO: 회원한테 보이는 답변댓글 (상세)조회창 -->
 
       <div class="re_div">
         <h5 class="text-main"></h5>

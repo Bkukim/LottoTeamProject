@@ -97,6 +97,31 @@ public class NormalFaqController {
         }
     }
 
+    //    todo: UserId상세조회 만들기
+//    조회(select) -> get 방식 -> @GetMapping
+    @GetMapping("/faq/{userId}")
+    public ResponseEntity<Object> findByUserId(
+            @PathVariable String userId
+    ) {
+        try {
+            log.debug("여기는 faq컨트롤함수 트라이바로아래");
+//            상세조회 서비스 실행
+            Optional<Faq> faqOptional
+                    = faqService.findById(Integer.parseInt(userId));
+
+            if (faqOptional.isEmpty() == true) {
+//                데이터 없음
+                return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+            } else {
+//                조회 성공
+                return new ResponseEntity<>(faqOptional.get(), HttpStatus.OK);
+
+            }
+        } catch (Exception e) {
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
     //    todo: 저장함수
     @PostMapping("/faq/save")
     public ResponseEntity<Object> createFaq(
