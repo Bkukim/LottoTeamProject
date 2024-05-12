@@ -349,6 +349,7 @@ export default {
     
   },mounted() {
     this.getBanner(this.$route.params.bannerId);
+    window.scrollTo(0, 0);
   },
 };
 </script>

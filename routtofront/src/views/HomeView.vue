@@ -172,7 +172,6 @@ export default {
     // TODO: 전체 조회 자동 실행
     this.getAllBanner();
     this.retrieveSimpleProduct();
-    
     window.scrollTo(0, 0);
   },
   

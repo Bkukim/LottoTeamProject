@@ -218,6 +218,7 @@ export default {
   // TODO: 화면이뜰때 자동 실행
   mounted() {
     this.retrieveWishList();
+    window.scrollTo(0, 0);
   },
 };
 </script>

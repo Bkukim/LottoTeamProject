@@ -112,6 +112,7 @@ export default {
   },
   mounted() {
     this.get(this.$route.params.announcementId);
+    window.scrollTo(0, 0);
   },
 };
 </script>

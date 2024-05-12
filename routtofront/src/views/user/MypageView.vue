@@ -31,7 +31,7 @@
       </div>
       <!-- mypage_all_box_in1 -->
 
-      <div class="container text-center mt-3 mb-3">
+      <!-- <div class="container text-center mt-3 mb-3">
         <div class="row mapage_b2">
           <div class="col mapage_b2">
             회원 ID <br /><br />
@@ -46,9 +46,25 @@
           <div class="col">
             주문상태<br /><br />
             {{order?.orderStatus}}
-          </div>
-        
-         
+          </div> -->
+
+      <table class="container text-center mt-3 mb-3">
+        <tr class="row mapage_b2" v-for="(data, index) in order" :key="index">
+          <td class="col mapage_b2">
+            회원 ID <br /><br />
+            {값}
+          </td>
+
+          <td class="col mapage_b2">
+            주문번호 <br /><br />
+            {값}
+          </td>
+
+          <td class="col">
+            주문상태<br /><br />
+            {{ order?.orderStatus }}
+          </td>
+
           <!-- <div class="col mapage_b2">
             배송완료 <br /><br />
             {값}
@@ -61,8 +77,8 @@
             <br />
             <div class="row container text-center">반품{값}</div>
           </div> -->
-        </div>
-      </div>
+        </tr>
+      </table>
       <!-- container -->
     </div>
     <!-- mypage_all_box -->
@@ -81,7 +97,9 @@
         </div>
 
         <div class="col no-border3">
-          <img src="@/assets/images/mypage_2.png" />
+          <router-link to="/member/user-modify"
+            ><img src="@/assets/images/mypage_2.png"
+          /></router-link>
           <br />
           <b>ProFile</b> <br />
           <p class="mini_box1">회원정보</p>
@@ -130,7 +148,7 @@
   </div>
 </template>
 <script>
-import OrderService from '@/services/product/OrderService';
+import OrderService from "@/services/product/OrderService";
 
 export default {
   data() {
@@ -161,6 +179,7 @@ export default {
     // TODO: 사용법 : this.$route.params.변수명
     // TODO: 변수명 확인 : router/index.js => url 정의 (:dno)
     this.getOrder(this.$store.state.user?.userId); // 상세조회 함수 실행
+    window.scrollTo(0, 0);
   },
 };
 </script>

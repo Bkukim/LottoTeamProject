@@ -415,6 +415,8 @@ export default {
   mounted() {
     // TODO: 화면이 뜰때 전체조회 실행
     this.retrieveCart();
+  },mounted() {
+    window.scrollTo(0, 0);
   },
 };
 </script>

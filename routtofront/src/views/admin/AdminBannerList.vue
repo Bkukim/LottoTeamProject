@@ -96,6 +96,7 @@ export default {
   },
   mounted() {
     this.getAllBanner();
+    window.scrollTo(0, 0);
   },
 };
 </script>
