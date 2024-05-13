@@ -48,22 +48,33 @@ public class FaqService {
         return page;
     }
 //    상세조회
-//    todo : 상세조회
+//    todo : userId전체조회
+//    전체조회
+public Page<Faq> selectByUserIdContaining(
+        String userId,
+        Pageable pageable
+) {
+    Page<Faq> page
+            = faqRepository.findAllByUserIdContaining(
+            userId,
+            pageable
+    );
+    return page;
+}
 public Optional<Faq> findById(int faqId) {
 //        DB 상세조회 실행
     Optional<Faq> faqOptional
             = faqRepository.findById(faqId); //crud레포짓토리
     return faqOptional;
 }
-//TODO : userId 상세조회
-public Optional<Faq> findByUserId(String userId) {
-    log.debug("서비스는 실행되니?");
-
-//        DB 상세조회 실행
-    Optional<Faq> faqOptional
-            = faqRepository.findById(Integer.valueOf(userId)); //crud레포짓토리
-    return faqOptional;
-}
+//TODO : userId 상세조회 -> 전체조회로 변경
+//public Optional<Faq> findByUserId(String userId) {
+//    log.debug("서비스가 실행되었나요?");
+//
+//    // 사용자 ID에 해당하는 엔티티 검색
+//    Optional<Faq> faqOptional = faqRepository.findByUserId(userId);
+//    return faqOptional;
+//}
 
 // todo: 저장
 public Faq save(Faq faq) {
