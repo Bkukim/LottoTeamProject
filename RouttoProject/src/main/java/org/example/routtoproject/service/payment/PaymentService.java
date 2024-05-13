@@ -3,14 +3,17 @@ package org.example.routtoproject.service.payment;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.example.routtoproject.model.dto.shop.OrderDto;
 import org.example.routtoproject.model.dto.shop.PaymentDto;
 import org.example.routtoproject.model.entity.payment.Payment;
 import org.example.routtoproject.model.entity.shop.Order;
 import org.example.routtoproject.repository.payment.PaymentRepository;
+import org.example.routtoproject.repository.shop.OrderRepository;
 import org.example.routtoproject.service.shop.OrderService;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 /**
@@ -34,6 +37,7 @@ public class PaymentService {
 
     private final PaymentRepository paymentRepository; // DI
     private final OrderService orderService; // DI
+    private final OrderRepository orderRepository; // DI
 
 //  저장 함수
     @Transactional
@@ -53,7 +57,16 @@ public class PaymentService {
 
         return payment2;
     }
-//
+
+//  TODO: 주문 정보 상세 조회해서 주문 완료 페이지에 띄우기
+public Optional<Order> findAll(int orderId) {
+//        JPA 상세조회 함수 실행
+    Optional<Order> optionalOrder
+            = orderRepository.findById(orderId);
+    return optionalOrder;
+}
+
+
 //  삭제함수
     public boolean removeByPaymentCode(Integer paymentCode) {
         if (paymentRepository.existsById(paymentCode)) {
@@ -70,7 +83,7 @@ public class PaymentService {
         }
         return false;
     }
-//
+
 //  상세조회
     public Optional<Payment> findById(Integer paymentCode) {
         Optional<Payment> optionalPayment = paymentRepository.findById(paymentCode);

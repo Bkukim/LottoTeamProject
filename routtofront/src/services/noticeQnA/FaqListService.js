@@ -16,6 +16,20 @@ class FaqListService {
     }
     );  
   }
+  
+  // 유저아이디로 전체조회 내글찾기
+  getAllUserId(userId, page, size) {
+    // TODO: 조회(select) : get 방식 -> @GetMapping
+    // TODO: 사용법 : http.get("스프링_컨트롤러함수_url")
+    console.log("d유저아이디",userId);
+    return http.get(`/user/member/userid/faq?userId=${userId}&page=${page}&size=${size}`,
+    {
+      headers: AuthHeader()
+    }
+    );  
+  }
+
+  
   // TODO: 저장, 이미지는 포기하라...
   create(data) {
     console.log(data);
@@ -27,17 +41,6 @@ class FaqListService {
     );
 } 
 
-
-  // TODO: 상세조회 함수1 : 내가쓴글 확인하기? : 회원번호 userId
-  // TODO: 조회(select) -> get 방식 -> @GetMapping
-  getUserId(userId) {
-    // TODO: 사용법 : http.get(`/컨트롤러함수url/${부서번호}`)
-    return http.get(`/user/member/faq/${userId}`,
-    {
-      headers: AuthHeader()
-    }
-    );
-  }
 
   // TODO: 상세조회 함수2 : 쓴 글 조회 후 수정할때 상세조회용
   // TODO: 조회(select) -> get 방식 -> @GetMapping

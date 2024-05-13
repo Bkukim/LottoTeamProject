@@ -9,6 +9,8 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
+import java.util.Optional;
+
 /**
  * packageName : org.example.routtoproject.repository.shop
  * fileName : FaqRepository
@@ -33,4 +35,14 @@ public interface FaqRepository extends JpaRepository<Faq, Integer> {
     Page<Faq> findAllByTitleContaining(@Param("title") String title,
                                        Pageable pageable
 );
+
+@Query(value = "SELECT * FROM LOTTO_FAQ\n" +
+        "WHERE USER_ID LIKE '%'||:userId||'%'"
+        ,countQuery = "SELECT count (*) FROM LOTTO_FAQ\n" +
+        "WHERE USER_ID LIKE '%'|| :userId ||'%'"
+        ,nativeQuery = true)
+    Page<Faq> findAllByUserIdContaining(@Param("userId") String userID,
+                                       Pageable pageable
+);
+
 }

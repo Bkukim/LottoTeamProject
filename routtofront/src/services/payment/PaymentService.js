@@ -12,6 +12,9 @@ class PaymentService {
     remove(paymentCode) {
         return http.delete(`/normal/shop/payment/deletion/${paymentCode}`);
     }
+    // getPaymentInfo(paymentCode) {
+    //     return http.get(`/user/shop/order/${paymentCode}`)
+    // }
 }
 
 export default new PaymentService();

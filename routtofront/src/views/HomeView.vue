@@ -3,7 +3,7 @@
     <!-- 전체 중앙정렬 -->
     <div class="frame-22">
       <!-- 메인배너 -->
-      <img class="baner_divbox" :src="banner[0]?.bannerImg1Url" />
+      <router-link :to="'/product/' + banner[0]?.prodId"><img class="baner_divbox" :src="banner[0]?.bannerImg1Url" /></router-link>
       <!-- src="@/assets/images/main_banner.jpg -->
 
       <!-- product -->
@@ -28,7 +28,7 @@
           <!-- 홀수 번째인 경우에만 odd 클래스를 추가 -->
           <div class="div10" :class="{ odd: index % 2 !== 0 }">
             <!-- 상품이미지 -->
-            <img class="frame-11" :src="data.prodImgUrl" />
+            <router-link :to="'/product/' + data.prodId"><img class="frame-11" :src="data.prodImgUrl" style="max-width: 500px; max-height: 600px;"/></router-link>
 
             <div class="abcdefghijklm">
               <p>{{ data.prodName }}</p>

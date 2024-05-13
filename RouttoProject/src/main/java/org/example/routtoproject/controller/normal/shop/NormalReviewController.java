@@ -103,5 +103,16 @@ public class NormalReviewController {
         }
     }
 
+//    //    TODO: 리뷰 이미지 파일 다운로드 함수
+    @GetMapping("/review/img/{uuid}")
+    public ResponseEntity<byte[]> findReviewImg(@PathVariable String uuid) {
+        Review review = reviewService.findReviewImgByUuid(uuid).get();
+
+        return ResponseEntity.ok()
+//           Todo : attachment: => attachment;
+                .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + review.getReviewId() + "\"")
+                .body(review.getReviewImage());
+    }
+
 }
 
