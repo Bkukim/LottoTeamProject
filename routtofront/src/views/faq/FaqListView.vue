@@ -141,7 +141,7 @@ export default {
     },
     goUserId() {
       // '/shop/notice-check/' + data.announcementId
-      this.$router.push('/shop/faqList/'+this.faqList.userId);
+      this.$router.push("/shop/faqList/userId");
     },
   },
   mounted() {
