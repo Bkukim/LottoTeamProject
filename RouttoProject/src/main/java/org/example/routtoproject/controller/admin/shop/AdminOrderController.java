@@ -108,4 +108,25 @@ public class AdminOrderController {
         }
     }
 
+    //  TODO: 삭제 함수
+//    삭제(delete) -> delete 방식 -> @DeleteMapping
+    @DeleteMapping("/order/deletion/{orderId}")
+    public ResponseEntity<Object> delete(
+            @PathVariable int orderId
+    ) {
+        try {
+//          DB 서비스 삭제 함수 실행
+            boolean success = orderService.removeByOrderId(orderId);
+
+            if (success == true) {
+                return new ResponseEntity<>(HttpStatus.OK);
+            } else {
+//              삭제 실행 : 0건 삭제 (삭제할 데이터 없음)
+                return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+            }
+        } catch (Exception e) {
+//          서버 DB 에러
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
 }

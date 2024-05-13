@@ -1,10 +1,12 @@
 package org.example.routtoproject.repository.shop;
 
+import jakarta.transaction.Transactional;
 import org.example.routtoproject.model.dto.shop.ICartDto;
 import org.example.routtoproject.model.dto.shop.OrderProductDetailDto;
 import org.example.routtoproject.model.entity.shop.OrderProd;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
@@ -53,4 +55,11 @@ public interface OrderProdRepository extends JpaRepository<OrderProd, Integer> {
             "AND LC.USER_ID = :userId"
             , nativeQuery = true)
     List<ICartDto> findByUserIdContaining(@Param("userId") String userId);
+
+    @Transactional
+    @Modifying
+    @Query(value = "DELETE FROM LOTTO_ORDER_PROD\n" +
+            "WHERE ORDER_ID = :orderId"
+    ,nativeQuery = true)
+    void deleteOrderProdId(@Param("orderId") Integer orderId);
 }

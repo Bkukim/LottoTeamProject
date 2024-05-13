@@ -15,6 +15,15 @@
       >
         결제하기
       </button>
+      <!-- 결제 취소 버튼 -->
+      <button
+       class="button"
+       id="payment-button"
+       style="margin-top: 30px"
+       @click="cancelPayment"       
+      >
+        취소하기
+      </button>
     </div>
   </div>
 </template>
@@ -22,7 +31,7 @@
 <script>
 import { loadPaymentWidget, ANONYMOUS } from "@tosspayments/payment-widget-sdk";
 import OrderService from '@/services/product/OrderService';
-import ProductService from '@/services/product/ProductService';
+import AdminOrderService from '@/services/admin/AdminOrderService';
 
 export default {
   data() {
@@ -41,33 +50,20 @@ export default {
     async retrieveOrder(orderId) {
       try {
         console.log("주문정보", orderId)
-        let response = await OrderService.get(orderId);
+        let response = await OrderService.goPayment(orderId);
         this.order = response.data;
-        console.log(response.data);
+        console.log("결제 정보",response.data);
       } catch (e) {
         console.log(e);
       }
     },
-    async retrieveProduct(prodId) {
-      try {
-        console.log("상품정보", prodId)
-        let response = await ProductService.get(prodId);
-        this.product = response.data;
-        console.log(response.data);
-      } catch (e) {
-        console.log(e);
-      }
-    },
-
     async requestPayment() {
       try {
         if (this.paymentWidget) {
           let data = {
             orderId: this.$route.params.orderId,
-            orderName:  "테스트 명",
+            orderName:  "루또",
             successUrl: `${window.location.origin}/order/success`,
-
-            
             failUrl: `${window.location.origin}/order/fail`,
           };
           console.log(data);
@@ -77,10 +73,18 @@ export default {
         console.error(error);
       }
     },
+
+    async cancelPayment() {
+          let response = await AdminOrderService.delete(this.order.orderId);
+          // 로깅
+          console.log(response.data);
+          // TODO: this.$router.push("이동할 url")
+          this.$router.go(-1);
+          setTimeout(() => window.location.reload(), 5); // 5ms 후에 페이지 새로고침
+    },
   },
   async mounted() {
     await this.retrieveOrder(this.$route.params.orderId);
-    await this.retrieveProduct(this.$route.params.prodId);
     this.paymentWidget = await loadPaymentWidget(this.clientKey, ANONYMOUS);
     this.paymentMethodWidget = this.paymentWidget.renderPaymentMethods(
       "#payment-method",

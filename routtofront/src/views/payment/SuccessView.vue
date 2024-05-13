@@ -20,36 +20,16 @@
           {{ jsonData.orderId }}
         </div>
       </div>
-      <div class="p-grid typography--p" style="margin-top: 10px">
-        <div class="p-grid-col text--left"><b>결제 요청 시간</b></div>
-        <div class="p-grid-col text--right" id="orderId">
-          {{ jsonData.requestedAt }}
-        </div>
-      </div>
-      <div class="p-grid typography--p" style="margin-top: 10px">
-        <div class="p-grid-col text--left"><b>결제 승인 시간</b></div>
-        <div class="p-grid-col text--right" id="orderId">
-          {{ jsonData.approvedAt }}
-        </div>
-      </div>
-      <div class="p-grid typography--p" style="margin-top: 10px">
-        <div class="p-grid-col text--left"><b>결제 수단</b></div>
-        <div class="p-grid-col text--right" id="orderId">
-          {{ jsonData.method }}
-        </div>
-      </div>
-      <div class="p-grid typography--p" style="margin-top: 10px">
-        <div class="p-grid-col text--left"><b>카드?</b></div>
-        <div class="p-grid-col text--right" id="orderId">
-          {{ jsonData.card }}
-        </div>
-      </div>
-      <div class="p-grid typography--p" style="margin-top: 10px">
-        <div class="p-grid-col text--left"><b>테스트</b></div>
-        <div class="p-grid-col text--right" id="orderId">
-          {{ jsonData }}
-        </div>
-      </div>
+      <!-- 주문 확인하기 버튼 -->
+      <button
+        class="button"
+        type="button"
+        id="payment-button"
+        style="margin-top: 30px"
+        @click="goToMyPage"
+      >
+        주문 확인하기
+      </button>
     </div>
   </section>
 </template>
@@ -57,6 +37,9 @@
 <script>
 import { confirmPayment } from "@/services/payment/confirmPayment";
 import PaymentService from "@/services/payment/PaymentService";
+import OrderService from "@/services/product/OrderService";
+// import UserService from '@/services/user/UserService';
+// import AdminManageService from '@/services/admin/AdminManageService';
 
 export default {
   data() {
@@ -68,6 +51,9 @@ export default {
       },
       confirmed: false,
       jsonData: null,
+      // user: null,
+      // product: {},
+      // products: [],
     };
   },
   methods: {
@@ -112,18 +98,72 @@ export default {
         this.payment = response.data;
         console.log(response.data);
 
+        // 2) 주문 상태를 '결제완료'로 변경
+        await this.updateOrderStatus(data.orderId, "결제완료");
+
         // alert("결제가 완료되었습니다.");
       } catch (e) {
         console.log(e);
       }
     },
+    async updateOrderStatus(orderId, data) {
+      try {
+        let response = await OrderService.change(orderId, data);
+        console.log("주문 상태 업데이트 성공", response.data);
+      } catch (e) {
+        console.log("주문 상태 업데이트 실패", e);
+      }
+    },
+    //     // TODO: userId로 연락처 받아오기
+    // async retrieveUser(userId) {
+    //   try {
+    //     console.log("주문자 정보" + userId)
+    //     let response = await UserService.get(userId);
+    //     this.user = response.data;
+    //     console.log("주문자 정보보보", response.data);
+    //   } catch (e) {
+    //     console.log(e);
+    //   }
+    // },
+    // // TODO: orderProdId로 주문 상품 정보 받아오기
+    // async retrieveProduct(orderProdId) {
+    //   try {
+    //     console.log("주문번호" + orderProdId)
+    //     let response = await OrderService.getProdInfo(orderProdId);
+    //     this.products = response.data;
+    //     console.log("주문 번호", response.data);
+    //   } catch (error) {
+    //     console.log(error);
+    //   }
+    // },
+    // // TODO: prodId로 주문 상품 정보 받아오기
+    //     async getProduct(prodId) {
+    //   try {
+    //     console.log("상품 정보",prodId)
+    //     let response = await AdminManageService.get(prodId);
+    //     this.product = response.data; // 전체조회에서는 배열이었으나, 여기서는 객체 한개다. spring 결과를 바인딩 속성변수 product 에 저장
+    //     // 로깅
+    //     console.log("상품 정정보", response.data);
+    //   } catch (e) {
+    //     console.log(e);
+    //   }
+    // },
+    goToMyPage() {
+      this.$router.push("/member/mypage");
+    },
   },
   mounted() {
     this.confirm();
+    // this.retrieveUser(this.$route.params.userId);
+    // console.log("유저 아이디", this.$route.params.userId)
+    // console.log("주문상품 번호", this.$route.params.orderProdId)
+    // console.log("상품 번호",this.$route.params.prodId)
+    // this.retrieveProduct(this.$route.params.orderProdId);
+    // this.getProduct(this.$route.params.prodId);
   },
 };
 </script>
 
-<style>
+<style scpoed>
 @import "@/assets/css/Payment/tosspay.css";
 </style>

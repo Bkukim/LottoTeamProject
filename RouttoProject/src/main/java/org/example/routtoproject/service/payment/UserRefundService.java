@@ -34,16 +34,16 @@ public class UserRefundService {
     }
 
 //     주문 상태를 변경하는 메소드
-//    public boolean requestRefund(int orderId) {
-//        Optional<Order> orderOptional = adminRefundRepository.findById(orderId);
-//
-//        if (orderOptional.isPresent()) {
-//            Order order = orderOptional.get();
-//            order.setOrderStatus("환불요청"); // ORDER_STATUS 컬럼의 값을 '환불요청'으로 변경
-//            adminRefundRepository.save(order); // 변경된 상태를 데이터베이스에 저장
-//            return true;
-//        } else {
-//            return false;
-//        }
-//    }
+    public boolean requestRefund(int orderId) {
+        Optional<Order> orderOptional = adminRefundRepository.findById(orderId);
+
+        if (orderOptional.isPresent()) {
+            Order order = orderOptional.get();
+            order.setOrderStatus("환불요청"); // ORDER_STATUS 컬럼의 값을 '환불요청'으로 변경
+            adminRefundRepository.save(order); // 변경된 상태를 데이터베이스에 저장
+            return true;
+        } else {
+            return false;
+        }
+    }
 }

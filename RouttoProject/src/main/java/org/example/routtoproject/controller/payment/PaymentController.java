@@ -41,7 +41,7 @@ public class PaymentController {
             log.debug("2");
             return new ResponseEntity<>(payment, HttpStatus.OK);
         } catch (Exception e) {
-            log.debug("결재 " + e.getMessage());
+            log.debug("결제 " + e.getMessage());
 //            DB 에러가 났을경우 : INTERNAL_SERVER_ERROR 프론트엔드로 전송
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }

@@ -110,8 +110,6 @@ public class OrderService {
 
 
     //  결제 함수
-
-
     @Transactional
     //    저장함수
     public Order insert(OrderDto orderDto) {
@@ -142,5 +140,30 @@ public class OrderService {
         return optionalOrder;
     }
 
+//  TODO: orderProdId 상세 조회
+    public Optional<OrderProd> findOpi(int orderProdId) {
+        Optional<OrderProd> optionalOrderProd = orderProdRepository.findById(orderProdId);
+        return optionalOrderProd;
+    }
+
+
+//  TODO: 결제 도중 취소시 주문 정보 삭제 함수
+    @Transactional
+public boolean removeByOrderId(int orderId) {
+    System.out.println("removeByOrderId 호출됨. orderId: " + orderId);
+
+    if(orderRepository.existsById(orderId)) {
+//      자식 테이블 정보 삭제
+        orderProdRepository.deleteOrderProdId(orderId);
+        System.out.println("orderId가 존재함: " + orderId);
+//      부모 테이블 정보 삭제
+        orderRepository.deleteById(orderId);
+        System.out.println("삭제 성공: " + orderId);
+        return true;
+    } else {
+        System.out.println("orderId가 존재하지 않음: " + orderId);
+        return false;
+    }
+}
 
 }
