@@ -151,7 +151,7 @@
           </div>
 
           <div class="shop_button row container text-center">
-            <button type="button" id="btn4" @click="goCheck">Q&A</button>
+            <button type="button" id="btn4" @click="writeInquiry">Q&A 작성</button>
           </div>
         </div>
         <!-- ------------------------------- 버 튼 끝-->
@@ -193,14 +193,13 @@
         </div>
       </div>
 
-      <div id="page" style="height: auto;">
+
+      <div id="page" style="height:auto;">
         <div>
-        <!-- <img
+        <img class="mt-5 mb-5"
           :src="product.prodDetailPageUrl"
-          style="max-width: 400px; max-height: 600px"
-        /> -->
-        <img
-          :src="product.prodDetailPageUrl"
+          
+
         />
         </div>
 
@@ -216,7 +215,7 @@
       <br />
       <!-- 2. 리뷰 -->
       <div class="mt-5" ref="reviewSection">
-        <h3>상품 후기</h3>
+        <h3>상품후기</h3>
         <br>
         <br>
         <!-- 5. 테이블 시작-->
@@ -482,12 +481,13 @@
 import ProductService from "@/services/product/ProductService";
 import CartService from "@/services/product/CartService";
 import ReviewService from "@/services/product/ReviewService";
+import QnaService from "@/services/product/QnaService";
 
 export default {
   data() {
     return {
       // 리뷰 테이블에 불러오는 배열
-      reviews: [], // reviewImgUrl도 들어있지 않나
+      reviews: [], 
 
       // 리뷰 작성 저장하는 객체
       review: {
@@ -541,11 +541,7 @@ export default {
       }
     },
 
-    // 상품문의 글 작성 페이지로 넘어가는 함수
-    goCheck() {
-      this.$router.push("/products/check");
-    },
-    // 리뷰 작성 저장
+    // 리뷰 작성 저장하는 함수
     async saveReview() {
       try {
         // 임시 객체
@@ -578,6 +574,33 @@ export default {
     // 리뷰 이미지 추가
     previewReviewImage: function () {
       this.review.reviewImage = this.$refs.file01.files[0]; // 첨부파일은 여러개 선택할수있어서 배열로 되어있다 우리는 처음선택한게 0번
+    },
+
+        // 상품문의 전체조회 함수
+    async retrieveQna() {
+      try {
+        // TODO: 1) 공통 전체조회 함수 실행
+        let response = await QnaService.getAll(
+          this.faqTitle, // 검색어
+          this.page - 1, // 현재페이지번호-1
+          this.pageSize // 1페이지당개수(size)
+        );
+        // TODO: 복습 : 2) 객체분할 할당
+        const { faqList, totalItems } = response.data; // 부서배열(벡엔드 전송)
+        // TODO: 3) 바인딩변수(속성)에 저장
+        this.faqList = faqList; // 부서배열(벡엔드 전송)
+        this.count = totalItems; // 전체페이지수(벡엔드 전송)
+        // TODO: 4) 프론트 로깅 : console.log
+        console.log(response.data);
+      } catch (e) {
+        console.log(e);
+      }
+    },
+
+    
+    // 상품문의 글 작성 페이지로 넘어가는 함수
+    writeInquiry() {
+      this.$router.push("/product/inquiry/" + this.$route.params.prodId);
     },
 
     // TODO: 상품 개수 증가 함수
@@ -659,8 +682,8 @@ export default {
     // 화면 뜰때 상단이 뜨게 해주는 함수
     window.scrollTo(0, 0);
     this.getProd(this.$route.params.prodId); // 상세조회 함수 실행
-
     this.retrieveReview();
+    this.retrieveQna();
 
   },
 };

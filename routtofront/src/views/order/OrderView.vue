@@ -675,7 +675,7 @@ export default {
 
       // TODO: 결제 창으로 주문정보 전송 및 결제창 오픈
         try {
-        let response = await OrderService.saveOrder(data); // 주문 정보를 서버에 전송(post 요청 수행)
+        let response = await OrderService.saveOrder(data); // 주문 정보를 서버에 전송(post 요청 수행) 화면 입력값이 temp
         console.log("결제 클릭 ", response.data);
         // this.orderData = response.data; // 주문 정보를 orderData에 저장
         // this.isModalVisible = true; // 모달 창을 보여준다

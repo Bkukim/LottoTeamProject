@@ -1,5 +1,6 @@
 package org.example.routtoproject.repository.shop;
 
+import org.example.routtoproject.model.entity.shop.Product;
 import org.example.routtoproject.model.entity.shop.Review;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
@@ -21,5 +22,10 @@ import java.util.Optional;
  */
 @Repository
 public interface ReviewRepository extends JpaRepository<Review, Integer> {
-    public Optional<Review> findByReviewImgUuid(String uuid);
+
+
+//    리뷰 작성 시 이미지 뜨게 하는 다운로드 함수
+    Optional<Review> findByReviewImgUuid(String reviewImgUuid);
+
+
 }
