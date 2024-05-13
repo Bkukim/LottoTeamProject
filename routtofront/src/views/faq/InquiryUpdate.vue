@@ -5,32 +5,32 @@
     <!-- 카테고리 -->
     <h5 class="text-center main_text">문의글 수정</h5>
     <br />
-   <div class="box_border">
-    <div class="col-12 mb-3">
-      <label class="mb-3 text-left"> 제목 </label>
-      <input
-        type="text"
-        class="borderA form-control"
-        id="exampleFormControlInput1"
-        placeholder=""
-        v-model="faqList.faqTitle"
-      />
+    <div class="box_border">
+      <div class="col-12 mb-3">
+        <label class="mb-3 text-left"> 제목 </label>
+        <input
+          type="text"
+          class="borderA form-control"
+          id="exampleFormControlInput1"
+          placeholder=""
+          v-model="faqList.faqTitle"
+        />
+      </div>
+      <!-- 본문적는곳 -->
+      <div class="mb-3">
+        <label
+          for="exampleFormControlTextarea1"
+          class="mt-3 form-label text-left"
+          >내용</label
+        >
+        <textarea
+          class="borderA form-control"
+          id="exampleFormControlTextarea1"
+          rows="15"
+          v-model="faqList.faqContent"
+        ></textarea>
+      </div>
     </div>
-    <!-- 본문적는곳 -->
-    <div class="mb-3">
-      <label for="exampleFormControlTextarea1" class="mt-3 form-label text-left"
-        >내용</label
-      >
-      <textarea
-        class="borderA form-control"
-        id="exampleFormControlTextarea1"
-        rows="15"
-        v-model="faqList.faqContent"
-      ></textarea>
-    </div>
-
-
-   </div>
     <!--  문의글 버튼 -->
     <div class="d-grid gap-2 d-md-flex justify-content-md-end">
       <!-- 취소시 관리자 페이지로 이동 -->
@@ -60,8 +60,11 @@ export default {
       // TODO: 저장(추가:insert) 함수 : CRUD (비동기)
       // TODO: 비동기 코딩 : async ~ await
       // 그외의걸 담을 객체
-      faqList: {
-      },
+      faqList: {},
+      //  faqId:this.$route.params.faqId,
+      //  userId:this.$store.state.user.userId,
+      //  faqTitle:"",
+      //  faqContent:"" ->원래 없었던거긴한데
     };
   },
   methods: {
@@ -77,26 +80,28 @@ export default {
         console.log(e);
       }
     },
-    
+
     // 수정요청함수
     async updateFaq() {
       try {
-        // TODO: 공통 수정함수 : DeptService.update()
-        // TODO: 비동기 코딩 : async ~ await
-        let response = await FaqListService.update(this.faqList.faqId, this.faqList);
+        console.log(this.faqList);
+        console.log("여기는 프론트" + this.faqList);
+        let response = await FaqListService.update(
+          this.faqList.faqId,
+          this.faqList
+        );
+        alert("수정이 완료되었습니다.");
         this.$router.push("/shop/faqList");
         // 로깅
         console.log(response.data);
-        // 화면에 성공메세지 출력 : message
-        this.message = "수정이 성공했습니다.";
       } catch (e) {
-        console.log(e);
+        console.log("무슨에러?"+e);
       }
     },
   },
   mounted() {
     this.getFaqId(this.$route.params.faqId); // 상세조회 실행
-    
+
     this.message = ""; //초기화
     window.scrollTo(0, 0);
   },
