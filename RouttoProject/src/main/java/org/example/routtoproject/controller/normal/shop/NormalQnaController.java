@@ -2,7 +2,6 @@ package org.example.routtoproject.controller.normal.shop;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.example.routtoproject.model.entity.shop.Faq;
 import org.example.routtoproject.model.entity.shop.Qna;
 import org.example.routtoproject.service.shop.QnaService;
 import org.springframework.data.domain.Page;
@@ -32,15 +31,14 @@ import java.util.Map;
 @Controller
 @Slf4j
 @RequiredArgsConstructor
-@RequestMapping("/api/user/member")
-public class NormalQnaWriteController {
+@RequestMapping("/api/normal/shop")
+public class NormalQnaController {
 
     private final QnaService qnaservice;
 
     //todo: 전체조회
     @GetMapping("/qna")
     public ResponseEntity<Object> findAll(
-            @RequestParam(defaultValue = "") String title,
             @RequestParam(defaultValue = "0") int page,
             @RequestParam(defaultValue = "3") int size
     ) {
@@ -51,7 +49,7 @@ public class NormalQnaWriteController {
 //            전체 조회 서비스 실행
             Page<Qna> qna
                     = qnaservice
-                    .selectByTitleContaining(title, pageable);
+                    .selectByTitleContaining( pageable);
 
 //            공통 페이징 객체 생성 : 자료구조 맵 사용
             Map<String, Object> response = new HashMap<>();
@@ -69,23 +67,6 @@ public class NormalQnaWriteController {
             }
 
         } catch (Exception e) {
-            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
-        }
-    }
-
-    //    todo: 문의글 저장함수
-    @PostMapping("/qna/save")
-    public ResponseEntity<Object> createQna(
-            @RequestBody Qna qna
-    ) {
-        try {
-//            DB 서비스 저장 함수 실행
-            Qna qna1 = qnaservice.save(qna);
-            log.debug("디버그"+qna1.toString());
-//            성공(OK) 메세지 + 저장된객체
-            return new ResponseEntity<>(qna1, HttpStatus.OK);
-        } catch (Exception e) {
-//            500 전송
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
