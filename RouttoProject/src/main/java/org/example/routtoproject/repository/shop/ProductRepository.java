@@ -113,7 +113,14 @@ public interface ProductRepository extends JpaRepository<Product, Integer> {
     List<IProdNameDto> findByProdName(@Param("prodName") String prodName);
 
 
+    @Query(value = "SELECT PROD_NAME,PROD_IMG FROM LOTTO_PRODUCT\n" +
+            "WHERE PROD_IMG_UUID = :prodImgUuid"
+            ,nativeQuery = true)
     Optional<Product> findByProdImgUuid(String prodImgUuid);
+
+    @Query(value = "SELECT PROD_NAME,PROD_DETAIL_PAGE FROM LOTTO_PRODUCT\n" +
+            "WHERE PROD_DETAIL_PAGE_UUID = :prodDetailPageUuid"
+            ,nativeQuery = true)
     Optional<Product> findByProdDetailPageUuid(String prodDetailPageUuid);
 
 }
