@@ -19,7 +19,7 @@
         <img
           :src="product.prodImgUrl"
           alt="prodImgUrl"
-          style="max-width: 500px; max-height: 600px"
+          style="max-width: 700px; max-height: 1200px"
         />
       </div>
 
@@ -102,8 +102,7 @@
                     (product.defaultPrice * product.discountRate) / 100) *
                     productCount
                 ).toLocaleString()
-              }}
-              원
+              }}원
             </span>
           </h4>
 
@@ -125,8 +124,7 @@
                       productCount +
                       3000
                   ).toLocaleString()
-                }}
-                원
+                }}원
               </span>
             </h4>
             <hr />
@@ -195,13 +193,17 @@
         </div>
       </div>
 
-      <div id="page">
+      <div id="page" style="height: auto;">
         <div>
-        <img
+        <!-- <img
           :src="product.prodDetailPageUrl"
           style="max-width: 400px; max-height: 600px"
+        /> -->
+        <img
+          :src="product.prodDetailPageUrl"
         />
         </div>
+
       </div>
 
       <br />
@@ -218,7 +220,8 @@
         <br>
         <br>
         <!-- 5. 테이블 시작-->
-        <table class="table table-bordered" style="border: 1px solid #342a26">
+        <!-- <table class="table table-bordered" style="border: 1px solid #342a26"> -->
+        <table class="table " :style="{ 'vertical-align': 'middle', 'text-align': 'center' }">
           <!-- 테이블 제목 행 -->
           <thead>
             <tr class="text-center">

@@ -4,6 +4,8 @@ import org.example.routtoproject.model.entity.shop.Review;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
+import java.util.Optional;
+
 /**
  * packageName : org.example.routtoproject.repository.shop
  * fileName : ReviewRepository
@@ -19,4 +21,5 @@ import org.springframework.stereotype.Repository;
  */
 @Repository
 public interface ReviewRepository extends JpaRepository<Review, Integer> {
+    public Optional<Review> findByReviewImgUuid(String uuid);
 }

@@ -21,7 +21,9 @@ class OrderService {
   // TODO: 여기 붙혀넣기 (지영-상세조회-마이페이지)
   getOrder(userId) {
     // TODO: 사용법 : http.get(`/컨트롤러함수url/${부서번호}`)
-    return http.get(`/user/shop/mypage-order/${userId}`);
+    return http.get(`/user/shop/order-all/${userId}`, {
+      headers: AuthHeader(),
+    });
 
   }
  
