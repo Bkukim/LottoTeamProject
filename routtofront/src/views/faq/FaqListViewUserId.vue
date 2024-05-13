@@ -1,6 +1,6 @@
 <!-- 고객센터 faq->UserId view -->
 <template>
-    <div class="mt-5 text-center">
+    <div class="text-center">
       <h4 class="mb-5 main_text" style="text-align: left;">내 글 찾기</h4>
       <table class="table">
         <thead>

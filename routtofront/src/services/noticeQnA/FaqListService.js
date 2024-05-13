@@ -58,7 +58,7 @@ class FaqListService {
   update(faqId, data) {
     // TODO: 수정(update) -> put 방식 -> @PutMapping
     // TODO: 사용법 : http.put(`/컨트롤러함수url/${dno}`, 수정할객체)
-    return http.put(`/user/mdember/faq/update/${faqId}`, data,
+    return http.put(`/user/member/faq/update/${faqId}`, data,
     {
       headers: AuthHeader()
     }
