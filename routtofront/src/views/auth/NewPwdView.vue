@@ -150,6 +150,9 @@ export default {
     goLogin() {
       this.$router.push("/member/login");
     },
+  },mounted() {
+    
+    window.scrollTo(0, 0);
   },
   
 };

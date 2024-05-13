@@ -197,6 +197,7 @@ export default {
 
     this.paymentMethodWidget.on("ready", () => {
       this.inputEnabled = true;
+    window.scrollTo(0, 0);
     });
   },
 };

@@ -160,6 +160,9 @@ export default {
     // console.log("상품 번호",this.$route.params.prodId)
     // this.retrieveProduct(this.$route.params.orderProdId);
     // this.getProduct(this.$route.params.prodId);
+
+    window.scrollTo(0, 0);
+
   },
 };
 </script>

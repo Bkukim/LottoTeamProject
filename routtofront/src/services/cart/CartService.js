@@ -48,7 +48,7 @@ class CartService {
   } 
   // 전체 삭제 0508기준 제대로 안됐음
   removeAll(data){ //simple cart number
-    return http.delete("/user/order/cart/deletion", data,
+    return http.delete("/user/order/cart/deletion-all", data,
     {
       headers: AuthHeader()
     });

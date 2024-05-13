@@ -152,6 +152,7 @@ export default {
   mounted() {
     this.getNotice(this.$route.params.announcementId); // 상세조회 실행
     this.message = ""; //초기화
+    window.scrollTo(0, 0);
   },
 };
 </script>

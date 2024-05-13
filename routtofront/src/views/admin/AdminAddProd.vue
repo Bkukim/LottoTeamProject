@@ -337,6 +337,8 @@ export default {
         event.target.value = inputValue.replace(/[^\d]/g, "");
       }
     },
+  },mounted() {
+    window.scrollTo(0, 0);
   },
 };
 </script>

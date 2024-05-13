@@ -388,6 +388,7 @@ export default {
     },
   },
   mounted() {
+
     // this.getOrderInfo(this.$route.params.orderId); // 주문 정보 상세 조회 함수
     // this.getPaymentInfo(this.$route.param.paymentCode); // 결제 정보 상세 조회 함수
     this.retrieveOrder(this.$route.params.orderId);
@@ -396,6 +397,9 @@ export default {
     this.retrieveProduct(this.$route.params.orderProdId);
     this.getProduct(this.$route.params.prodId);
     // this.retrieveOrderProduct(this.$route.parmas.orderId);
+
+    window.scrollTo(0, 0);
+
   },
 };
 </script>

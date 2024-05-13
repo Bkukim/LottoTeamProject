@@ -135,4 +135,22 @@ public class UserOrderController {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
+
+    // todo 마이페이지에서 현재 주문 상태 보여주는 함수
+    @GetMapping("/order-all/{userId}")
+    public ResponseEntity<Object> findAllByUserId(@PathVariable String userId){
+        try {
+            log.debug("여긴 컨트롤러 1");
+            List<Order> orders = orderService.findAllByUserId(userId);
+            log.debug("여긴 컨트롤러 2");
+            if (orders != null) {
+                return new ResponseEntity<>(orders, HttpStatus.OK);
+            }else {
+                return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+            }
+        }catch (Exception e){
+            log.debug(e.getMessage());
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
 }

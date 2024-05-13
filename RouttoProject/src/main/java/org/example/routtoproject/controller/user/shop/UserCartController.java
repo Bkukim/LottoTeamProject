@@ -112,6 +112,7 @@ public class UserCartController {
         }
     }
 
+//   TODO: 수량확정 함수
     @PutMapping("/cart/update-prodcount/{cartProdCount}/{userId}/{prodId}")
     public ResponseEntity<Object> updateProdCount(
             @PathVariable Integer cartProdCount,
@@ -130,7 +131,7 @@ public class UserCartController {
 
 
     //    TODO: 삭제 함수
-    @DeleteMapping("/cart/deletion/{cartId}")
+    @DeleteMapping("/cart/deletion/")
     public ResponseEntity<Object> delete(
             @PathVariable int cartId
     ) {
@@ -147,6 +148,19 @@ public class UserCartController {
 
         } catch (Exception e) {
 //            서버(DB) 에러
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    //    TODO: 전체삭제 함수
+    @DeleteMapping("/cart/deletion-all")
+    public ResponseEntity<Object> deleteAllCarts() {
+        try {
+            // 카트 전체 초기화 서비스 호출
+            cartService.removeAll();
+            return new ResponseEntity<>(HttpStatus.OK); // 성공적으로 삭제됨
+        } catch (Exception e) {
+            // 서버(DB) 에러
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }

@@ -140,6 +140,7 @@ public class OrderService {
         return optionalOrder;
     }
 
+
 //  TODO: orderProdId 상세 조회
     public Optional<OrderProd> findOpi(int orderProdId) {
         Optional<OrderProd> optionalOrderProd = orderProdRepository.findById(orderProdId);
@@ -165,5 +166,12 @@ public boolean removeByOrderId(int orderId) {
         return false;
     }
 }
+
+    // todo 마이페이지에서 현재 주문 상태 보여주는 함수
+    public List<Order> findAllByUserId(String userId){
+        List<Order> orders = orderRepository.findAllByUserId(userId);
+        return orders;
+    }
+
 
 }

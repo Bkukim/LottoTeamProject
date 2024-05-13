@@ -98,6 +98,7 @@ export default {
     this.getFaqId(this.$route.params.faqId); // 상세조회 실행
     
     this.message = ""; //초기화
+    window.scrollTo(0, 0);
   },
 };
 </script>

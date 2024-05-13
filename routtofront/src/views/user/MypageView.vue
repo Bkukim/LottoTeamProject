@@ -31,7 +31,7 @@
       </div>
       <!-- mypage_all_box_in1 -->
 
-      <div class="container text-center mt-3 mb-3">
+      <!-- <div class="container text-center mt-3 mb-3">
         <div class="row mapage_b2">
           <div class="col mapage_b2">
             회원 ID <br /><br />
@@ -46,9 +46,31 @@
           <div class="col">
             주문상태<br /><br />
             {{order?.orderStatus}}
-          </div>
+          </div> -->
+
+      <table class="container text-center mt-3 mb-3">
         
-         
+        <tr class="row mapage_b2" v-for="(data, index) in order" :key="index">
+          <th class="col mapage_b2">회원 ID</th>
+          <th class="col mapage_b2">주문번호</th>
+          <th class="col mapage_b2"> 주문상태</th>
+          </tr>
+        <tr class="row mapage_b2" v-for="(data, index) in order" :key="index">
+          <td class="col mapage_b2">
+             <br /><br />
+            {{data.userId}}
+          </td>
+
+          <td class="col mapage_b2">
+             <br /><br />
+            {{ data.orderId }}
+          </td>
+
+          <td class="col">
+           <br /><br />
+            {{ data.orderStatus }}
+          </td>
+
           <!-- <div class="col mapage_b2">
             배송완료 <br /><br />
             {값}
@@ -61,8 +83,8 @@
             <br />
             <div class="row container text-center">반품{값}</div>
           </div> -->
-        </div>
-      </div>
+        </tr>
+      </table>
       <!-- container -->
     </div>
     <!-- mypage_all_box -->
@@ -81,7 +103,9 @@
         </div>
 
         <div class="col no-border3">
-          <img src="@/assets/images/mypage_2.png" />
+          <router-link to="/member/user-modify"
+            ><img src="@/assets/images/mypage_2.png"
+          /></router-link>
           <br />
           <b>ProFile</b> <br />
           <p class="mini_box1">회원정보</p>
@@ -130,22 +154,24 @@
   </div>
 </template>
 <script>
-import OrderService from '@/services/product/OrderService';
+import OrderService from "@/services/product/OrderService";
 
 export default {
   data() {
     return {
-      order: null, // 초기값
+      order: [], // 초기값
     };
   },
   methods: {
     // TODO: 상세조회요청 함수 : 화면 뜰때
     // TODO: 비동기 코딩 : async ~ await
-    async getOrder(orderId) {
+    async getOrder(userId) {
       try {
+        
         // 상세조회 공통함수 실행 : DeptService.get()
-        let response = await OrderService.get(orderId);
-        this.dept = response.data; // spring 결과를 바인딩 속성변수 dept 저장
+        let response = await OrderService.getOrder(userId);
+        
+        this.order = response.data; // spring 결과를 바인딩 속성변수 dept 저장
         // 로깅
         console.log(response.data);
       } catch (e) {
@@ -160,7 +186,8 @@ export default {
     // TODO: 뷰 사용법 : 주소(라우터주소)에서 변수 가져오기 방법
     // TODO: 사용법 : this.$route.params.변수명
     // TODO: 변수명 확인 : router/index.js => url 정의 (:dno)
-    this.getOrder(this.$store.state.user?.userId); // 상세조회 함수 실행
+    this.getOrder(this.$store.state.user.userId); // 상세조회 함수 실행
+    window.scrollTo(0, 0);
   },
 };
 </script>

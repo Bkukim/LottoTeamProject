@@ -820,6 +820,8 @@ export default {
 
     // 페이지 초기 화면 : 상품 뜨게 하기
     this.retreiveCartAll(this.$store.state.user.userId);
+    
+    window.scrollTo(0, 0);
 
   },
 };

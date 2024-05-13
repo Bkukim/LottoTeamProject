@@ -40,4 +40,12 @@ public interface OrderRepository extends JpaRepository<Order, Integer> {
     )
     Page<Order> findAllByOrderIdContaining(@Param("orderTime") String orderTime, @Param("orderStatus") String orderStatus,
                                            Pageable pageable);
+
+    // todo 마이페이지에서 현재 주문 상태 보여주는 함수
+    @Query(value = "SELECT *\n" +
+            "FROM LOTTO_ORDER\n" +
+            "WHERE USER_ID = :userId\n" +
+            "AND ORDER_STATUS <> '구매확정'"
+    ,nativeQuery = true)
+    List<Order> findAllByUserId(@Param("userId") String userId);
 }

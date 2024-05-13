@@ -38,13 +38,10 @@
           <router-link to="/member/join" class="kim-join">JOIN</router-link>
         </div>
         <div class="kim-frame-15" v-else>
+          
           <li>
             <a href class="kim-login" @click.prevent="handleLogout"> LOGOUT </a>
           </li>
-
-          <router-link to="/member/mypage" class="kim-my-page"
-            >MY PAGE</router-link
-          >
         </div>
       </div>
 

@@ -1,44 +1,11 @@
-<!-- 고객센터 faq view -->
+<!-- 고객센터 faq->UserId view -->
 <template>
-
-  <div class="container">
-    <div class="main_text">
-      <router-link
-        class="top_notice router-link-exact-active fs-5"
-        to="/faqList"
-        >FAQ</router-link
-      >
-      |
-      <router-link class="top_notice2 text-decoration-none" to="/shop/notice"
-        >공지사항</router-link
-      >
-    </div>
     <div class="mt-5 text-center">
-      <!-- 서치
-      <div class="row justify-content-end">
-        <form class="d-flex mt-3 col-5 " role="search">
-          <input
-            class="form-control me-2"
-            type="search"
-            placeholder="검색"
-            aria-label="Search"
-          />
-          <button class="btn btn-outline-success" type="submit">검색</button>
-        </form>
-      </div> -->
-   
-      <!-- 테이블 시작 -->
-      <!-- 내가쓴글 확인하기 -->
-      <div class="row mt-5">
-        <button type="button" id="button3" class="btn"
-        @click="goUserId">
-          내가쓴글 확인하기
-        </button>
-      </div>
+      <h4 class="mb-5 main_text" style="text-align: left;">내 글 찾기</h4>
       <table class="table">
         <thead>
           <tr>
-            <th scope="col">번호</th>
+            <th scope="col">번호 </th>
             <th scope="col">제목</th>
             <th scope="col">작성자</th>
             <th scope="col">작성일</th>
@@ -101,7 +68,7 @@
       </div>
       
     </div>
-  </div>
+  
 </template>
 
 <script>
@@ -111,7 +78,7 @@ export default {
   data() {
     return {
       faqList: [],
-      faqTitle: "",
+      userId:this.$store.state.user.userId,
       // 공통 속성(현재페이지, 전체데이터개수,1페이지당개수)
       page: 1, // 현재페이지번호
       count: 0, // 전체데이터개수
@@ -120,11 +87,11 @@ export default {
   },
   methods: {
     // 전체조회 함수
-    async retrieveFaq() {
+    async retrieveFaqUserId() {
       try {
         // TODO: 1) 공통 전체조회 함수 실행
-        let response = await FaqListService.getAll(
-          this.faqTitle, // 검색어
+        let response = await FaqListService.getAllUserId(
+          this.userId, // 검색어
           this.page - 1, // 현재페이지번호-1
           this.pageSize // 1페이지당개수(size)
         );
@@ -139,13 +106,26 @@ export default {
         console.log(e);
       }
     },
-    goUserId() {
-      // '/shop/notice-check/' + data.announcementId
-      this.$router.push("/shop/faqList/userId");
+
+    // 삭제함수
+    async deleteFaq() {
+      try {
+        let response = await FaqListService.delete(this.faqList.faqId);
+        this.$router.push("/shop/faqList");
+
+        // 로깅
+        console.log(response.data);
+        // alert 대화상자
+        alert("정상적으로 삭제되었습니다.");
+      } catch (e) {
+        alert("로그아웃");
+        console.log(e);
+      }
     },
+    
   },
   mounted() {
-    this.retrieveFaq();
+    this.retrieveFaqUserId()
     window.scrollTo(0, 0); 
   },
 };

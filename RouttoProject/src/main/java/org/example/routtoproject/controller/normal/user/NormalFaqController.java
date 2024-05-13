@@ -97,6 +97,44 @@ public class NormalFaqController {
         }
     }
 
+    //    todo: UserId 전체조회 만들기
+//    조회(select) -> get 방식 -> @GetMapping
+    @GetMapping("/userid/faq")
+    public ResponseEntity<Object> findUserId(
+            @RequestParam(defaultValue = "") String userId,
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "3") int size
+    ) {
+        try {
+            log.debug("userID"+userId);
+//            페이징 객체 생성
+            Pageable pageable = PageRequest.of(page, size);
+
+//            전체 조회 서비스 실행
+            Page<Faq> faq
+                    = faqService
+                    .selectByUserIdContaining(userId, pageable);
+
+//            공통 페이징 객체 생성 : 자료구조 맵 사용
+            Map<String, Object> response = new HashMap<>();
+            response.put("faqList", faq.getContent());       // faq 배열
+            response.put("currentPage", faq.getNumber());       // 현재페이지번호
+            response.put("totalItems", faq.getTotalElements()); // 총건수(개수)
+            response.put("totalPages", faq.getTotalPages());    // 총페이지수
+
+            if (faq.isEmpty() == false) {
+//                조회 성공
+                return new ResponseEntity<>(response, HttpStatus.OK);
+            } else {
+//                데이터 없음
+                return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+            }
+
+        } catch (Exception e) {
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
     //    todo: 저장함수
     @PostMapping("/faq/save")
     public ResponseEntity<Object> createFaq(
@@ -113,7 +151,7 @@ public class NormalFaqController {
         }
     }
 
-//    TODO: 수정 함수 : 수정 버튼 클릭시 실행될 함수
+    //    TODO: 수정 함수 : 수정 버튼 클릭시 실행될 함수
 //       수정(update) -> put 방식 -> @PutMapping
     @PutMapping("/faq/update/{faqId}")
     public ResponseEntity<Object> update(
@@ -129,7 +167,7 @@ public class NormalFaqController {
         }
     }
 
-//    TODO: 삭제 함수
+    //    TODO: 삭제 함수
     @DeleteMapping("/faq/deletion/{faqId}")
     public ResponseEntity<Object> delete(
             @PathVariable int faqId
@@ -138,7 +176,7 @@ public class NormalFaqController {
 //            DB 서비스 삭제 함수 실행
             boolean success = faqService.removeById(faqId);
 
-            if(success == true) {
+            if (success == true) {
                 return new ResponseEntity<>(HttpStatus.OK);
             } else {
                 // 삭제 실행 : 0건 삭제(삭제할 데이터 없음)

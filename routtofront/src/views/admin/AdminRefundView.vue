@@ -354,6 +354,7 @@ export default {
   mounted() {
     this.message = "";
     // this.getOrder(this.$route.params.orderId);
+    window.scrollTo(0, 0);
   },
 };
 </script>

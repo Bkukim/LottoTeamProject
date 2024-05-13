@@ -160,6 +160,7 @@ export default {
   },
   mounted() {
     this.retrieveFaq();
+    window.scrollTo(0, 0);
   },
 };
 </script>

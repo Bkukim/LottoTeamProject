@@ -89,4 +89,10 @@ public Optional<Review> findById(Integer reviewId) {
         }
         return review2;
     }
+
+    // todo 리뷰 이미지 불러오기
+    public Optional<Review> findReviewImgByUuid(String uuid){
+        Optional<Review> review = reviewRepository.findByReviewImgUuid(uuid);
+        return review;
+    }
 }
