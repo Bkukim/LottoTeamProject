@@ -20,6 +20,11 @@ class AdminOrderService {
       headers: AuthHeader(),
     });
   }
+
+  // 주문 정보 삭제 함수
+  delete(orderId) {
+    return http.delete(`/admin/shop/order/deletion/${orderId}`)
+  }
 }
 
 export default new AdminOrderService();

@@ -12,6 +12,7 @@
 
 <script>
 import RefundService from "@/services/payment/RefundService";
+import OrderService from '@/services/product/OrderService';
 
 export default {
   data() {
@@ -21,16 +22,16 @@ export default {
     };
   },
   methods: {
-    // async getOrder(orderId) {
-    //   try {
-    //     let response = await OrderService.getOrderId(orderId);
-    //     this.order = response.data;
+    async getOrder(orderId) {
+      try {
+        let response = await OrderService.getOrderId(orderId);
+        this.order = response.data;
 
-    //     console.log(response.data);
-    //   } catch (e) {
-    //     console.log(e);
-    //   }
-    // },
+        console.log(response.data);
+      } catch (e) {
+        console.log(e);
+      }
+    },
     closePopup() {
       this.$emit("close");
     },

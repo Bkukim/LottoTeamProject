@@ -30,6 +30,7 @@
 <script>
 import { ref } from 'vue';
 import { useStore } from 'vuex';
+import axios from 'axios';
 
 export default {
   setup() {
@@ -54,9 +55,41 @@ export default {
       this.$router.push('/member/mypage');
     },
     // 환불 정보 확인 페이지로 이동
-    goToRefundInfo() {
-      this.$router.push({ name: 'refund-info', params: { selectedOption: this.selectedOption } });
-    }
+    // goToRefundInfo() {
+    //   this.$router.push({ name: 'refund-info', params: { selectedOption: this.selectedOption } });
+    // }
+        async fetchOrderDetails() {
+      try {
+        // API 호출을 통해 주문 상세 정보를 가져옵니다.
+        // 이 URL은 예시이며, 실제 프로젝트에 맞는 URL로 변경해야 합니다.
+        const response = await axios.get('http://localhost:8080/order/completed/100105/qick12/426/264');
+        const { orderId, orderProdId, prodId } = response.data;
+        console.log("뭘까",response.data);
+        return { orderId, orderProdId, prodId };
+      } catch (error) {
+        console.error('주문 상세 정보를 가져오는 데 실패했다.', error);
+        return null;
+      }
+    },
+    async goToRefundInfo() {
+      const orderDetails = await this.fetchOrderDetails();
+      
+      if (orderDetails) {
+        const { orderId, orderProdId, prodId } = orderDetails;
+        const path = `/order/refund-info/${orderId}/${orderProdId}/${prodId}`;
+        
+        this.$router.push({
+          path: path,
+          query: { selectedOption: this.selectedOption },
+        });
+      } else {
+        // 오류 처리나 사용자에게 실패 메시지를 표시할 수 있습니다.
+        alert('주문 상세 정보를 가져오는 데 실패했습니다.');
+      }
+    },
+  },
+  mounted() {
+    this.fetchOrderDetails();
   },
 };
 </script>

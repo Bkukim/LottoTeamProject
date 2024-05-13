@@ -4,9 +4,14 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.example.routtoproject.model.dto.shop.ICartDto;
 import org.example.routtoproject.model.dto.shop.OrderDto;
+import org.example.routtoproject.model.entity.auth.User;
+import org.example.routtoproject.model.entity.payment.Payment;
 import org.example.routtoproject.model.entity.shop.Order;
 //import org.example.routtoproject.service.shop.OrderService;
+import org.example.routtoproject.model.entity.shop.OrderProd;
 import org.example.routtoproject.model.entity.shop.Product;
+import org.example.routtoproject.service.member.UserService;
+import org.example.routtoproject.service.payment.PaymentService;
 import org.example.routtoproject.service.shop.OrderService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -39,6 +44,8 @@ import java.util.Optional;
 public class UserOrderController {
 
     private final OrderService orderService;    // DI
+    private final PaymentService paymentService; // DI
+    private final UserService userService; // DI
 
 
     //        TODO: 주문 저장 함수
@@ -92,8 +99,39 @@ public class UserOrderController {
             }
         } catch (Exception e) {
 //          서버 에러
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
 
+//   TODO: 주문 확인 페이지에서의 상세 조회
+    @GetMapping("/order/completed/{orderId}")
+    public ResponseEntity<Object> findAll(@PathVariable int orderId) {
+        try {
+            Optional<Order> optionalOrder = paymentService.findAll(orderId);
 
+            if (optionalOrder.isEmpty() == false) {
+//              성공
+                return new ResponseEntity<>(optionalOrder.get(), HttpStatus.OK);
+            } else {
+                return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+            }
+        } catch (Exception e) {
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+//  TODO: 주문 상품 상세 조회
+    @GetMapping("/order/prod/{orderProdId}")
+    public ResponseEntity<Object> findOpi(@PathVariable int orderProdId) {
+        try {
+            Optional<OrderProd> optionalOrderProd = orderService.findOpi(orderProdId);
+
+            if (optionalOrderProd.isEmpty() == false) {
+                return new ResponseEntity<>(optionalOrderProd.get(), HttpStatus.OK);
+            } else {
+                return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+            }
+        } catch (Exception e) {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
