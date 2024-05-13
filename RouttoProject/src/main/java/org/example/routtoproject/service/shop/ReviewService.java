@@ -43,11 +43,7 @@ public Page<Review> findAll(Pageable pageable) {
     return page;
 }
 
-    //    todo: 리뷰 이미지
-    public Optional<Review> findReviewImgByUuid(String uuid){
-        Optional<Review> review = reviewRepository.findByReviewImgUuid(uuid);
-        return review;
-    }
+
 
 //    todo: review 상세 조회
 public Optional<Review> findById(Integer reviewId) {

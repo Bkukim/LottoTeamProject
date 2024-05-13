@@ -25,7 +25,7 @@ public interface ReviewRepository extends JpaRepository<Review, Integer> {
 
 
 //    리뷰 작성 시 이미지 뜨게 하는 다운로드 함수
-    Optional<Review> findByReviewImgUuid(String reviewImgUuid);
+    Optional<Review> findByReviewImgUuid(String uuid);
 
 
 }
