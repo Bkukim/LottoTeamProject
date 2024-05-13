@@ -203,7 +203,7 @@
           :src="product.prodDetailPageUrl"
         />
         </div>
-       
+
       </div>
 
       <br />
