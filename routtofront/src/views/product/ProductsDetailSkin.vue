@@ -1,39 +1,13 @@
 <template>
   <!-- 전체 중앙정렬 -->
-  <div class="main_all container text-center">
-    <!-- 메인배너 (중앙정렬) -->
-    <div class="main_banner container text-center">
-      <router-link :to="'/product/' + banner[0]?.prodId"
-        ><img class="baner_divbox" :src="banner[0]?.bannerImg1Url"
-      /></router-link>
+  <div class="main_all container text-left">
+    <div class="mb-3">
+      <h3 class="mt-1">SKIN</h3>
+      <hr />
+      <br>
+      <br>
     </div>
-    <!-- 메인배너 (중앙정렬) -->
 
-    <!-- 메인페이지 상품바로가기 버튼 -->
-    <div class="main_best_button container text-right mt-5">
-      <div class="row main_best_button_in">
-        <div class="col ">
-          <h3 class="main_best_button_h3 container text-left">product</h3>
-        </div>
-
-        <div class="col main_best_button_in">
-          <button type="button" class="btn btn-outline-secondary">ALL</button>
-        </div>
-
-        <div class="col main_best_button_in">
-          <button type="button" class="btn btn-outline-secondary">BEST</button>
-        </div>
-
-        <div class="col main_best_button_in">
-          <button type="button" class="btn btn-outline-secondary">SKIN</button>
-        </div>
-
-        <div class="col main_best_button_in">
-          <button type="button" class="btn btn-outline-secondary">BODY</button>
-        </div>
-      </div>
-    </div>
-    <!-- 메인페이지 상품바로가기 버튼 끝 -->
 
     <!-- 메인페이지 상품바로가기 반복문 -->
     <div class="product-wrapper container text-center">
@@ -71,7 +45,7 @@
   </div>
   <!-- 전체 중앙정렬 끝 -->
 </template>
-<script>
+  <script>
 import AdminAdBannerService from "@/services/admin/AdminAdBannerService";
 import ProductService from "@/services/product/ProductService";
 
@@ -134,58 +108,11 @@ export default {
   },
 };
 </script>
-<style>
-/* 메인 배너 */
-.baner_divbox {
-  width: 100%;
-  height: 40vw;
-}
-
-
-.main_best_button_h3{
-  color: #999999;
-  text-align: left;
-  font-family: "NotoSans-DisplayBold", sans-serif;
-  font-size: 3vw;
-  font-weight: 400;
-  margin-left: -100px;
-
-}
-
-/* best 상품 버튼 */
-.main_best_button_in {
-  margin-left: 3vw;
-  margin-bottom: 3.4722vw;
-  margin-top: 6vw;
-}
-
-.main_best_button_in > button {
-  background: #d1ccbd;
-  border-radius: 20px;
-  padding: 8px 50px 8px 50px;
-  display: flex;
-  flex-direction: row;
-  gap: -50px;
-  align-items: center;
-  justify-content: center;
-  box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
-  overflow: hidden;
-
-  color: #ffffff;
-  font-family: "Inter-Bold", sans-serif;
-  font-size: 20px;
-  font-weight: 500;
-  border: none;
-}
-
-.main_best_button_in > button:hover {
-  background-color: rgb(56, 37, 13);
-  color: rgb(255, 255, 255);
-}
-
+  <style>
 /* best 상품 반복문 가로 정렬 */
 .product-wrapper {
   display: flex;
   gap: 30px;
 }
 </style>
+  
