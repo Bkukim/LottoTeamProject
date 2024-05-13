@@ -17,7 +17,7 @@ import java.util.Optional;
  * fileName : NoticeRepository
  * author : KimDJ
  * date : 2024-04-29
- * description :
+ * description : 공지사항 Notice 쿼리
  * 요약 :
  *
  * <p>

@@ -79,6 +79,7 @@ public Optional<Faq> findById(int faqId) {
 // todo: 저장
 public Faq save(Faq faq) {
 //        JPA 저장 함수 실행 : return 값 : 저장된 객체
+    log.debug("서비스도 안들어와?");
     Faq faq1 = faqRepository.save(faq);
     return faq1;
 }

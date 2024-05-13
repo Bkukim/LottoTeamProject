@@ -1,6 +1,5 @@
 <!-- 고객센터 faq view -->
 <template>
-
   <div class="container">
     <div class="main_text">
       <router-link
@@ -14,7 +13,7 @@
       >
     </div>
     <div class="mt-5 text-center">
-      <!-- 서치
+       <!--서치
       <div class="row justify-content-end">
         <form class="d-flex mt-3 col-5 " role="search">
           <input
@@ -26,12 +25,11 @@
           <button class="btn btn-outline-success" type="submit">검색</button>
         </form>
       </div> -->
-   
+
       <!-- 테이블 시작 -->
       <!-- 내가쓴글 확인하기 -->
       <div class="row mt-5">
-        <button type="button" id="button3" class="btn"
-        @click="goUserId">
+        <button type="button" id="button3" class="btn" @click="goUserId">
           내가쓴글 확인하기
         </button>
       </div>
@@ -99,7 +97,6 @@
           >
         </button>
       </div>
-      
     </div>
   </div>
 </template>
@@ -146,7 +143,7 @@ export default {
   },
   mounted() {
     this.retrieveFaq();
-    window.scrollTo(0, 0); 
+    window.scrollTo(0, 0);
   },
 };
 </script>
