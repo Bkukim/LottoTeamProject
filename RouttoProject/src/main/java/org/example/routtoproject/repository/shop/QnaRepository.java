@@ -27,7 +27,7 @@ public interface QnaRepository extends JpaRepository<Qna, Integer> {
     @Query(value = "SELECT * FROM LOTTO_QNA"
             ,countQuery = "SELECT count (*) FROM LOTTO_QNA"
             ,nativeQuery = true)
-    Page<Qna> findQnaByTitleContaining(
-                                       Pageable pageable
-    );
+
+    Page<Qna> findQnaByTitleContaining(Pageable pageable);
+
 }
