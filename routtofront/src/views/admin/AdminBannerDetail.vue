@@ -304,7 +304,7 @@ export default {
     // 베너 상세조회 (현재 관련 상품 조회 위해)
     async getBanner(bannerId){
       try {
-        let response = await AdminAdBannerService.findBabber(bannerId)
+        let response = await AdminAdBannerService.findBanner(bannerId)
         this.banner=response.data;
         console.log(response.data);
       } catch (error) {

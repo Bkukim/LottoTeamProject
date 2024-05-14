@@ -44,7 +44,11 @@ public interface ProductRepository extends JpaRepository<Product, Integer> {
             "WHERE PROD_STOCK <> 0 AND PROD_STATUS = '판매중'\n" +
             "AND PROD_CATEGORY = :prodCategory\n" +
             "ORDER BY SOLD_COUNT"
-    ,nativeQuery = true)
+            ,countQuery = "SELECT count(*) FROM LOTTO_PRODUCT\n" +
+            "WHERE PROD_STOCK <> 0 AND PROD_STATUS = '판매중'\n" +
+            "AND PROD_CATEGORY = :prodCategory\n" +
+            "ORDER BY SOLD_COUNT"
+              ,nativeQuery = true)
     Page<IProductDto> findAllByProdCategory(@Param("prodCategory") String prodCategory, Pageable pageable);
 
 // todo 판매량 별로 조회 함수
@@ -84,7 +88,7 @@ public interface ProductRepository extends JpaRepository<Product, Integer> {
                                            Pageable pageable
     );
 
-    //    todo: 상품명으로 조회하는 SELECT 쿼리문
+    //    todo: 많이 팔린 순으로 조회하는 SELECT 쿼리문
     @Query(value = "SELECT PROD_ID AS prodId,\n" +
             "PROD_NAME AS prodName,\n" +
             "DEFAULT_PRICE AS defaultPrice,\n" +
