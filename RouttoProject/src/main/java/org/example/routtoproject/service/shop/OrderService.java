@@ -140,6 +140,8 @@ public class OrderService {
         return optionalOrder;
     }
 
+//  TODO: orderId 로 상세 조회
+
 
 //  TODO: orderProdId 상세 조회
     public Optional<OrderProd> findOpi(int orderProdId) {
@@ -173,5 +175,11 @@ public boolean removeByOrderId(int orderId) {
         return orders;
     }
 
-
+//  TODO: orderId로 user_phoneNum 조회 함수
+//    public Optional<Object[]> getPhoneNum(int orderId) {
+//        return orderRepository.findPhoneNum(orderId);
+//    }
+public String findUserPhoneByOrderId(Integer orderId) {
+    return orderRepository.findPhoneNum(orderId);
+}
 }
