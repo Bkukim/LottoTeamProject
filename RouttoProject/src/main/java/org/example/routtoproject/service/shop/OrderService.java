@@ -2,9 +2,7 @@ package org.example.routtoproject.service.shop;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.example.routtoproject.model.dto.shop.ICartDto;
-import org.example.routtoproject.model.dto.shop.OrderDto;
-import org.example.routtoproject.model.dto.shop.OrderProductDetailDto;
+import org.example.routtoproject.model.dto.shop.*;
 import org.example.routtoproject.model.entity.shop.Order;
 import org.example.routtoproject.model.entity.shop.OrderProd;
 import org.example.routtoproject.repository.shop.OrderProdRepository;
@@ -15,6 +13,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -140,14 +139,6 @@ public class OrderService {
         return optionalOrder;
     }
 
-//  TODO: orderId 로 상세 조회
-
-
-//  TODO: orderProdId 상세 조회
-    public Optional<OrderProd> findOpi(int orderProdId) {
-        Optional<OrderProd> optionalOrderProd = orderProdRepository.findById(orderProdId);
-        return optionalOrderProd;
-    }
 
 
 //  TODO: 결제 도중 취소시 주문 정보 삭제 함수
@@ -176,10 +167,25 @@ public boolean removeByOrderId(int orderId) {
     }
 
 //  TODO: orderId로 user_phoneNum 조회 함수
-//    public Optional<Object[]> getPhoneNum(int orderId) {
-//        return orderRepository.findPhoneNum(orderId);
-//    }
 public String findUserPhoneByOrderId(Integer orderId) {
     return orderRepository.findPhoneNum(orderId);
 }
+
+// TODO: orderId로 orderProdId 조회하는 함수
+//public List<Integer> getOrderProdIdsByOrderId(Integer orderId) {
+//    return orderProdRepository.findOrderProdIdsByOrderId(orderId);
+//}
+public List<Integer> findOrderProdIdsByOrderId(int orderId) {
+    return orderProdRepository.findOrderProdIdsByOrderIdNative(orderId);
+}
+// TODO: 상품 정보 조회 함수
+//public List<OrderProductDto> getOrderProductDetails(int orderProdId) {
+//    return orderProdRepository.findOrderProductDetails(orderProdId);
+//}
+public List<OrderProductInfoDto> getOrderProductDetails(int orderProdId) {
+    List<OrderProductInfoDto> results = orderProdRepository.findOrderProductDetails(orderProdId);
+
+    return results;
+}
+
 }

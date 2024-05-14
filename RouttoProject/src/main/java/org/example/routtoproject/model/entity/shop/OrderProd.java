@@ -45,4 +45,9 @@ public class OrderProd {
     private int prodId;
     private int orderId;
     private int orderAmount;
+
+    // OrderProd에서 Order로의 다대일 관계 설정
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "orderId", referencedColumnName = "orderId", insertable = false, updatable = false)
+    private Order order;
 }
