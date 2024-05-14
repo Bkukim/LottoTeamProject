@@ -24,10 +24,10 @@ import org.springframework.stereotype.Repository;
  */
 @Repository
 public interface QnaRepository extends JpaRepository<Qna, Integer> {
-    @Query(value = "SELECT * FROM LOTTO_QNA"
-            ,countQuery = "SELECT count (*) FROM LOTTO_QNA"
+    @Query(value = "SELECT * FROM LOTTO_QNA WHERE PROD_ID=:prodId"
+            ,countQuery = "SELECT count (*) FROM LOTTO_QNA  WHERE PROD_ID=:prodId"
             ,nativeQuery = true)
 
-    Page<Qna> findQnaByTitleContaining(Pageable pageable);
+    Page<Qna> findByProdId(int prodId, Pageable pageable);
 
 }

@@ -33,11 +33,11 @@ public class QnaService {
     private final QnaRepository qnaRepository;
 
     //    todo: 상품문의 전체 조회 + 페이징
-    public Page<Qna> selectByTitleContaining(
+    public Page<Qna> findByProdId(int prodId,
             Pageable pageable
     ) {
         Page<Qna> page
-                = qnaRepository.findQnaByTitleContaining(
+                = qnaRepository.findByProdId(prodId,
                 pageable
         );
         return page;
