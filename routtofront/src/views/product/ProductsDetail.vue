@@ -151,7 +151,9 @@
           </div>
 
           <div class="shop_button row container text-center">
-            <button type="button" id="btn4" @click="writeInquiry">Q&A 작성</button>
+            <button type="button" id="btn4" @click="writeInquiry">
+              Q&A 작성
+            </button>
           </div>
         </div>
         <!-- ------------------------------- 버 튼 끝-->
@@ -160,10 +162,9 @@
 
     <!-- 상세 페이지 -->
     <div class="mt-5">
-      <div class="mysave container text-center">
+      <div class="container text-center">
         <div class="row">
           <div
-            id="mysave"
             class="col"
             @click="scrollToSection('detail')"
             button
@@ -193,16 +194,10 @@
         </div>
       </div>
 
-
-      <div id="page" style="height:auto;">
+      <div id="page" style="height: auto">
         <div>
-        <img class="mt-5 mb-5"
-          :src="product.prodDetailPageUrl"
-          
-
-        />
+          <img class="mt-5 mb-5" :src="product.prodDetailPageUrl" />
         </div>
-
       </div>
 
       <br />
@@ -216,11 +211,14 @@
       <!-- 2. 리뷰 -->
       <div class="mt-5" ref="reviewSection">
         <h3>상품후기</h3>
-        <br>
-        <br>
+        <br />
+        <br />
         <!-- 5. 테이블 시작-->
         <!-- <table class="table table-bordered" style="border: 1px solid #342a26"> -->
-        <table class="table " :style="{ 'vertical-align': 'middle', 'text-align': 'center' }">
+        <table
+          class="table"
+          :style="{ 'vertical-align': 'middle', 'text-align': 'center' }"
+        >
           <!-- 테이블 제목 행 -->
           <thead>
             <tr class="text-center">
@@ -412,68 +410,71 @@
         </form>
       </div>
 
-      <!-- 테이블 시작 -->
-      <table class="table mt-5">
+      <table
+        class="table mt-5"
+        :style="{ 'vertical-align': 'middle', 'text-align': 'center' }"
+      >
+        <!-- 테이블 제목 행 -->
         <thead>
-          <tr>
+          <tr class="text-center">
             <th scope="col">번호</th>
             <th scope="col">제목</th>
             <th scope="col">작성자</th>
+            <th scope="col">내용</th>
           </tr>
         </thead>
         <tbody>
-          <!-- 반복문 시작할 행 -->
-
+          <!-- 아이디 -->
           <tr
-            v-for="(data, index) in notice"
+            v-for="(data, index) in qnaList"
             :key="index"
-            @click="goNoticeCheck"
+            @click="goQnaDetail"
           >
-            <th scope="col">
+            <td scope="col">
+              
+                {{ data.qnaId }}
+            </td>
+             <td scope="col">
               <router-link
-                :to="'/shop/notice-check/' + data.announcementId"
-                class="router-link-exact-active cencle"
+                :to="'/product/inquiry/' + data.qnaId"
+                style="text-decoration: none;"
               >
-                {{ data.announcementId }}</router-link
+                {{ data.qnaTitle }}</router-link
               >
-            </th>
-
-            <th scope="col">
-              <router-link
-                :to="'/shop/notice-check/' + data.announcementId"
-                class="router-link-exact-active cencle"
-              >
-                {{ data.title }}
-              </router-link>
-            </th>
-            <th scope="col">ADMIN</th>
+            </td>
+            <td scope="col">
+                {{ data.writerId }}
+            </td>
+            <td scope="col">
+                {{ data.qnaContent }}
+            </td>
           </tr>
         </tbody>
       </table>
+    </div>
 
-      <!-- 페이징 -->
-      <!-- {/* paging 시작 */} -->
-      <div class="row justify-content-center mt-4">
-        <div class="col-auto">
-          <b-pagination
-            class="col-12 mb-3"
-            v-model="page"
-            :total-rows="count"
-            :per-page="pageSize"
-            @click="retrieveNotice"
-          ></b-pagination>
-        </div>
-      </div>
-
-      <!-- 관리자 등록 버튼 :: 공지사항 글등록으로 이동-->
-      <div class="row justify-content-end">
-        <button type="button" id="button1" class="mt-5 btn">
-          <router-link to="/shop/admin-notice" class="router-link-exact-active"
-            >공지사항 등록</router-link
-          >
-        </button>
+    <!-- 페이징 -->
+    <!-- {/* paging 시작 */} -->
+    <div class="row justify-content-center mt-4">
+      <div class="col-auto">
+        <b-pagination
+          class="col-12 mb-3"
+          v-model="page"
+          :total-rows="count"
+          :per-page="pageSize"
+          @click="retrieveQna"
+        ></b-pagination>
       </div>
     </div>
+
+    <!-- 관리자 등록 버튼 :: 공지사항 글등록으로 이동-->
+    <!-- <div class="row justify-content-end">
+      <button type="button" id="button1" class="mt-5 btn">
+        <router-link to="/shop/admin-notice" class="router-link-exact-active"
+          >공지사항 등록</router-link
+        >
+      </button>
+    </div> -->
   </div>
 </template>
 
@@ -486,8 +487,10 @@ import QnaService from "@/services/product/QnaService";
 export default {
   data() {
     return {
+      // qna 테이블에 불러오는 배열
+      qnaList: [],
       // 리뷰 테이블에 불러오는 배열
-      reviews: [], 
+      reviews: [],
 
       // 리뷰 작성 저장하는 객체
       review: {
@@ -576,19 +579,18 @@ export default {
       this.review.reviewImage = this.$refs.file01.files[0]; // 첨부파일은 여러개 선택할수있어서 배열로 되어있다 우리는 처음선택한게 0번
     },
 
-        // 상품문의 전체조회 함수
+    // 상품문의 전체조회 함수
     async retrieveQna() {
       try {
         // TODO: 1) 공통 전체조회 함수 실행
         let response = await QnaService.getAll(
-          this.faqTitle, // 검색어
           this.page - 1, // 현재페이지번호-1
           this.pageSize // 1페이지당개수(size)
         );
         // TODO: 복습 : 2) 객체분할 할당
-        const { faqList, totalItems } = response.data; // 부서배열(벡엔드 전송)
+        const { qnaList, totalItems } = response.data; // 부서배열(벡엔드 전송)
         // TODO: 3) 바인딩변수(속성)에 저장
-        this.faqList = faqList; // 부서배열(벡엔드 전송)
+        this.qnaList = qnaList; // 부서배열(벡엔드 전송)
         this.count = totalItems; // 전체페이지수(벡엔드 전송)
         // TODO: 4) 프론트 로깅 : console.log
         console.log(response.data);
@@ -597,7 +599,6 @@ export default {
       }
     },
 
-    
     // 상품문의 글 작성 페이지로 넘어가는 함수
     writeInquiry() {
       this.$router.push("/product/inquiry/" + this.$route.params.prodId);
@@ -684,19 +685,11 @@ export default {
     this.getProd(this.$route.params.prodId); // 상세조회 함수 실행
     this.retrieveReview();
     this.retrieveQna();
-
   },
 };
 </script>
 
 <style>
-/* @font-face {
-  font-family: "Pretendard-Regular";
-  src: url("https://fastly.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Regular.woff")
-    format("woff");
-  font-weight: 400;
-  font-style: normal;
-} */
 
 #mysave {
   border: 1px solid #cccccc;

@@ -105,7 +105,6 @@ export default {
         writerId: this.user.userId,
         qnaContent: this.qna.qnaContent,
       };
-
       try {
         // TODO: 벡엔드로 객체 추가 요청
         let response = await QnaService.create(data);
