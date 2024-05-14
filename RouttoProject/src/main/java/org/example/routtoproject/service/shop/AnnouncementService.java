@@ -55,6 +55,22 @@ public class AnnouncementService {
         return page;
     }
 
+    //    TODO: 검색용 전체 조회 함수
+    public Page<Announcement> selectByTitleSearch(
+            String title,
+            Pageable pageable
+    ) {
+
+        log.debug("여기는 서비스 1");
+        Page<Announcement> page1
+                = announcementRepository.findAllByTitleSearch(
+                title,
+                pageable
+        );
+        log.debug("여기는 서비스2");
+        return page1;
+    }
+
     //todo: 저장/수정함수 만들기
 //     1) 기본키가(부서번호) 없으면 저장(insert)
 //     2) 기본키가(부서번호) 있으면 수정(update)

@@ -40,4 +40,13 @@ public interface AnnouncementRepository extends JpaRepository<Announcement, Inte
     Page<AnnouncementAllDto> findAllByTitleContaining(@Param("title") String title,
                                                       Pageable pageable
     );
+//    todo: 검색용 '타이틀' 전체 조회
+    @Query(value = "SELECT ANNOUNCEMENT_ID as announcementId, TITLE as title FROM LOTTO_ANNOUNCEMENT\n" +
+            "WHERE TITLE LIKE '%'|| :title ||'%'"
+            , countQuery = "SELECT count(*) FROM LOTTO_ANNOUNCEMENT\n" +
+            "WHERE TITLE LIKE '%'|| :title ||'%'"
+            , nativeQuery = true)
+    Page<Announcement> findAllByTitleSearch(@Param("title") String title,
+                                                      Pageable pageable
+    );
 }
