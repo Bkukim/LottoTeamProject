@@ -47,6 +47,7 @@ public class NormalQnaController {
     //todo: 전체조회
     @GetMapping("/qna")
     public ResponseEntity<Object> findAll(
+            @RequestParam(defaultValue = "0") int prodId,
             @RequestParam(defaultValue = "0") int page,
             @RequestParam(defaultValue = "3") int size
     ) {
@@ -57,7 +58,7 @@ public class NormalQnaController {
 //            전체 조회 서비스 실행
             Page<Qna> qna
                     = qnaservice
-                    .selectByTitleContaining( pageable);
+                    .findByProdId(prodId, pageable);
 
 //            공통 페이징 객체 생성 : 자료구조 맵 사용
             Map<String, Object> response = new HashMap<>();

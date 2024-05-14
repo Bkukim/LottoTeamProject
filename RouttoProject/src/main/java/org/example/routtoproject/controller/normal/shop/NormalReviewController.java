@@ -2,6 +2,7 @@ package org.example.routtoproject.controller.normal.shop;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.example.routtoproject.model.dto.shop.IReviewDto;
 import org.example.routtoproject.model.entity.shop.Faq;
 import org.example.routtoproject.model.entity.shop.Product;
 import org.example.routtoproject.model.entity.shop.Review;
@@ -46,13 +47,14 @@ public class NormalReviewController {
     //    TODO: 전체 조회 함수 + 페이징
     @GetMapping("/review")
     public ResponseEntity<Object> findAll(
+            @RequestParam(defaultValue = "0") int prodId,
             @RequestParam(defaultValue = "0") int page,      // 현재페이지
             @RequestParam(defaultValue = "3") int size       // 페이지 갯수
     ) {
         try {
             Pageable pageable = PageRequest.of(page, size);
 
-            Page<Review> pageList = reviewService.findAll(pageable);
+            Page<IReviewDto> pageList = reviewService.findByProdId(prodId, pageable);
 
 //            vue로 json 데이터로 전송 : jsp (model : Map(키, 값))
             Map<String, Object> response = new HashMap<>();       // vue는 model이 없기 때문에 직접 Map 구조로 만들어서 보내기
@@ -64,7 +66,6 @@ public class NormalReviewController {
             if (pageList.isEmpty() == true) {
                 return new ResponseEntity<>(HttpStatus.NO_CONTENT); // 데이터가 없으면 response를 보낼필요가 없음
             } else {
-                log.debug("디버그 :: "+pageList.getContent().toString());
                 return new ResponseEntity<>(response, HttpStatus.OK);
             }
         } catch (Exception e) {

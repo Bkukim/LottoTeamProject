@@ -18,7 +18,7 @@
         <router-link :to="'/product/category/' + 2"  class="kim-div3">HAIR</router-link>
         <router-link :to="'/product/category/' + 3" class="kim-div3">MAKE UP</router-link>
         <router-link :to="'/product/category/' + 4"  class="kim-div3">BODY</router-link>
-        <router-link to="/shop/notice" class="kim-div3">NOzTICE</router-link>
+        <router-link to="/shop/notice" class="kim-div3">NOTICE</router-link>
 
       </div>
 

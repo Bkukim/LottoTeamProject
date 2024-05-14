@@ -530,10 +530,10 @@ export default {
   },
   methods: {
     // 리뷰 전체조회 함수 : 화면이뜰때 자동 실행
-    async retrieveReview() {
+    async retrieveReview(prodId) {
       try {
         // 공통 장바구니 전체 조회 서비스 함수 실행
-        let response = await ReviewService.getAll(this.page - 1, this.pageSize);
+        let response = await ReviewService.getReviewByprodId(prodId, this.page - 1, this.pageSize);
         console.log(response.data);
         const { reviews, totalItems } = response.data;
         this.reviews = reviews; // 리뷰 배열(벡엔드 전송)
@@ -581,10 +581,11 @@ export default {
     },
 
     // 상품문의 전체조회 함수
-    async retrieveQna() {
+    async retrieveQna(prodId) {
       try {
         // TODO: 1) 공통 전체조회 함수 실행
-        let response = await QnaService.getAll(
+        let response = await QnaService.getAllQna(
+          prodId,
           this.page - 1, // 현재페이지번호-1
           this.pageSize // 1페이지당개수(size)
         );
@@ -622,6 +623,8 @@ export default {
       try {
         let response = await ProductService.get(prodId);
         this.product = response.data; // spring 전송 객체 넣기
+        this.retrieveReview(response.data.prodId);
+        this.retrieveQna(response.data.prodId);
         console.log(response.data);
       } catch (e) {
         console.log(e);
@@ -684,8 +687,7 @@ export default {
     // 화면 뜰때 상단이 뜨게 해주는 함수
     window.scrollTo(0, 0);
     this.getProd(this.$route.params.prodId); // 상세조회 함수 실행
-    this.retrieveReview();
-    this.retrieveQna();
+    
   },
 };
 </script>
