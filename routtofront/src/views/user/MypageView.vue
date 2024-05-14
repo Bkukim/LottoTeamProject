@@ -50,10 +50,11 @@
 
       <table class="container text-center mt-3 mb-3">
         <tr class="row mapage_b2">
-          <th class="col mapage_b2">주문번호</th>
-          <th class="col mapage_b2">주문 일</th>
+          <th class="col mapage_b2" style="border-right: 2px solid #342a26;" >주문번호</th>
+          <th class="col mapage_b2" style="border-right: 2px solid #342a26;">주문 일</th>
 
-          <th class="col mapage_b2">주문상태</th>
+          <th class="col mapage_b2" style="border-right: none;">주문상태</th>
+          <th class="col mapage_b2"></th>
         </tr>
         <tr class="row mapage_b2" v-for="(data, index) in order" :key="index">
           <td class="col mapage_b2">
@@ -67,6 +68,10 @@
           <td class="col">
             <br /><br />
             {{ data.orderStatus }}
+          </td>
+           <td class="col">
+            <br /><br />
+            <button>환불</button>
           </td>
 
           <!-- <div class="col mapage_b2">
@@ -196,6 +201,32 @@ export default {
   font-weight: 400;
   font-style: normal;
 }
+
+th{
+  padding-bottom: 15px;
+  border-bottom: 2px solid #342a26;
+}
+
+button{
+  background-color:#ffffff ;
+  border: 1px solid #342a26;
+  color: #342a26;
+  border-radius: 5px;
+  font-size: 12px;
+  letter-spacing: -1.5px;
+}
+
+
+button:hover{
+  background-color:#342a26 ;
+  border: 1px solid #342a26;
+  color: #ffffff;
+  border-radius: 5px;
+  font-size: 12px;
+  letter-spacing: -1.5px;
+  font-weight: bold;
+}
+
 
 .btn {
   width: 50px;
