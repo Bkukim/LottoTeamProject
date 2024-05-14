@@ -42,7 +42,6 @@
         v-for="(data, index) in product"
         :key="index"
       >
-        <!-- 홀수 번째인 경우에만 odd 클래스를 추가 -->
         <!-- 상품이미지 -->
         <router-link :to="'/product/' + data.prodId"
           ><img
@@ -70,21 +69,111 @@
     <!-- 메인페이지 상품바로가기 반복문 끝-->
   </div>
 
-  <!-- 두번째 메인 베스트 상품 -->
 
+
+  <!-- 두번째 메인 베스트 (베스트 셀러)상품 -->
   <div class="main_best_button container text-center mt-5">
+    <h3 class="main_h3 container text-right">BEST SELLERS</h3>
+    <!-- <p class="main_p"> 가장 사랑 받고 있는 루또의 베스트 제품</p> -->
+
     <div class="row main_best_button_in">
-      <div class="col">
+      <div class="col img-container-left">
+        <img class="_2" :src="banner[1]?.bannerImg2Url" 
+        style="max-width: 500px; max-height: 800px"
+        />
+      </div>
+
+      <div class="div2 col container text-right">
+        <img
+          class="div2_img"
+          :src="banner[1]?.bannerImg1Url"
+          style="max-width: 400px; max-height: 400px"
+        /><!-- 배너 2-1 -->
         <div class="abcdefgefghijk">{{ banner[1]?.bannerTitle }}</div>
-        <img class="div2" :src="banner[1]?.bannerImg1Url" /><!-- 배너 2-1 -->
         <div class="div3">
           {{ banner[1]?.bannerContent }}
         </div>
-        <div class="shop-more"><router-link :to="'/product/'+banner[1]?.prodId" >SHOP MORE  &gt;</router-link> </div>
+        <div class="shop-more">
+          <br>
+          <br>
+          <router-link :to="'/product/' + banner[1]?.prodId"
+            >SHOP MORE &gt;</router-link
+          >
+        </div>
       </div>
 
-      <div class="col"></div>
+      <div class="div2 col container text-right">
+        <img
+          class="div2_img"
+          :src="banner[1]?.bannerImg1Url"
+          style="max-width: 400px; max-height: 400px"
+        /><!-- 배너 2-1 -->
+        <div class="abcdefgefghijk">{{ banner[1]?.bannerTitle }}</div>
+        <div class="div3">
+          {{ banner[1]?.bannerContent }}
+        </div>
+        <div class="shop-more">
+          <br>
+          <br>
+          <router-link :to="'/product/' + banner[1]?.prodId"
+            >SHOP MORE &gt;</router-link
+          >
+        </div>
+      </div>
     </div>
+</div>
+
+    <!-- 세번째 베스트 셀러 -->
+    <div class="row main_best_button_in">
+      <div class="col img-container">
+        <img class="_2" :src="banner[1]?.bannerImg2Url" 
+        style="max-width: 400px; max-height: 400px"
+        />
+      </div>
+
+      <div class="div2 row container text-center">
+        <img
+          class="div2_img"
+          :src="banner[1]?.bannerImg1Url"
+          style="max-width: 400px; max-height: 400px"
+        /><!-- 배너 2-1 -->
+        <div class="abcdefgefghijk">{{ banner[1]?.bannerTitle }}</div>
+        <div class="div3">
+          {{ banner[1]?.bannerContent }}
+        </div>
+        <div class="shop-more">
+          <br>
+          <br>
+          <router-link :to="'/product/' + banner[1]?.prodId"
+            >SHOP MORE &gt;</router-link
+          >
+        </div>
+      </div>
+
+      <div class="div2 row container text-center">
+        <img
+          class="div2_img"
+          :src="banner[1]?.bannerImg1Url"
+          style="max-width: 400px; max-height: 400px"
+        /><!-- 배너 2-1 -->
+        <div class="abcdefgefghijk">{{ banner[1]?.bannerTitle }}</div>
+        <div class="div3">
+          {{ banner[1]?.bannerContent }}
+        </div>
+        <div class="shop-more">
+          <br>
+          <br>
+          <router-link :to="'/product/' + banner[1]?.prodId"
+            >SHOP MORE &gt;</router-link
+          >
+        </div>
+      </div>
+
+
+    
+
+
+
   </div>
 
   <!-- 전체 중앙정렬 끝 -->
@@ -204,4 +293,39 @@ export default {
   display: flex;
   gap: 30px;
 }
+
+/* 두번째 베스트셀러 */
+.div2 {
+  /* margin: 80px 0 0 100px; */
+  height: 1000px;
+  width: 800px;
+
+}
+/* 
+.div2_img {
+  margin: 80px 0 0 100px;
+} */
+
+.img-container {
+  width: 100%; /* 부모 div의 넓이를 100%로 설정 */
+  max-width: 1200px; /* 필요에 따라 최대 넓이를 조정 */
+}
+._2 {
+  width: 300px;
+  height: auto; /* 이미지의 높이를 자동으로 조정하여 비율을 유지 */
+  object-fit: cover;
+}
+
+.main_h3 {
+  margin: 200px 0 0 870px;
+  color: #535353;
+  text-align: left;
+  font-family: "Inter-Bold", sans-serif;
+  font-size: 55px;
+  font-weight: 700;
+  width: 424px;
+  height: 79px;
+}
+
+
 </style>
