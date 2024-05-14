@@ -83,7 +83,7 @@ public class NormalProductController {
 
     public ResponseEntity<Object> findAllBySoldCount(
                                                         @RequestParam(defaultValue = "0")int page,
-                                                       @RequestParam(defaultValue = "3") int size) {
+                                                       @RequestParam(defaultValue = "12") int size) {
         try {
             Pageable pageable = PageRequest.of(page, size);
 

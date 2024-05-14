@@ -41,7 +41,7 @@ public interface OrderRepository extends JpaRepository<Order, Integer> {
     @Query(value = "SELECT *\n" +
             "FROM LOTTO_ORDER\n" +
             "WHERE USER_ID = :userId\n" +
-            "AND ORDER_STATUS <> '구매확정'"
+           "AND TO_DATE(ORDER_TIME, 'YYYY-MM-DD HH24:MI:SS')>= SYSDATE - INTERVAL '3' MONTH"
     ,nativeQuery = true)
     List<Order> findAllByUserId(@Param("userId") String userId);
 

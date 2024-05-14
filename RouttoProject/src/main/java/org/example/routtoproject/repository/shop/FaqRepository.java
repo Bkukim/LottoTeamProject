@@ -41,6 +41,8 @@ public interface FaqRepository extends JpaRepository<Faq, Integer> {
         ,countQuery = "SELECT count (*) FROM LOTTO_FAQ\n" +
         "WHERE USER_ID LIKE '%'|| :userId ||'%'"
         ,nativeQuery = true)
+//        todo: 함수쿼리
+//    Page<Faq> findAllByUserIdContaining(@Param("userId") String userID,
     Page<Faq> findAllByUserIdContaining(@Param("userId") String userID,
                                        Pageable pageable
 );

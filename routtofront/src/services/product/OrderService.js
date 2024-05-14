@@ -6,7 +6,7 @@ import AuthHeader from "@/services/auth/AuthHeader";
 class OrderService {
   // TODO: 주문 저장 함수
   saveOrder(data) {
-    return http.post("/user/shop/order", data, {
+    return http.post("/user/shop/order", data, { // return 이 결과값
       headers: AuthHeader(),
     });
   }

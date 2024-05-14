@@ -13,12 +13,13 @@
 
       <!-- 메뉴 바 -->
       <div class="kim-navbar">
-        <router-link to="/product/81" class="kim-div3">BEST</router-link>
-        <router-link to="/" class="kim-div3">SKIN</router-link>
-        <router-link to="/" class="kim-div3">HAIR</router-link>
-        <router-link to="/" class="kim-div3">MAKE UP</router-link>
-        <router-link to="/" class="kim-div3">BODY</router-link>
-        <router-link to="/shop/notice" class="kim-div3">NOTICE</router-link>
+        <router-link :to="'/product/category/' + 0" class="kim-div3">BEST</router-link>
+        <router-link :to="'/product/category/' + 1" class="kim-div3">SKIN</router-link>
+        <router-link :to="'/product/category/' + 2"  class="kim-div3">HAIR</router-link>
+        <router-link :to="'/product/category/' + 3" class="kim-div3">MAKE UP</router-link>
+        <router-link :to="'/product/category/' + 4"  class="kim-div3">BODY</router-link>
+        <router-link to="/shop/notice" class="kim-div3">NOzTICE</router-link>
+
       </div>
 
       <!-- 왼쪽 박스 -->

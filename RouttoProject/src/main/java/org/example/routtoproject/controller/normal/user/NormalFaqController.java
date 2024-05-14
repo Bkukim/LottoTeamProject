@@ -97,7 +97,7 @@ public class NormalFaqController {
         }
     }
 
-    //    todo: UserId 전체조회 만들기
+    //    todo: UserId 내글보기 전체조회 만들기
 //    조회(select) -> get 방식 -> @GetMapping
     @GetMapping("/userid/faq")
     public ResponseEntity<Object> findUserId(
@@ -159,6 +159,8 @@ public class NormalFaqController {
             @RequestBody Faq faq
     ) {
         try {
+//            수정함수 잘되다가 0513 404에러남
+            log.debug("오류나용 컨트롤 들어오니?");
             Faq faq1 = faqService.save(faq);  // 수정
             return new ResponseEntity<>(faq1, HttpStatus.OK);
         } catch (Exception e) {

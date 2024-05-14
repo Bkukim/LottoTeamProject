@@ -72,7 +72,7 @@ public class NormalReviewController {
         }
     }
 
-    //    todo: 상세조회 만들기
+    //    todo: 상세조회 만들기(안씀)
     @GetMapping("/review/{reviewId}")
     public ResponseEntity<Object> findById(
             @PathVariable int reviewId

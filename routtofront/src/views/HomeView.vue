@@ -1,116 +1,93 @@
 <template>
-  <div class="main_all">
-    <!-- 전체 중앙정렬 -->
-    <div class="frame-22">
-      <!-- 메인배너 -->
-      <router-link :to="'/product/' + banner[0]?.prodId"><img class="baner_divbox" :src="banner[0]?.bannerImg1Url" /></router-link>
-      <!-- src="@/assets/images/main_banner.jpg -->
+  <!-- 전체 중앙정렬 -->
+  <div class="main_all container text-center">
+    <!-- 메인배너 (중앙정렬) -->
+    <div class="main_banner container text-center">
+      <router-link :to="'/product/' + banner[0]?.prodId"
+        ><img class="baner_divbox" :src="banner[0]?.bannerImg1Url"
+      /></router-link>
+    </div>
+    <!-- 메인배너 (중앙정렬) -->
 
-      <!-- product -->
-      <div class="product">
-        <!--  product 메뉴 버튼-->
-        <div class="menu_bt">
-          <router-link to="/product/example" class="frame-18">ALL</router-link>
-          <router-link to="/" class="frame-19">BEST</router-link>
-          <router-link to="/" class="frame-20">SKIN</router-link>
-          <router-link to="/" class="frame-21">BODY</router-link>
+    <!-- 메인페이지 상품바로가기 버튼 -->
+    <div class="main_best_button container text-right mt-5">
+      <div class="row main_best_button_in">
+        <div class="col">
+          <h3 class="main_best_button_h3 container text-left">product</h3>
+        </div>
+
+        <div class="col main_best_button_in">
+          <button type="button" class="btn btn-outline-secondary">ALL</button>
+        </div>
+
+        <div class="col main_best_button_in">
+          <button type="button" class="btn btn-outline-secondary">BEST</button>
+        </div>
+
+        <div class="col main_best_button_in">
+          <button type="button" class="btn btn-outline-secondary">SKIN</button>
+        </div>
+
+        <div class="col main_best_button_in">
+          <button type="button" class="btn btn-outline-secondary">BODY</button>
         </div>
       </div>
+    </div>
+    <!-- 메인페이지 상품바로가기 버튼 끝 -->
 
-      <!-- best product2 상품 -->
+    <!-- 메인페이지 상품바로가기 반복문 -->
+    <div class="product-wrapper container text-center">
+      <div
+        class="product2_in image-kim"
+        v-for="(data, index) in product"
+        :key="index"
+      >
+        <!-- 홀수 번째인 경우에만 odd 클래스를 추가 -->
+        <!-- 상품이미지 -->
+        <router-link :to="'/product/' + data.prodId"
+          ><img
+            class="frame-11"
+            :src="data.prodImgUrl"
+            style="max-width: 400px; max-height: 400px"
+        /></router-link>
 
-      <!-- product2_all 전체박스 -->
-      <div class="product2_all product-kim">
-        <!-- product 왼쪽 문구 -->
-        <div class="product2">product</div>
-
-        <div class="product2_in image-kim" v-for="(data, index) in product" :key="index">
-          <!-- 홀수 번째인 경우에만 odd 클래스를 추가 -->
-          <div class="div10" :class="{ odd: index % 2 !== 0 }">
-            <!-- 상품이미지 -->
-            <router-link :to="'/product/' + data.prodId"><img class="frame-11" :src="data.prodImgUrl" style="max-width: 500px; max-height: 600px;"/></router-link>
-
-            <div class="abcdefghijklm">
-              <p>{{ data.prodName }}</p>
-            </div>
-
-            <div class="abcdefghijklm2">
-              <p>완벽밀착! 자연스럽고 매끄러운 피부</p>
-            </div>
-
-            <div class="_24">★ ★ ★ ★ ★</div>
-
-            <div class="abcdef">
-              {{
-                (data.defaultPrice * (100 - data.discountRate)) / 100 + " won"
-              }}
-            </div>
-          </div>
+        <div class="abcdefghijklm">
+          <p>{{ data.prodName }}</p>
         </div>
+
+        <div class="abcdefghijklm2">
+          <p>완벽밀착! 자연스럽고 매끄러운 피부</p>
+        </div>
+
+        <div class="_24">★ ★ ★ ★ ★</div>
+
+        <div class="abcdef">
+          {{ (data.defaultPrice * (100 - data.discountRate)) / 100 + " won" }}
+        </div>
+        <!-- </div> -->
+      </div>
+    </div>
+    <!-- 메인페이지 상품바로가기 반복문 끝-->
+  </div>
+
+  <!-- 두번째 메인 베스트 상품 -->
+
+  <div class="main_best_button container text-center mt-5">
+    <div class="row main_best_button_in">
+      <div class="col">
+        <div class="abcdefgefghijk">{{ banner[1]?.bannerTitle }}</div>
+        <img class="div2" :src="banner[1]?.bannerImg1Url" /><!-- 배너 2-1 -->
+        <div class="div3">
+          {{ banner[1]?.bannerContent }}
+        </div>
+        <div class="shop-more"><router-link :to="'/product/'+banner[1]?.prodId" >SHOP MORE  &gt;</router-link> </div>
       </div>
 
-      <!-- best-sellers -->
-      <div class="best-menu">
-        <img class="_1" src="../../src/assets/images/best_visual_02_pc.jpg" />
-        <div class="best-menu_in">
-          <img
-            class="div8"
-            src="../../src/assets/images/best_visual_01_pc.jpg"
-          />
-          <img class="div9" src="../../src/assets/images/best_seller_04.png" />
-          <div class="best-menu2">BEST SELLERS</div>
-          <div class="abcdefgefgefdfdfsfdadffddfsd">
-            가장 사랑 받고 있는 루또의 베스트 제품
-          </div>
-          <div class="abcdefgefghijk4">
-            <p>내추럴 커버 파운데이션</p>
-          </div>
-          <div class="abcdefg">shop></div>
-          <div class="abcdefgefghijk5">퍼펙트 옴므 쿠션</div>
-          <div class="abcdefg2">shop></div>
-        </div>
-      </div>
-      
-        <img class="_2" :src="banner[1]?.bannerImg2Url" />
-      
-      <img class="_3" src="../../src/assets/images/ROUTTO_logo_wh.png" />
-
-      <div class="best-menu-2">
-        <div class="_22">
-          <img class="div2" :src="banner[1]?.bannerImg1Url" /><!-- 배너 2-1 -->
-          <div class="abcdefgefghijk">{{banner[1]?.bannerTitle}}</div>
-          <div class="div3">
-            {{ banner[1]?.bannerContent }}
-          </div>
-          <div class="shop-more"><router-link :to="'/product/'+banner[1]?.prodId" >SHOP MORE  &gt;</router-link> </div>
-        </div>
-        <div class="_22">
-          <img
-            class="div4"
-            :src="banner[2]?.bannerImg1Url"
-          /><!-- 배너 3 -->
-          <div class="abcdefgefghijk2">{{banner[2]?.bannerTitle}}</div>
-          <div class="div5">
-            {{ banner[2]?.bannerContent }}
-          </div>
-          <div class="shop-more2"><router-link :to="'/product/'+banner[2]?.prodId" >SHOP MORE  &gt;</router-link></div>
-        </div>
-        <div class="_22">
-          <img
-            class="div6"
-            :src="banner[3]?.bannerImg1Url"
-          /><!-- 배너 4 -->
-          <div class="abcdefgefghijk3">{{banner[3]?.bannerTitle}}</div>
-          <div class="div7">
-            {{ banner[3]?.bannerContent }}
-          </div>
-          <div class="shop-more3"><router-link :to="'/product/'+banner[3]?.prodId" >SHOP MORE  &gt;</router-link></div>
-        </div>
-      </div>
-
-      <!-- 전체 중앙정렬 -->
+      <div class="col"></div>
     </div>
   </div>
+
+  <!-- 전체 중앙정렬 끝 -->
 </template>
 <script>
 import AdminAdBannerService from "@/services/admin/AdminAdBannerService";
@@ -137,12 +114,11 @@ export default {
   },
 
   methods: {
-  
     async getAllBanner() {
       try {
         let response = await AdminAdBannerService.findAllBannerHome();
         this.banner = response.data;
-        console.log("배너 ::: " , response.data);
+        console.log("배너 ::: ", response.data);
       } catch (error) {
         console.log(error);
       }
@@ -174,48 +150,58 @@ export default {
     this.retrieveSimpleProduct();
     window.scrollTo(0, 0);
   },
-  
 };
 </script>
 <style>
-@import "@/assets/css/main.css";
-.product-kim{
+/* 메인 배너 */
+.baner_divbox {
+  width: 100%;
+  height: 40vw;
+}
+
+.main_best_button_h3 {
+  color: #999999;
+  text-align: left;
+  font-family: "NotoSans-DisplayBold", sans-serif;
+  font-size: 3vw;
+  font-weight: 400;
+  margin-left: -100px;
+}
+
+/* best 상품 버튼 */
+.main_best_button_in {
+  margin-left: 3vw;
+  margin-bottom: 3.4722vw;
+  margin-top: 6vw;
+}
+
+.main_best_button_in > button {
+  background: #d1ccbd;
+  border-radius: 20px;
+  padding: 8px 50px 8px 50px;
   display: flex;
-  }
-  /* .image-kim{ */
-  /* margin-right: 10px; 이미지 간격 조절 */
-/* } */
+  flex-direction: row;
+  gap: -50px;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+  overflow: hidden;
 
-.image-kim {
+  color: #ffffff;
+  font-family: "Inter-Bold", sans-serif;
+  font-size: 20px;
+  font-weight: 500;
+  border: none;
+}
+
+.main_best_button_in > button:hover {
+  background-color: rgb(56, 37, 13);
+  color: rgb(255, 255, 255);
+}
+
+/* best 상품 반복문 가로 정렬 */
+.product-wrapper {
   display: flex;
-  flex-wrap: wrap; /* 요소가 화면 크기를 넘어갈 때 줄 바꿈 */
-}
-
-.image-container {
-  flex: 0 0 25%; /* 4개의 이미지를 한 줄에 표시하도록 설정 */
-  margin-right: 10px; /* 이미지 간격 조절 */
-}
-
-.image-container img {
-  width: 100%; /* 이미지가 부모 요소에 맞게 표시되도록 설정 */
-}
-
-.odd {
-  background-color: lightgray; /* 홀수 번째 요소에 배경색 적용 (테스트용) */
-}
-
-.div10 {
-  flex: 0 0 50%; /* 한 줄에 4개의 이미지를 표시하기 위한 설정 */
-  margin-right: 10px; /* 이미지 사이의 간격 설정 */
-}
-
-.frame-11 {
-  width: 100%; /* 이미지의 너비 100%로 설정하여 부모 요소에 맞추어 표시 */
-  height: auto; /* 이미지의 높이를 자동으로 조정하여 비율 유지 */
-}
-
-.product2_in {
-  display: flex;
-  flex-wrap: wrap; /* Flexbox에서 요소가 넘칠 때 줄바꿈 설정 */
+  gap: 30px;
 }
 </style>

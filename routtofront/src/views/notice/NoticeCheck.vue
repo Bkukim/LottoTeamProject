@@ -1,6 +1,6 @@
 <!-- NoticeCheck.vue ::공지사항 상세조회-->
 <template>
-  <div class="mt-5 mb-5 col-13">
+  <div class="mb-5 col-13">
     <!-- 카테고리 -->
     <div class="container">
       <h4 class="main_text">공지사항</h4>
@@ -30,21 +30,29 @@
     </div>
 
     <!-- 문의사항 등록 버튼  :: 공지사항거 들고오기-->
-    <div v-if="this.$store.state.user?.role=='ROLE_ADMIN'" class="row justify-content-end">
-
+    <div
+      v-if="this.$store.state.user?.role == 'ROLE_ADMIN'"
+      class="row justify-content-end"
+    >
       <!-- 등록시 고객센터 글 목록으로 재이동 -->
-      <router-link :to="'/shop/notice-update/' + announcement.announcementId">
-        <button id="button1" class="btn btn-primary" type="button">수정</button>
-      </router-link>
-
-      <button
-        id="button1"
-        class="btn btn-primary"
-        type="button"
-        @click="deleteNotice"
-      >
-        삭제
-      </button>
+      <div class="col-auto">
+        <router-link :to="'/shop/notice-update/' + announcement.announcementId">
+          <button id="button1" class="btn btn-primary" type="button">
+            수정
+          </button>
+        </router-link>
+      </div>
+      <!-- 삭제 버튼 -->
+      <div class="col-auto">
+        <button
+          id="button2"
+          class="btn btn-primary"
+          type="button"
+          @click="deleteNotice"
+        >
+          삭제
+        </button>
+      </div>
     </div>
   </div>
 </template>
