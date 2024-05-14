@@ -2,7 +2,9 @@
 <template>
   <div class="container">
     <div class="main_text">
-      <router-link class="top_notice router-link-exact-active fs-5" to="/shop/notice"
+      <router-link
+        class="top_notice router-link-exact-active fs-5"
+        to="/shop/notice"
         >공지사항</router-link
       >
       |
@@ -19,14 +21,20 @@
             type="search"
             placeholder="검색"
             aria-label="Search"
-            @click="retrieveNotice"
+            v-model="searchTitle"
           />
-          <button class="btn btn-outline-success" type="submit">검색</button>
+          <button
+            class="btn btn-outline-success"
+            type="submit"
+            @click="retrieveNoticeSearch"
+          >
+            검색
+          </button>
         </form>
       </div>
 
       <!-- 테이블 시작 -->
-      <table class="table mt-5 ">
+      <table class="table mt-5">
         <thead>
           <tr>
             <th scope="col">번호</th>
@@ -43,13 +51,19 @@
             @click="goNoticeCheck"
           >
             <th scope="col">
-              <router-link :to="'/shop/notice-check/' + data.announcementId" class="router-link-exact-active cencle">
+              <router-link
+                :to="'/shop/notice-check/' + data.announcementId"
+                class="router-link-exact-active cencle"
+              >
                 {{ data.announcementId }}</router-link
               >
             </th>
 
             <th scope="col">
-              <router-link :to="'/shop/notice-check/' + data.announcementId" class="router-link-exact-active cencle">
+              <router-link
+                :to="'/shop/notice-check/' + data.announcementId"
+                class="router-link-exact-active cencle"
+              >
                 {{ data.title }}
               </router-link>
             </th>
@@ -74,8 +88,13 @@
 
       <!-- 관리자 등록 버튼 :: 공지사항 글등록으로 이동-->
       <!-- <div v-if="this.$store.state.user.role=='ROLE_ADMIN'" class="row justify-content-end"> -->
-        <!-- 상단 v-if 오류나서 추가함 ::Null 체크: 버튼을 렌더링하기 전에 $store.state.user가 null인지 확인하는 것입니다. 오류방지 -->
-      <div v-if="this.$store.state.user && this.$store.state.user.role === 'ROLE_ADMIN'" class="row justify-content-end">
+      <!-- 상단 v-if 오류나서 추가함 ::Null 체크: 버튼을 렌더링하기 전에 $store.state.user가 null인지 확인하는 것입니다. 오류방지 -->
+      <div
+        v-if="
+          this.$store.state.user && this.$store.state.user.role === 'ROLE_ADMIN'
+        "
+        class="row justify-content-end"
+      >
         <button type="button" id="button1" class="mt-5 btn">
           <router-link to="/shop/admin-notice" class="router-link-exact-active"
             >공지사항 등록</router-link
@@ -90,7 +109,6 @@
 import NoticeListService from "@/services/noticeQnA/NoticeListService";
 
 export default {
- 
   data() {
     return {
       notice: [],
@@ -112,7 +130,7 @@ export default {
           this.page - 1, // 현재페이지번호-1
           this.pageSize // 1페이지당개수(size)
         );
-        
+
         console.log("여기는 프론트" + response.data);
         // TODO: 복습 : 2) 객체분할 할당
         const { notice, totalItems } = response.data; // 부서배열(벡엔드 전송)
@@ -125,12 +143,35 @@ export default {
         console.log(e);
       }
     },
-   
+
+    //TODO:  검색용 전체조회 함수
+    async retrieveNoticeSearch() {
+      try {
+        // TODO:0514일 여기서 값이 넘어오긴하는데... 해당 검색어로 넘어가지 않음, 전체조회만 됨
+        console.log(this.searchTitle);
+        // TODO: 1) 공통 전체조회 함수 실행
+        let response = await NoticeListService.getAllSearch(
+          this.searchTitle, // 검색어
+          this.page - 1, // 현재페이지번호-1
+          this.pageSize // 1페이지당개수(size)
+        );
+        // TODO: 복습 : 2) 객체분할 할당
+        const { notice, totalItems } = response.data; // 부서배열(벡엔드 전송)
+        // TODO: 3) 바인딩변수(속성)에 저장
+        this.notice = notice; // 부서배열(벡엔드 전송)
+        this.count = totalItems; // 전체페이지수(벡엔드 전송)
+        // TODO: 4) 프론트 로깅 : console.log
+        console.log(response.data);
+      } catch (e) {
+        console.log(e);
+      }
+    },
   },
   // 조회
   mounted() {
     this.retrieveNotice();
-    window.scrollTo(0, 0); 
+    // this.retrieveNoticeSearch();
+    window.scrollTo(0, 0);
   },
 };
 </script>

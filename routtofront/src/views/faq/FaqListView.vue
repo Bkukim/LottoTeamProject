@@ -13,19 +13,6 @@
       >
     </div>
     <div class="mt-5 text-center">
-       <!--서치
-      <div class="row justify-content-end">
-        <form class="d-flex mt-3 col-5 " role="search">
-          <input
-            class="form-control me-2"
-            type="search"
-            placeholder="검색"
-            aria-label="Search"
-          />
-          <button class="btn btn-outline-success" type="submit">검색</button>
-        </form>
-      </div> -->
-
       <!-- 테이블 시작 -->
       <!-- 내가쓴글 확인하기 -->
       <div class="row mt-5">
