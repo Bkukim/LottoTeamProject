@@ -1,8 +1,12 @@
 package org.example.routtoproject.repository.shop;
 
 import org.example.routtoproject.model.entity.shop.Product;
+import org.example.routtoproject.model.entity.shop.Qna;
 import org.example.routtoproject.model.entity.shop.Review;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import java.util.Optional;
@@ -27,5 +31,10 @@ public interface ReviewRepository extends JpaRepository<Review, Integer> {
 //    리뷰 작성 시 이미지 뜨게 하는 다운로드 함수
     Optional<Review> findByReviewImgUuid(String uuid);
 
+//    페이징
+    @Query(value = "SELECT * FROM LOTTO_REVIEW"
+            ,countQuery = "SELECT count (*) FROM LOTTO_REVIEW"
+            ,nativeQuery = true)
+    Page<Review> findReviewByTitleContaining(Pageable pageable);
 
 }

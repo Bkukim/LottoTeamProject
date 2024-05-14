@@ -41,20 +41,6 @@ public interface OrderProdRepository extends JpaRepository<OrderProd, Integer> {
             nativeQuery = true)
     List<OrderProductDetailDto> findAllByorderProdIdContaining(@Param("orderId") Integer orderId);
 
-    //    todo: user의 cart에서 전체 주문하기로 들어오면 뜨는 주문페이지
-    @Query(value = "SELECT LU.USER_ID AS userId,\n" +
-            "LC.PROD_ID AS prodId,\n" +
-            "Lp.PROD_NAME AS prodName,\n" +
-            "LP.PROD_IMG_URL  AS prodImgUrl,\n" +
-            "LP.DEFAULT_PRICE * (1-LP.DISCOUNT_RATE/100) AS prodPrice,\n" +
-            "LC.CART_PROD_COUNT AS cartProdCount,\n" +
-            "LP.DEFAULT_PRICE * (1-LP.DISCOUNT_RATE/100)*LC.CART_PROD_COUNT AS totalPrice\n" +
-            "FROM LOTTO_USER LU, LOTTO_CART LC, LOTTO_PRODUCT LP\n" +
-            "WHERE LU.USER_ID = LC.USER_ID\n" +
-            "AND LC.PROD_ID = LP.PROD_ID\n" +
-            "AND LC.USER_ID = :userId"
-            , nativeQuery = true)
-    List<ICartDto> findByUserIdContaining(@Param("userId") String userId);
 
     @Transactional
     @Modifying

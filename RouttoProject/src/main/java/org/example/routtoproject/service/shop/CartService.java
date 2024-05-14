@@ -101,4 +101,10 @@ public void removeAll() {
         }
     }
 
+    //    todo: user의 장바구니 -> 전체 주문하기  : 상품 정보
+    public List<ICartDto> findByUserIdContaining(String userId) {
+
+        List<ICartDto> order = cartRepository.findByUserIdContaining(userId);
+        return order;
+    }
 }

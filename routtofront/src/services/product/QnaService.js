@@ -7,12 +7,7 @@ class QnaService {
   getAll(page, size) {
     // TODO: 조회(select) : get 방식 -> @GetMapping
     // TODO: 사용법 : http.get("스프링_컨트롤러함수_url")
-    return http.get(
-      `/normal/shop/qna?page=${page}&size=${size}`,
-      {
-        headers: AuthHeader(),
-      }
-    );
+    return http.get(`/normal/shop/qna?page=${page}&size=${size}`);
   }
 
   // TODO: 저장함수
@@ -24,16 +19,20 @@ class QnaService {
     });
   }
 
-  //   // TODO: 수정함수 : qnaId,
-  //   update(faqId, data) {
-  //     // TODO: 수정(update) -> put 방식 -> @PutMapping
-  //     // TODO: 사용법 : http.put(`/컨트롤러함수url/${dno}`, 수정할객체)
-  //     return http.put(`/user/member/faq/update/${faqId}`, data,
-  //     {
-  //       headers: AuthHeader()
-  //     }
-  //     );
-  //   }
+  // TODO: 상세조회 함수 : 쓴 글 조회 후 수정할때 상세조회용
+  // TODO: 조회(select) -> get 방식 -> @GetMapping
+  getQnaId(qnaId) {
+    return http.get(`/normal/shop/qna/${qnaId}`);
+  }
+
+  // TODO: 수정함수 : qnaId,
+  update(qnaId, data) {
+    // TODO: 수정(update) -> put 방식 -> @PutMapping
+    // TODO: 사용법 : http.put(`/컨트롤러함수url/${dno}`, 수정할객체)
+    return http.put(`/user/shop/qna/update/${qnaId}`, data, {
+      headers: AuthHeader(),
+    });
+  }
 
   //   // TODO: 관리자 :: 답변으로 수정함수 : qnaId,
   //   updateAnswer(faqId, data) {
@@ -46,17 +45,27 @@ class QnaService {
   //     );
   //   }
 
-  //   // TODO: 삭제함수 : 부서번호(dno)
-  //   // TODO: 삭제(delete) -> delete 방식 -> @DeleteMapping
-  //   // TODO: 사용법 : http.delete(`/컨트롤러함수url/${dno}`)
-  //   delete(faqId) {
-  //     console.log(faqId)
-  //     return http.delete(`/user/member/faq/deletion/${faqId}`,
-  //     {
-  //       headers: AuthHeader()
-  //     }
-  //     );
-  //   }
+  // TODO: 삭제함수 : 부서번호(dno)
+  // TODO: 삭제(delete) -> delete 방식 -> @DeleteMapping
+  // TODO: 사용법 : http.delete(`/컨트롤러함수url/${dno}`)
+  delete(qnaId) {
+    console.log(qnaId);
+    return http.delete(`/user/shop/qna/deletion/${qnaId}`, {
+      headers: AuthHeader(),
+    });
+  }
+
+  // userId로 전체조회 내글찾기
+  getAllUserId(writerId, page, size) {
+    // TODO: 조회(select) : get 방식 -> @GetMapping
+    // TODO: 사용법 : http.get("스프링_컨트롤러함수_url")
+    return http.get(
+      `/user/shop/userId/qna?writerId=${writerId}&page=${page}&size=${size}`,
+      {
+        headers: AuthHeader(),
+      }
+    );
+  }
 }
 
 export default new QnaService();

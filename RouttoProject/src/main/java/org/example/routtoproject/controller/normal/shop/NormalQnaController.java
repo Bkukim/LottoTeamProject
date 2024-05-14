@@ -3,6 +3,7 @@ package org.example.routtoproject.controller.normal.shop;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.example.routtoproject.model.entity.shop.Qna;
+import org.example.routtoproject.model.entity.shop.Review;
 import org.example.routtoproject.service.shop.QnaService;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Optional;
 
 /**
  * packageName : org.example.routtoproject.controller.user.shop
@@ -49,7 +51,7 @@ public class NormalQnaController {
 //            전체 조회 서비스 실행
             Page<Qna> qna
                     = qnaservice
-                    .selectByTitleContaining( pageable);
+                    .selectByTitleContaining(pageable);
 
 //            공통 페이징 객체 생성 : 자료구조 맵 사용
             Map<String, Object> response = new HashMap<>();
@@ -66,6 +68,26 @@ public class NormalQnaController {
                 return new ResponseEntity<>(HttpStatus.NO_CONTENT);
             }
 
+        } catch (Exception e) {
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    //    todo: 상세조회
+    @GetMapping("/qna/{qnaId}")
+    public ResponseEntity<Object> findById(
+            @PathVariable int qnaId
+    ) {
+        try {
+//            상세조회 서비스 실행
+            Optional<Qna> optionalQna
+                    = qnaservice.findById(qnaId);
+
+            if (optionalQna.isEmpty() == true) {
+                return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+            } else {
+                return new ResponseEntity<>(optionalQna.get(), HttpStatus.OK);
+            }
         } catch (Exception e) {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }

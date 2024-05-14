@@ -39,7 +39,7 @@ public class ReviewService {
 
 //    todo: review 전체 조회 + 페이징
 public Page<Review> findAll(Pageable pageable) {
-    Page<Review> page = reviewRepository.findAll(pageable);
+    Page<Review> page = reviewRepository.findReviewByTitleContaining(pageable);
     return page;
 }
 
