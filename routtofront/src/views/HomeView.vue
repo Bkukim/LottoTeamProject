@@ -12,7 +12,7 @@
     <!-- 메인페이지 상품바로가기 버튼 -->
     <div class="main_best_button container text-right mt-5">
       <div class="row main_best_button_in">
-        <div class="col ">
+        <div class="col">
           <h3 class="main_best_button_h3 container text-left">product</h3>
         </div>
 
@@ -69,6 +69,24 @@
     </div>
     <!-- 메인페이지 상품바로가기 반복문 끝-->
   </div>
+
+  <!-- 두번째 메인 베스트 상품 -->
+
+  <div class="main_best_button container text-center mt-5">
+    <div class="row main_best_button_in">
+      <div class="col">
+        <div class="abcdefgefghijk">{{ banner[1]?.bannerTitle }}</div>
+        <img class="div2" :src="banner[1]?.bannerImg1Url" /><!-- 배너 2-1 -->
+        <div class="div3">
+          {{ banner[1]?.bannerContent }}
+        </div>
+        <div class="shop-more"><router-link :to="'/product/'+banner[1]?.prodId" >SHOP MORE  &gt;</router-link> </div>
+      </div>
+
+      <div class="col"></div>
+    </div>
+  </div>
+
   <!-- 전체 중앙정렬 끝 -->
 </template>
 <script>
@@ -141,15 +159,13 @@ export default {
   height: 40vw;
 }
 
-
-.main_best_button_h3{
+.main_best_button_h3 {
   color: #999999;
   text-align: left;
   font-family: "NotoSans-DisplayBold", sans-serif;
   font-size: 3vw;
   font-weight: 400;
   margin-left: -100px;
-
 }
 
 /* best 상품 버튼 */

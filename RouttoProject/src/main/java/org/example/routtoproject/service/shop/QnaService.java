@@ -34,12 +34,10 @@ public class QnaService {
 
     //    todo: 상품문의 전체 조회 + 페이징
     public Page<Qna> selectByTitleContaining(
-            String title,
             Pageable pageable
     ) {
         Page<Qna> page
                 = qnaRepository.findQnaByTitleContaining(
-                title,
                 pageable
         );
         return page;
