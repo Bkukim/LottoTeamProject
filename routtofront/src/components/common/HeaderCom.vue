@@ -51,7 +51,7 @@
         <input type="text" 
         v-model="searchQuery" 
         placeholder="" />
-        <router-link to="/member/searchproduct" class="se_button">
+        <router-link to="/member/searchProductview" class="se_button">
           <img src="../../../src/assets/images/se.png" />
         </router-link>
       </div>
