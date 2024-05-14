@@ -34,11 +34,17 @@ class OrderService {
       headers: AuthHeader()
     })
   }
-  // TODO: 주문 확인 페이지에서의 orderId 로 orderProd 찾아오기
-
-
-  getProdInfo(orderProdId) {
-    return http.get(`/user/shop/order/prod/${orderProdId}`)
+  // TODO: orderId로 orderProdId 조회
+  getOrderProduct(orderId) {
+    return http.get(`/user/shop/order/orderProds/ids/${orderId}`,{
+      headers: AuthHeader()
+    })
+  }
+  // TODO: orderProdId를 이용해 product 정보 조회
+  getProductInfo(orderProdId) {
+    return http.get(`/user/shop/order-products/${orderProdId}`,{
+      headers: AuthHeader()
+    })
   }
 
   // TODO: OrderId를 기준으로 주문상태를 결제완료로 변경하기

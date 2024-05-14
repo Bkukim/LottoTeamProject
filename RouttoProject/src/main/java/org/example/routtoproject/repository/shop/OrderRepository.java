@@ -41,30 +41,20 @@ public interface OrderRepository extends JpaRepository<Order, Integer> {
     @Query(value = "SELECT *\n" +
             "FROM LOTTO_ORDER\n" +
             "WHERE USER_ID = :userId\n" +
-           "AND TO_DATE(ORDER_TIME, 'YYYY-MM-DD HH24:MI:SS')>= SYSDATE - INTERVAL '3' MONTH"
-    ,nativeQuery = true)
+            "AND TO_DATE(ORDER_TIME, 'YYYY-MM-DD HH24:MI:SS')>= SYSDATE - INTERVAL '3' MONTH"
+            , nativeQuery = true)
     List<Order> findAllByUserId(@Param("userId") String userId);
 
-//  TODO: 주문 완료 페이지 조회 쿼리문
-//@Query(value = "SELECT LO.ORDER_ID, LOP.ORDER_PROD_ID, LP.PROD_ID \n" +
-//        "FROM LOTTO_ORDER LO\n" +
-//        "JOIN LOTTO_ORDER_PROD LOP ON LO.ORDER_ID = LOP.ORDER_ID\n" +
-//        "JOIN LOTTO_PRODUCT LP ON LOP.PROD_ID = LP.PROD_ID\n" +
-//        "WHERE LO.ORDER_ID = :orderId\n" +
-//        "AND LOP.ORDER_PROD_ID = :orderProdId\n" +
-//        "AND LP.PROD_ID = :prodId")
-//OrderInfoDto findLottoData(@Param("orderId") int orderId, @Param("orderProdId") int orderProdId, @Param("prodId") int prodId);
+    //  TODO: 주문 완료 페이지 조회 쿼리문
+
     @Query(value = "SELECT * FROM LOTTO_ORDER\n" +
             "WHERE ORDER_ID = :orderId", nativeQuery = true)
     List<Order> findByOrderId(@Param("orderId") Integer orderId);
 
-//  TODO: orderId로 user_phoneNum 조회 쿼리문
-//    @Query(value = "SELECT US.PHONE_NUM\n" +
-//            "FROM LOTTO_ORDER OD, LOTTO_USER US\n" +
-//            "WHERE OD.USER_ID = US.USER_ID\n" +
-//            "AND OD.ORDER_ID = :orderId", nativeQuery = true)
-//    Optional<Object[]> findPhoneNum(@Param("orderId") int orderId);
-@Query("SELECT o.user.phoneNum FROM Order o WHERE o.orderId = :orderId")
-String findPhoneNum(@Param("orderId") Integer orderId);
+    //  TODO: orderId로 user_phoneNum 조회 쿼리문
+    @Query("SELECT o.user.phoneNum FROM Order o WHERE o.orderId = :orderId")
+    String findPhoneNum(@Param("orderId") Integer orderId);
+
+
 }
 
