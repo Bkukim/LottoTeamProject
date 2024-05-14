@@ -108,6 +108,7 @@ public class UserOrderController {
     public ResponseEntity<Object> findAll(@PathVariable int orderId) {
         try {
             Optional<Order> optionalOrder = paymentService.findAll(orderId);
+            System.out.println(" 죽 고 싶 나  " + optionalOrder);
 
             if (optionalOrder.isEmpty() == false) {
 //              성공
@@ -153,4 +154,12 @@ public class UserOrderController {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
+
+// TODO: 주문 ID를 기반으로 사용자의 전화번호를 조회하는 엔드포인트
+@GetMapping("/order/phone/{orderId}")
+public ResponseEntity<String> getUserPhoneByOrderId(@PathVariable int orderId) {
+    String phoneNum = orderService.findUserPhoneByOrderId(orderId);
+
+    return ResponseEntity.ok(phoneNum);
+}
 }

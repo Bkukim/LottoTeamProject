@@ -149,7 +149,9 @@ export default {
     //   }
     // },
     goToMyPage() {
-      this.$router.push("/member/mypage");
+      this.$router.push({ path: `/order/completed/${this.jsonData.orderId}` });
+      // this.$router.push({ path: "/order/completed/", query: { orderId: this.jsonData.orderId } });
+      // this.$router.push("/");
     },
   },
   mounted() {
@@ -167,6 +169,6 @@ export default {
 };
 </script>
 
-<style scpoed>
+<style scoped>
 @import "@/assets/css/Payment/tosspay.css";
 </style>

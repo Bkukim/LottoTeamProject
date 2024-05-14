@@ -123,10 +123,9 @@
                 display: flex;
                 align-items: center;
               "
-              v-if="user"
             >
               <label class="col-md-2 col-form-label">연락처</label>
-              <label class="col-md-10 col-form-label">{{ user.phoneNum }}</label>
+              <label class="col-md-10 col-form-label">{{ phone }}</label>
             </div>
             <!-- 배송 요청 사항 -->
             <div
@@ -279,11 +278,11 @@
 import OrderService from '@/services/product/OrderService';
 import { mapState } from "vuex";
 import CheckoutView from '../payment/CheckoutView.vue';
-import UserService from '@/services/user/UserService';
 import AdminManageService from '@/services/admin/AdminManageService';
 // import PaymentService from '@/services/payment/PaymentService';
 
 export default {
+  
   computed: {
     // Vuex 스토어의 상태를 매핑합니다.
     ...mapState(['accountNumber']),
@@ -292,7 +291,7 @@ export default {
   data() {
     return {
       order: null,
-      user: null,
+      phone: "",
       product: {},
       products:[],
       // payment: null,
@@ -314,17 +313,18 @@ export default {
         console.log(e);
       }
     },
-    // TODO: userId로 연락처 받아오기
-    async retrieveUser(userId) {
+    // TODO: orderId로 연락처 받아오기
+    async retrieveUser(orderId) {
       try {
-        console.log("주문자 정보" + userId)
-        let response = await UserService.get(userId);
-        this.user = response.data;
-        console.log("주문자 정보보보", response.data);
+        console.log("휴대폰 번호", orderId)
+        let response = await OrderService.getOrderPhone(orderId);
+        this.phone = response.data;
+        console.log("휴대폰", response.data);
       } catch (e) {
         console.log(e);
       }
     },
+
     // TODO: orderProdId로 주문 상품 정보 받아오기
     async retrieveProduct(orderProdId) {
       try {
@@ -348,36 +348,6 @@ export default {
         console.log(e);
       }
     },
-    // // TODO: 다시 조회해보자
-    //     async retrieveOrderProduct(orderId) {
-    //   // alert(orderId)
-    //   // todo: orderId로 조회하기 : 주문상세테이블
-    //   try {
-    //     let response = await OrderService.getOrderId(orderId); 
-    //     console.log(response.data);
-    //     this.orderProds = response.data; // 백엔드에서 배열이 들어옴(response에는 헤더_파일 형식, 바디_데이터 정보가 다 있다. 우리가 궁금한건 바디부분이라서 .data)
-    //   } catch (error) {
-    //     console.error("에러 발생 : ", error);
-    //   }
-    // },
-    // async getOrderInfo(orderId) {
-    //   try {
-    //     let response = await OrderService.getOrderInfo(orderId);
-    //     this.order = response.data;
-    //     console.log(response.data)
-    //   } catch (e) {
-    //     console.log(e);
-    //   }
-    // },
-    // async getPaymentInfo(paymentCode) {
-    //   try {
-    //     let response = await PaymentService.getPaymentInfo(paymentCode);
-    //     this.payment = response.data;
-    //     console.log(response.data)
-    //   } catch (e) {
-    //     console.log(e);
-    //   }
-    // },
     // 주문 확인하기 버튼 클릭시 실행될 함수
     goToMyPage() {
       this.$router.push("/member/mypage");
@@ -388,15 +358,10 @@ export default {
     },
   },
   mounted() {
-
-    // this.getOrderInfo(this.$route.params.orderId); // 주문 정보 상세 조회 함수
-    // this.getPaymentInfo(this.$route.param.paymentCode); // 결제 정보 상세 조회 함수
     this.retrieveOrder(this.$route.params.orderId);
-    this.retrieveUser(this.$route.params.userId);
-    // console.log(product);
+    this.retrieveUser(this.$route.params.orderId);
     this.retrieveProduct(this.$route.params.orderProdId);
     this.getProduct(this.$route.params.prodId);
-    // this.retrieveOrderProduct(this.$route.parmas.orderId);
 
     window.scrollTo(0, 0);
 

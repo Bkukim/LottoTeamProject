@@ -18,7 +18,9 @@ class OrderService {
   }
   // TODO: 결제를 위한 주문 정보 가져오기 함수
   goPayment(orderId) {
-    return http.get(`/user/shop/order/${orderId}`)
+    return http.get(`/user/shop/order/${orderId}`, {
+      headers: AuthHeader(),
+    })
   }
   // TODO: 주문 확인 페이지에서의 상세 조회
   getOrderInfo(orderId) {
@@ -26,6 +28,14 @@ class OrderService {
       headers: AuthHeader()
     });
   }
+  // TODO: orderID로 user.phoneNum 받아오기
+  getOrderPhone(orderId) {
+    return http.get(`/user/shop/order/phone/${orderId}`,{
+      headers: AuthHeader()
+    })
+  }
+  // TODO: 주문 확인 페이지에서의 orderId 로 orderProd 찾아오기
+
 
   getProdInfo(orderProdId) {
     return http.get(`/user/shop/order/prod/${orderProdId}`)
