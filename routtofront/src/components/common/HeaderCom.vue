@@ -18,7 +18,7 @@
         <router-link :to="'/product/category/' + 2"  class="kim-div3">HAIR</router-link>
         <router-link :to="'/product/category/' + 3" class="kim-div3">MAKE UP</router-link>
         <router-link :to="'/product/category/' + 4"  class="kim-div3">BODY</router-link>
-        <router-link to="/shop/notice" class="kim-div3">NOzTICE</router-link>
+        <router-link to="/shop/notice" class="kim-div3">NOTICE</router-link>
 
       </div>
 
@@ -51,7 +51,7 @@
         <input type="text" 
         v-model="searchQuery" 
         placeholder="" />
-        <router-link to="/member/searchproduct" class="se_button">
+        <router-link to="/member/searchProductview" class="se_button">
           <img src="../../../src/assets/images/se.png" />
         </router-link>
       </div>
