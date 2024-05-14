@@ -4,18 +4,13 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.example.routtoproject.model.dto.shop.ICartDto;
 import org.example.routtoproject.model.dto.shop.OrderDto;
-import org.example.routtoproject.model.entity.auth.User;
-import org.example.routtoproject.model.entity.payment.Payment;
+import org.example.routtoproject.model.dto.shop.OrderProductInfoDto;
 import org.example.routtoproject.model.entity.shop.Order;
 //import org.example.routtoproject.service.shop.OrderService;
-import org.example.routtoproject.model.entity.shop.OrderProd;
-import org.example.routtoproject.model.entity.shop.Product;
-import org.example.routtoproject.service.member.UserService;
 import org.example.routtoproject.service.payment.PaymentService;
 import org.example.routtoproject.service.shop.OrderService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.parameters.P;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
@@ -45,7 +40,6 @@ public class UserOrderController {
 
     private final OrderService orderService;    // DI
     private final PaymentService paymentService; // DI
-    private final UserService userService; // DI
 
 
     //        TODO: 주문 저장 함수
@@ -92,6 +86,7 @@ public class UserOrderController {
     public ResponseEntity<Object> findAll(@PathVariable int orderId) {
         try {
             Optional<Order> optionalOrder = paymentService.findAll(orderId);
+            System.out.println(" 죽 고 싶 나  " + optionalOrder);
 
             if (optionalOrder.isEmpty() == false) {
 //              성공
@@ -104,21 +99,6 @@ public class UserOrderController {
         }
     }
 
-//  TODO: 주문 상품 상세 조회
-    @GetMapping("/order/prod/{orderProdId}")
-    public ResponseEntity<Object> findOpi(@PathVariable int orderProdId) {
-        try {
-            Optional<OrderProd> optionalOrderProd = orderService.findOpi(orderProdId);
-
-            if (optionalOrderProd.isEmpty() == false) {
-                return new ResponseEntity<>(optionalOrderProd.get(), HttpStatus.OK);
-            } else {
-                return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-            }
-        } catch (Exception e) {
-            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
-        }
-    }
 
     // todo 마이페이지에서 현재 주문 상태 보여주는 함수
     @GetMapping("/order-all/{userId}")
@@ -137,4 +117,28 @@ public class UserOrderController {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
+
+// TODO: 주문 ID를 기반으로 사용자의 전화번호를 조회하는 함수
+@GetMapping("/order/phone/{orderId}")
+public ResponseEntity<String> getUserPhoneByOrderId(@PathVariable int orderId) {
+    String phoneNum = orderService.findUserPhoneByOrderId(orderId);
+    return ResponseEntity.ok(phoneNum);
+}
+
+// TODO: 주문 ID를 기반으로 orderProdId 를 조회하는 함수
+@GetMapping("/order/orderProds/ids/{orderId}")
+public ResponseEntity<List<Integer>> getOrderProdIdsByOrderId(@PathVariable int orderId) {
+    List<Integer> orderProdIds = orderService.findOrderProdIdsByOrderId(orderId);
+    return ResponseEntity.ok(orderProdIds);
+}
+
+// TODO: 주문 상품 정보 조회 함수
+@GetMapping("/order-products/{orderProdId}")
+public ResponseEntity<List<OrderProductInfoDto>> getOrderProductDetails(@PathVariable int orderProdId) {
+    List<OrderProductInfoDto> orderProductDetails = orderService.getOrderProductDetails(orderProdId);
+    if (orderProductDetails.isEmpty()) {
+        return ResponseEntity.notFound().build();
+    }
+    return ResponseEntity.ok(orderProductDetails);
+}
 }

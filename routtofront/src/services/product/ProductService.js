@@ -16,6 +16,13 @@ class ProductService {
     return http.get("/normal/shop/product/all");
   }
 
+  getProductByCategory(prodCategory,page,size){
+    return http.get(`/normal/shop/product/category?prodCategory=${prodCategory}&page=${page}&size=${size}`)
+  }
+
+  getBestProduct(){
+    return http.get("/normal/shop/product/best")
+  }
 
 }
 

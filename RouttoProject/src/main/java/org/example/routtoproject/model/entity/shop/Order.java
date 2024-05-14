@@ -3,12 +3,11 @@ package org.example.routtoproject.model.entity.shop;
 import jakarta.persistence.*;
 import lombok.*;
 import org.example.routtoproject.model.common.BaseTimeEntity;
+import org.example.routtoproject.model.entity.auth.User;
 import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 /**
  * packageName : org.example.routtoproject.model.entity.shop
@@ -33,7 +32,7 @@ import java.util.List;
 )
 @Getter
 @Setter
-@ToString
+@ToString(exclude = "user") // 순환 참조 방지를 위해 user를 제외
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
@@ -59,4 +58,9 @@ public class Order {
     private String orderStatus;
     private String orderChangeTime;
     private String orderChangeReason;
+
+    // Order에서 User로의 다대일 관계 설정
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "userId", referencedColumnName = "userId", insertable = false, updatable = false)
+    private User user;
 }

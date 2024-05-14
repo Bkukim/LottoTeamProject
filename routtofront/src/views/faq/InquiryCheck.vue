@@ -38,7 +38,7 @@
         <div v-if="faqList && this.$store.state.user && faqList.userId === this.$store.state.user.userId"> -->
       <div v-if="faqList.userId === this.$store.state.user?.userId">
         <router-link :to="'/shop/inquiry-update/' + faqList.faqId">
-          <button id="button1" class="btn btn-primary" type="button">
+          <button id="button1" class="btn" type="button">
             수정
           </button>
         </router-link>

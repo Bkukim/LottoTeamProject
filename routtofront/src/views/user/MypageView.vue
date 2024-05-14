@@ -49,26 +49,29 @@
           </div> -->
 
       <table class="container text-center mt-3 mb-3">
-        
-        <tr class="row mapage_b2" v-for="(data, index) in order" :key="index">
-          <th class="col mapage_b2">회원 ID</th>
-          <th class="col mapage_b2">주문번호</th>
-          <th class="col mapage_b2"> 주문상태</th>
-          </tr>
-        <tr class="row mapage_b2" v-for="(data, index) in order" :key="index">
-          <td class="col mapage_b2">
-             <br /><br />
-            {{data.userId}}
-          </td>
+        <tr class="row mapage_b2">
+          <th class="col mapage_b2" style="border-right: 2px solid #342a26;" >주문번호</th>
+          <th class="col mapage_b2" style="border-right: 2px solid #342a26;">주문 일</th>
 
+          <th class="col mapage_b2" style="border-right: none;">주문상태</th>
+          <th class="col mapage_b2"></th>
+        </tr>
+        <tr class="row mapage_b2" v-for="(data, index) in order" :key="index">
           <td class="col mapage_b2">
-             <br /><br />
+            <br /><br />
             {{ data.orderId }}
           </td>
-
+          <td class="col mapage_b2">
+            <br /><br />
+            {{ data.orderTime.split(" ")[0] }}
+          </td>
           <td class="col">
-           <br /><br />
+            <br /><br />
             {{ data.orderStatus }}
+          </td>
+           <td class="col">
+            <br /><br />
+            <button>환불</button>
           </td>
 
           <!-- <div class="col mapage_b2">
@@ -102,10 +105,10 @@
           </p>
         </div>
 
-        <div class="col no-border3">
-          <router-link to="/member/user-modify"
+        
+          <router-link to="/member/user-modify" class="col no-border3"
             ><img src="@/assets/images/mypage_2.png"
-          /></router-link>
+          />
           <br />
           <b>ProFile</b> <br />
           <p class="mini_box1">회원정보</p>
@@ -113,7 +116,7 @@
             회원이신 고객님의 개인정보를 <br />
             관리하는 공간입니다.
           </p>
-        </div>
+        </router-link>
 
         <div class="col no-border3">
           <img src="@/assets/images/mypage_3.png" />
@@ -126,8 +129,8 @@
           </p>
         </div>
 
-        <div class="col no-border3">
-          <img src="@/assets/images/mypage_4.png" />
+        
+          <router-link to="/shop/faqList" class="col no-border3"><img src="@/assets/images/mypage_4.png" />
           <br />
           <b>Consult</b> <br />
           <p class="mini_box1">고객센터</p>
@@ -136,7 +139,7 @@
             1:1맞춤상담 내용을<br />
             확인하실 수 있습니다.
           </p>
-        </div>
+        </router-link>
 
         <router-link to="/" class="col no-border3">
           <img src="@/assets/images/mypage_5.png" />
@@ -167,10 +170,9 @@ export default {
     // TODO: 비동기 코딩 : async ~ await
     async getOrder(userId) {
       try {
-        
         // 상세조회 공통함수 실행 : DeptService.get()
         let response = await OrderService.getOrder(userId);
-        
+
         this.order = response.data; // spring 결과를 바인딩 속성변수 dept 저장
         // 로깅
         console.log(response.data);
@@ -199,6 +201,32 @@ export default {
   font-weight: 400;
   font-style: normal;
 }
+
+th{
+  padding-bottom: 15px;
+  border-bottom: 2px solid #342a26;
+}
+
+button{
+  background-color:#ffffff ;
+  border: 1px solid #342a26;
+  color: #342a26;
+  border-radius: 5px;
+  font-size: 12px;
+  letter-spacing: -1.5px;
+}
+
+
+button:hover{
+  background-color:#342a26 ;
+  border: 1px solid #342a26;
+  color: #ffffff;
+  border-radius: 5px;
+  font-size: 12px;
+  letter-spacing: -1.5px;
+  font-weight: bold;
+}
+
 
 .btn {
   width: 50px;

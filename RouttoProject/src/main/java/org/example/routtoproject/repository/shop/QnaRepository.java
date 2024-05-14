@@ -25,6 +25,7 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface QnaRepository extends JpaRepository<Qna, Integer> {
 
+
 //    전체 조회 + 페이지
     @Query(value = "SELECT * FROM LOTTO_QNA"
             ,countQuery = "SELECT count (*) FROM LOTTO_QNA"
@@ -39,4 +40,5 @@ public interface QnaRepository extends JpaRepository<Qna, Integer> {
             ,nativeQuery = true)
     Page<Qna> findAllByWriterIdContaining(@Param("writerId") String writerId,
                                         Pageable pageable);
+
 }

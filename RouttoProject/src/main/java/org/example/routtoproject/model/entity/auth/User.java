@@ -3,8 +3,12 @@ package org.example.routtoproject.model.entity.auth;
 import jakarta.persistence.*;
 import lombok.*;
 import org.example.routtoproject.model.common.BaseTimeEntity2;
+import org.example.routtoproject.model.entity.shop.Order;
 import org.hibernate.annotations.SQLDelete;
 import org.hibernate.annotations.Where;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * packageName : org.example.routtoproject.model.entity.auth
@@ -24,7 +28,7 @@ import org.hibernate.annotations.Where;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@ToString
+@ToString(exclude = "orders") // 순환 참조 방지를 위해 orders를 제외
 // soft delete jpa 어노테이션
 @Where(clause = "WITHDRAW_YN = 'N'")
 @SQLDelete(sql ="UPDATE LOTTO_USER SET WITHDRAW_YN = 'Y', WITHDRAW_TIME=TO_CHAR(SYSDATE, 'YYYY-MM-DD HH24:MI:SS') WHERE USER_ID = ?")
@@ -61,4 +65,8 @@ public class User extends BaseTimeEntity2 {
         this.pwQuestion = pwQuestion;
         this.pwAnswer = pwAnswer;
     }
+
+    // User와 Order 사이의 일대다 관계를 설정
+    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private List<Order> orders = new ArrayList<>();
 }

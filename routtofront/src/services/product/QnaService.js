@@ -4,10 +4,17 @@ import AuthHeader from "../auth/AuthHeader";
 class QnaService {
   // 속성(x), 생성자(x), 공통함수
   // TODO: 전체 조회
-  getAll(page, size) {
+  getAllQna(prodId, page, size) {
     // TODO: 조회(select) : get 방식 -> @GetMapping
     // TODO: 사용법 : http.get("스프링_컨트롤러함수_url")
-    return http.get(`/normal/shop/qna?page=${page}&size=${size}`);
+
+    return http.get(
+      `/normal/shop/qna?prodId=${prodId}&page=${page}&size=${size}`,
+      {
+        headers: AuthHeader(),
+      }
+    );
+
   }
 
   // TODO: 저장함수

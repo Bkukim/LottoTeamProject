@@ -2,6 +2,8 @@ package org.example.routtoproject.service.shop;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.example.routtoproject.model.dto.member.AnnouncementAllDto;
+import org.example.routtoproject.model.dto.shop.IReviewDto;
 import org.example.routtoproject.model.dto.shop.OrderProductDetailDto;
 import org.example.routtoproject.model.entity.shop.Faq;
 import org.example.routtoproject.model.entity.shop.Order;
@@ -10,6 +12,8 @@ import org.example.routtoproject.model.entity.shop.Review;
 import org.example.routtoproject.repository.shop.ReviewRepository;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
@@ -37,9 +41,13 @@ import java.util.UUID;
 public class ReviewService {
     private final ReviewRepository reviewRepository;
 
+
+
 //    todo: review 전체 조회 + 페이징
+
 public Page<Review> findAll(Pageable pageable) {
     Page<Review> page = reviewRepository.findReviewByTitleContaining(pageable);
+
     return page;
 }
 

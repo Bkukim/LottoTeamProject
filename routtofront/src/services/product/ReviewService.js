@@ -3,8 +3,8 @@ import AuthHeader from "../auth/AuthHeader";
 
 class ReviewService {
   // TODO: 리뷰 전체 조회
-  getAll(page, size) {
-    return http.get(`/normal/shop/review?page=${page}&size=${size}`);
+  getReviewByprodId(prodId, page, size) {
+    return http.get(`/normal/shop/review?prodId=${prodId}&page=${page}&size=${size}`);
   }
 
   // TODO: 리뷰 상세 조회

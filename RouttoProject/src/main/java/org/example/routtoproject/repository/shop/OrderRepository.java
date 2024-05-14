@@ -1,16 +1,12 @@
 package org.example.routtoproject.repository.shop;
 
-import org.example.routtoproject.model.dto.shop.ICartDto;
 import org.example.routtoproject.model.entity.shop.Order;
-import org.example.routtoproject.model.entity.shop.Product;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -45,7 +41,20 @@ public interface OrderRepository extends JpaRepository<Order, Integer> {
     @Query(value = "SELECT *\n" +
             "FROM LOTTO_ORDER\n" +
             "WHERE USER_ID = :userId\n" +
-            "AND ORDER_STATUS <> '구매확정'"
-    ,nativeQuery = true)
+            "AND TO_DATE(ORDER_TIME, 'YYYY-MM-DD HH24:MI:SS')>= SYSDATE - INTERVAL '3' MONTH"
+            , nativeQuery = true)
     List<Order> findAllByUserId(@Param("userId") String userId);
+
+    //  TODO: 주문 완료 페이지 조회 쿼리문
+
+    @Query(value = "SELECT * FROM LOTTO_ORDER\n" +
+            "WHERE ORDER_ID = :orderId", nativeQuery = true)
+    List<Order> findByOrderId(@Param("orderId") Integer orderId);
+
+    //  TODO: orderId로 user_phoneNum 조회 쿼리문
+    @Query("SELECT o.user.phoneNum FROM Order o WHERE o.orderId = :orderId")
+    String findPhoneNum(@Param("orderId") Integer orderId);
+
+
 }
+

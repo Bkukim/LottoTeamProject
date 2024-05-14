@@ -165,6 +165,7 @@
       <div class="container text-center">
         <div class="row">
           <div
+            id="mysave"
             class="col"
             @click="scrollToSection('detail')"
             button
@@ -268,7 +269,7 @@
       <!-- 페이징 -->
       <!-- {/* paging 시작 */} -->
       <div class="row justify-content-center mt-4">
-        <div class="col-auto">
+        <div class="custom-pagination col-auto">
           <b-pagination
             class="col-12 mb-3"
             v-model="page"
@@ -417,9 +418,9 @@
             :key="index"
           >
             <td scope="col">
-              
-                {{ data.qnaId }}
+              {{ data.qnaId }}
             </td>
+
              <td scope="col">
               <!-- <router-link
                 :to="'/product/inquiry/' + data.qnaId"
@@ -429,12 +430,13 @@
                 {{ data.qnaTitle }}</router-link> -->
                 <!-- </router-link> -->
                 <router-link :to="`/product/inquiry/detail/${data.qnaId}`">{{ data.qnaTitle }}</router-link>
+
             </td>
             <td scope="col">
-                {{ data.writerId }}
+              {{ data.writerId }}
             </td>
             <td scope="col">
-                {{ data.qnaContent }}
+              {{ data.qnaContent }}
             </td>
           </tr>
         </tbody>
@@ -446,7 +448,7 @@
     <div class="row justify-content-center mt-4">
       <div class="col-auto">
         <b-pagination
-          class="col-12 mb-3"
+          class="custom-pagination col-12 mb-3"
           v-model="page"
           :total-rows="count"
           :per-page="pageSize"
@@ -529,10 +531,10 @@ export default {
   },
   methods: {
     // 리뷰 전체조회 함수 : 화면이뜰때 자동 실행
-    async retrieveReview() {
+    async retrieveReview(prodId) {
       try {
         // 공통 장바구니 전체 조회 서비스 함수 실행
-        let response = await ReviewService.getAll(this.page - 1, this.pageSize);
+        let response = await ReviewService.getReviewByprodId(prodId, this.page - 1, this.pageSize);
         console.log(response.data);
         const { reviews, totalItems } = response.data;
         this.reviews = reviews; // 리뷰 배열(벡엔드 전송)
@@ -580,10 +582,11 @@ export default {
     },
 
     // 상품문의 전체조회 함수
-    async retrieveQna() {
+    async retrieveQna(prodId) {
       try {
         // TODO: 1) 공통 전체조회 함수 실행
-        let response = await QnaService.getAll(
+        let response = await QnaService.getAllQna(
+          prodId,
           this.page - 1, // 현재페이지번호-1
           this.pageSize // 1페이지당개수(size)
         );
@@ -621,6 +624,8 @@ export default {
       try {
         let response = await ProductService.get(prodId);
         this.product = response.data; // spring 전송 객체 넣기
+        this.retrieveReview(response.data.prodId);
+        this.retrieveQna(response.data.prodId);
         console.log(response.data);
       } catch (e) {
         console.log(e);
@@ -688,14 +693,60 @@ this.$router.push("/product/inquiry/mypage");
     // 화면 뜰때 상단이 뜨게 해주는 함수
     window.scrollTo(0, 0);
     this.getProd(this.$route.params.prodId); // 상세조회 함수 실행
-    this.retrieveReview();
-    this.retrieveQna();
+    
   },
 };
 </script>
 
 <style>
+/* 페이징 번호 디자인 */
+.custom-pagination .page-item.active .page-link {
+  background-color: #342a26;
+  border-color: #ffffff;
+  color: white;
+}
 
+.custom-pagination .page-link {
+  color: #342a26;
+}
+
+.custom-pagination .page-link:hover {
+  background-color: #ffffff;
+  border-color: 1px solid#8f8f8f;
+  color: #342a26;
+  /* border: none; */
+}
+
+.custom-pagination .page-link:focus {
+  outline: none;
+  box-shadow: 0 0 0 0.2rem #342a26bf;
+  border-color: #342a26bf;
+}
+
+/* 또는 밑에처럼 완전히 새로운 스타일을 지정가능 */
+/* .custom-pagination .page-link:focus {
+  outline: none;
+  box-shadow: 0 0 0 0.2rem rgba(0, 86, 179, 0.25); 
+  border-color: #0056b3; 
+} */
+
+.router-link-active,
+.router-link-exact-active {
+  color: inherit; /* 부모 요소의 색상 사용 */
+}
+
+.router-link-active,
+.router-link-exact-active {
+  color: #333; /* 원하는 색상으로 변경 */
+}
+
+.router-link-active:hover {
+  text-decoration:underline;  
+  font-weight: bold;
+  color: #333;
+}
+
+/* ------------------------------------------ */
 #mysave {
   border: 1px solid #cccccc;
   height: 70px;

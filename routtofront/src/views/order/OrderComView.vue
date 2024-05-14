@@ -123,10 +123,9 @@
                 display: flex;
                 align-items: center;
               "
-              v-if="user"
             >
               <label class="col-md-2 col-form-label">연락처</label>
-              <label class="col-md-10 col-form-label">{{ user.phoneNum }}</label>
+              <label class="col-md-10 col-form-label">{{ phone }}</label>
             </div>
             <!-- 배송 요청 사항 -->
             <div
@@ -163,10 +162,11 @@
             <!-- 주문 상품 사진 및 상품 정보 -->
             <div
               style="display: flex; align-items: center"
+              v-for="(data, index) in prodInfoList" :key="index"
             >
               <div class="col-md-2 col-form-label" style="min-width: 100px">
                 <img
-                  :src="product.prodImgUrl"
+                  :src="data.prodImgUrl"
                   alt="상품 이미지"
                   style="width: 100px; height: 100px"
                 />
@@ -179,9 +179,9 @@
               >
                 상품 정보
                 <br />
-                <label>상품명 : {{ product.prodName }}</label>
+                <label>상품명 : {{ data.prodName }}</label>
                 <br />
-                <label>수량 : {{ products.orderAmount }} 개</label>
+                <label>수량 : {{ data.orderAmount }} 개</label>
                 <br />
                 <label>금액 : {{ order.orderPrice }}</label>
                 <br />
@@ -277,24 +277,18 @@
 
 <script>
 import OrderService from '@/services/product/OrderService';
-import { mapState } from "vuex";
 import CheckoutView from '../payment/CheckoutView.vue';
-import UserService from '@/services/user/UserService';
-import AdminManageService from '@/services/admin/AdminManageService';
-// import PaymentService from '@/services/payment/PaymentService';
 
 export default {
+  
   computed: {
-    // Vuex 스토어의 상태를 매핑합니다.
-    ...mapState(['accountNumber']),
     CheckoutView,
   },
   data() {
     return {
       order: null,
-      user: null,
-      product: {},
-      products:[],
+      phone: "",
+      prodInfoList: [],
       // payment: null,
       // userPhoneNum: this.user.userPhoneNum,
       // 주문완료 이미지 경로
@@ -314,71 +308,69 @@ export default {
         console.log(e);
       }
     },
-    // TODO: userId로 연락처 받아오기
-    async retrieveUser(userId) {
+    // TODO: orderId로 연락처 받아오기
+    async retrieveUser(orderId) {
       try {
-        console.log("주문자 정보" + userId)
-        let response = await UserService.get(userId);
-        this.user = response.data;
-        console.log("주문자 정보보보", response.data);
+        console.log("휴대폰 번호", orderId)
+        let response = await OrderService.getOrderPhone(orderId);
+        this.phone = response.data;
+        console.log("휴대폰", response.data);
       } catch (e) {
         console.log(e);
       }
     },
-    // TODO: orderProdId로 주문 상품 정보 받아오기
-    async retrieveProduct(orderProdId) {
-      try {
-        console.log("주문번호" + orderProdId)
-        let response = await OrderService.getProdInfo(orderProdId);
-        this.products = response.data;
-        console.log("주문 번호", response.data);
-      } catch (error) {
-        console.log(error);
-      }
-    },
-    // TODO: prodId로 주문 상품 정보 받아오기
-        async getProduct(prodId) {
-      try {
-        console.log("상품 정보",prodId)
-        let response = await AdminManageService.get(prodId);
-        this.product = response.data; // 전체조회에서는 배열이었으나, 여기서는 객체 한개다. spring 결과를 바인딩 속성변수 product 에 저장
-        // 로깅
-        console.log("상품 정보보보", response.data);
-      } catch (e) {
-        console.log(e);
-      }
-    },
-    // // TODO: 다시 조회해보자
-    //     async retrieveOrderProduct(orderId) {
-    //   // alert(orderId)
-    //   // todo: orderId로 조회하기 : 주문상세테이블
+    // TODO: orderId로 orderProdId 받아오기
+    // async getProdId(orderId) {
     //   try {
-    //     let response = await OrderService.getOrderId(orderId); 
-    //     console.log(response.data);
-    //     this.orderProds = response.data; // 백엔드에서 배열이 들어옴(response에는 헤더_파일 형식, 바디_데이터 정보가 다 있다. 우리가 궁금한건 바디부분이라서 .data)
-    //   } catch (error) {
-    //     console.error("에러 발생 : ", error);
-    //   }
-    // },
-    // async getOrderInfo(orderId) {
-    //   try {
-    //     let response = await OrderService.getOrderInfo(orderId);
-    //     this.order = response.data;
-    //     console.log(response.data)
+    //     let response = await OrderService.getOrderProduct(orderId);
+    //     this.prodId = response.data;
+    //     console.log("주문상품번호", response.data);
     //   } catch (e) {
     //     console.log(e);
     //   }
     // },
-    // async getPaymentInfo(paymentCode) {
-    //   try {
-    //     let response = await PaymentService.getPaymentInfo(paymentCode);
-    //     this.payment = response.data;
-    //     console.log(response.data)
-    //   } catch (e) {
-    //     console.log(e);
-    //   }
-    // },
-    // 주문 확인하기 버튼 클릭시 실행될 함수
+    // TODO: 밑에껀 혹시 모르니 살려둬
+//   async getProdId(orderId) {
+//   try {
+//     let response = await OrderService.getOrderProduct(orderId);
+//     this.prodId = response.data;
+//     console.log("주문상품번호", response.data);
+//   } catch (e) {
+//     console.log(e);
+//   }
+// },
+// async getProductInfo(orderProdId) {
+//   try {
+//     let response = await OrderService.getProductInfo(orderProdId);
+//     this.productInfo = response.data;
+//     console.log("상품 정보 입니다", response.data);
+//   } catch (e) {
+//     console.log(e);
+//   }
+// },
+// TODO: 이 부분까지
+async getProdId(orderId) {
+  try {
+    let response = await OrderService.getOrderProduct(orderId);
+    this.prodId = response.data;
+    console.log("주문상품번호", response.data);
+    // 여기서 getProductInfo 함수 호출
+    await this.getProductInfo(response.data);
+  } catch (e) {
+    console.log(e);
+  }
+},
+async getProductInfo(orderProdId) {
+  try {
+    let response = await OrderService.getProductInfo(orderProdId);
+    this.prodInfoList = response.data;
+    console.log("추가된 후 prodInfoList: ", this.prodInfoList);
+    console.log("상품 정보 입니다", response.data);
+  } catch (e) {
+    console.log(e);
+  }
+},
+    // TODO: 주문 확인하기 버튼 클릭시 실행될 함수
     goToMyPage() {
       this.$router.push("/member/mypage");
     },
@@ -388,15 +380,11 @@ export default {
     },
   },
   mounted() {
-
-    // this.getOrderInfo(this.$route.params.orderId); // 주문 정보 상세 조회 함수
-    // this.getPaymentInfo(this.$route.param.paymentCode); // 결제 정보 상세 조회 함수
     this.retrieveOrder(this.$route.params.orderId);
-    this.retrieveUser(this.$route.params.userId);
-    // console.log(product);
-    this.retrieveProduct(this.$route.params.orderProdId);
-    this.getProduct(this.$route.params.prodId);
-    // this.retrieveOrderProduct(this.$route.parmas.orderId);
+    this.retrieveUser(this.$route.params.orderId);
+    // this.retrieveProduct(this.$route.params.prodId);
+    this.getProdId(this.$route.params.orderId);
+    this.getProductInfo(this.$route.params.orderProdId);
 
     window.scrollTo(0, 0);
 
