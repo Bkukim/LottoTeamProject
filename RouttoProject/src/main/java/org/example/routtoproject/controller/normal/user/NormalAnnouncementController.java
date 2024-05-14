@@ -81,6 +81,48 @@ public class NormalAnnouncementController {
         }
     }
 
+
+    //    TODO: 전체조회 검색용ㅇ
+    @GetMapping("/notice-search")
+    public ResponseEntity<Object> findAllSearch(
+            @RequestParam(defaultValue = "") String title,
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "3") int size
+    ) {
+        try {
+//            페이징 객체 생성
+            Pageable pageable = PageRequest.of(page, size);
+
+            log.debug("여기는 컨트롤러1");
+//            전체 조회 서비스 실행
+            Page<Announcement> announcements
+                    = announcementService
+                    .selectByTitleSearch(title, pageable);
+
+            log.debug("여기는 컨트롤러1.5");
+            log.debug(String.valueOf(announcements));
+//            공통 페이징 객체 생성 : 자료구조 맵 사용
+            Map<String, Object> response = new HashMap<>();
+            response.put("notice", announcements.getContent());       // notice 배열
+            response.put("currentPage", announcements.getNumber());       // 현재페이지번호
+            response.put("totalItems", announcements.getTotalElements()); // 총건수(개수)
+            response.put("totalPages", announcements.getTotalPages());    // 총페이지수
+            log.debug("여기는 컨트롤러2");
+            if (announcements.isEmpty() == false) {
+//                조회 성공
+                log.debug("여기는 커트롤러3" + response);
+                return new ResponseEntity<>(response, HttpStatus.OK);
+            } else {
+//                데이터 없음
+                return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+            }
+
+        } catch (Exception e) {
+//            log.debug("여기는 커트롤러4");
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
     //    todo: 상세조회 만들기
 //    조회(select) -> get 방식 -> @GetMapping
     @GetMapping("/notice/{announcementId}")

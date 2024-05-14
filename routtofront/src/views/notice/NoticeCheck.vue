@@ -37,7 +37,7 @@
       <!-- 등록시 고객센터 글 목록으로 재이동 -->
       <div class="col-auto">
         <router-link :to="'/shop/notice-update/' + announcement.announcementId">
-          <button id="button1" class="btn btn-primary" type="button">
+          <button id="button1" class="btn" type="button">
             수정
           </button>
         </router-link>
@@ -46,7 +46,7 @@
       <div class="col-auto">
         <button
           id="button2"
-          class="btn btn-primary"
+          class="btn"
           type="button"
           @click="deleteNotice"
         >

@@ -17,7 +17,20 @@ class NoticeListService {
     return http.get(
       `/normal/member/notice?title=${title}&page=${page}&size=${size}`
     );
+  }  
+  
+  // TODO: 검색용 전체조회 함수
+  getAllSearch(title, page, size) {
+    // 예) axios_기본주소 + 추가 url
+    // => http://localhost:8000/api + /basic/dept?dname=SALES&page=0&size=3
+    // => http://localhost:8000/api/basic/dept?dname=SALES&page=0&size=3
+    // 여기는 컨트롤러주소
+    return http.get(
+      `/normal/member/notice-search?title=${title}&page=${page}&size=${size}`
+    );
   }
+
+
   // // TODO: 추가(insert) 함수 -> post 방식 -> @PostMapping
   // create(data) {
   //     // TODO: 사용법 : http.post("컨트롤러함수url", 생성할객체)
