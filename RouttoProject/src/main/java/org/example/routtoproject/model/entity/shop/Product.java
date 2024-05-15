@@ -76,5 +76,22 @@ public class Product extends BaseTimeEntity {
         this.prodDetailPageUuid = prodDetailPageUuid;
     }
 
+    // todo 상품 수정을 위한 생성자
+    public Product(int prodId, String prodName, Integer defaultPrice, String prodCategory, byte[] prodImg, byte[] prodDetailPage, Integer discountRate, Integer prodStock, String prodStatus, String prodImgUrl, String prodDetailPageUrl, String prodImgUuid, String prodDetailPageUuid) {
+        this.prodId = prodId;
+        this.prodName = prodName;
+        this.defaultPrice = defaultPrice;
+        this.prodCategory = prodCategory;
+        this.prodImg = prodImg;
+        this.prodDetailPage = prodDetailPage;
+        this.discountRate = discountRate;
+        this.prodStock = prodStock;
+        this.prodStatus = prodStatus;
+        this.prodImgUrl = prodImgUrl;
+        this.prodDetailPageUrl = prodDetailPageUrl;
+        this.prodImgUuid = prodImgUuid;
+        this.prodDetailPageUuid = prodDetailPageUuid;
+    }
+
 
 }
