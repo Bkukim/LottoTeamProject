@@ -47,8 +47,8 @@ public class ProductService {
     }
 
     // todo 전체조회
-    public Page<Product> findAllByProdName(String prodName, Pageable pageable){
-        Page<Product> product = productRepository.findAllByProdNameContaining(prodName, pageable);
+    public Page<IProductDto> findAllByProdName(String prodName, Pageable pageable){
+        Page<IProductDto> product = productRepository.findAllByProdNameContaining(prodName, pageable);
         return product;
     }
 
@@ -59,18 +59,6 @@ public class ProductService {
         return product;
     }
 
-    // todo : page 전체조회
-    public Page<Product> findAllByProdNameContaining(
-            String prodName,
-            Pageable pageable
-    ) {
-        Page<Product> page
-                = productRepository.findAllByProdNameContaining(
-                prodName,
-                pageable
-        );
-        return page;
-    }
 
 
 

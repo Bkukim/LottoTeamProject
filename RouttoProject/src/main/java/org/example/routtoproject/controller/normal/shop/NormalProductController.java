@@ -129,7 +129,7 @@ public class NormalProductController {
 
     //    TODO: 상품 이름 검색 전체조회 함수
 //    조회(select) -> get 방식 -> @GetMapping
-    @GetMapping("/product")
+    @GetMapping("/product/search")
     public ResponseEntity<Object> findAll(
             @RequestParam(defaultValue = "") String prodName,
             @RequestParam(defaultValue = "0") int page,
@@ -140,9 +140,9 @@ public class NormalProductController {
             Pageable pageable = PageRequest.of(page, size);
 
 //            전체 조회 서비스 실행
-            Page<Product> products
+            Page<IProductDto> products
                     = productService
-                    .findAllByProdNameContaining(prodName, pageable);
+                    .findAllByProdName(prodName, pageable);
 
 //            공통 페이징 객체 생성 : 자료구조 맵 사용
             Map<String, Object> response = new HashMap<>();
