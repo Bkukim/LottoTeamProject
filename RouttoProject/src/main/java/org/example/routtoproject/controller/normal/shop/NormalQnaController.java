@@ -62,7 +62,7 @@ public class NormalQnaController {
             Page<Qna> qna
                     = qnaservice
 
-                    .selectByTitleContaining(pageable);
+                    .findByProdId(prodId, pageable);
 
 
 //            공통 페이징 객체 생성 : 자료구조 맵 사용
