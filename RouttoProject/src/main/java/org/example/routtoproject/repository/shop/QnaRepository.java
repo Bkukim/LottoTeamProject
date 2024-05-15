@@ -42,4 +42,11 @@ public interface QnaRepository extends JpaRepository<Qna, Integer> {
     Page<Qna> findAllByWriterIdContaining(@Param("writerId") String writerId,
                                         Pageable pageable);
 
+    //    관리자 전체 조회 + 페이지
+    @Query(value = "SELECT * FROM LOTTO_QNA"
+            ,countQuery = "SELECT count (*) FROM LOTTO_QNA"
+            ,nativeQuery = true)
+
+    Page<Qna> findAllByQnaContent(Pageable pageable);
+
 }

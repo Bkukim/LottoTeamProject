@@ -10,12 +10,19 @@ class QnaService {
 
     return http.get(
       `/normal/shop/qna?prodId=${prodId}&page=${page}&size=${size}`,
-      {
-        headers: AuthHeader(),
-      }
     );
 
   }
+
+    // TODO: 관리자가 QnA 전체 조회
+    getAllAdminQna(page, size) {
+      return http.get(
+        `/admin/qna?page=${page}&size=${size}`,{
+          headers: AuthHeader(),
+        }
+      );
+  
+    }
 
   // TODO: 저장함수
   create(data) {
@@ -41,16 +48,14 @@ class QnaService {
     });
   }
 
-  //   // TODO: 관리자 :: 답변으로 수정함수 : qnaId,
-  //   updateAnswer(faqId, data) {
-  //     // TODO: 수정(update) -> put 방식 -> @PutMapping
-  //     // TODO: 사용법 : http.put(`/컨트롤러함수url/${dno}`, 수정할객체)
-  //     return http.put(`/admin/faq/updateanswer/${faqId}`, data,
-  //     {
-  //       headers: AuthHeader()
-  //     }
-  //     );
-  //   }
+    // TODO: 관리자 :: 답변으로 수정함수 : qnaId,
+    updateAdminAnswer(qnaId, data) {
+      return http.put(`/admin/qna/update/${qnaId}`, data,
+      {
+        headers: AuthHeader()
+      }
+      );
+    }
 
   // TODO: 삭제함수 : 부서번호(dno)
   // TODO: 삭제(delete) -> delete 방식 -> @DeleteMapping
