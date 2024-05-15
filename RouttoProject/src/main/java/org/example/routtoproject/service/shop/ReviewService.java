@@ -42,24 +42,22 @@ public class ReviewService {
     private final ReviewRepository reviewRepository;
 
 
-
 //    todo: review 전체 조회 + 페이징
 
-public Page<Review> findAll(Pageable pageable) {
-    Page<Review> page = reviewRepository.findReviewByTitleContaining(pageable);
+    public Page<Review> findAll(Pageable pageable) {
+        Page<Review> page = reviewRepository.findReviewByTitleContaining(pageable);
 
-    return page;
-}
+        return page;
+    }
 
 
+    //    todo: review 상세 조회
+    public Optional<Review> findById(Integer reviewId) {
+        Optional<Review> review = reviewRepository.findById(reviewId);
+        return review;
+    }
 
-//    todo: review 상세 조회
-public Optional<Review> findById(Integer reviewId) {
-    Optional<Review> review = reviewRepository.findById(reviewId);
-    return review;
-}
-
-//    todo: user -> review 저장 함수
+    //    todo: user -> review 저장 함수
     public Review save(String userId,
                        int prodId,
                        int point,
@@ -69,7 +67,7 @@ public Optional<Review> findById(Integer reviewId) {
                        String reviewImgUuid // 파일 업로드 클래스로, 이 형태로 파일이 이동되므로 이 형태로 파일을  받아야한다는 거을 정해주는 것.
     ) { // 파일을 만들때는 예외처리가 필요하다. 그리고 매개변수를 객체로 받으면 복잡할 수 있어서 변수로 받는다.
         Review review2 = null;
-        try{
+        try {
 //            null 아님 -> "" 고침
             if (reviewImgUrl.equals("")) {
                 // todo : 기본키가 없을때 : insert
@@ -94,15 +92,21 @@ public Optional<Review> findById(Integer reviewId) {
                         reviewImgUuid); // 우리가 만든 url
                 review2 = reviewRepository.save(review);
             }
-        } catch (Exception e){
+        } catch (Exception e) {
             log.debug(e.getMessage());
         }
         return review2;
     }
 
     // todo 리뷰 이미지 불러오기
-    public Optional<Review> findReviewImgByUuid(String uuid){
+    public Optional<Review> findReviewImgByUuid(String uuid) {
         Optional<Review> review = reviewRepository.findByReviewImgUuid(uuid);
         return review;
+    }
+
+    // todo 리뷰 전체 조회 함수 페이징 기능
+    public Page<IReviewDto> findByProdId(int prodId, Pageable pageable) {
+        Page<IReviewDto> page = reviewRepository.findByProdId(prodId, pageable);
+        return page;
     }
 }

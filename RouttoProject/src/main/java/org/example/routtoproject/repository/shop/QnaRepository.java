@@ -27,10 +27,11 @@ public interface QnaRepository extends JpaRepository<Qna, Integer> {
 
 
 //    전체 조회 + 페이지
-    @Query(value = "SELECT * FROM LOTTO_QNA"
-            ,countQuery = "SELECT count (*) FROM LOTTO_QNA"
-            ,nativeQuery = true)
-    Page<Qna> findQnaByTitleContaining(Pageable pageable);
+@Query(value = "SELECT * FROM LOTTO_QNA WHERE PROD_ID=:prodId"
+        ,countQuery = "SELECT count (*) FROM LOTTO_QNA  WHERE PROD_ID=:prodId"
+        ,nativeQuery = true)
+
+    Page<Qna> findByProdId(int prodId, Pageable pageable);
 
 //    userId가 작성한 글 보기
     @Query(value = "SELECT * FROM LOTTO_QNA\n" +
