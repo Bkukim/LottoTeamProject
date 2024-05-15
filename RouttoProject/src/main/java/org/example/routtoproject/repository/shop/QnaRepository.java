@@ -27,9 +27,11 @@ public interface QnaRepository extends JpaRepository<Qna, Integer> {
 
 
 //    전체 조회 + 페이지
+
 @Query(value = "SELECT * FROM LOTTO_QNA WHERE PROD_ID=:prodId"
         ,countQuery = "SELECT count (*) FROM LOTTO_QNA  WHERE PROD_ID=:prodId"
         ,nativeQuery = true)
+
 
     Page<Qna> findByProdId(int prodId, Pageable pageable);
 
@@ -41,5 +43,12 @@ public interface QnaRepository extends JpaRepository<Qna, Integer> {
             ,nativeQuery = true)
     Page<Qna> findAllByWriterIdContaining(@Param("writerId") String writerId,
                                         Pageable pageable);
+
+    //    관리자 전체 조회 + 페이지
+    @Query(value = "SELECT * FROM LOTTO_QNA"
+            ,countQuery = "SELECT count (*) FROM LOTTO_QNA"
+            ,nativeQuery = true)
+
+    Page<Qna> findAllByQnaContent(Pageable pageable);
 
 }

@@ -24,7 +24,7 @@
       </table>
     </div>
 
-    <!-- 문의사항 등록 버튼  :: 공지사항거 들고오기-->
+    <!-- 수정, 삭제 버튼-->
     <div class="d-grid gap-2 d-md-flex justify-content-md-end">
       <!-- 등록시 고객센터 글 목록으로 재이동 :: -->
       <!-- TODO: v-if , 본인아이디가 아니면 수정과 삭제가 안보이게 해둠-->
@@ -43,54 +43,56 @@
       </div>
     </div>
 
-    <!-- <div class="container"> -->
+    <div class="container">
       <!-- TODO: 회원한테 보이는 답변댓글 (상세)조회창 -->
 
-      <!-- <div class="re_div">
+      <div class="re_div">
         <h5 class="text-main"></h5>
-        {{ this.faqList.faqAnswer }}
+        {{ this.qnaList.qnaAnswer }}
+        <br>
+        <br>
         <div class="row justify-content-end">
           <div class="col-auto mt-5">
-            <p class="updateTime">{{ this.faqList.updateTime }}</p>
+            <p class="updateTime">{{ this.qnaList.updateTime }}</p>
           </div>
         </div>
-      </div> -->
+      </div>
 
       <!-- TODO: 관리자 수정 댓글 창 -->
-      <!-- <div
+      <div
         class="mt-5 row rebox text-aling"
         v-if="this.$store.state.user?.role == 'ROLE_ADMIN'"
       >
-        <h5 class=""></h5> -->
+        <h5 class=""></h5>
 
         <!-- 댓글 입력 -->
-        <!-- <div class="row mt-3">
+        <div class="row mt-3">
           <label for="comment" class="col-sm-5 col-form-label main_text"
-            >No: {{ faqList.faqId }} 관리자 답변</label
-          > -->
-          <!-- <div class="col-sm-12">
+            >No: {{ qnaList.qnaId }} 관리자 답변</label
+          >
+          <div class="col-sm-12">
             <textarea
               class="borderA form-control"
               id="comment"
               rows="8"
-              v-model="this.faqList.faqAnswer"
+              v-model="this.qnaList.qnaAnswer"
             ></textarea>
-          </div> -->
+          </div>
 
           <!-- 등록답변 -->
-          <!-- <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+          <div class="d-grid gap-2 d-md-flex justify-content-md-end">
             <button
               id="button1"
               class="mt-4 btn"
               type="button"
-              @click="updateFaqAnswer"
+              @click="updateQnaAnswer"
             >
               답변등록
             </button>
-          </div> -->
-        <!-- </div> -->
-      <!-- </div> -->
-    <!-- </div> -->
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -129,25 +131,46 @@ export default {
     // 문의글 삭제 함수
     async deleteQna() {
       try {
-        let response = await QnaService.delete(this.qnaList.qnaId);
-        this.$router.push("/product/" + this.qnaList.qnaId);
+        let result = confirm("정말로 삭제하시겠습니까?")
+        if (result) {
+            let response = await QnaService.delete(this.qnaList.qnaId);
         // 로깅
         console.log(response.data);
         alert("문의글이 삭제되었습니다.");
+        this.$router.push("/product/" + this.qnaList.prodId);
+        }else{
+          return;
+        }
+      
       } catch (e) {
         console.log(e);
       }
     },
 
-    
-  },
+
+    // 답변 저장함수
+
+    async updateQnaAnswer() {
+      try {
+        let response = await QnaService.updateAdminAnswer(
+          this.qnaList.qnaId,
+          this.qnaList
+        );
+        alert("답변이 등록되었습니다.");
+        this.$router.push("/admin/inquiry/qnaList");
+        console.log(response.data);
+      } catch (e) {
+        console.log(e);
+      }
+
+  },},
   mounted() {
     window.scrollTo(0, 0);
     this.retrieveGet(this.$route.params.qnaId);
   },
   computed: {
-    reTitle() {
-      return "RE:  " + this.faqList.faqTitle;
+    reAdminTitle() {
+      return "RE:  " + this.qnaList.qnaTitle;
     },
   },
 };
