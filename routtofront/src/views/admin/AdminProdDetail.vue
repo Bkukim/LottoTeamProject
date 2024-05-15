@@ -154,6 +154,36 @@
       </label>
     </div>
     <!-- 재고 배너 끝 -->
+    
+    <!-- 판매상태 배너 시작 -->
+    <div
+      class="container mt-4"
+      style="
+        border: 1px solid black;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        height: 60px;
+      "
+    >
+      <label><b>판매 상태</b></label
+      ><label style="display: flex; align-items: center; height: 100%">
+        
+              <select
+                class="form-select"
+                aria-label="Default select example"
+                id="prodStatus"
+                v-model="product.prodStatus"
+              >
+                
+                <option value="판매중">판매중</option>
+                <option value="품절">품절</option>
+                <!-- <option value="5">구매확정</option> -->
+              </select>
+         
+      </label>
+    </div>
+    <!-- 판매상태 배너 끝 -->
 
     <!-- 이미지 추가 배너 시작 -->
     <div
@@ -282,9 +312,24 @@ export default {
     // TODO: 수정요청 함수
     async updateProduct() {
       try {
+        let data = {
+          prodName: this.product.prodName,
+          defaultPrice: this.product.defaultPrice,
+          prodCategory: this.product.prodCategory,
+          prodImg: this.product.prodImage,
+          prodDetailPage: this.product.prodDetailPage,
+          prodImgUrl: this.product.prodImgUrl,
+          prodDetailPageUrl: this.product.prodDetailPageUrl,
+          discountRate: this.product.discountRate,
+          prodStock: this.product.prodStock,
+          prodStatus:this.product.prodStatus,
+          prodImgUuid: this.product.prodImgUuid,
+          prodDetailPageUuid: this.product.prodDetailPageUuid
+        };
+        console.log(data.prodStatus);
         // TODO: 공통 수정함수
         // TODO: 비동기 코딩 : async ~ await
-        let response = await AdminManageService.update(this.product); // 수정버튼을 누른다는것은, 이미 상세조회가 끝난이후며 dno에 값이 다 들어와있음.
+        let response = await AdminManageService.update(this.product.prodId,data); // 수정버튼을 누른다는것은, 이미 상세조회가 끝난이후며 dno에 값이 다 들어와있음.
         console.log(response.data); // 로깅
         alert("수정이 완료되었습니다."); // 화면에 성공메세지 출력 : message 바인딩 변수
         this.$router.push("/shop/admin/manage");
@@ -304,11 +349,11 @@ export default {
       }
     },
     previewProdImage: function () {
-      this.prodImage = this.$refs.file01.files[0];
+      this.product.prodImage = this.$refs.file01.files[0];
     },
 
     previewProdDetailPage: function () {
-      this.prodDetailPage = this.$refs.file02.files[0];
+      this.product.prodDetailPage = this.$refs.file02.files[0];
     },
     checkInput(event) {
       const inputValue = event.target.value;

@@ -70,13 +70,15 @@ public class ProductService {
 
 
     // 상품 저장함수
-    public Product save(String prodName,
+    public Product saveProduct(int prodId,
+                        String prodName,
                         int defaultPrice,
                         String prodCategory,
                         MultipartFile prodImg,
                         MultipartFile prodDetailPage,
                         int discountRate,
                         int prodStock,
+                        String prodStatus,
                         String prodImgUrl,// 파일 업로드 클래스로, 이 형태로 파일이 이동되므로 이 형태로 파일을  받아야한다는 거을 정해주는 것.
                         String prodDetailPageUrl,// 파일 업로드 클래스로, 이 형태로 파일이 이동되므로 이 형태로 파일을  받아야한다는 거을 정해주는 것.
                         String prodImgUuid,
@@ -86,7 +88,7 @@ public class ProductService {
         Product product2 = null;
         try {
 //            TODO: null 아님 -> "" 고침
-            if (prodImgUrl.equals("") && prodDetailPageUrl.equals("")) {
+            if (prodId == 0) {
                 // todo : 기본키가 없을때 : insert
                 //      1-1) uuid 생성하기
                  prodImgUuid = UUID.randomUUID().toString().replace("-", ""); // uuid 만드는 방법T
@@ -120,17 +122,30 @@ public class ProductService {
                 product2 = productRepository.save(product);
 
            }else {
-
+                // todo  1-2) 다운로드 url 생성 -> 자바함수를 이용 ※여기서 다운로드란 jsp이 spring에서 이미지를 다운받아 가져오는 것.
+                String prodImgDownload = ServletUriComponentsBuilder
+                        .fromCurrentContextPath()// 스프링 서버 기본 주소 : localhost:8000
+                        .path("/api/normal/shop/product/img/") // 추가 경로 넣기 : /advanced/fileDb
+                        .path(prodImgUuid) // uuid를 url 제일 마지막에 넣어주기
+                        .toUriString(); // 위의 url을 하나로 합쳐주는 함수 http://localhost:8000/advanced/fileDb/xxxx 가 된다.
+                String prodDetailPageDownload = ServletUriComponentsBuilder
+                        .fromCurrentContextPath()// 스프링 서버 기본 주소 : localhost:8000
+                        .path("/api/normal/shop/product/page/") // 추가 경로 넣기 : /advanced/fileDb
+                        .path(prodDetailPageUuid) // uuid를 url 제일 마지막에 넣어주기
+                        .toUriString(); // 위의 url을 하나로 합쳐주는 함수 http://localhost:8000/advanced/fileDb/xxxx 가 된다.
                 // todo  1-3) 생성자에 만든 url넣어주기
-                Product product = new Product(prodName,
+                Product product = new Product(
+                        prodId,
+                        prodName,
                         defaultPrice,
                         prodCategory,
                         prodImg.getBytes(), // 파일 데이터
                         prodDetailPage.getBytes(), // 파일 데이터
                         discountRate,
                         prodStock,
-                        prodImgUrl,
-                        prodDetailPageUrl,
+                        prodStatus,
+                        prodImgDownload,
+                        prodDetailPageDownload,
                         prodImgUuid,
                         prodDetailPageUuid); // 우리가 만든 url
                 product2 = productRepository.save(product);

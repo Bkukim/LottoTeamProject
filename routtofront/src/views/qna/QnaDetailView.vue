@@ -139,26 +139,26 @@ export default {
       }
     },
 
-    // 답변 저장함수
-    async updateFaqAnswer() {
-      try {
-        console.log("11", this.qnaList.qnaId, this.faqList.faqAnswer);
-        // TODO: 비동기 코딩 : async ~ await
-        // TODO: 객체가 전체가넘어가야함 수정이어도 하나만 수정하기 불가능 한듯?
-        let response = await FaqListService.updateAnswer(
-          this.faqList.faqId,
-          this.faqList
-        );
-        console.log("22");
+    // // 답변 저장함수
+    // async updateFaqAnswer() {
+    //   try {
+    //     console.log("11", this.qnaList.qnaId, this.faqList.faqAnswer);
+    //     // TODO: 비동기 코딩 : async ~ await
+    //     // TODO: 객체가 전체가넘어가야함 수정이어도 하나만 수정하기 불가능 한듯?
+    //     let response = await FaqListService.updateAnswer(
+    //       this.faqList.faqId,
+    //       this.faqList
+    //     );
+    //     console.log("22");
 
-        this.$router.push("/shop/inquiry-check/" + this.faqList.faqId);
-        // 로깅
-        console.log(response.data);
-        // 화면에 성공메세지 출력 : message
-      } catch (e) {
-        console.log(e);
-      }
-    },
+    //     this.$router.push("/shop/inquiry-check/" + this.faqList.faqId);
+    //     // 로깅
+    //     console.log(response.data);
+    //     // 화면에 성공메세지 출력 : message
+    //   } catch (e) {
+    //     console.log(e);
+    //   }
+    // },
   },
   mounted() {
     window.scrollTo(0, 0);
