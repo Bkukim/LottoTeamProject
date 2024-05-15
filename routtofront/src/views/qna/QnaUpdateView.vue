@@ -3,7 +3,7 @@
 <template>
   <div class="mb-5 col-13">
     <!-- 카테고리 -->
-    <h5 class="text-center main_text">문의글 수정</h5>
+    <h5 class="text-center main_text">상품문의글 수정</h5>
     <br />
     <div class="box_border">
       <div class="col-12 mb-3">
@@ -13,7 +13,7 @@
           class="borderA form-control"
           id="exampleFormControlInput1"
           placeholder=""
-          v-model="faqList.faqTitle"
+          v-model="qnaList.qnaTitle"
         />
       </div>
       <!-- 본문적는곳 -->
@@ -27,32 +27,30 @@
           class="borderA form-control"
           id="exampleFormControlTextarea1"
           rows="15"
-          v-model="faqList.faqContent"
+          v-model="qnaList.qnaContent"
         ></textarea>
       </div>
     </div>
     <!--  문의글 버튼 -->
     <div class="d-grid gap-2 d-md-flex justify-content-md-end">
       <!-- 취소시 관리자 페이지로 이동 -->
-      <button id="button2" class="btn me-md-2" type="button">
-        <router-link to="/shop/faqList" class="cencle router-link-exact-active"
-          >취소</router-link
-        >
+      <button id="button2" class="btn me-md-2" type="button" @click="deleteQna">
+        취소
       </button>
       <!-- 등록시 공지사항 목록으로 재이동 -->
       <button
         id="button1"
         class="btn"
         type="button"
-        @click="updateFaq"
+        @click="updateQna"
       >
-        등록
+        수정완료
       </button>
     </div>
   </div>
 </template>
 <script>
-import FaqListService from "@/services/noticeQnA/FaqListService";
+import QnaService from '@/services/product/QnaService';
 export default {
   data() {
     return {
@@ -60,20 +58,16 @@ export default {
       // TODO: 저장(추가:insert) 함수 : CRUD (비동기)
       // TODO: 비동기 코딩 : async ~ await
       // 그외의걸 담을 객체
-      faqList: {},
-      //  faqId:this.$route.params.faqId,
-      //  userId:this.$store.state.user.userId,
-      //  faqTitle:"",
-      //  faqContent:"" ->원래 없었던거긴한데
+      qnaList: {}
     };
   },
   methods: {
     // 상세조회
-    async getFaqId(faqId) {
+    async getQnaId(qnaId) {
       try {
         // 상세조회 공통함수 실행 :faqListService.getfaqId()
-        let response = await FaqListService.getFaqId(faqId);
-        this.faqList = response.data; // spring 결과를 바인딩 속성변수 faq 저장
+        let response = await QnaService.getQnaId(qnaId);
+        this.qnaList = response.data; // spring 결과를 바인딩 속성변수 faq 저장
         // 로깅
         console.log(response.data);
       } catch (e) {
@@ -82,29 +76,39 @@ export default {
     },
 
     // 수정요청함수
-    async updateFaq() {
+    async updateQna() {
       try {
-        console.log(this.faqList);
-        console.log("여기는 프론트" + this.faqList);
-        let response = await FaqListService.update(
-          this.faqList.faqId,
-          this.faqList
+        // console.log(this.faqList);
+        // console.log("여기는 프론트" + this.faqList);
+        let response = await QnaService.update(
+          this.qnaList.qnaId,
+          this.qnaList
         );
         alert("수정이 완료되었습니다.");
-        this.$router.push("/shop/faqList");
+        this.$router.push("/product/inquiry/detail/" + this.qnaList.qnaId);
         // 로깅
         console.log(response.data);
       } catch (e) {
-        console.log("무슨에러?"+e);
+        console.log(e);
       }
     },
+
+    async deleteQna(){
+      try {
+        alert("수정이 취소되었습니다.");
+        this.$router.push("/product/inquiry/detail/" + this.qnaList.qnaId);
+      } catch (error) {
+        console.log(error);
+      }
+    }
   },
   mounted() {
-    this.getFaqId(this.$route.params.faqId); // 상세조회 실행
-
-    this.message = ""; //초기화
     window.scrollTo(0, 0);
+    this.getQnaId(this.$route.params.qnaId); // 상세조회 실행
+    this.message = ""; //초기화
   },
 };
 </script>
-<style></style>
+<style>
+@import "@/assets/css/Button.css";
+</style>

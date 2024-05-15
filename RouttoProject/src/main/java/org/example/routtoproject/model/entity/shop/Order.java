@@ -7,9 +7,7 @@ import org.example.routtoproject.model.entity.auth.User;
 import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 /**
  * packageName : org.example.routtoproject.model.entity.shop

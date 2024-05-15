@@ -44,8 +44,10 @@ public class ReviewService {
 
 
 //    todo: review 전체 조회 + 페이징
-public Page<IReviewDto> findByProdId(int prodId, Pageable pageable) {
-    Page<IReviewDto> page = reviewRepository.findByProdId(prodId, pageable);
+
+public Page<Review> findAll(Pageable pageable) {
+    Page<Review> page = reviewRepository.findReviewByTitleContaining(pageable);
+
     return page;
 }
 

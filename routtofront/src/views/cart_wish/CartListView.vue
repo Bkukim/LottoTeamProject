@@ -76,7 +76,7 @@
               <div class="col">
                 <button
                   id="button_bg1"
-                  class="btn btn-primary btn-block"
+                  class="btn btn-block"
                   @click="
                     updateProdCount(
                       data.cartProdCount,
@@ -93,7 +93,7 @@
               <div class="col">
                 <button
                   id="button_bg1"
-                  class="btn btn-primary btn-block"
+                  class="btn btn-block"
                   @click="goOrderProd"
                 >
                   구매하기
@@ -171,7 +171,7 @@
         <button
           type="button"
           id="button2"
-          class="btn btn-primary"
+          class="btn"
           @click="deleteAllCart(cart)"
         >
           전체상품 삭제하기

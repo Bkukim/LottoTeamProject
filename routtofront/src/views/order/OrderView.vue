@@ -509,12 +509,7 @@
             </button>
           </div> -->
 
-          <!-- 임시 결제 버튼 -->
-          <div class="mt-4">
-            <button type="button" id="btnPay" @click="saveOrder">
-              주문확인
-            </button>
-          </div>
+         
         </div>
         <!-- 7. 결제 버튼 -->
         <div class="mt-4">

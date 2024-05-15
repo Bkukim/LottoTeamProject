@@ -73,25 +73,25 @@ public class NormalReviewController {
         }
     }
 
-    //    todo: 상세조회 만들기(안씀)
-    @GetMapping("/review/{reviewId}")
-    public ResponseEntity<Object> findById(
-            @PathVariable int reviewId
-    ) {
-        try {
-//            상세조회 서비스 실행
-            Optional<Review> reviewOptional
-                    = reviewService.findById(reviewId);
-
-            if (reviewOptional.isEmpty() == true) {
-                return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-            } else {
-                return new ResponseEntity<>(reviewOptional.get(), HttpStatus.OK);
-            }
-        } catch (Exception e) {
-            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
-        }
-    }
+//    //    todo: 상세조회 만들기(안씀)
+//    @GetMapping("/review/{reviewId}")
+//    public ResponseEntity<Object> findById(
+//            @PathVariable int reviewId
+//    ) {
+//        try {
+////            상세조회 서비스 실행
+//            Optional<Review> reviewOptional
+//                    = reviewService.findById(reviewId);
+//
+//            if (reviewOptional.isEmpty() == true) {
+//                return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+//            } else {
+//                return new ResponseEntity<>(reviewOptional.get(), HttpStatus.OK);
+//            }
+//        } catch (Exception e) {
+//            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+//        }
+//    }
 
 //    //    TODO: 리뷰 이미지 파일 다운로드 함수
     @GetMapping("/review/img/{uuid}")

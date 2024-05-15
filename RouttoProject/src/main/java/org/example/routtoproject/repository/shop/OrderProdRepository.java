@@ -3,8 +3,8 @@ package org.example.routtoproject.repository.shop;
 import jakarta.transaction.Transactional;
 import org.example.routtoproject.model.dto.shop.ICartDto;
 import org.example.routtoproject.model.dto.shop.OrderProductDetailDto;
+import org.example.routtoproject.model.dto.shop.OrderProductInfoDto;
 import org.example.routtoproject.model.entity.shop.OrderProd;
-import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
@@ -41,25 +41,25 @@ public interface OrderProdRepository extends JpaRepository<OrderProd, Integer> {
             nativeQuery = true)
     List<OrderProductDetailDto> findAllByorderProdIdContaining(@Param("orderId") Integer orderId);
 
-    //    todo: user의 cart에서 전체 주문하기로 들어오면 뜨는 주문페이지
-    @Query(value = "SELECT LU.USER_ID AS userId,\n" +
-            "LC.PROD_ID AS prodId,\n" +
-            "Lp.PROD_NAME AS prodName,\n" +
-            "LP.PROD_IMG_URL  AS prodImgUrl,\n" +
-            "LP.DEFAULT_PRICE * (1-LP.DISCOUNT_RATE/100) AS prodPrice,\n" +
-            "LC.CART_PROD_COUNT AS cartProdCount,\n" +
-            "LP.DEFAULT_PRICE * (1-LP.DISCOUNT_RATE/100)*LC.CART_PROD_COUNT AS totalPrice\n" +
-            "FROM LOTTO_USER LU, LOTTO_CART LC, LOTTO_PRODUCT LP\n" +
-            "WHERE LU.USER_ID = LC.USER_ID\n" +
-            "AND LC.PROD_ID = LP.PROD_ID\n" +
-            "AND LC.USER_ID = :userId"
-            , nativeQuery = true)
-    List<ICartDto> findByUserIdContaining(@Param("userId") String userId);
 
+//  TODO: 주문 정보 삭제 : 자식 테이블의 orderProdId 삭제를 위한 쿼리
     @Transactional
     @Modifying
     @Query(value = "DELETE FROM LOTTO_ORDER_PROD\n" +
             "WHERE ORDER_ID = :orderId"
     ,nativeQuery = true)
     void deleteOrderProdId(@Param("orderId") Integer orderId);
+
+//  TODO: orderId 로 주문 상품 정보 조회 쿼리
+@Query(value = "SELECT OP.ORDER_PROD_ID FROM LOTTO_ORDER OD, LOTTO_ORDER_PROD OP WHERE OD.ORDER_ID = OP.ORDER_ID AND OD.ORDER_ID = :orderId", nativeQuery = true)
+List<Integer> findOrderProdIdsByOrderIdNative(int orderId);
+
+//  TODO: 주문 상품 정보 조회 쿼리
+@Query(value = "SELECT OP.ORDER_AMOUNT AS orderAmount," +
+        " PR.PROD_NAME AS prodName," +
+        "PR.DEFAULT_PRICE AS defaultPrice," +
+        " PR.PROD_IMG_URL AS prodImgUrl " +
+        "FROM LOTTO_ORDER_PROD OP, LOTTO_PRODUCT PR " +
+        "WHERE OP.PROD_ID = PR.PROD_ID AND OP.ORDER_PROD_ID = :orderProdId", nativeQuery = true)
+List<OrderProductInfoDto> findOrderProductDetails(@Param("orderProdId") int orderProdId);
 }

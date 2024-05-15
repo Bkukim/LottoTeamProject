@@ -398,19 +398,6 @@
       > -->
     </div>
     <div class="mt-5 text-center">
-      <!-- 서치 -->
-      <div class="row justify-content-end">
-        <form class="d-flex mt-3 col-5" role="search">
-          <input
-            class="form-control me-2"
-            type="search"
-            placeholder="검색"
-            aria-label="Search"
-          />
-          <button class="btn btn-outline-success" type="submit">검색</button>
-        </form>
-      </div>
-
       <table
         class="table mt-5"
         :style="{ 'vertical-align': 'middle', 'text-align': 'center' }"
@@ -429,19 +416,21 @@
           <tr
             v-for="(data, index) in qnaList"
             :key="index"
-            @click="goQnaDetail"
           >
             <td scope="col">
               {{ data.qnaId }}
             </td>
-            <td scope="col">
-              <router-link
+
+             <td scope="col">
+              <!-- <router-link
                 :to="'/product/inquiry/' + data.qnaId"
-                style="text-decoration: none"
-                class="router-link-active"
-              >
-                {{ data.qnaTitle }}</router-link
-              >
+                style="text-decoration: none;"
+              > -->
+              <!-- <router-link :to="'/product/inquiry/' + data.qnaId">
+                {{ data.qnaTitle }}</router-link> -->
+                <!-- </router-link> -->
+                <router-link :to="`/product/inquiry/detail/${data.qnaId}`">{{ data.qnaTitle }}</router-link>
+
             </td>
             <td scope="col">
               {{ data.writerId }}
@@ -468,6 +457,17 @@
       </div>
     </div>
 
+      <!-- 리뷰 작성 버튼 -->
+      <button
+        type="button"
+        class="btn"
+        id="reviewWrite"
+        style="float: right"
+        @click="goUserDetail"
+      >
+        내가 쓴 글 보기
+      </button>
+
     <!-- 관리자 등록 버튼 :: 공지사항 글등록으로 이동-->
     <!-- <div class="row justify-content-end">
       <button type="button" id="button1" class="mt-5 btn">
@@ -481,9 +481,10 @@
 
 <script>
 import ProductService from "@/services/product/ProductService";
-import CartService from "@/services/product/CartService";
+
 import ReviewService from "@/services/product/ReviewService";
 import QnaService from "@/services/product/QnaService";
+import CartService from '@/services/cart/CartService';
 
 export default {
   data() {
@@ -641,7 +642,7 @@ export default {
         };
         // console.log("확인", data);
         // TODO: 공통 저장 서비스 함수 실행, async ~ await
-        let response = await CartService.create(data);
+        let response = await CartService.saveProductToCart(data);
         if (response.data == true) {
           // alert(response.data)
           alert("장바구니에 이미 상품이 존재합니다.");
@@ -682,6 +683,11 @@ export default {
         inquirySection.scrollIntoView({ behavior: "smooth", block: "start" });
       }
     },
+
+// 내가 쓴 글 보기
+    goUserDetail(){
+this.$router.push("/product/inquiry/mypage");
+    }
   },
   mounted() {
     // 화면 뜰때 상단이 뜨게 해주는 함수

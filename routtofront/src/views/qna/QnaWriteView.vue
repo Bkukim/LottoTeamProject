@@ -110,7 +110,6 @@ export default {
         let response = await QnaService.create(data);
         alert("상품문의가 등록되었습니다.");
         this.$router.push("/product/" + this.$route.params.prodId);
-        // console.log(this.$route);
         // TODO: 콘솔에 결과 출력
         console.log(response);
         // this.submitted = true; // 저장유무변수=true 변경

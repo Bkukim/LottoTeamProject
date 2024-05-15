@@ -495,14 +495,14 @@
           <!-- 임시 결제 버튼 -->
           <div class="mt-4">
             <button type="button" id="btnPay" @click="saveOrder">
-              주문확인
+              결제하기
             </button>
           </div>
         </div>
-        <!-- 7. 결제 버튼 -->
+        <!-- 7. 결제 버튼
         <div class="mt-4">
           <button type="button" id="btnPay" @click="togglePaymentModal">결제하기</button>
-        </div>
+        </div> -->
       </div>
     </div>
     <!-- 결제 버튼 -->
@@ -535,6 +535,7 @@ import CheckoutViewVue from "../payment/CheckoutView.vue";
 import UserService from "@/services/user/UserService";
 import ProductService from "@/services/product/ProductService";
 import OrderService from "@/services/product/OrderService";
+import CartService from '@/services/cart/CartService';
 
 export default {
   components: {
@@ -612,7 +613,7 @@ export default {
   methods: {
     async retreiveCartAll(userId) {
       try {
-        let response = await OrderService.getOrder(userId);
+        let response = await CartService.getCartAll(userId);
         console.log(response.data);
         this.cartList = response.data;
         this.sumTotalPrice();
@@ -683,11 +684,16 @@ export default {
         data.orderRequest = this.orderRequestDetail;
       }
 
-      try {
-        let response = await OrderService.saveOrder(data); // 주문 정보를 서버에 전송(post 요청 수행)
-        console.log(response.data);
-        this.$router.push("/order/payment");
+      // TODO: 결제 창으로 주문정보 전송 및 결제창 오픈
+        try {
+        let response = await OrderService.saveOrder(data); // 주문 정보를 서버에 전송(post 요청 수행) 화면 입력값이 temp
+        console.log("결제 클릭 ", response.data);
+        // this.orderData = response.data; // 주문 정보를 orderData에 저장
+        // this.isModalVisible = true; // 모달 창을 보여준다
+        this.$router.push("/order/payment/" + response.data.orderId);
+        // this.isModalVisible = !this.isModalVisible; // 결제하기 버튼 클릭 시 모달 상태 토글
       } catch (error) {
+        alert("여기")
         console.log(error);
       }
     },

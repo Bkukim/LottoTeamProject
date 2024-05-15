@@ -43,7 +43,7 @@ public class QnaService {
         return page;
     }
 
-    // todo: 상품문의 작성글 저장 함수
+    //   todo: 상품문의 작성글 저장 함수
     public Qna save(Qna qna) {
 //        JPA 저장 함수 실행 : return 값 : 저장된 객체
         Qna qna1 = qnaRepository.save(qna);
@@ -54,5 +54,28 @@ public class QnaService {
     public Optional<Qna> findById(int qnaId) {
         Optional<Qna> qna = qnaRepository.findById(qnaId);
         return qna;
+    }
+
+    //    todo : userId가 작성한 글 전체조회
+    public Page<Qna> selectByWriterIdContaining(String writerId, Pageable pageable)
+    {
+        Page<Qna> page
+                = qnaRepository.findAllByWriterIdContaining(writerId, pageable);
+        return page;
+    }
+
+    //    todo: 문의글 삭제
+    public boolean removeById(int qnaId) {
+//        JPA 삭제함수 : deleteById(기본키)
+//        1) 먼저 기본키가 테이블에 있으면 삭제, true 리턴
+//           없으면 false 리턴
+//        사용법 : jpa레포지토리.existsById(기본키)
+//         => 기본키가 테이블에 있으지 확인. 있으면 true, 없으면 false
+        if(qnaRepository.existsById(qnaId) == true) {
+            qnaRepository.deleteById(qnaId);
+            return true;
+        } else {
+            return false;
+        }
     }
 }

@@ -162,10 +162,11 @@
             <!-- 주문 상품 사진 및 상품 정보 -->
             <div
               style="display: flex; align-items: center"
+              v-for="(data, index) in prodInfoList" :key="index"
             >
               <div class="col-md-2 col-form-label" style="min-width: 100px">
                 <img
-                  :src="product.prodImgUrl"
+                  :src="data.prodImgUrl"
                   alt="상품 이미지"
                   style="width: 100px; height: 100px"
                 />
@@ -178,9 +179,9 @@
               >
                 상품 정보
                 <br />
-                <label>상품명 : {{ product.prodName }}</label>
+                <label>상품명 : {{ data.prodName }}</label>
                 <br />
-                <label>수량 : {{ products.orderAmount }} 개</label>
+                <label>수량 : {{ data.orderAmount }} 개</label>
                 <br />
                 <label>금액 : {{ order.orderPrice }}</label>
                 <br />
@@ -276,24 +277,18 @@
 
 <script>
 import OrderService from '@/services/product/OrderService';
-import { mapState } from "vuex";
 import CheckoutView from '../payment/CheckoutView.vue';
-import AdminManageService from '@/services/admin/AdminManageService';
-// import PaymentService from '@/services/payment/PaymentService';
 
 export default {
   
   computed: {
-    // Vuex 스토어의 상태를 매핑합니다.
-    ...mapState(['accountNumber']),
     CheckoutView,
   },
   data() {
     return {
       order: null,
       phone: "",
-      product: {},
-      products:[],
+      prodInfoList: [],
       // payment: null,
       // userPhoneNum: this.user.userPhoneNum,
       // 주문완료 이미지 경로
@@ -324,31 +319,58 @@ export default {
         console.log(e);
       }
     },
-
-    // TODO: orderProdId로 주문 상품 정보 받아오기
-    async retrieveProduct(orderProdId) {
-      try {
-        console.log("주문번호" + orderProdId)
-        let response = await OrderService.getProdInfo(orderProdId);
-        this.products = response.data;
-        console.log("주문 번호", response.data);
-      } catch (error) {
-        console.log(error);
-      }
-    },
-    // TODO: prodId로 주문 상품 정보 받아오기
-        async getProduct(prodId) {
-      try {
-        console.log("상품 정보",prodId)
-        let response = await AdminManageService.get(prodId);
-        this.product = response.data; // 전체조회에서는 배열이었으나, 여기서는 객체 한개다. spring 결과를 바인딩 속성변수 product 에 저장
-        // 로깅
-        console.log("상품 정보보보", response.data);
-      } catch (e) {
-        console.log(e);
-      }
-    },
-    // 주문 확인하기 버튼 클릭시 실행될 함수
+    // TODO: orderId로 orderProdId 받아오기
+    // async getProdId(orderId) {
+    //   try {
+    //     let response = await OrderService.getOrderProduct(orderId);
+    //     this.prodId = response.data;
+    //     console.log("주문상품번호", response.data);
+    //   } catch (e) {
+    //     console.log(e);
+    //   }
+    // },
+    // TODO: 밑에껀 혹시 모르니 살려둬
+//   async getProdId(orderId) {
+//   try {
+//     let response = await OrderService.getOrderProduct(orderId);
+//     this.prodId = response.data;
+//     console.log("주문상품번호", response.data);
+//   } catch (e) {
+//     console.log(e);
+//   }
+// },
+// async getProductInfo(orderProdId) {
+//   try {
+//     let response = await OrderService.getProductInfo(orderProdId);
+//     this.productInfo = response.data;
+//     console.log("상품 정보 입니다", response.data);
+//   } catch (e) {
+//     console.log(e);
+//   }
+// },
+// TODO: 이 부분까지
+async getProdId(orderId) {
+  try {
+    let response = await OrderService.getOrderProduct(orderId);
+    this.prodId = response.data;
+    console.log("주문상품번호", response.data);
+    // 여기서 getProductInfo 함수 호출
+    await this.getProductInfo(response.data);
+  } catch (e) {
+    console.log(e);
+  }
+},
+async getProductInfo(orderProdId) {
+  try {
+    let response = await OrderService.getProductInfo(orderProdId);
+    this.prodInfoList = response.data;
+    console.log("추가된 후 prodInfoList: ", this.prodInfoList);
+    console.log("상품 정보 입니다", response.data);
+  } catch (e) {
+    console.log(e);
+  }
+},
+    // TODO: 주문 확인하기 버튼 클릭시 실행될 함수
     goToMyPage() {
       this.$router.push("/member/mypage");
     },
@@ -360,8 +382,9 @@ export default {
   mounted() {
     this.retrieveOrder(this.$route.params.orderId);
     this.retrieveUser(this.$route.params.orderId);
-    this.retrieveProduct(this.$route.params.orderProdId);
-    this.getProduct(this.$route.params.prodId);
+    // this.retrieveProduct(this.$route.params.prodId);
+    this.getProdId(this.$route.params.orderId);
+    this.getProductInfo(this.$route.params.orderProdId);
 
     window.scrollTo(0, 0);
 

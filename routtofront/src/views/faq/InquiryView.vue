@@ -70,7 +70,7 @@
     <!-- 문의사항 등록 버튼  :: 공지사항거 들고오기-->
     <div class="d-grid gap-2 d-md-flex justify-content-md-end">
       <!-- 취소시 메인 페이지로 이동 -->
-      <button id="button2" class="btn btn-primary me-md-2" type="button">
+      <button id="button2" class="btn me-md-2" type="button">
         <router-link to="/" class="cencle router-link-exact-active"
           >취소</router-link
         >
@@ -78,7 +78,7 @@
       <!-- 등록시 고객센터 글 목록으로 재이동 -->
       <button
         id="button1"
-        class="btn btn-primary"
+        class="btn"
         type="button"
         @click="saveFaq"
       >
