@@ -78,4 +78,10 @@ public class QnaService {
             return false;
         }
     }
+
+    //    todo: 관리자 qna 전체 조회 + 페이징
+    public Page<Qna> findAllQna(Pageable pageable) {
+        Page<Qna> page = qnaRepository.findAllByQnaContent(pageable);
+        return page;
+    }
 }

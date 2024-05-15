@@ -26,7 +26,7 @@
         <router-link to="/shop/admin/refund" class="kim-div3"
           >환불관리</router-link
         >
-        <router-link to="" class="kim-div3">상품 QNA</router-link>
+        <router-link to="/admin/inquiry/qnaList" class="kim-div3">상품 QNA</router-link>
         <router-link to="" class="kim-div3">고객문의</router-link>
         <router-link to="/admin/banner-list" class="kim-div3">홍보배너관리</router-link>
       </div>

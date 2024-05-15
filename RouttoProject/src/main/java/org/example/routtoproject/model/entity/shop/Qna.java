@@ -50,4 +50,5 @@ public class Qna extends BaseTimeEntity {
     private String qnaTitle;
     private String qnaContent;
     private String writerId;
+    private String qnaAnswer;
 }
