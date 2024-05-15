@@ -25,7 +25,38 @@
               </div>
             </div>
           </div>
+ <!-- 메인페이지 상품바로가기 반복문 -->
+    <div class="product-wrapper container text-center">
+      <div
+        class="product2_in image-kim"
+        v-for="(data, index) in products"
+        :key="index"
+      >
+        <!-- 상품이미지 -->
+        <router-link :to="'/product/' + data.prodId"
+          ><img
+            class="frame-11"
+            :src="data.prodImgUrl"
+            style="max-width: 400px; max-height: 400px"
+        /></router-link>
 
+        <div class="abcdefghijklm">
+          <p>{{ data.prodName }}</p>
+        </div>
+
+        <div class="abcdefghijklm2">
+          <p>완벽밀착! 자연스럽고 매끄러운 피부</p>
+        </div>
+
+        <div class="_24">★ ★ ★ ★ ★</div>
+
+        <div class="abcdef">
+          {{ (data.defaultPrice * (100 - data.discountRate)) / 100 + " won" }}
+        </div>
+        <!-- </div> -->
+      </div>
+    </div>
+    <!-- 메인페이지 상품바로가기 반복문 끝-->
           <div class="col-md-8">
             <div class="row" v-for="(data, index) in products" :key="index">
               <div class="col-md-4 mr-4">
@@ -44,15 +75,19 @@ export default {
   data() {
     return {
       products:[],
-      searchProduct:""
+      searchProduct:"",
 
+      page: 1, // 현재페이지번호
+      count: 0, // 전체 데이터개수
+      pageSize: 3, // 화면에 보여질 개수
     }
   },methods: {
     retrieveProduct(){
       try {
-        let response = ProductService.getSearchProductAll(this.searchProduct)
+        let response = ProductService.getSearchProductAll(this.searchProduct,this.page-1,this.pageSize)
         console.log(response.data);
-        this.products = response.data;
+        this.products = response.data.products;
+        this.count = response.data.totalItems;
       } catch (error) {
         console.log(error);
       }

@@ -77,14 +77,14 @@ public interface ProductRepository extends JpaRepository<Product, Integer> {
             "PROD_IMG_URL AS prodImgUrl\n" +
             "FROM LOTTO_PRODUCT\n" +
             "WHERE PROD_STOCK <> 0 AND PROD_STATUS = '판매중'\n" +
-            "AND PROD_NAME = :prodName\n" +
+            "AND PROD_NAME LIKE '%' ||:prodName ||'%'\n" +
             "ORDER BY SOLD_COUNT"
             ,countQuery = "SELECT count(*) FROM LOTTO_PRODUCT\n" +
             "WHERE PROD_STOCK <> 0 AND PROD_STATUS = '판매중'\n" +
-            "AND PROD_NAME = :prodName\n" +
+            "AND PROD_NAME LIKE '%' ||:prodName ||'%'\n" +
             "ORDER BY SOLD_COUNT"
             ,nativeQuery = true)
-    Page<Product> findAllByProdNameContaining(@Param("prodName") String prodName,
+    Page<IProductDto> findAllByProdNameContaining(@Param("prodName") String prodName,
                                            Pageable pageable
     );
 

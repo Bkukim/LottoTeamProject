@@ -24,6 +24,9 @@ class ProductService {
     return http.get("/normal/shop/product/best")
   }
 
+  getSearchProductAll(prodName,page,size){
+    return http.get(`/normal/shop/product/search?prodName=${prodName}&page=${page}&size=${size}`)
+  }
 }
 
 export default new ProductService();
