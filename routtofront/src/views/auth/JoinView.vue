@@ -1,7 +1,4 @@
 <template>
-  <br />
-  <br />
-  <br />
   <div class="container mt-5">
     <div class="row">
       <div class="col"></div>
@@ -9,16 +6,16 @@
         <!-- 회원유형 테이블 시작 -->
         <table class="table">
           <thead>
-            <tr>
-              <h1 scope="col">회원가입</h1>
-              <th scope="col"></th>
-              <th scope="col"></th>
-              <th scope="col"></th>
+            <tr >
+              <td scope="col" ><h1>회원가입</h1></td>
+              <td scope="col"></td>
+              <td scope="col"></td>
+              <td scope="col"></td>
             </tr>
           </thead>
           <tbody>
             <tr>
-              <th scope="row">회원 유형</th>
+              <td scope="row">회원 유형</td>
               <td>
                 <div class="form-check">
                   <input
@@ -61,19 +58,19 @@
         <table class="table">
           <thead>
             <tr>
-              <h3 scope="col">기본 정보</h3>
-              <th scope="col"></th>
-              <th scope="col"></th>
-              <th scope="col"></th>
+              <td scope="col"><h3>기본 정보</h3></td>
+              <td scope="col"></td>
+              <td scope="col"></td>
+              <td scope="col"></td>
             </tr>
           </thead>
           <tbody>
             <!-- 아이디 tr -->
 
             <tr>
-              <th scope="row">
+              <td scope="row">
                 <label class="insert-id" for="id">아이디</label>
-              </th>
+              </td>
               <td>
                 <div class="col">
                   <input
@@ -110,9 +107,9 @@
             </tr>
             <!-- 비밀번호 tr -->
             <tr>
-              <th scope="row">
+              <td scope="row">
                 <label class="form-label" for="pwd">비밀번호</label>
-              </th>
+              </td>
               <td>
                 <div class="col">
                   <input
@@ -135,9 +132,9 @@
             </tr>
             <!-- 비밀번호 확인 tr -->
             <tr>
-              <th scope="row">
+              <td scope="row">
                 <label class="form-label" for="pwdCheck">비밀번호 확인</label>
-              </th>
+              </td>
               <td>
                 <div class="col">
                   <input
@@ -158,11 +155,11 @@
             </tr>
             <!-- 비밀번호 확인 질문 tr -->
             <tr>
-              <th scope="row">
+              <td scope="row">
                 <label class="form-label" for="address"
                   >비밀번호 확인 질문</label
                 >
-              </th>
+              </td>
               <td>
                 <select
                   class="form-select"
@@ -187,11 +184,11 @@
             </tr>
             <!-- 비밀번호 질문 확인 tr -->
             <tr>
-              <th scope="row">
+              <td scope="row">
                 <label class="form-label" for="pwdAskCheck"
                   >비밀번호 질문 확인</label
                 >
-              </th>
+              </td>
               <td>
                 <input
                   class="form-control"
@@ -204,9 +201,9 @@
             </tr>
             <!-- 이름 tr -->
             <tr>
-              <th scope="row">
+              <td scope="row">
                 <label class="form-label" for="userName">이름</label>
-              </th>
+              </td>
               <td>
                 <input
                   class="form-control"
@@ -219,9 +216,9 @@
             </tr>
             <!-- email tr -->
             <tr>
-              <th scope="row">
+              <td scope="row">
                 <label class="form-label" for="email">email</label>
-              </th>
+              </td>
               <td>
                 <input
                   class="form-control"
@@ -239,9 +236,9 @@
 
             <!-- 주소 tr -->
             <tr>
-              <th scope="row">
+              <td scope="row">
                 <label class="form-label" for="address">주소</label>
-              </th>
+              </td>
               <td>
                 <div class="row mb-1">
                   <!-- 우편번호 -->
@@ -305,9 +302,9 @@
             </tr>
             <!-- 전화 번호 tr -->
             <tr>
-              <th scope="row">
+              <td scope="row">
                 <label class="form-label" for="address">일반 전화 번호</label>
-              </th>
+              </td>
               <td>
                 <div class="row">
                   <div class="col-3">
@@ -358,9 +355,9 @@
             </tr>
             <!-- 휴대폰 번호 tr -->
             <tr>
-              <th scope="row">
+              <td scope="row">
                 <label class="form-label" for="address">휴대폰 번호</label>
-              </th>
+              </td>
               <td>
                 <div class="row">
                   <div class="col-3">
@@ -410,9 +407,9 @@
           <thead>
             <!-- 생년월일 tr -->
             <tr>
-              <th scope="row">
+              <td scope="row">
                 <label class="form-label" for="userName">생년월일</label>
-              </th>
+              </td>
               <td>
                 <div class="col">
                   <input

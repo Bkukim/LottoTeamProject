@@ -21,19 +21,14 @@
           ><img
             class="frame-11"
             :src="data.prodImgUrl"
-            style="max-width: 400px; max-height: 400px"
+            style="width: 300px; height: 400px"
         /></router-link>
 
-        <div class="abcdefghijklm">
+        <div class="abcdefghijklm mt-4">
           <p>{{ data.prodName }}</p>
         </div>
 
-        <div class="abcdefghijklm2">
-          <p>완벽밀착! 자연스럽고 매끄러운 피부</p>
-        </div>
-
-        <div class="_24">★ ★ ★ ★ ★</div>
-
+        
         <div class="abcdef">
           {{ (data.defaultPrice * (100 - data.discountRate)) / 100 + " won" }}
         </div>
@@ -41,6 +36,19 @@
       </div>
     </div>
     <!-- 메인페이지 상품바로가기 반복문 끝-->
+    <!-- 페이징 -->
+    <!-- {/* paging 시작 */} -->
+    <div class="row justify-content-center mt-4">
+      <div class="col-auto">
+        <b-pagination
+          class="custom-pagination col-12 mb-3"
+          v-model="page"
+          :total-rows="count"
+          :per-page="pageSize"
+          @click="retrieveProductByCategory"
+        ></b-pagination>
+      </div>
+    </div>
   </div>
   <!-- 전체 중앙정렬 끝 -->
 </template>
@@ -60,7 +68,7 @@ export default {
       // 공통 페이징 속성
       page: 1, // 현재페이지번호
       count: 0, // 전체 데이터개수
-      pageSize: 5, // 화면에 보여질 개수
+      pageSize: 4, // 화면에 보여질 개수
     };
   },
 

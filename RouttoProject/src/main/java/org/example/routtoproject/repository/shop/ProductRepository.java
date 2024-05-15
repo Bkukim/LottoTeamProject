@@ -97,7 +97,7 @@ public interface ProductRepository extends JpaRepository<Product, Integer> {
             "PROD_IMG_URL AS prodImgUrl\n" +
             "FROM LOTTO_PRODUCT\n" +
             "WHERE PROD_STOCK <> 0 AND PROD_STATUS = '판매중'\n" +
-            "ORDER BY SOLD_COUNT"
+            "ORDER BY SOLD_COUNT FETCH FIRST 4 ROWS ONLY"
 
             ,nativeQuery = true)
     List<IProductDto> findAllImg();
