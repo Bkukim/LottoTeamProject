@@ -44,13 +44,10 @@ public class ReviewService {
 
 //    todo: review 전체 조회 + 페이징
 
-<<<<<<< Updated upstream
-    public Page<Review> findAll(Pageable pageable) {
-        Page<Review> page = reviewRepository.findReviewByTitleContaining(pageable);
-=======
+
 public Page<IReviewDto> findAll(int prodId, Pageable pageable) {
     Page<IReviewDto> page = reviewRepository.findByProdId(prodId, pageable);
->>>>>>> Stashed changes
+
 
         return page;
     }

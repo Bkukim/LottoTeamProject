@@ -27,16 +27,12 @@ public interface QnaRepository extends JpaRepository<Qna, Integer> {
 
 
 //    전체 조회 + 페이지
-<<<<<<< Updated upstream
+
 @Query(value = "SELECT * FROM LOTTO_QNA WHERE PROD_ID=:prodId"
         ,countQuery = "SELECT count (*) FROM LOTTO_QNA  WHERE PROD_ID=:prodId"
         ,nativeQuery = true)
 
-=======
-    @Query(value = "SELECT * FROM LOTTO_QNA WHERE PROD_ID:prodId"
-            ,countQuery = "SELECT count (*) FROM LOTTO_QNA WHERE PROD_ID:prodId"
-            ,nativeQuery = true)
->>>>>>> Stashed changes
+
     Page<Qna> findByProdId(int prodId, Pageable pageable);
 
 //    userId가 작성한 글 보기

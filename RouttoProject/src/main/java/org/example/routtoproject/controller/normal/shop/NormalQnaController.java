@@ -60,13 +60,11 @@ public class NormalQnaController {
 
 //            전체 조회 서비스 실행
             Page<Qna> qna
-<<<<<<< Updated upstream
+
                     = qnaservice
 
                     .findByProdId(prodId, pageable);
-=======
-                    = qnaservice.findByProdId(prodId, pageable);
->>>>>>> Stashed changes
+
 
 
 //            공통 페이징 객체 생성 : 자료구조 맵 사용
