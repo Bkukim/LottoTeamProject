@@ -147,6 +147,7 @@ export default {
       }
     },
 
+
     // 답변 저장함수
 
     async updateQnaAnswer() {
@@ -163,6 +164,7 @@ export default {
       }
 
   },},
+
   mounted() {
     window.scrollTo(0, 0);
     this.retrieveGet(this.$route.params.qnaId);

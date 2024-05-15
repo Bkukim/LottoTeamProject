@@ -59,10 +59,9 @@ public class AdminProductController {
     ){
 
         try {
-//
-//                log.debug("확인용" + prodImg);
-//                log.debug("확인용" + prodDetailPage);
-            Product product1 = productService.save(
+
+            Product product1 = productService.saveProduct(
+                    0,
                     prodName,
                     Integer.parseInt(defaultPrice), // TODO: 정수로 변경
                     prodCategory,
@@ -70,6 +69,7 @@ public class AdminProductController {
                     prodDetailPage,
                     Integer.parseInt(discountRate), // TODO: 정수로 변경
                     Integer.parseInt(prodStock),    // TODO: 정수로 변경
+                    "",
                     prodImgUrl,
                     prodDetailPageUrl,
                     prodDetailPageUuid,
@@ -78,6 +78,7 @@ public class AdminProductController {
 
 
         } catch (Exception e) {
+            log.debug(e.getMessage());
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
@@ -121,22 +122,50 @@ public ResponseEntity<Object> findById(
 }
 
     //    TODO: 수정 함수 : 수정 페이지 열기 함수       (x) : vue 제작
-//    TODO: 관리자 조회/수정 페이지 -> 상세 페이지 -> 수정 함수 : 수정 버튼 클릭시 실행될 함수
     @PutMapping("/product/modify/{prodId}")
-    public ResponseEntity<Object> update(
-            @PathVariable int prodId,
-            @RequestBody Product product
-    ) {
-        try {
-            Product product1 = productService.save(product);  // 수정한 값을 dept2 변수에 담음
-            return new ResponseEntity<>(product1, HttpStatus.OK);
-            // 수정한 값을 우리가 보고싶기 때문에 dept2 변수에 담아서 보려고 하는 것
-            // 사실 수정한 값은 전체조회 페이지에서 보기때문에, 우리가 따로 볼 필요가 없어서 dept2는 프론트에서 쓰지는 않음.
-        } catch (Exception e) {
-//            DB 에러 (서버 에러) -> 500 신호(INTERNAL_SERVER_ERROR)
-            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR); // 에러났다는건 우리가 볼 필요가 없으니 프론트에 신호만 보냄
-        }
+    public ResponseEntity<Object> updateProduct(@PathVariable int prodId,
+                                                @RequestParam(defaultValue = "") String prodName,
+                                                @RequestParam(defaultValue = "0") String defaultPrice,
+                                                @RequestParam(defaultValue = "") String prodCategory,
+                                                @RequestParam MultipartFile prodImg,
+                                                @RequestParam MultipartFile prodDetailPage,
+
+                                                @RequestParam(defaultValue = "0") String discountRate,
+                                                @RequestParam(defaultValue = "0") String prodStock,
+                                                @RequestParam(defaultValue = "") String prodStatus,
+
+
+                                                @RequestParam (defaultValue = "")String prodImgUrl,
+                                                @RequestParam (defaultValue = "")String prodDetailPageUrl,
+                                                @RequestParam (defaultValue = "")String prodDetailPageUuid,
+                                                @RequestParam (defaultValue = "")String prodImgUuid){
+      try {
+        log.debug("된다.1");
+        log.debug("상태" + prodStock);
+        log.debug("상태" + prodStatus);
+        Product product1 = productService.saveProduct(
+                prodId,
+                prodName,
+                Integer.parseInt(defaultPrice), // TODO: 정수로 변경
+                prodCategory,
+                prodImg,
+                prodDetailPage,
+                Integer.parseInt(discountRate), // TODO: 정수로 변경
+                Integer.parseInt(prodStock),    // TODO: 정수로 변경
+                prodStatus,                prodImgUrl,
+                prodDetailPageUrl,
+                prodDetailPageUuid,
+                prodImgUuid);
+        return new ResponseEntity<>(/*product1,*/ HttpStatus.OK);
+
+
+    } catch (Exception e) {
+          log.debug(e.getMessage());
+          log.debug("된다.2");
+        return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
     }
+}
+
 
     //    TODO: 삭제 함수
     @DeleteMapping("/product/deletion/{prodId}")

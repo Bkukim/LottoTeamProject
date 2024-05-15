@@ -76,7 +76,7 @@ public class WebSecurityConfig {
                 .anyRequest()
                 .authenticated());
 //        .permitAll());
-
+//
 
 
 //        TODO: 웹토큰 클래스를 스프링시큐리티 설정에 끼워넣기 : 모든 조회(CRUD)에서 아래 인증을 실행함
