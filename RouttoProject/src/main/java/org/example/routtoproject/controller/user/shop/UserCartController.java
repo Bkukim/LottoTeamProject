@@ -77,7 +77,7 @@ public class UserCartController {
 
 //            공통 페이징 객체 생성 : 자료구조 맵 사용
             Map<String, Object> response = new HashMap<>();
-            response.put("cart", iCartDtoPage.getContent());       // simpleCart 배열
+            response.put("cartList", iCartDtoPage.getContent());       // simpleCart 배열
             response.put("currentPage", iCartDtoPage.getNumber());       // 현재페이지번호
             response.put("totalItems", iCartDtoPage.getTotalElements()); // 총건수(개수)
             response.put("totalPages", iCartDtoPage.getTotalPages());    // 총페이지수

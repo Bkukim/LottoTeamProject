@@ -328,7 +328,7 @@ export default {
       // 공통 속성(현재페이지, 전체데이터개수,1페이지당개수)
       page: 1, // 현재페이지번호
       count: 0, // 전체데이터개수
-      pageSize: 3, // 1페이지당개수(select태그)
+      pageSize: 10, // 1페이지당개수(select태그)
     };
   },
   methods: {
@@ -364,7 +364,7 @@ export default {
           this.orders = orders;
           this.count = totalItems;
           // 로깅
-          // console.log("결과출력", response.data); // 웹브라우저 콘솔탭에 벡엔드 데이터 표시
+          console.log("결과출력1", response.data.orders); // 웹브라우저 콘솔탭에 벡엔드 데이터 표시
         } else {
           let date = new Date(this.selectedDate);
           // 날짜 포맷 설정
@@ -384,7 +384,7 @@ export default {
           this.orders = orders;
           this.count = totalItems;
           // 로깅
-          // console.log("결과출력", response.data); // 웹브라우저 콘솔탭에 벡엔드 데이터 표시
+          console.log("결과출력2", response.data); // 웹브라우저 콘솔탭에 벡엔드 데이터 표시
         }
       } catch (e) {
         console.log(e); // 웹브라우저 콘솔탭에 에러 표시
