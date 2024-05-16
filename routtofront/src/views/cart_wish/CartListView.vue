@@ -94,7 +94,7 @@
                 <button
                   id="button_bg1"
                   class="btn btn-block"
-                  @click="goOrderProd"
+                  @click="goOrderProd(data.prodId)"
                 >
                   구매하기
                 </button>
@@ -395,9 +395,9 @@ export default {
     goOrder() {
       this.$router.push("/order");
     },
-    goOrderProd() {
+    goOrderProd(prodId) {
       // '/shop/notice-check/' + data.announcementId
-      this.$router.push('/order'+this.cart.prodId);
+      this.$router.push('/order/'+prodId);
     },
 
 

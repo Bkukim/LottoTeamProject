@@ -6,28 +6,15 @@
     <div class="main_text">
       <router-link
         class="top_notice router-link-exact-active fs-5"
-        to="/shop/notice"
+        to="/admin/notice"
         >공지사항</router-link
       >
       |
-      <router-link class="top_notice2 text-decoration-none" to="/shop/faqList"
+      <router-link class="top_notice2 text-decoration-none" to="/admin/admin-faqList"
         >FAQ</router-link
       >
     </div>
     <div class="mt-5 text-center">
-      <!-- 서치 -->
-      <div class="row justify-content-end">
-        <form class="d-flex mt-3 col-5" role="search">
-          <input
-            class="form-control me-2"
-            type="search"
-            placeholder="검색"
-            aria-label="Search"
-          />
-          <button class="btn btn-outline-success" type="submit">검색</button>
-        </form>
-      </div>
-
       <!-- 테이블 시작 -->
       <table class="table mt-5">
         <thead>
