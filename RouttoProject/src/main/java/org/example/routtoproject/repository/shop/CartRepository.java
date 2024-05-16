@@ -50,6 +50,7 @@ public interface CartRepository extends JpaRepository<Cart, Integer> {
                     "WHERE LC.PROD_ID = LP.PROD_ID",
             nativeQuery = true)
     Page<ICartDto> selectByTitleContaining(@Param("userId") String userId, Pageable pageable);
+
     //    todo: user의 cart에서 전체 주문하기로 들어오면 뜨는 주문페이지
     @Query(value = "SELECT LU.USER_ID AS userId,\n" +
             "LC.PROD_ID AS prodId,\n" +
@@ -70,8 +71,8 @@ public interface CartRepository extends JpaRepository<Cart, Integer> {
             , nativeQuery = true)
     public Integer existsByProdId(@Param("prodId") int prodId);
 
-    
-//    TODO: 카트 프로드 카운트 업데이트 ::수량수정용
+
+    //    TODO: 카트 프로드 카운트 업데이트 ::수량수정용
     @Transactional
     @Modifying
     @Query(value = "UPDATE lotto_cart \n" +
@@ -84,5 +85,7 @@ public interface CartRepository extends JpaRepository<Cart, Integer> {
             @Param("userId") String userId,
             @Param("prodId") Integer prodId);
 
-
+//todo : 해당유저 카트 초기화 함수
+    @Transactional //여러가지 수정
+    public void deleteByUserId(String userId);
 }

@@ -32,7 +32,7 @@ import java.util.Optional;
  */
 @Slf4j
 @RestController
-@RequestMapping("/api/user/member")
+@RequestMapping("/api/normal/member")
 public class NormalFaqController {
     @Autowired
     FaqService faqService; //di

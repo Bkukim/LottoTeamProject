@@ -149,7 +149,7 @@ public class UserCartController {
 
 
     //    TODO: 삭제 함수
-    @DeleteMapping("/cart/deletion/")
+    @DeleteMapping("/cart/deletion/{cartId}")
     public ResponseEntity<Object> delete(
             @PathVariable int cartId
     ) {
@@ -171,14 +171,17 @@ public class UserCartController {
     }
 
     //    TODO: 전체삭제 함수
-    @DeleteMapping("/cart/deletion-all")
-    public ResponseEntity<Object> deleteAllCarts() {
+    @DeleteMapping("/cart/deletion-all/{userId}")
+    public ResponseEntity<Object> deleteAllCarts(
+            @PathVariable String userId
+    ) {
         try {
             // 카트 전체 초기화 서비스 호출
-            cartService.removeAll();
+            cartService.deleteByUserId(userId);
             return new ResponseEntity<>(HttpStatus.OK); // 성공적으로 삭제됨
         } catch (Exception e) {
             // 서버(DB) 에러
+            log.debug(e.getMessage());
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }

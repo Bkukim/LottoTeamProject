@@ -66,8 +66,11 @@
           <td class="text-center">
             <i style="text-decoration: line-through">{{ data.defaultPrice }}</i>
             <br />
-            {{ formatCurrency( data.defaultPrice - data.defaultPrice * (data.discountRate * 0.01))
-             
+            {{
+              formatCurrency(
+                data.defaultPrice -
+                  data.defaultPrice * (data.discountRate * 0.01)
+              )
             }}
           </td>
           <!-- 구매하기 ::버튼 -->
@@ -94,7 +97,7 @@
                 <button
                   id="button_bg1"
                   class="btn btn-block"
-                  @click="goOrderProd"
+                  @click="goOrderProd(data.prodId)"
                 >
                   구매하기
                 </button>
@@ -155,10 +158,12 @@
           <td class="text-center">{{ getCartTotal().deliveryFee }}</td>
           <!-- 최종 총 금액 -->
           <td class="text-center">
-            {{formatCurrency(
-              getCartTotal().totalPrice -
-              getCartTotal().discountedPrice +
-              getCartTotal().deliveryFee)
+            {{
+              formatCurrency(
+                getCartTotal().totalPrice -
+                  getCartTotal().discountedPrice +
+                  getCartTotal().deliveryFee
+              )
             }}
           </td>
         </tr>
@@ -172,10 +177,9 @@
           type="button"
           id="button2"
           class="btn"
-          @click="deleteAllCart(cart)"
+          @click="deleteAllCart(this.$store.state.user.userId)"
         >
           전체상품 삭제하기
-          
         </button>
       </div>
       <div class="col-auto mb-5">
@@ -274,15 +278,15 @@ export default {
     },
     // 회계형식
     formatCurrency(price) {
-      return new Intl.NumberFormat('ko-KR', {
-        style: 'currency',
-        currency: 'KRW',
-        currencyDisplay: 'narrowSymbol' 
+      return new Intl.NumberFormat("ko-KR", {
+        style: "currency",
+        currency: "KRW",
+        currencyDisplay: "narrowSymbol",
       }).format(price);
-    }
-  
+    },
+
     // 배송비 - 안쓰는데 나중에 필요할까봐 그냥 같이 3천원으로 놔둠
-   , getDeliveryFee(totalPrice) {
+    getDeliveryFee(totalPrice) {
       if (totalPrice >= 50000) {
         return 3000; // 5만원 이상 주문일 때 배송비 0
       } else {
@@ -291,14 +295,9 @@ export default {
     },
     // TODO: 전체조회(장바구니) 함수 : 검색어 버튼, 화면이뜰때 자동 실행
     async retrieveCart() {
-      console.log("실행이 됐는지확인");
 
       try {
-        // todo: 공통 장바구니 전체 조회 서비스 함수 실행
-        //   todo: 비동기 코딩 : async~await
-        console.log(this.page);
-        console.log(this.$store.state.user.userId);
-        console.log(this.pageSize);
+
         let response = await CartService.getAll(
           this.$store.state.user.userId,
           this.page - 1,
@@ -307,9 +306,7 @@ export default {
         const { cartList, totalItems } = response.data;
         this.cart = cartList;
         this.count = totalItems;
-        // alert(this.cart[1].cartProdCount);
-        // 로깅
-        console.log("카트조회", response.data); //웹브라우저 콘솔탭에 백엔드 데이터 표시
+
       } catch (e) {
         console.log(e);
       }
@@ -322,29 +319,21 @@ export default {
         let response = await CartService.remove(cartId);
         // 로깅
         console.log(response.data);
-        // alert 대화상자
-        alert("정상적으로 삭제되었습니다.");
-
-        // this.cartProdCount = this.cartProdCount - 1; // 단일 삭제니까 -1
-
-        // 삭제후 재조회
+        alert("삭제되었습니다.");
         this.retrieveCart();
       } catch (e) {
         console.log(e);
       }
     },
     // TODO: 장바구니 전체 삭제 함수 : delete 버튼 태그 ::전체상품
-    async deleteAllCart(cart) {
+    async deleteAllCart(userId) {
       try {
         // todo: 공통 장바구니 삭제 서비스 함수 실행
-        let response = await CartService.removeAll(cart);
+        let response = await CartService.removeAll(userId);
         // 로깅
         console.log(response.data);
         // alert 대화상자
-        alert("정상적으로 삭제되었습니다.");
-
-        // this.cartProdCount = 0; //카트카운트 초기화 해주기
-
+        alert("삭제되었습니다");
         // 삭제후 재조회
         this.retrieveCart();
       } catch (e) {
@@ -363,7 +352,6 @@ export default {
           userId,
           prodId
         );
-        console.log(response.data);
 
         // 로깅
         console.log(response.data);
@@ -374,33 +362,13 @@ export default {
       }
     },
 
-    // TODO: 전체 수정 함수 ::배열사용실패
-    // async updateProdCountAll() {
-    //   try {
-    //     let response;
-    //     for (let item of this.cart) {
-    //       response = await CartService.updateProdCountAll(item);
-    //       console.log(response.data);
-    //     }
-    //     // 로깅
-    //     console.log(response.data);
-    //     // 화면에 성공메세지 출력 : message
-    //     this.message = "수정이 성공했습니다.";
-    //   } catch (e) {
-    //     console.log(e);
-    //   }
-    // },
-
     goOrder() {
       this.$router.push("/order");
     },
-    goOrderProd() {
+    goOrderProd(prodId) {
       // '/shop/notice-check/' + data.announcementId
-      this.$router.push('/order'+this.cart.prodId);
+      this.$router.push("/order/" + prodId);
     },
-
-
-
   },
   //   TODO: 화면이 뜰때 자동 실행 함수
   mounted() {
