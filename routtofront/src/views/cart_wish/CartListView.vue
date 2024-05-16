@@ -308,7 +308,6 @@ export default {
         this.cart = cartList;
         this.count = totalItems;
         // alert(this.cart[1].cartProdCount);
-        console.log("asdfasdfasdf", cart[0]);
         // 로깅
         console.log("카트조회", response.data); //웹브라우저 콘솔탭에 백엔드 데이터 표시
       } catch (e) {

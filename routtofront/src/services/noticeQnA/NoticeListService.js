@@ -17,8 +17,8 @@ class NoticeListService {
     return http.get(
       `/normal/member/notice?title=${title}&page=${page}&size=${size}`
     );
-  }  
-  
+  }
+
   // TODO: 검색용 전체조회 함수
   getAllSearch(title, page, size) {
     // 예) axios_기본주소 + 추가 url
@@ -29,7 +29,6 @@ class NoticeListService {
       `/normal/member/notice-search?title=${title}&page=${page}&size=${size}`
     );
   }
-
 
   // // TODO: 추가(insert) 함수 -> post 방식 -> @PostMapping
   // create(data) {
@@ -47,13 +46,8 @@ class NoticeListService {
     console.log("announcementImg", announcementImg);
 
     return http.post("/admin/notice/save", formData, {
-    
-        headers: AuthHeaderUpload()
-
-      },
-
-    );
-
+      headers: AuthHeaderUpload(),
+    });
   }
 
   // TODO: 상세조회 함수1 : 공지사항 :announcementId
@@ -79,20 +73,17 @@ class NoticeListService {
     return http.put(
       `/admin/notice/update/${announcement.announcementId}`,
       formData,
-      
+
       {
-        headers: AuthHeaderUpload()
-        
-
-  });
-
+        headers: AuthHeaderUpload(),
+      }
+    );
   }
 
   // TODO: 삭제함수 : announcementId
   // TODO: 삭제(delete) -> delete 방식 -> @DeleteMapping
   // TODO: 사용법 : http.delete(`/컨트롤러함수url/${dno}`)
   delete(announcementId) {
-
     return http.delete(`/admin/notice/deletion/${announcementId}`, {
       headers: AuthHeader(),
     });

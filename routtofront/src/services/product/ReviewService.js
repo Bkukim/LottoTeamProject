@@ -1,5 +1,5 @@
 import http from "@/utils/http-common"; // spring 통신 정의 파일
-import AuthHeader from "../auth/AuthHeader";
+import AuthHeaderUpload from "@/services/auth/AuthHeaderUpload";
 
 class ReviewService {
   // TODO: 리뷰 전체 조회
@@ -23,13 +23,9 @@ class ReviewService {
     formData.append("point", data.point);
     formData.append("reviewContent", data.reviewContent);
     formData.append("reviewImage", data.reviewImage);
-    return http.post("/user/shop/review/save", formData, {
-      headers: {
-        "Content-Type": "multipart/form-data",
-      },
-    },
+    return http.post("/user/shop/review/save", formData, 
     {
-      headers: AuthHeader()
+      headers: AuthHeaderUpload()
     });
   }
 }
