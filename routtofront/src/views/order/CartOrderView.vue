@@ -894,12 +894,13 @@ ul {
 }
 #btnPay {
   display: block;
-  width: 100%;
+  width: 250px;
   margin-top: 20px;
   height: 3vw;
   background-color: #342a26;
   color: white;
   border-radius: 5px;
+  font-size: 20px;
 }
 .payTitle {
   text-align: left;

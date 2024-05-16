@@ -81,12 +81,28 @@ public class UserOrderController {
         }
     }
 
+//   TODO: 결제 성공하면서 주문 상태를 결제완료로 변경하는 함수
+@PutMapping("/order/{orderId}/pay-complete")
+public ResponseEntity<Object> changeStatus(
+        @PathVariable int orderId,
+        @RequestBody Order order
+) {
+    try {
+        Order order2 = orderService.change(order); // 수정
+
+        return new ResponseEntity<>(order2, HttpStatus.OK);
+    } catch (Exception e) {
+        log.debug("error" + e.getMessage());
+//          DB 에러 (서버 에러) -> 500 신호 (INTERNAL_SERVER_ERROR)
+        return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+}
+
 //   TODO: 주문 확인 페이지에서의 상세 조회
     @GetMapping("/order/completed/{orderId}")
     public ResponseEntity<Object> findAll(@PathVariable int orderId) {
         try {
             Optional<Order> optionalOrder = paymentService.findAll(orderId);
-            System.out.println(" 죽 고 싶 나  " + optionalOrder);
 
             if (optionalOrder.isEmpty() == false) {
 //              성공

@@ -49,10 +49,8 @@ export default {
   methods: {
     async retrieveOrder(orderId) {
       try {
-        console.log("주문정보", orderId)
         let response = await OrderService.goPayment(orderId);
         this.order = response.data;
-        console.log("결제 정보",response.data);
       } catch (e) {
         console.log(e);
       }
@@ -66,7 +64,6 @@ export default {
             successUrl: `${window.location.origin}/order/success`,
             failUrl: `${window.location.origin}/order/fail`,
           };
-          console.log(data);
           await this.paymentWidget.requestPayment(data);
         }
       } catch (error) {

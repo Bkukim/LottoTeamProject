@@ -49,7 +49,7 @@ class OrderService {
 
   // TODO: OrderId를 기준으로 주문상태를 결제완료로 변경하기
   change(orderId, data) {
-    return http.put(`/admin/shop/order/${orderId}/pay-complete`, data, {
+    return http.put(`/user/shop/order/${orderId}/pay-complete`, data, {
       headers: AuthHeader(),
     });
   }

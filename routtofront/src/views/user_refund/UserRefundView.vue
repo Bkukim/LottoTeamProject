@@ -19,9 +19,9 @@
     </div>
   </div>
     <!-- 버튼 태그 시작 -->
-    <div class="buttons">
-      <button class="btn prev" @click="goToMyPage">{{ "< 이전단계" }}</button>
-      <button class="btn next" @click="goToRefundInfo">{{ "다음단계 >" }}</button>
+    <div class="buttonss">
+      <button class="btns prev" @click="goToMyPage">{{ "< 이전단계" }}</button>
+      <button class="btns next" @click="goToRefundInfo">{{ "다음단계 >" }}</button>
     </div>
     <!-- 버튼 태그 끝 -->
   </div>
@@ -30,20 +30,28 @@
 <script>
 import { ref } from 'vue';
 import { useStore } from 'vuex';
-import axios from 'axios';
+import { useRouter, useRoute } from 'vue-router';
 
 export default {
   setup() {
     const store = useStore();
+    const router = useRouter(); 
+    const route = useRoute(); 
     const selectedOption = ref('');
 
+    const orderId = ref(route.params.orderId);
     const updateSelectedOption = () => {
       store.commit('setSelectedOption', selectedOption.value);
     };
 
+    const goToRefundInfo = () => {
+      router.push({ name: 'refund-info', params: { orderId: orderId.value } });
+    };
+
     return {
       selectedOption,
-      updateSelectedOption
+      updateSelectedOption,
+      goToRefundInfo,
     };
   },
   data() {
@@ -54,47 +62,13 @@ export default {
     goToMyPage() {
       this.$router.push('/member/mypage');
     },
-    // 환불 정보 확인 페이지로 이동
-    // goToRefundInfo() {
-    //   this.$router.push({ name: 'refund-info', params: { selectedOption: this.selectedOption } });
-    // }
-        async fetchOrderDetails() {
-      try {
-        // API 호출을 통해 주문 상세 정보를 가져옵니다.
-        // 이 URL은 예시이며, 실제 프로젝트에 맞는 URL로 변경해야 합니다.
-        const response = await axios.get('http://localhost:8080/order/completed/100105/qick12/426/264');
-        const { orderId, orderProdId, prodId } = response.data;
-        console.log("뭘까",response.data);
-        return { orderId, orderProdId, prodId };
-      } catch (error) {
-        console.error('주문 상세 정보를 가져오는 데 실패했다.', error);
-        return null;
-      }
-    },
-    async goToRefundInfo() {
-      const orderDetails = await this.fetchOrderDetails();
-      
-      if (orderDetails) {
-        const { orderId, orderProdId, prodId } = orderDetails;
-        const path = `/order/refund-info/${orderId}/${orderProdId}/${prodId}`;
-        
-        this.$router.push({
-          path: path,
-          query: { selectedOption: this.selectedOption },
-        });
-      } else {
-        // 오류 처리나 사용자에게 실패 메시지를 표시할 수 있습니다.
-        alert('주문 상세 정보를 가져오는 데 실패했습니다.');
-      }
-    },
   },
   mounted() {
-    this.fetchOrderDetails();
   },
 };
 </script>
 
-<style>
+<style scoped>
 .refund-div {
   width: 800px;
   height: 600px;
@@ -124,9 +98,9 @@ export default {
 
 .divider {
   height: 1px;
-  background-color: #ccc; /* 옅은 회색 구분선 */
+  background-color: #ccc; 
   width: 100%;
-  margin: 0 auto; /* 중앙 정렬 */
+  margin: 0 auto;
 }
 
 .lab {
@@ -135,28 +109,28 @@ export default {
 }
 
 .radiobtn {
-  transform: scale(1.5); /* 1.5배로 확대 */
-  margin: 10px; /* 주변과의 거리를 조정 */
+  transform: scale(1.5); 
+  margin: 10px;
 }
 
-.buttons {
+.buttonss {
   display: flex;
   justify-content: space-between;
   margin-top: 30px;
-  width: 100%; /* 부모 요소의 가로 길이에 맞추기 */
-  max-width: 600px; /* Bootstrap의 col-md-8에 해당하는 최대 가로 길이 */
-  margin-left: auto; /* 가로 중앙 정렬을 위해 */
-  margin-right: auto; /* 가로 중앙 정렬을 위해 */
+  width: 100%;
+  max-width: 600px; 
+  margin-left: auto;
+  margin-right: auto; 
 }
 
-.btn {
+.btns {
   flex-grow: 1;
-  padding: 10px 20px; /* 버튼 내부의 패딩을 조정하여 크기를 키움 */
-  font-size: 16px; /* 글자 크기를 키움 */
-  margin: 0 10px; /* 버튼들 사이의 간격을 지정 */
-  cursor: pointer; /* 마우스 오버 시 커서 변경 */
-  border: 1px solid #ccc; /* 테두리 스타일 지정 */
-  transition: background-color 0.3s ease; /* 배경색 변경 시 애니메이션 효과 */
+  padding: 10px 20px; 
+  font-size: 16px;
+  margin: 0 10px; 
+  cursor: pointer; 
+  border: 1px solid #ccc; 
+  transition: background-color 0.3s ease; 
 }
 
 .prev {
@@ -170,7 +144,7 @@ export default {
 }
 
 .prev:hover {
-  background-color: #e6e6e6; /* 이전단계 버튼의 배경색을 마우스 오버 시 더 어둡게 */
+  background-color: #e6e6e6;
 }
 
 .next:hover {
@@ -185,22 +159,19 @@ export default {
   width: 75%;
 }
 
-/* 태블릿과 모바일 화면 크기에 대응하기 위한 미디어 쿼리 */
 @media (max-width: 992px) {
-  /* 태블릿 */
   .refund-div,
   .inner {
-    width: 100%; /* 화면의 너비에 맞춰 조절 */
+    width: 100%;
     margin-top: 20px;
     margin-bottom: 20px;
   }
 }
 
 @media (max-width: 768px) {
-  /* 모바일 */
   .refund-div,
   .inner {
-    width: 100%; /* 화면의 너비에 맞춰 조절 */
+    width: 100%;
     margin-top: 10px;
     margin-bottom: 10px;
   }

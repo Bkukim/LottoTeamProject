@@ -98,11 +98,6 @@ public class OrderService {
 
 
 //  결제 요청을 위한 함수
-
-
-
-
-
     //  결제 함수
     @Transactional
     //    저장함수
@@ -155,6 +150,20 @@ public boolean removeByOrderId(int orderId) {
     }
 }
 
+    //  TODO: 저장/수정
+    public Order change(Order order) {
+//        TODO: 상세조회
+        Optional<Order> optionalOrder = orderRepository.findById(order.getOrderId());
+        Order order2 = optionalOrder.get();
+
+        order2.setOrderStatus(order.getOrderStatus()); // 환불 수정
+
+//        TODO: 저장
+        Order order3 = orderRepository.save(order2);
+
+        return order3;
+    }
+
     // todo 마이페이지에서 현재 주문 상태 보여주는 함수
     public List<Order> findAllByUserId(String userId){
         List<Order> orders = orderRepository.findAllByUserId(userId);
@@ -167,16 +176,10 @@ public String findUserPhoneByOrderId(Integer orderId) {
 }
 
 // TODO: orderId로 orderProdId 조회하는 함수
-//public List<Integer> getOrderProdIdsByOrderId(Integer orderId) {
-//    return orderProdRepository.findOrderProdIdsByOrderId(orderId);
-//}
 public List<Integer> findOrderProdIdsByOrderId(int orderId) {
     return orderProdRepository.findOrderProdIdsByOrderIdNative(orderId);
 }
 // TODO: 상품 정보 조회 함수
-//public List<OrderProductDto> getOrderProductDetails(int orderProdId) {
-//    return orderProdRepository.findOrderProductDetails(orderProdId);
-//}
 public List<OrderProductInfoDto> getOrderProductDetails(int orderProdId) {
     List<OrderProductInfoDto> results = orderProdRepository.findOrderProductDetails(orderProdId);
 

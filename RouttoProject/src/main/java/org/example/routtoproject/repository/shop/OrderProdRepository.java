@@ -58,6 +58,7 @@ List<Integer> findOrderProdIdsByOrderIdNative(int orderId);
 @Query(value = "SELECT OP.ORDER_AMOUNT AS orderAmount," +
         " PR.PROD_NAME AS prodName," +
         "PR.DEFAULT_PRICE AS defaultPrice," +
+        "DEFAULT_PRICE*(100-DISCOUNT_RATE)/100 AS prodPrice,\n" +
         " PR.PROD_IMG_URL AS prodImgUrl " +
         "FROM LOTTO_ORDER_PROD OP, LOTTO_PRODUCT PR " +
         "WHERE OP.PROD_ID = PR.PROD_ID AND OP.ORDER_PROD_ID = :orderProdId", nativeQuery = true)

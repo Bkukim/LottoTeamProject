@@ -27,23 +27,17 @@ import java.util.Optional;
 public class UserRefundService {
     private final AdminRefundRepository adminRefundRepository;
 
-    public Order save(Order order) {
-        Order order2 = adminRefundRepository.save(order);
+    //  TODO: 저장/수정
+    public Order update(Order order) {
+//        TODO: 상세조회
+        Optional<Order> optionalOrder = adminRefundRepository.findById(order.getOrderId());
+        Order order2 = optionalOrder.get();
 
-        return order2;
-    }
+        order2.setOrderStatus(order.getOrderStatus()); // 환불 수정
 
-//     주문 상태를 변경하는 메소드
-    public boolean requestRefund(int orderId) {
-        Optional<Order> orderOptional = adminRefundRepository.findById(orderId);
+//        TODO: 저장
+        Order order3 = adminRefundRepository.save(order2);
 
-        if (orderOptional.isPresent()) {
-            Order order = orderOptional.get();
-            order.setOrderStatus("환불요청"); // ORDER_STATUS 컬럼의 값을 '환불요청'으로 변경
-            adminRefundRepository.save(order); // 변경된 상태를 데이터베이스에 저장
-            return true;
-        } else {
-            return false;
-        }
+        return order3;
     }
 }

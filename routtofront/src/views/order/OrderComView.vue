@@ -3,7 +3,7 @@
   <main class="mt-5" v-if="order">
     <div class="container">
       <div class="row justify-content-center">
-        <div class="col-md-8">
+        <div class="col-lg-8">
           <h1 class="mb-3" style="text-align: center">주문완료</h1>
           <div
             class="col-md-8 container"
@@ -161,6 +161,7 @@
             </div>
             <!-- 주문 상품 사진 및 상품 정보 -->
             <div
+              class="product-info"
               style="display: flex; align-items: center"
               v-for="(data, index) in prodInfoList" :key="index"
             >
@@ -183,9 +184,8 @@
                 <br />
                 <label>수량 : {{ data.orderAmount }} 개</label>
                 <br />
-                <label>금액 : {{ order.orderPrice }}</label>
+                <label>금액 : {{ data.prodPrice * data.orderAmount }}원</label>
                 <br />
-                <label>할인 금액 : 0원</label>
               </div>
             </div>
             <div>
@@ -209,15 +209,6 @@
               <label class="col-md-2 col-form-label">주문 상품</label>
               <label class="col-md-10 col-form-label" style="text-align: right"
                 >{{ order.orderPrice }} 원</label
-              >
-            </div>
-            <!-- 할인/부가결제 금액 -->
-            <div class="amount">
-              <label class="col-md-2 col-form-label" style="min-width: 100px"
-                >할인/부가결제</label
-              >
-              <label class="col-md-10 col-form-label" style="text-align: right"
-                >0 원</label
               >
             </div>
             <!-- 배송비 금액 -->
@@ -289,8 +280,6 @@ export default {
       order: null,
       phone: "",
       prodInfoList: [],
-      // payment: null,
-      // userPhoneNum: this.user.userPhoneNum,
       // 주문완료 이미지 경로
       ordercompleteimg: require("@/assets/images/ordercomplete_icon.png"),
 
@@ -300,10 +289,8 @@ export default {
     // TODO: orderId로 상세조회하는 함수
     async retrieveOrder(orderId) {
       try {
-        console.log("주문정보", orderId)
         let response = await OrderService.getOrderInfo(orderId);
         this.order = response.data;
-        console.log("주문 정보", response.data);
       } catch (e) {
         console.log(e);
       }
@@ -311,61 +298,31 @@ export default {
     // TODO: orderId로 연락처 받아오기
     async retrieveUser(orderId) {
       try {
-        console.log("휴대폰 번호", orderId)
         let response = await OrderService.getOrderPhone(orderId);
         this.phone = response.data;
-        console.log("휴대폰", response.data);
       } catch (e) {
         console.log(e);
       }
     },
-    // TODO: orderId로 orderProdId 받아오기
-    // async getProdId(orderId) {
-    //   try {
-    //     let response = await OrderService.getOrderProduct(orderId);
-    //     this.prodId = response.data;
-    //     console.log("주문상품번호", response.data);
-    //   } catch (e) {
-    //     console.log(e);
-    //   }
-    // },
-    // TODO: 밑에껀 혹시 모르니 살려둬
-//   async getProdId(orderId) {
-//   try {
-//     let response = await OrderService.getOrderProduct(orderId);
-//     this.prodId = response.data;
-//     console.log("주문상품번호", response.data);
-//   } catch (e) {
-//     console.log(e);
-//   }
-// },
-// async getProductInfo(orderProdId) {
-//   try {
-//     let response = await OrderService.getProductInfo(orderProdId);
-//     this.productInfo = response.data;
-//     console.log("상품 정보 입니다", response.data);
-//   } catch (e) {
-//     console.log(e);
-//   }
-// },
-// TODO: 이 부분까지
+    // TODO: orderId로 prodId 받아오는 함수
 async getProdId(orderId) {
   try {
     let response = await OrderService.getOrderProduct(orderId);
     this.prodId = response.data;
-    console.log("주문상품번호", response.data);
-    // 여기서 getProductInfo 함수 호출
-    await this.getProductInfo(response.data);
+
+    let promises = this.prodId.map(id => this.getProductInfo(id));
+    
+    await Promise.all(promises);
   } catch (e) {
     console.log(e);
   }
 },
+// TODO: orderProdId로 상품 정보 받아오는 함수
 async getProductInfo(orderProdId) {
   try {
     let response = await OrderService.getProductInfo(orderProdId);
-    this.prodInfoList = response.data;
-    console.log("추가된 후 prodInfoList: ", this.prodInfoList);
-    console.log("상품 정보 입니다", response.data);
+    
+    this.prodInfoList.push(...response.data);
   } catch (e) {
     console.log(e);
   }
@@ -374,7 +331,7 @@ async getProductInfo(orderProdId) {
     goToMyPage() {
       this.$router.push("/member/mypage");
     },
-    // 쇼핑 계속하기 버튼 클릭시 실행될 함수
+    // TODO: 쇼핑 계속하기 버튼 클릭시 실행될 함수
     goToHome() {
       this.$router.push("/");
     },
@@ -382,7 +339,6 @@ async getProductInfo(orderProdId) {
   mounted() {
     this.retrieveOrder(this.$route.params.orderId);
     this.retrieveUser(this.$route.params.orderId);
-    // this.retrieveProduct(this.$route.params.prodId);
     this.getProdId(this.$route.params.orderId);
     this.getProductInfo(this.$route.params.orderProdId);
 
@@ -392,7 +348,15 @@ async getProductInfo(orderProdId) {
 };
 </script>
 
-<style>
+<style scoped>
+.product-info {
+  background-color: #f9f9f9;
+  border-radius: 10px;
+  padding: 10px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  margin-bottom: 10px;
+}
+
 .keepShopBtn {
   background-color: #342a26;
   color: white;
@@ -407,5 +371,18 @@ async getProductInfo(orderProdId) {
 .amount {
   display: flex;
   justify-content: space-between;
+}
+
+/* 반응형 스타일 */
+@media (min-width: 992px) {
+  .col-lg-8 {
+    max-width: 800px;
+  }
+}
+
+@media (max-width: 991.98px) {
+  .col-md-8 {
+    max-width: 100%; 
+  }
 }
 </style>

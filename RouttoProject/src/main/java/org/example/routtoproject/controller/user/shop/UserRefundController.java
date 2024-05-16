@@ -28,25 +28,14 @@ import org.springframework.web.bind.annotation.*;
 public class UserRefundController {
     private final UserRefundService userRefundService;
 
-//     주문의 환불 상태를 '환불 요청'으로 변경하는 메소드
-//    @PutMapping("/refund/{orderId}/request")
-//    public ResponseEntity<?> requestRefund(@PathVariable int orderId) {
-//        boolean result = userRefundService.requestRefund(orderId);
-//
-//        if(result) {
-//            return ResponseEntity.ok().body("환불 요청이 완료되었습니다.");
-//        } else {
-//            return ResponseEntity.notFound().build();
-//        }
-//    }
-
+    //  TODO: 수정
     @PutMapping("/refund/{orderId}/request")
     public ResponseEntity<Object> requestRefund(
             @PathVariable int orderId,
             @RequestBody Order order
     ) {
         try {
-            Order order2 = userRefundService.save(order); // 수정
+            Order order2 = userRefundService.update(order); // 수정
 
             return new ResponseEntity<>(order2, HttpStatus.OK);
         } catch (Exception e) {
