@@ -387,15 +387,6 @@
       <br />
       <br />
       <h3>상품문의</h3>
-      <!-- <router-link
-        class="top_notice router-link-exact-active fs-5"
-        to="/shop/notice"
-        >공지사항</router-link
-      >
-      |
-      <router-link class="top_notice2 text-decoration-none" to="/shop/faqList"
-        >FAQ</router-link
-      > -->
     </div>
     <div class="mt-5 text-center">
       <table
@@ -481,7 +472,6 @@
 
 <script>
 import ProductService from "@/services/product/ProductService";
-
 import ReviewService from "@/services/product/ReviewService";
 import QnaService from "@/services/product/QnaService";
 import CartService from '@/services/cart/CartService';
@@ -489,6 +479,7 @@ import CartService from '@/services/cart/CartService';
 export default {
   data() {
     return {
+      prodId:this.$route.params.prodId,
       // qna 테이블에 불러오는 배열
       qnaList: [],
       // 리뷰 테이블에 불러오는 배열
@@ -531,10 +522,10 @@ export default {
   },
   methods: {
     // 리뷰 전체조회 함수 : 화면이뜰때 자동 실행
-    async retrieveReview(prodId) {
+    async retrieveReview() {
       try {
         // 공통 장바구니 전체 조회 서비스 함수 실행
-        let response = await ReviewService.getReviewByprodId(prodId, this.page - 1, this.pageSize);
+        let response = await ReviewService.getReviewByprodId(this.prodId, this.page - 1, this.pageSize);
         console.log(response.data);
         const { reviews, totalItems } = response.data;
         this.reviews = reviews; // 리뷰 배열(벡엔드 전송)
@@ -571,6 +562,7 @@ export default {
         let response = await ReviewService.createReview(data);
         console.log(response.data);
         alert("리뷰가 성공적으로 등록되었습니다.");
+        this.retrieveReview(this.prodId);
       } catch (e) {
         console.log(e);
       }
@@ -582,11 +574,11 @@ export default {
     },
 
     // 상품문의 전체조회 함수
-    async retrieveQna(prodId) {
+    async retrieveQna() {
       try {
         // TODO: 1) 공통 전체조회 함수 실행
         let response = await QnaService.getAllQna(
-          prodId,
+          this.prodId,
           this.page - 1, // 현재페이지번호-1
           this.pageSize // 1페이지당개수(size)
         );
@@ -596,7 +588,7 @@ export default {
         this.qnaList = qnaList; // 부서배열(벡엔드 전송)
         this.count = totalItems; // 전체페이지수(벡엔드 전송)
         // TODO: 4) 프론트 로깅 : console.log
-        console.log(response.data);
+        // console.log(response.data);
       } catch (e) {
         console.log(e);
       }
@@ -624,9 +616,10 @@ export default {
       try {
         let response = await ProductService.get(prodId);
         this.product = response.data; // spring 전송 객체 넣기
-        this.retrieveReview(response.data.prodId);
-        this.retrieveQna(response.data.prodId);
-        console.log(response.data);
+        this.retrieveReview(prodId);
+        // console.log("문의 함수",prodId);
+        this.retrieveQna(prodId);
+        // console.log(response.data);
       } catch (e) {
         console.log(e);
       }
@@ -650,7 +643,7 @@ export default {
           return; // 장바구니에 상품 추가하지 않고 함수 종료
         } else {
           // 로깅
-          console.log(response.data);
+          // console.log(response.data);
           // 장바구니 담기 성공 메세지 출력
           alert("장바구니에 상품이 담겼습니다.");
           this.$router.push("/order/cart");
@@ -692,6 +685,7 @@ this.$router.push("/product/inquiry/mypage");
   mounted() {
     // 화면 뜰때 상단이 뜨게 해주는 함수
     window.scrollTo(0, 0);
+    console.log(this.$route.params.prodId);
     this.getProd(this.$route.params.prodId); // 상세조회 함수 실행
     
   },

@@ -19,19 +19,23 @@
     </div>
 
     <div class="col-auto">
-      <button type="button" class="btn btn-outline-secondary">ALL</button>
+      <button type="button" class="btn btn-outline-secondary" @click="retrieveProductByCategory(0)">ALL</button>
     </div>
 
     <div class="col-auto">
-      <button type="button" class="btn btn-outline-secondary">BEST</button>
+      <button type="button" class="btn btn-outline-secondary" @click="retrieveProductByCategory(1)">SKIN</button>
     </div>
 
     <div class="col-auto">
-      <button type="button" class="btn btn-outline-secondary">SKIN</button>
+      <button type="button" class="btn btn-outline-secondary" @click="retrieveProductByCategory(2)">HAIR</button>
     </div>
 
     <div class="col-auto">
-      <button type="button" class="btn btn-outline-secondary">BODY</button>
+      <button type="button" class="btn btn-outline-secondary" @click="retrieveProductByCategory(3)">MAKE UP</button>
+    </div>
+
+    <div class="col-auto">
+      <button type="button" class="btn btn-outline-secondary" @click="retrieveProductByCategory(4)">BODY</button>
     </div>
   </div>
 </div>
@@ -50,19 +54,14 @@
           ><img
             class="frame-11"
             :src="data.prodImgUrl"
-            style="max-width: 400px; max-height: 400px"
+            style="width: 300px; height: 400px"
         /></router-link>
 
-        <div class="abcdefghijklm">
+        <div class="abcdefghijklm mt-4">
           <p>{{ data.prodName }}</p>
         </div>
 
-        <div class="abcdefghijklm2">
-          <p>완벽밀착! 자연스럽고 매끄러운 피부</p>
-        </div>
-
-        <div class="_24">★ ★ ★ ★ ★</div>
-
+        
         <div class="abcdef">
           {{ (data.defaultPrice * (100 - data.discountRate)) / 100 + " won" }}
         </div>
@@ -71,59 +70,7 @@
     </div>
     <!-- 메인페이지 상품바로가기 반복문 끝-->
 
-    <!-- 두번째 메인 베스트 (베스트 셀러)상품 -->
-    <div class="main_best_sellers container text-center mt-5">
-      <h3 class="main_h3 container text-right">BEST SELLERS</h3>
-      <!-- <p class="main_p"> 가장 사랑 받고 있는 루또의 베스트 제품</p> -->
-
-      <div class="row main_best_button_in1">
-        <div class="col img-container-left">
-          <img
-            class="_2_big"
-            :src="banner[1]?.bannerImg2Url"
-            style="max-width: 25; max-height: 35vw"
-          />
-        </div>
-
-        <div class="div2 col container text-right">
-          <img
-            class="div2_img"
-            :src="banner[1]?.bannerImg1Url"
-            style="max-width: 21vw; max-height: 21vw"
-          /><!-- 배너 2-1 -->
-          <div class="abcdefgefghijk">{{ banner[1]?.bannerTitle }}</div>
-          <div class="div3">
-            {{ banner[1]?.bannerContent }}
-          </div>
-          <div class="shop-more">
-            <br />
-            <br />
-            <router-link :to="'/product/' + banner[1]?.prodId"
-              >SHOP MORE &gt;</router-link
-            >
-          </div>
-        </div>
-
-        <div class="div2 col container text-right">
-          <img
-            class="div2_img"
-            :src="banner[1]?.bannerImg1Url"
-            style="max-width: 21vw; max-height: 21vw"
-          /><!-- 배너 2-1 -->
-          <div class="abcdefgefghijk">{{ banner[1]?.bannerTitle }}</div>
-          <div class="div3">
-            {{ banner[1]?.bannerContent }}
-          </div>
-          <div class="shop-more">
-            <br />
-            <br />
-            <router-link :to="'/product/' + banner[1]?.prodId"
-              >SHOP MORE &gt;</router-link
-            >
-          </div>
-        </div>
-      </div>
-    </div>
+    
 
 <!-- 세번째 베스트 셀러 -->
 <div class="main_best_sellers2 container">
@@ -134,13 +81,13 @@
         <img
           class="div4_img"
           :src="banner[1]?.bannerImg1Url"
-          style="max-width: 400px; max-height: 300px"
+          style="max-width: 400px; max-height: 400px"
         />
         <div class="abcdefgefghijk22">{{ banner[1]?.bannerTitle }}</div>
         <div class="div4_in">{{ banner[1]?.bannerContent }}</div>
         <div class="shop-more">
           <router-link :to="'/product/' + banner[1]?.prodId"
-            >SHOP MORE &gt;</router-link
+          class="router-link">SHOP MORE &gt;</router-link
           >
         </div>
       </div>
@@ -148,14 +95,14 @@
       <div class="div4 container text-center">
         <img
           class="div4_img"
-          :src="banner[1]?.bannerImg1Url"
-          style="max-width: 400px; max-height: 300px"
+          :src="banner[2]?.bannerImg1Url"
+          style="max-width: 400px; max-height: 400px"
         />
-        <div class="abcdefgefghijk22">{{ banner[1]?.bannerTitle }}</div>
-        <div class="div4_in">{{ banner[1]?.bannerContent }}</div>
+        <div class="abcdefgefghijk22">{{ banner[2]?.bannerTitle }}</div>
+        <div class="div4_in">{{ banner[2]?.bannerContent }}</div>
         <div class="shop-more">
-          <router-link :to="'/product/' + banner[1]?.prodId"
-            >SHOP MORE &gt;</router-link
+          <router-link :to="'/product/' + banner[2]?.prodId"
+          class="router-link">SHOP MORE &gt;</router-link
           >
         </div>
       </div>
@@ -163,14 +110,14 @@
       <div class="div4 container text-center">
         <img
           class="div4_img"
-          :src="banner[1]?.bannerImg1Url"
-          style="max-width: 400px; max-height: 300px"
+          :src="banner[3]?.bannerImg1Url"
+          style="max-width: 400px; max-height: 400px"
         />
-        <div class="abcdefgefghijk22">{{ banner[1]?.bannerTitle }}</div>
-        <div class="div4_in">{{ banner[1]?.bannerContent }}</div>
+        <div class="abcdefgefghijk22">{{ banner[3]?.bannerTitle }}</div>
+        <div class="div4_in">{{ banner[3]?.bannerContent }}</div>
         <div class="shop-more">
-          <router-link :to="'/product/' + banner[1]?.prodId"
-            >SHOP MORE &gt;</router-link
+          <router-link :to="'/product/' + banner[3]?.prodId"
+          class="router-link" >SHOP MORE &gt;</router-link
           >
         </div>
       </div>
@@ -184,7 +131,7 @@
         <img
           class="_3"
           :src="banner[1]?.bannerImg2Url"
-          style="max-width: 400px; max-height: 700px"
+          style="max-width: 500px; max-height: 800px"
         />
       </div>
     </div>
@@ -223,7 +170,7 @@ export default {
       pageSizes: [3, 6, 9], // 화면에 보여질 개수배열
     };
   },
-
+  // 상품 카테고리별 4개만 보여주기
   methods: {
     async getAllBanner() {
       try {
@@ -234,8 +181,41 @@ export default {
         console.log(error);
       }
     },
+    async retrieveProductByCategory(category) {
+      try {
+        let prodCategory = "";
+        if (category == 1) {
+          prodCategory = "스킨케어";
+        } else if (category == 2) {
+          prodCategory = "헤어";
+        } else if (category == 3) {
+          prodCategory = "메이크업";
+        } else if (category == 4) {
+          prodCategory = "바디";
+        } else if (category == 0) {
+          let response = await ProductService.getAll();
+          console.log(response.data);
+          this.product = response.data;
+          return;
+        }
+
+        let response = await ProductService.getProductByCategory(
+          prodCategory,
+          this.page - 1,
+          4
+        );
+        console.log(response.data);
+        this.product = response.data.product; // spring 전달 객체배열
+        this.count = response.data.totalItems; // spring 전달 객체배열
+        // 전체페이지개수
+        // 로깅(디버깅)
+        // console.log(response.data); // 웹브라우저 콘솔탭에 spring 전달 객체배열이 표시됨
+      } catch (e) {
+        console.log(e); // 웹브라우저 콘솔탭에 에러메세지가 표시됨
+      }
+    },
     // TODO: 전체조회 함수    : 검색어 버튼 태그
-    async retrieveSimpleProduct() {
+    async retrieveProduct() {
       try {
         // TODO: 공통 전체조회 서비스 함수 실행
         // TODO: spring 통신 : 비동기 코딩 : async ~ await
@@ -258,7 +238,7 @@ export default {
   mounted() {
     // TODO: 전체 조회 자동 실행
     this.getAllBanner();
-    this.retrieveSimpleProduct();
+    this.retrieveProduct();
     window.scrollTo(0, 0);
   },
 };
@@ -370,8 +350,22 @@ export default {
   display: flex;
   gap: 30px;
 }
+/* best 상품 반복문 글씨 꾸미기 */
+.abcdefghijklm{
+  color: #535353;
+  font-family: "Inter-Light", sans-serif;
+  font-size: 17px;
+  font-weight: 700;
+  letter-spacing: -1.5px;
+}
 
-
+.abcdef{
+  color: #535353;
+  font-family: "Inter-Light", sans-serif;
+  font-size: 17px;
+  font-weight: 300;
+  letter-spacing: -1.5px;
+}
 
 
 /* ---------------------------------- */
@@ -421,6 +415,45 @@ export default {
 .abcdefgefghijk22, .div4_in, .shop-more {
   text-align: center; 
 }
+
+/* 제일 밑 세로나열 상품 글씨 꾸미기 */
+.abcdefgefghijk22{
+  color: #535353;
+  font-family: "Inter-Bold", sans-serif;
+  font-size: 30px;
+  font-weight: 700;
+  margin: 10px 0 7px 0 ;
+  text-align: left;
+}
+
+.div4_in{
+  color: #535353;
+  font-family: "Inter-Light", sans-serif;
+  font-size: 17px;
+  font-weight: 300;
+  text-align: left;
+
+}
+
+.shop-more{
+  color: #535353;
+  font-family: "Inter-Light", sans-serif;
+  font-size: 20px;
+  font-weight: 300;
+  margin: 20px 0 90px 0;
+  text-align: left;
+
+}
+
+.router-link{
+  color: #535353;
+  text-decoration: none; /* 언더라인 제거 */
+}
+.router-link:hover {
+  color: rgb(166, 166, 166); /* 원하는 호버 색상으로 변경 */
+}
+/* ------- */
+
 
 .img-container {
   display: flex;

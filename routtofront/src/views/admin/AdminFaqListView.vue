@@ -7,28 +7,15 @@
     <div class="main_text">
       <router-link
         class="top_notice router-link-exact-active fs-5"
-        to="/faqList"
+        to="/admin/admin-faqList"
         >FAQ</router-link
       >
       |
-      <router-link class="top_notice2 text-decoration-none" to="/shop/notice"
+      <router-link class="top_notice2 text-decoration-none" to="/admin/notice"
         >공지사항</router-link
       >
     </div>
     <div class="mt-5 text-center">
-      <!-- 서치 -->
-      <div class="row justify-content-end">
-        <form class="d-flex mt-3 col-5" role="search">
-          <input
-            class="form-control me-2"
-            type="search"
-            placeholder="검색"
-            aria-label="Search"
-          />
-          <button class="btn btn-outline-success" type="submit">검색</button>
-        </form>
-      </div>
-
       <!-- 테이블 시작 -->
       <table class="table mt-5">
         <thead>
@@ -44,7 +31,7 @@
           <tr v-for="(data, index) in faqList" :key="index">
             <th scope="row">
               <router-link
-                :to="'/shop/inquiry-check/' + data.faqId"
+                :to="'/admin/admin-inquriCheck/' + data.faqId"
                 class="router-link-exact-active cencle"
               >
                 {{ data.faqId }}
@@ -52,7 +39,7 @@
             </th>
             <td class="col-8">
               <router-link
-                :to="'/shop/inquiry-check/' + data.faqId"
+                :to="'/admin/admin-inquriCheck/' + data.faqId"
                 class="router-link-exact-active cencle"
               >
                 {{ data.faqTitle }}
@@ -60,7 +47,7 @@
             </td>
             <td>
               <router-link
-                :to="'/shop/inquiry-check/' + data.faqId"
+                :to="'/admin/admin-inquriCheck/' + data.faqId"
                 class="router-link-exact-active cencle"
               >
                 {{ data.userId }}
@@ -90,8 +77,7 @@
       <div class="row justify-content-end">
         <button type="button" id="button1" class="mt-5 btn">
           <router-link to="/shop/inquiry" class="router-link-exact-active"
-            >질문하기</router-link
-          >
+            >질문하기</router-link>
         </button>
       </div>
     </div>
@@ -120,18 +106,14 @@ export default {
     // 전체조회 함수
     async retrieveFaq() {
       try {
-        // TODO: 1) 공통 전체조회 함수 실행
         let response = await FaqListService.getAll(
           this.faqTitle, // 검색어
           this.page - 1, // 현재페이지번호-1
           this.pageSize // 1페이지당개수(size)
         );
-        // TODO: 복습 : 2) 객체분할 할당
         const { faqList, totalItems } = response.data; // 부서배열(벡엔드 전송)
-        // TODO: 3) 바인딩변수(속성)에 저장
         this.faqList = faqList; // 부서배열(벡엔드 전송)
         this.count = totalItems; // 전체페이지수(벡엔드 전송)
-        // TODO: 4) 프론트 로깅 : console.log
         console.log(response.data);
       } catch (e) {
         console.log(e);

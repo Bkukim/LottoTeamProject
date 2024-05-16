@@ -77,7 +77,7 @@ public class UserCartController {
 
 //            공통 페이징 객체 생성 : 자료구조 맵 사용
             Map<String, Object> response = new HashMap<>();
-            response.put("cart", iCartDtoPage.getContent());       // simpleCart 배열
+            response.put("cartList", iCartDtoPage.getContent());       // simpleCart 배열
             response.put("currentPage", iCartDtoPage.getNumber());       // 현재페이지번호
             response.put("totalItems", iCartDtoPage.getTotalElements()); // 총건수(개수)
             response.put("totalPages", iCartDtoPage.getTotalPages());    // 총페이지수
@@ -149,7 +149,7 @@ public class UserCartController {
 
 
     //    TODO: 삭제 함수
-    @DeleteMapping("/cart/deletion/")
+    @DeleteMapping("/cart/deletion/{cartId}")
     public ResponseEntity<Object> delete(
             @PathVariable int cartId
     ) {
@@ -171,14 +171,17 @@ public class UserCartController {
     }
 
     //    TODO: 전체삭제 함수
-    @DeleteMapping("/cart/deletion-all")
-    public ResponseEntity<Object> deleteAllCarts() {
+    @DeleteMapping("/cart/deletion-all/{userId}")
+    public ResponseEntity<Object> deleteAllCarts(
+            @PathVariable String userId
+    ) {
         try {
             // 카트 전체 초기화 서비스 호출
-            cartService.removeAll();
+            cartService.deleteByUserId(userId);
             return new ResponseEntity<>(HttpStatus.OK); // 성공적으로 삭제됨
         } catch (Exception e) {
             // 서버(DB) 에러
+            log.debug(e.getMessage());
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }

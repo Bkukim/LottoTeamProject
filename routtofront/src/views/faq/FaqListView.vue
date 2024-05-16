@@ -14,7 +14,7 @@
     </div>
     <div class="mt-5 text-center">
       <!-- 테이블 시작 -->
-      <!-- 내가쓴글 확인하기 -->
+      <!-- 내가쓴글 확인하기 : v-if="faqList.userId === this.$store.state.user?.userId"-->
       <div class="row mt-5">
         <button type="button" id="button3" class="btn" @click="goUserId">
           내가쓴글 확인하기

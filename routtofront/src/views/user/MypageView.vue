@@ -63,7 +63,7 @@
           </td>
           <td class="col mapage_b2">
             <br /><br />
-            {{ data.orderTime.split(" ")[0] }}
+            {{ data.orderTime }}
           </td>
           <td class="col">
             <br /><br />
@@ -95,7 +95,7 @@
     <!-- mysave2 -->
     <div class="mysave2 container text-center mt-5">
       <div class="mysave2_in row">
-        <div class="col no-border3">
+        <!-- <div class="col no-border3">
           <img src="@/assets/images/mypage_1.png" />
           <br />
           <b>Order</b> <br />
@@ -103,7 +103,7 @@
           <p class="mini_box2">
             고객님께서 주문하신 상품의 주문내역을 <br />확인하실 수 있습니다.
           </p>
-        </div>
+        </div> -->
 
         
           <router-link to="/member/user-modify" class="col no-border3"
@@ -118,16 +118,16 @@
           </p>
         </router-link>
 
-        <div class="col no-border3">
+        <router-link to="/order/cart" class="col no-border3">
           <img src="@/assets/images/mypage_3.png" />
           <br />
-          <b>WishList</b> <br />
-          <p class="mini_box1">관심 상품</p>
+          <b>Cart</b> <br />
+          <p class="mini_box1">장바구니</p>
           <p class="mini_box2">
-            관심상품으로 등록하신 <br />
+            장바구니에 담은 <br />
             상품의 목록을 보여드립니다.
           </p>
-        </div>
+        </router-link>
 
         
           <router-link to="/shop/faqList" class="col no-border3"><img src="@/assets/images/mypage_4.png" />
@@ -141,7 +141,7 @@
           </p>
         </router-link>
 
-        <router-link to="/" class="col no-border3">
+        <!-- <router-link to="/" class="col no-border3">
           <img src="@/assets/images/mypage_5.png" />
           <br />
           <b>Board</b> <br />
@@ -150,7 +150,7 @@
             고객님께서 작성하신 게시물을<br />
             관리하는 공간입니다.
           </p>
-        </router-link>
+        </router-link> -->
       </div>
     </div>
     <!-- mysave2 -->

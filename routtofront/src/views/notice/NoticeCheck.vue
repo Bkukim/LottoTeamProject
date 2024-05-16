@@ -59,6 +59,7 @@
 
 <script>
 import NoticeListService from "@/services/noticeQnA/NoticeListService";
+
 export default {
   data() {
     return {

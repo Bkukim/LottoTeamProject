@@ -70,6 +70,7 @@
     cursor: pointer;
     width: 50px;
     height: 50px;
+    margin-top: -250px;
   }
   
   /* 헤더고정 */
@@ -136,12 +137,12 @@
   .kim-navbar {
     display: flex;
     flex-direction: row;
-    gap: -2.1354vw;
+    gap: 0.1vw;
     align-items: flex-start;
     justify-content: flex-start;
     position: absolute;
-    left: 7.7396vw;
-    top: 9.5vw;
+    left:15vw;
+    top:10vw;
     align-items: flex-end;
     justify-content: flex-end;
   }
@@ -150,10 +151,13 @@
     color: #ffffff;
     text-align: left;
     font-family: "Inter-Regular", sans-serif;
-    font-size: 1vw; /* 화면 너비에 따른 폰트 크기 조정 */
+    font-size: 0.7vw; /* 화면 너비에 따른 폰트 크기 조정 */
     font-weight: 300;
     position: relative;
     margin-right: 5vw;
+    font-size: 12px;
+
+
   }
   
   .kim-frame-142 {

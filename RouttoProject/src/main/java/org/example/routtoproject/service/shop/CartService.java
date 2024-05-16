@@ -86,8 +86,8 @@ public class CartService {
     }
 
 //    todo: 전체 삭제 : chat gpt
-public void removeAll() {
-    cartRepository.deleteAll(); // 모든 카트 삭제
+public void deleteByUserId(String userId) {
+    cartRepository.deleteByUserId(userId); // 모든 카트 삭제
 }
 
 

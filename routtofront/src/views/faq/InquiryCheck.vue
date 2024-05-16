@@ -32,7 +32,7 @@
     <!-- 문의사항 등록 버튼  :: 공지사항거 들고오기-->
     <div class="d-grid gap-2 d-md-flex justify-content-md-end">
       <!-- 등록시 고객센터 글 목록으로 재이동 :: -->
-      <!-- TODO: v-if , 본인아이디가 아니면 수정과 삭제가 안보이게 해둠-->
+      <!-- TODO: v-if , 본인아이디가 아니면 수정과 삭제가 안보이게 해둠 :: 관리자에서는 보이는데 왜..?-->
       <!--챗지피티가 제시해준 오류수정 
         근데 role null오류가 또 뜸-> TODO: 선생님이 널값 방지용으로 ? 사용법 알려줌 user?.userId로 수정하니 됨
         <div v-if="faqList && this.$store.state.user && faqList.userId === this.$store.state.user.userId"> -->
@@ -152,15 +152,12 @@ export default {
     //  저장함수
     async updateFaqAnswer() {
       try {
-        console.log("11", this.faqList.faqId, this.faqList.faqAnswer);
         // TODO: 비동기 코딩 : async ~ await
         // TODO: 객체가 전체가넘어가야함 수정이어도 하나만 수정하기 불가능 한듯?
         let response = await FaqListService.updateAnswer(
           this.faqList.faqId,
           this.faqList
         );
-        console.log("22");
-
         this.$router.push("/shop/inquiry-check/" + this.faqList.faqId);
         // 로깅
         console.log(response.data);

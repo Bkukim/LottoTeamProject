@@ -16,7 +16,7 @@ package org.example.routtoproject.model.dto.shop;
 public interface IReviewDto {
     Integer getReviewId();
     String getUserId();
-
+    Integer getPoint();
     Integer getProdId();
     String getReviewContent();
     String getReviewImgUrl();

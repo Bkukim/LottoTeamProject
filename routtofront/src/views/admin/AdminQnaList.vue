@@ -1,4 +1,5 @@
 <template>
+<AdminHeaderCom/>
   <!-- Bootstrap CSS 파일 포함 -->
   <link
     href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
@@ -82,8 +83,11 @@
 
 <script>
 import QnaService from "@/services/product/QnaService";
-
+import AdminHeaderCom from "@/components/common/AdminHeaderCom.vue";
 export default {
+  components:{
+    AdminHeaderCom
+  },
   data() {
     return {
       // qna 테이블에 불러오는 배열
