@@ -16,7 +16,7 @@
         <router-link to="/shop/admin/order" class="kim-div3"
           >주문관리</router-link
         >
-        <router-link to="/shop/notice" class="kim-div3">공지사항</router-link>
+        <router-link to="/admin/notice" class="kim-div3">공지사항</router-link>
         <router-link to="/shop/admin/add-product" class="kim-div3"
           >상품등록</router-link
         >
@@ -27,7 +27,7 @@
           >환불관리</router-link
         >
         <router-link to="/admin/inquiry/qnaList" class="kim-div3">상품 QNA</router-link>
-        <router-link to="" class="kim-div3">고객문의</router-link>
+        <router-link to="/admin/admin-faqList" class="kim-div3">고객문의</router-link>
         <router-link to="/admin/banner-list" class="kim-div3">홍보배너관리</router-link>
       </div>
 

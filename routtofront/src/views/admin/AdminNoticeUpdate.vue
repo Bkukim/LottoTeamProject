@@ -32,7 +32,7 @@
     </div>
     <!-- 첨부파일 -->
     <div class="mb-3">
-      <label for="formFileSm" class="form-label text-left">첨부파일 </label> -->
+      <label for="formFileSm" class="form-label text-left">첨부파일 </label> 
       <!-- TODO: @click => @change -->
       <input
         class="borderA form-control"
@@ -48,7 +48,7 @@
     <div class="d-grid gap-2 d-md-flex justify-content-md-end">
       <!-- 취소시 관리자 페이지로 이동 -->
       <button id="button2" class="btn me-md-2" type="button">
-        <router-link to="/shop/notice" class="cencle router-link-exact-active"
+        <router-link to="/admin/notice" class="cencle router-link-exact-active"
           >취소</router-link
         >
       </button>
@@ -113,15 +113,13 @@ export default {
     // TODO: 수정요청 함수 : 시점(상세조회가 끝난후)
     async updateNotice() {
       try {
-        console.log(this.announcement);
-        console.log("실행되니");
         // TODO: 비동기 코딩 : async ~ await
         let response = await NoticeListService.update(
           this.announcement,
           this.announcementImg
         );
         console.log(response);
-        this.$router.push("/shop/notice"); //로깅위에 달아줘야함Bku
+        this.$router.push("/admin/notice"); //로깅위에 달아줘야함Bku
 
         // 로깅
         console.log(response.data);
@@ -134,20 +132,6 @@ export default {
       }
     },
 
-    // // todo: 수정함수(update)
-    // async update() {
-    //     // 공통 수정(update) 함수 실행 : update()
-    //     try{
-    //         let response= await FileDbService
-    //                     .update(this.fileDb, this.currentImage)
-    //         // 성공 메세지 출력
-    //         this.message=response.data;
-    //     }catch(e){
-    //         this.currentImage = undefined;  //초기화
-    //         this.message="에러"+e;                 //에러출력
-    //         console.log(e);
-    //     }
-    // },
   },
   mounted() {
     this.getNotice(this.$route.params.announcementId); // 상세조회 실행

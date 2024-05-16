@@ -149,7 +149,7 @@ public class UserCartController {
 
 
     //    TODO: 삭제 함수
-    @DeleteMapping("/cart/deletion/")
+    @DeleteMapping("/cart/deletion/{cartId}")
     public ResponseEntity<Object> delete(
             @PathVariable int cartId
     ) {

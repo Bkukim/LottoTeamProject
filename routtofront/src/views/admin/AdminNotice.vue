@@ -51,7 +51,7 @@
       <div class="d-grid gap-2 d-md-flex justify-content-md-end">
         <!-- 취소시 관리자 페이지로 이동 -->
         <button id="button2" class="btn btn-primary me-md-2" type="button">
-          <router-link to="/shop/notice" class="cencle router-link-exact-active"
+          <router-link to="/admin/notice" class="cencle router-link-exact-active"
             >취소</router-link
           >
         </button>
@@ -115,7 +115,7 @@ export default {
         // TODO: 콘솔에 결과 출력
         console.log(response);
         this.message = response.data;
-        this.$router.push("/shop/notice");
+        this.$router.push("/admin/notice");
       } catch (e) {
         // 현재선택된 이미지 변수 초기화
         this.announcementImg = undefined;
