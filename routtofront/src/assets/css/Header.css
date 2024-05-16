@@ -70,6 +70,9 @@ input{
   cursor: pointer;
   width: 50px;
   height: 50px;
+  margin-top: -2.8vw;
+  margin-left: 2vw;
+
 }
 
 /* 헤더고정 */
@@ -204,15 +207,27 @@ input{
 .kim-frame-15 {
   display: flex;
   flex-direction: row;
-  gap: 1.3021vw; /* 화면 너비에 따른 간격 조정 */
+  gap: 1.3021vw; 
   align-items: flex-start;
   justify-content: flex-start;
   position: absolute;
-  left: calc(50% + 21vw); /* 화면 너비에 따른 위치 조정 */
-  top: 0.9792vw; /* 헤더 높이에 따른 위치 조정 */
+  left: calc(50% + 11.7vw); 
+  top: 0.9792vw; 
   align-items: flex-end;
   justify-content: flex-end;
 }
+/* .kim-frame-15_all{
+  display: flex;
+  flex-direction: row;
+  gap: 1.3021vw; 
+  align-items: flex-start;
+  justify-content: flex-start;
+  position: absolute;
+  left: 40vw; 
+  top: 0.9792vw; 
+  align-items: flex-end;
+  justify-content: flex-end;
+} */
 
 .kim-login,
 .kim-join,
