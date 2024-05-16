@@ -43,9 +43,9 @@ class CartService {
     });
   }
   // 전체 삭제 0508기준 제대로 안됐음
-  removeAll(data) {
+  removeAll(userId) {
     //simple cart number
-    return http.delete("/user/order/cart/deletion-all", data, {
+    return http.delete(`/user/order/cart/deletion-all/${userId}`, {
       headers: AuthHeader(),
     });
   }
