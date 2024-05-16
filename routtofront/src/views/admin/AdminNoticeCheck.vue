@@ -1,5 +1,6 @@
 <!-- NoticeCheck.vue ::공지사항 상세조회-->
 <template>
+  <AdminHeaderCom/>
   <div class="mb-5 col-13">
     <!-- 카테고리 -->
     <div class="container">
@@ -59,8 +60,12 @@
 
 <script>
 import NoticeListService from "@/services/noticeQnA/NoticeListService";
+import AdminHeaderCom from "@/components/common/AdminHeaderCom.vue";
 
 export default {
+  components: {
+    AdminHeaderCom,
+  },
   data() {
     return {
       announcement: {

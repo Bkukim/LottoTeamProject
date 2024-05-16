@@ -34,7 +34,7 @@
           >
             <th scope="col">
               <router-link
-                :to="'/shop/notice-check/' + data.announcementId"
+                :to="'/admin/admin-noticeCheck/' + data.announcementId"
                 class="router-link-exact-active cencle"
               >
                 {{ data.announcementId }}</router-link
@@ -43,7 +43,7 @@
 
             <th scope="col">
               <router-link
-                :to="'/shop/notice-check/' + data.announcementId"
+                :to="'/admin/admin-noticeCheck/' + data.announcementId"
                 class="router-link-exact-active cencle"
               >
                 {{ data.title }}
@@ -109,8 +109,6 @@ export default {
           this.page - 1, // 현재페이지번호-1
           this.pageSize // 1페이지당개수(size)
         );
-
-        console.log("여기는 프론트" + response.data);
         // TODO: 복습 : 2) 객체분할 할당
         const { notice, totalItems } = response.data; // 부서배열(벡엔드 전송)
         // TODO: 3) 바인딩변수(속성)에 저장
