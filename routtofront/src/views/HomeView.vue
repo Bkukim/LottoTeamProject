@@ -131,7 +131,7 @@
         <img
           class="_3"
           :src="banner[1]?.bannerImg2Url"
-          style="max-width: 400px; max-height: 700px"
+          style="max-width: 500px; max-height: 800px"
         />
       </div>
     </div>
@@ -420,9 +420,10 @@ export default {
 .abcdefgefghijk22{
   color: #535353;
   font-family: "Inter-Bold", sans-serif;
-  font-size: 25px;
+  font-size: 30px;
   font-weight: 700;
   margin: 10px 0 7px 0 ;
+  text-align: left;
 }
 
 .div4_in{
@@ -430,6 +431,8 @@ export default {
   font-family: "Inter-Light", sans-serif;
   font-size: 17px;
   font-weight: 300;
+  text-align: left;
+
 }
 
 .shop-more{
@@ -437,7 +440,9 @@ export default {
   font-family: "Inter-Light", sans-serif;
   font-size: 20px;
   font-weight: 300;
-  margin: 20px 0 20px 0;
+  margin: 20px 0 90px 0;
+  text-align: left;
+
 }
 
 .router-link{
