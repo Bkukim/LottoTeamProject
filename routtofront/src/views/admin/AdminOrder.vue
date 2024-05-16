@@ -335,8 +335,7 @@ export default {
 //   주문 상태 변경(수정) 함수
       async update(data) {
       try {
-        let response = await AdminOrderservice.update(data);
-        console.log(response.data); // 로깅
+        await AdminOrderservice.update(data);
         alert("주문상태가 변경되었습니다."); // 화면에 성공메세지 출력 : message 바인딩 변수
         this.retrieveOrder();   // 화면 재조회함수
       } catch (e) {
@@ -363,8 +362,6 @@ export default {
           const { orders, totalItems } = response.data;
           this.orders = orders;
           this.count = totalItems;
-          // 로깅
-          console.log("결과출력1", response.data.orders); // 웹브라우저 콘솔탭에 벡엔드 데이터 표시
         } else {
           let date = new Date(this.selectedDate);
           // 날짜 포맷 설정
@@ -383,8 +380,6 @@ export default {
           const { orders, totalItems } = response.data;
           this.orders = orders;
           this.count = totalItems;
-          // 로깅
-          console.log("결과출력2", response.data); // 웹브라우저 콘솔탭에 벡엔드 데이터 표시
         }
       } catch (e) {
         console.log(e); // 웹브라우저 콘솔탭에 에러 표시

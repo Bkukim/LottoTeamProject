@@ -557,6 +557,7 @@ export default {
   components: {
     CheckoutViewVue,
   },
+  
   data() {
     return {
       address: {
@@ -610,6 +611,7 @@ export default {
       paymentType: "", // 결제수단
     };
   },
+ 
   methods: {
     // // TODO: 결제 수단 저장
     // savePaymentMethod() {
@@ -686,10 +688,12 @@ export default {
       try {
         let response = await UserService.get(userId);
         this.user = response.data;
-        console.log(this.user); // console로 찍기
+        this.loggedIn = true; // 사용자가 로그인되어 있음을 설정
       } catch (error) {
         alert("로그인이 필요합니다.");
+        this.$router.push("/member/login");
         console.log(error);
+        this.loggedIn = false
       }
     },
     // TODO: prodId로 상세조회하는 함수
@@ -697,7 +701,6 @@ export default {
     async retrieveProduct(prodId) {
       try {
         let response = await ProductService.get(prodId);
-        console.log(response.data);
         this.product = response.data;
         this.orderPrice = response.data.defaultPrice; // 비동기 함수이기에 언제 값이 들어올지 모른다. 그러면 이 함수에 의한 데이터가 들어가기 전에 먼저 orderprice가 값이 안 들어간 product에서 값을 가져오게 된다.
         this.orderAmount = this.$store.state.orderAmount;
@@ -827,7 +830,7 @@ export default {
     });
     
     window.scrollTo(0, 0);
-  },
+  }
 };
 </script>
 

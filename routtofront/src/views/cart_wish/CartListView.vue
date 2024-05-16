@@ -306,6 +306,7 @@ export default {
         const { cartList, totalItems } = response.data;
         this.cart = cartList;
         this.count = totalItems;
+
       } catch (e) {
         console.log(e);
       }

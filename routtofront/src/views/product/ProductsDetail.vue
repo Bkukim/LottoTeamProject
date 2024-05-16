@@ -562,6 +562,7 @@ export default {
         let response = await ReviewService.createReview(data);
         console.log(response.data);
         alert("리뷰가 성공적으로 등록되었습니다.");
+        this.retrieveReview(this.prodId);
       } catch (e) {
         console.log(e);
       }
@@ -587,7 +588,7 @@ export default {
         this.qnaList = qnaList; // 부서배열(벡엔드 전송)
         this.count = totalItems; // 전체페이지수(벡엔드 전송)
         // TODO: 4) 프론트 로깅 : console.log
-        console.log(response.data);
+        // console.log(response.data);
       } catch (e) {
         console.log(e);
       }
@@ -616,9 +617,9 @@ export default {
         let response = await ProductService.get(prodId);
         this.product = response.data; // spring 전송 객체 넣기
         this.retrieveReview(prodId);
-        console.log("문의 함수",prodId);
+        // console.log("문의 함수",prodId);
         this.retrieveQna(prodId);
-        console.log(response.data);
+        // console.log(response.data);
       } catch (e) {
         console.log(e);
       }
@@ -642,7 +643,7 @@ export default {
           return; // 장바구니에 상품 추가하지 않고 함수 종료
         } else {
           // 로깅
-          console.log(response.data);
+          // console.log(response.data);
           // 장바구니 담기 성공 메세지 출력
           alert("장바구니에 상품이 담겼습니다.");
           this.$router.push("/order/cart");
