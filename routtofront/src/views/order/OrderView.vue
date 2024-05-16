@@ -686,9 +686,9 @@ export default {
       try {
         let response = await UserService.get(userId);
         this.user = response.data;
-
         console.log(this.user); // console로 찍기
       } catch (error) {
+        alert("로그인이 필요합니다.");
         console.log(error);
       }
     },
