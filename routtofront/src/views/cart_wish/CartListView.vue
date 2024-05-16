@@ -304,8 +304,8 @@ export default {
           this.page - 1,
           this.pageSize
         );
-        const { cart, totalItems } = response.data;
-        this.cart = cart;
+        const { cartList, totalItems } = response.data;
+        this.cart = cartList;
         this.count = totalItems;
         // alert(this.cart[1].cartProdCount);
         console.log("asdfasdfasdf", cart[0]);

@@ -59,15 +59,7 @@ public class NormalQnaController {
             Pageable pageable = PageRequest.of(page, size);
 
 //            전체 조회 서비스 실행
-            Page<Qna> qna
-
-
-                    = qnaservice
-
-                    .findByProdId(prodId, pageable);
-
-
-
+            Page<Qna> qna = qnaservice.findByProdId(prodId, pageable);
 
 //            공통 페이징 객체 생성 : 자료구조 맵 사용
             Map<String, Object> response = new HashMap<>();

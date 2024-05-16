@@ -61,7 +61,7 @@ public class NormalReviewController {
 
             response.put("reviews", pageList.getContent());          // 리뷰 배열
             response.put("currentPage", pageList.getNumber());    // 현재페이지 번호(필요없음)
-            response.put("totalItems", pageList.getTotalPages()); // 전체데이터개수
+            response.put("totalItems", pageList.getTotalElements()); // 전체데이터개수
             response.put("totalPages", pageList.getTotalPages()); // 전체페이지수(필요없음)
             if (pageList.isEmpty() == true) {
                 return new ResponseEntity<>(HttpStatus.NO_CONTENT); // 데이터가 없으면 response를 보낼필요가 없음
