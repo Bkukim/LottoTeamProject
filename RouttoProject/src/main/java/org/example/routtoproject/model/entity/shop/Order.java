@@ -1,5 +1,6 @@
 package org.example.routtoproject.model.entity.shop;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.*;
 import org.example.routtoproject.model.common.BaseTimeEntity;
@@ -62,5 +63,6 @@ public class Order {
     // Order에서 User로의 다대일 관계 설정
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "userId", referencedColumnName = "userId", insertable = false, updatable = false)
+    @JsonBackReference
     private User user;
 }
