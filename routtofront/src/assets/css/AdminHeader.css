@@ -142,7 +142,7 @@
     justify-content: flex-start;
     position: absolute;
     left:15vw;
-    top:10vw;
+    top:9.5vw;
     align-items: flex-end;
     justify-content: flex-end;
   }
@@ -229,4 +229,6 @@
     font-weight: lighter;
     position: relative;
   }
-  
+  .kim-login{
+    margin: 0 0 0 12vw;
+  }
