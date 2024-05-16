@@ -66,8 +66,11 @@
           <td class="text-center">
             <i style="text-decoration: line-through">{{ data.defaultPrice }}</i>
             <br />
-            {{ formatCurrency( data.defaultPrice - data.defaultPrice * (data.discountRate * 0.01))
-             
+            {{
+              formatCurrency(
+                data.defaultPrice -
+                  data.defaultPrice * (data.discountRate * 0.01)
+              )
             }}
           </td>
           <!-- 구매하기 ::버튼 -->
@@ -155,10 +158,12 @@
           <td class="text-center">{{ getCartTotal().deliveryFee }}</td>
           <!-- 최종 총 금액 -->
           <td class="text-center">
-            {{formatCurrency(
-              getCartTotal().totalPrice -
-              getCartTotal().discountedPrice +
-              getCartTotal().deliveryFee)
+            {{
+              formatCurrency(
+                getCartTotal().totalPrice -
+                  getCartTotal().discountedPrice +
+                  getCartTotal().deliveryFee
+              )
             }}
           </td>
         </tr>
@@ -175,7 +180,6 @@
           @click="deleteAllCart(cart)"
         >
           전체상품 삭제하기
-          
         </button>
       </div>
       <div class="col-auto mb-5">
@@ -274,15 +278,15 @@ export default {
     },
     // 회계형식
     formatCurrency(price) {
-      return new Intl.NumberFormat('ko-KR', {
-        style: 'currency',
-        currency: 'KRW',
-        currencyDisplay: 'narrowSymbol' 
+      return new Intl.NumberFormat("ko-KR", {
+        style: "currency",
+        currency: "KRW",
+        currencyDisplay: "narrowSymbol",
       }).format(price);
-    }
-  
+    },
+
     // 배송비 - 안쓰는데 나중에 필요할까봐 그냥 같이 3천원으로 놔둠
-   , getDeliveryFee(totalPrice) {
+    getDeliveryFee(totalPrice) {
       if (totalPrice >= 50000) {
         return 3000; // 5만원 이상 주문일 때 배송비 0
       } else {
@@ -307,10 +311,6 @@ export default {
         const { cartList, totalItems } = response.data;
         this.cart = cartList;
         this.count = totalItems;
-        // alert(this.cart[1].cartProdCount);
-        console.log("asdfasdfasdf", cart[0]);
-        // 로깅
-        console.log("카트조회", response.data); //웹브라우저 콘솔탭에 백엔드 데이터 표시
       } catch (e) {
         console.log(e);
       }
@@ -323,12 +323,7 @@ export default {
         let response = await CartService.remove(cartId);
         // 로깅
         console.log(response.data);
-        // alert 대화상자
-        alert("정상적으로 삭제되었습니다.");
-
-        // this.cartProdCount = this.cartProdCount - 1; // 단일 삭제니까 -1
-
-        // 삭제후 재조회
+        alert("삭제되었습니다.");
         this.retrieveCart();
       } catch (e) {
         console.log(e);
@@ -342,7 +337,7 @@ export default {
         // 로깅
         console.log(response.data);
         // alert 대화상자
-        alert("정상적으로 삭제되었습니다.");
+        alert("삭제되었습니다");
 
         // this.cartProdCount = 0; //카트카운트 초기화 해주기
 
@@ -375,33 +370,13 @@ export default {
       }
     },
 
-    // TODO: 전체 수정 함수 ::배열사용실패
-    // async updateProdCountAll() {
-    //   try {
-    //     let response;
-    //     for (let item of this.cart) {
-    //       response = await CartService.updateProdCountAll(item);
-    //       console.log(response.data);
-    //     }
-    //     // 로깅
-    //     console.log(response.data);
-    //     // 화면에 성공메세지 출력 : message
-    //     this.message = "수정이 성공했습니다.";
-    //   } catch (e) {
-    //     console.log(e);
-    //   }
-    // },
-
     goOrder() {
       this.$router.push("/order");
     },
     goOrderProd(prodId) {
       // '/shop/notice-check/' + data.announcementId
-      this.$router.push('/order/'+prodId);
+      this.$router.push("/order/" + prodId);
     },
-
-
-
   },
   //   TODO: 화면이 뜰때 자동 실행 함수
   mounted() {

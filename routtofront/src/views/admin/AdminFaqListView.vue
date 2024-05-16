@@ -31,7 +31,7 @@
           <tr v-for="(data, index) in faqList" :key="index">
             <th scope="row">
               <router-link
-                :to="'/shop/inquiry-check/' + data.faqId"
+                :to="'/admin/admin-inquriCheck/' + data.faqId"
                 class="router-link-exact-active cencle"
               >
                 {{ data.faqId }}
@@ -39,7 +39,7 @@
             </th>
             <td class="col-8">
               <router-link
-                :to="'/shop/inquiry-check/' + data.faqId"
+                :to="'/admin/admin-inquriCheck/' + data.faqId"
                 class="router-link-exact-active cencle"
               >
                 {{ data.faqTitle }}
@@ -47,7 +47,7 @@
             </td>
             <td>
               <router-link
-                :to="'/shop/inquiry-check/' + data.faqId"
+                :to="'/admin/admin-inquriCheck/' + data.faqId"
                 class="router-link-exact-active cencle"
               >
                 {{ data.userId }}
@@ -77,8 +77,7 @@
       <div class="row justify-content-end">
         <button type="button" id="button1" class="mt-5 btn">
           <router-link to="/shop/inquiry" class="router-link-exact-active"
-            >질문하기</router-link
-          >
+            >질문하기</router-link>
         </button>
       </div>
     </div>
