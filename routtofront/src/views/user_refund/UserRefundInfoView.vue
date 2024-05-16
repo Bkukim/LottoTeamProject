@@ -1,24 +1,25 @@
 <template>
-  <div class="container col-md-8 mt-5" style="text-align: center">
+  <div class="container col-md-8 mt-2" style="text-align: center">
     <h3>취소 신청</h3>
   </div>
   <div class="container refundInfo-div" v-if="order">
     <div class="container col-md-8 inner">
       <!-- 선택한 상품 정보 표시 -->
       <div class="container mt-3 mb-3">
-        <h4>선택한 상품 1 건</h4>
+        <h4>선택한 상품</h4>
       </div>
-      <div class="product-info d-flex align-items-center">
+      <div class="product-info d-flex align-items-center"
+      v-for="(data, index) in prodInfoList" :key="index">
         <img
-          :src="product.prodImgUrl"
-          alt="product-image"
-          class="product-image"
-          
+          :src="data.prodImgUrl"
+          alt="pdImg"
+          class="pdImg"
+          style="width: 100px; height: 100px;"
         />
         <div class="product-details ml-3">
-          <h5>{{ product.prodName }}</h5>
-          <p>{{ products.orderAmount }}개</p>
-          <p>금액: {{ order.orderPrice }}원</p>
+          <h5 style="font-weight: bold;">{{ data.prodName }}</h5>
+          <p>수량 : {{ data.orderAmount }}개</p>
+          <p>금액 : {{ data.prodPrice * data.orderAmount}}원</p>
         </div>
       </div>
 
@@ -27,7 +28,7 @@
 
       <!-- 선택한 사유 표시 -->
       <h5>선택한 사유</h5>
-      <div>{{ selectedOption }}</div>
+      <div style="margin-bottom: 20px;">{{ selectedOption }}</div>
     </div>
 
     <div class="container col-md-8 mt-4" style="text-align: center">
@@ -42,239 +43,255 @@
           <label style="font-size: 20px; font-weight: bold">환불정보</label>
         </div>
         <div class="refInfo">
-          <span>상품금액</span>
-          <span>{{order.orderPrice}} 원</span>
+          <label>상품금액</label>
+          <label>{{ order.orderPrice }} 원</label>
         </div>
         <div class="refInfo">
-          <span>즉시할인</span>
-          <span>0 원</span>
+          <label>즉시할인</label>
+          <label>0 원</label>
         </div>
         <div class="refInfo">
-          <span>배송비</span>
-          <span>{{order.shoppingFee}} 원</span>
+          <label>배송비</label>
+          <label>{{ order.shoppingFee }} 원</label>
         </div>
         <div class="refInfo">
-          <span>반품비</span>
-          <span>0 원</span>
+          <label>반품비</label>
+          <label>0 원</label>
         </div>
       </div>
       <div class="divider"></div>
       <!-- 구분선 추가 -->
       <div>
         <div class="mb-2 mt-2 refInfo">
-          <span style="font-size: 20px; font-weight: bold">환불 예상금액</span>
-          <span style="color: red; font-weight: bold">{{order.orderPrice + order.shoppingFee}} 원</span>
+          <label style="font-size: 20px; font-weight: bold">환불 예상금액</label>
+          <label style="color: red; font-weight: bold"
+            >{{ order.orderPrice + order.shoppingFee }} 원</label
+          >
         </div>
         <div class="refInfo">
-          <span>환불수단</span>
-          <span>{{ order.paymentType }} / {{ order.orderPrice + order.shoppingFee }} 원</span>
+          <label>환불수단</label>
+          <label
+            >{{ order.paymentType }} /
+            {{ order.orderPrice + order.shoppingFee }} 원</label
+          >
         </div>
       </div>
     </div>
     <!-- 버튼 태그 시작 -->
-    <div class="buttons">
-      <button class="btn prev" @click="goBack">{{ "< 이전단계" }}</button>
-      <button class="btn next" @click="showPopup">{{ "신청하기" }}</button>
-      <RefundPopup v-if="isPopupVisible" @close="isPopupVisible = false" />
+    <div class="buttonsiu">
+      <button class="btnn prev" @click="goBack">{{ "< 이전단계" }}</button>
+      <button class="btnn next" @click="goConfirm(this.orderId)">{{ "신청하기" }}</button>
     </div>
     <!-- 버튼 태그 끝 -->
   </div>
 </template>
 <script>
-import RefundPopup from './RefundPopupView.vue';
-import { computed } from 'vue';
-import { useStore } from 'vuex';
-import OrderService from '@/services/product/OrderService';
-import AdminManageService from '@/services/admin/AdminManageService';
+import { computed } from "vue";
+import { useStore } from "vuex";
+import OrderService from "@/services/product/OrderService";
+import RefundService from '@/services/payment/RefundService';
 
 export default {
-  components: {
-    RefundPopup,
+  computed: {
+    orderId() {
+      return this.$route.params.orderId;
+    },
   },
   setup() {
     const store = useStore();
     const selectedOption = computed(() => store.state.selectedOption);
 
     return {
-      selectedOption
+      selectedOption,
     };
   },
   data() {
     return {
-      // 예시 데이터
-      order:null,
-      product: {},
-      products: [],
-
-      // 팝업창 표시 여부 제어 속성  
-      isPopupVisible: false,
+      order: null,
+      prodInfoList: [],
     };
   },
   methods: {
     // TODO: orderId로 상세조회하는 함수
     async retrieveOrder(orderId) {
       try {
-        console.log("주문정보", orderId)
         let response = await OrderService.getOrderInfo(orderId);
         this.order = response.data;
-        console.log("주문 정보", response.data);
       } catch (e) {
         console.log(e);
       }
     },
-        // TODO: prodId로 주문 상품 정보 받아오기
-    async retrieveProduct(orderProdId) {
+    async getProdId(orderId) {
       try {
-        console.log("주문번호" + orderProdId)
-        let response = await OrderService.getProdInfo(orderProdId);
-        this.products = response.data;
-        console.log("주문 번호", response.data);
-      } catch (error) {
-        console.log(error);
-      }
-    },
-        async getProduct(prodId) {
-      try {
-        console.log("상품 정보",prodId)
-        let response = await AdminManageService.get(prodId);
-        this.product = response.data; // 전체조회에서는 배열이었으나, 여기서는 객체 한개다. spring 결과를 바인딩 속성변수 product 에 저장
-        // 로깅
-        console.log("상품 쟁보", response.data);
+        let response = await OrderService.getOrderProduct(orderId);
+        this.prodId = response.data;
+
+        let promises = this.prodId.map((id) => this.getProductInfo(id));
+
+        await Promise.all(promises);
       } catch (e) {
         console.log(e);
       }
     },
-    goBack() {
-      this.$router.push("/order/refund-request");
+    async getProductInfo(orderProdId) {
+      try {
+        let response = await OrderService.getProductInfo(orderProdId);
+
+        this.prodInfoList.push(...response.data);
+      } catch (e) {
+        console.log(e);
+      }
     },
-    showPopup() {
-      this.isPopupVisible = true; // 팝업창을 띄우는 메소드
-    }
+goBack() {
+  this.$router.go(-1);
+},
+  async goConfirm(orderId) {
+  try {
+    let data = {
+      orderId: orderId,
+      orderStatus: "환불신청",
+    };
+    let response = await RefundService.requestRefund(orderId, data);
+
+    console.log(response.data);
+    
+    // 주문자 환불 완료 페이지로 이동
+    this.goToRefundSuccessPage(orderId);
+  } catch (e) {
+    console.log(e);
+  }
+},
+goToRefundSuccessPage(orderId) {
+  this.$router.push({ name: 'RefundSuccess', params: { orderId: orderId } });
+},
   },
   mounted() {
-    console.log(this.$route.query.selectedOption);
     this.retrieveOrder(this.$route.params.orderId);
-    this.retrieveProduct(this.$route.params.orderProdId);
-    this.getProduct(this.$route.params.prodId);
+    this.getProdId(this.$route.params.orderId);
+    this.getProductInfo(this.$route.params.orderProdId);
   },
 };
 </script>
 
-<style>
+<style scoped>
 .refundInfo-div {
-  width: 1000px;
-  height: 800px;
-  border: 1px solid black;
-  border-radius: 10px;
-  background-color: whitesmoke;
-  margin-bottom: 50px;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-}
-
-.product-info {
-  display: flex;
-  align-items: flex-start;
-}
-
-.product-image {
-  height: 100px;
-  width: auto;
-}
-
-.product-details {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  padding-left: 12px;
-}
-
-/* 선택적: 상품 정보 텍스트 스타일 조정 */
-.product-details h5,
-.product-details p {
-  margin: 0;
-  padding: 2px 0;
-}
-
-.refInfo {
-  display: flex;
-  justify-content: space-between;
-  margin-bottom: 10px;
-}
-
-.divider {
-  height: 1px;
-  background-color: #ccc;
-  width: 100%;
-  margin: 0 auto;
-}
-
-.buttons {
-  display: flex;
-  justify-content: space-between;
-  margin-top: 30px;
-  width: 80%;
-  max-width: 750px;
-  margin-left: auto;
-  margin-right: auto;
-}
-
-.btn {
-  flex-grow: 1;
-  padding: 10px 20px;
-  font-size: 16px;
-  margin: 0 10px;
-  cursor: pointer;
-  border: 1px solid #ccc; 
-  transition: background-color 0.3s ease; 
-}
-
-.prev {
-  background-color: #ffffff;
-  color: #000000;
-}
-
-.next {
-  background-color: #342a26;
-  color: #ffffff;
-}
-
-.prev:hover {
-  background-color: #e6e6e6; /* 이전단계 버튼의 배경색을 마우스 오버 시 더 어둡게 */
-}
-
-.next:hover {
-  background-color: #8a7465;
-}
-
-.inner {
-  border: 1px solid black;
-  border-radius: 10px;
-  background-color: white;
-  margin-top: 25px;
-  width: 75%;
-}
-
-/* 태블릿과 모바일 화면 크기에 대응하기 위한 미디어 쿼리 */
-@media (max-width: 992px) {
-  /* 태블릿 */
-  .refundInfo-div,
-  .inner {
-    width: 100%; /* 화면의 너비에 맞춰 조절 */
-    margin-top: 20px;
-    margin-bottom: 20px;
+    width: 1000px;
+    height: auto;
+    border: 1px solid black;
+    border-radius: 10px;
+    background-color: whitesmoke;
+    margin-bottom: 50px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
   }
-}
-
-@media (max-width: 768px) {
-  /* 모바일 */
-  .refundInfo-div,
-  .inner {
-    width: 100%; /* 화면의 너비에 맞춰 조절 */
-    margin-top: 10px;
+  
+  .product-info {
+    display: flex;
+    align-items: flex-start;
+    margin-bottom: 20px;
+    background-color: #f9f9f9; 
+    border-radius: 10px;
+    padding: 10px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); 
+  }
+  
+  .pdImg {
+    height: 100px !important;
+    width: 100px !important;
+    margin: 0 !important;
+    align-self: center !important;
+  }
+  
+  .product-details {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding-left: 12px;
+  }
+  
+  .product-details h5,
+  .product-details p {
+    margin: 0;
+    padding: 2px 0;
+  }
+  
+  .refInfo {
+    display: flex;
+    justify-content: space-between;
     margin-bottom: 10px;
   }
-}
+  
+  .divider {
+    height: 1px;
+    background-color: #ccc;
+    width: 100%;
+    margin: 0 auto;
+  }
+  
+  .buttonsiu {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 30px;
+    width: 80%;
+    max-width: 750px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 30px;
+  }
+  
+  .btnn {
+    flex-grow: 1;
+    padding: 10px 20px;
+    font-size: 16px;
+    margin: 0 10px;
+    cursor: pointer;
+    border: 1px solid #ccc;
+    transition: background-color 0.3s ease;
+  }
+  
+  .prev {
+    background-color: #ffffff;
+    color: #000000;
+  }
+  
+  .next {
+    background-color: #342a26;
+    color: #ffffff;
+  }
+  
+  .prev:hover {
+    background-color: #e6e6e6; 
+  }
+  
+  .next:hover {
+    background-color: #8a7465;
+  }
+  
+  .inner {
+    border: 1px solid black;
+    border-radius: 10px;
+    background-color: white;
+    margin-top: 25px;
+    width: 75%;
+  }
+  
+  @media (max-width: 992px) {
+    .refundInfo-div,
+    .inner {
+      width: 100%;
+      margin-top: 20px;
+      margin-bottom: 20px;
+    }
+  }
+  
+  @media (max-width: 768px) {
+    .refundInfo-div,
+    .inner {
+      width: 100%;
+      margin-top: 10px;
+      margin-bottom: 10px;
+    }
+  }
 </style>

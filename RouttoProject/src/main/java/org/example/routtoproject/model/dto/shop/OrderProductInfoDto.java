@@ -18,4 +18,5 @@ public interface OrderProductInfoDto {
     String getProdName();
     Integer getDefaultPrice();
     String getProdImgUrl();
+    Integer getProdPrice();
 }

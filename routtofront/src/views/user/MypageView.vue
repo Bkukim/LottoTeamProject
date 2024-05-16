@@ -71,7 +71,7 @@
           </td>
            <td class="col">
             <br /><br />
-            <button>환불</button>
+            <button @click="goToRefundPage(data.orderId)">환불</button>
           </td>
 
           <!-- <div class="col mapage_b2">
@@ -180,6 +180,9 @@ export default {
         console.log(e);
       }
     },
+goToRefundPage(orderId){
+  this.$router.push({ name: 'RefundRequest', params: { orderId: orderId } });
+},
   },
 
   // TODO: 화면에 뜰때 자동 실행되는 함수

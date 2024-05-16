@@ -7,6 +7,7 @@ import org.example.routtoproject.model.dto.shop.PaymentDto;
 import org.example.routtoproject.model.entity.payment.Payment;
 import org.example.routtoproject.model.entity.shop.Order;
 import org.example.routtoproject.service.payment.PaymentService;
+import org.example.routtoproject.service.shop.AdminRefundService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -26,7 +27,7 @@ import org.springframework.web.bind.annotation.*;
  */
 @Slf4j
 @RestController
-@RequestMapping("/api/normal/shop")
+@RequestMapping("/api/user/shop")
 @RequiredArgsConstructor
 public class PaymentController {
     private final PaymentService paymentService;
@@ -43,25 +44,6 @@ public class PaymentController {
         } catch (Exception e) {
             log.debug("결제 " + e.getMessage());
 //            DB 에러가 났을경우 : INTERNAL_SERVER_ERROR 프론트엔드로 전송
-            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
-        }
-    }
-
-    // 삭제함수
-    @DeleteMapping("/payment/deletion/{paymentCode}")
-    public ResponseEntity<Object> delete(@PathVariable Integer paymentCode) {
-
-        try {
-            boolean bSuccess = paymentService.removeByPaymentCode(paymentCode);
-
-            if (bSuccess == true) {
-//                delete 문이 성공했을 경우
-                return new ResponseEntity<>(HttpStatus.OK);
-            }
-//            delete 실패했을 경우( 0건 삭제가 될경우 )
-            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-        } catch (Exception e) {
-//            DB 에러가 날경우
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }

@@ -477,11 +477,6 @@
                   원
                 </div>
               </div>
-              <!-- 쿠폰 할인 금액 -->
-              <!-- <div class="paymentTr">
-                <div class="payTitle">쿠폰 할인 금액</div>
-                <div class="price">00 원</div>
-              </div> -->
               <!-- 총 배송비 -->
               <div class="paymentTr">
                 <div class="payTitle">총 배송비</div>
@@ -502,62 +497,22 @@
               </div>
             </div>
           </div>
-          <!-- 7. 결제 버튼 -->
-          <!-- <div class="mt-4">
-            <button type="button" id="btnPay" @click="togglePaymentModal">
-              결제하기
-            </button>
-          </div> -->
-
-         
         </div>
         <!-- 7. 결제 버튼 -->
         <div class="mt-4">
-
           <button type="button" id="btnPay" @click="saveOrder">결제하기</button>
-
-
         </div>
       </div>
     </div>
-    <!-- 결제 버튼 -->
-    <!-- <div class="payment-button">
-      <button
-        type="button"
-        id="btnPay"
-        @click="togglePaymentModal"
-        style="width: 100%"
-      >
-        결제하기
-      </button>
-    </div> -->
-  </div>
-
-  <div>
-    <div>
-      <!-- 결제 모달 -->
-      <CheckoutViewVue
-      :orderInfo="orderData"
-        v-if="isModalVisible"
-        @close="isModalVisible = false"
-      ></CheckoutViewVue>
-    </div>
-    <br />
   </div>
 </template>
 
 <script>
-import CheckoutViewVue from "../payment/CheckoutView.vue";
 import UserService from "@/services/user/UserService";
 import ProductService from "@/services/product/ProductService";
 import OrderService from "@/services/product/OrderService";
-// import OrderService from "@/services/product/OrderService";
 
 export default {
-  components: {
-    CheckoutViewVue,
-  },
-  
   data() {
     return {
       address: {
@@ -672,14 +627,10 @@ export default {
 
       // TODO: 결제 창으로 주문정보 전송 및 결제창 오픈
         try {
-        let response = await OrderService.saveOrder(data); // 주문 정보를 서버에 전송(post 요청 수행) 화면 입력값이 temp
-        console.log("결제 클릭 ", response.data);
-        // this.orderData = response.data; // 주문 정보를 orderData에 저장
-        // this.isModalVisible = true; // 모달 창을 보여준다
+        let response = await OrderService.saveOrder(data);
         this.$router.push("/order/payment/" + response.data.orderId);
-        // this.isModalVisible = !this.isModalVisible; // 결제하기 버튼 클릭 시 모달 상태 토글
-      } catch (error) {
-        console.log(error);
+      } catch (e) {
+        console.log(e);
       }
     },
 
@@ -751,52 +702,6 @@ export default {
         },
       }).open();
     },
-    // TODO: 주문 저장, 결제하기로 이동하는 함수
-    // async goPayment() {
-    //   // saveOrder 함수 호출
-    //   try {
-    //     let response = await this.saveOrder(); // saveOrder 함수 호출 및 await로 비동기 처리
-    //     console.log(response);
-    //   } catch (error) {
-    //     console.error("에러 발생 : ", error);
-    //     // 주문 저장 중 오류가 발생한 경우에 대한 처리
-    //   }
-    //   this.$router.push("/order/Payment");
-    // },
-
-    // TODO: 결제 모달 여는 로직 (비동기, saveOrder 추가했음)
-    // async togglePaymentModal() {
-    //   // saveOrder 함수 호출
-    //   try {
-    //     let response = await this.saveOrder(); // saveOrder 함수 호출 및 await로 비동기 처리
-    //     console.log(response.data);
-    //     console.log(response.data.orderId)
-    //       this.$router.push("/order/payment/" + response.data.orderId);
-    //   } catch (error) {
-    //     console.log("에러 발생 : ", error);
-    //     // 주문 저장 중 오류가 발생한 경우에 대한 처리
-    //   }
-    //     // this.$router.push("/order/payment");
-    //     // this.isModalVisible = !this.isModalVisible; // 결제하기 버튼 클릭 시 모달 상태 토글
-    // },
-    // TODO: 결제 모달 여는 로직 (비동기, saveOrder 추가했음)
-// async togglePaymentModal() {
-//   // saveOrder 함수 호출
-//   try {
-//     let response = await this.saveOrder(); // saveOrder 함수 호출 및 await로 비동기 처리
-//     console.log(response.data);
-//     // orderId 값을 응답으로부터 추출
-//     const orderId = response.data.orderId; // 이 부분에서 orderId를 추출
-//     console.log(orderId);
-//     // orderId를 URL 파라미터로 사용하여 결제 페이지로 이동
-//     this.$router.push("/order/payment/" + orderId);
-//   } catch (error) {
-//     console.log("에러 발생 : ", error);
-//     // 주문 저장 중 오류가 발생한 경우에 대한 처리
-//   }
-//     // this.$router.push("/order/payment");
-    // this.isModalVisible = !this.isModalVisible; // 결제하기 버튼 클릭 시 모달 상태 토글
-// },
   },
   mounted() {
     // 화면 뜰때 상단이 뜨게 해주는 함수
@@ -895,12 +800,12 @@ ul {
 }
 #btnPay {
   display: block;
-  width: 100%;
-  margin-top: 20px;
+  width: 250px;
   height: 3vw;
   background-color: #342a26;
   color: white;
   border-radius: 5px;
+  font-size: 20px;
 }
 .payTitle {
   text-align: left;

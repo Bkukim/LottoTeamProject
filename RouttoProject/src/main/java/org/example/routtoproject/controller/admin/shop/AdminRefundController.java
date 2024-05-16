@@ -3,6 +3,7 @@ package org.example.routtoproject.controller.admin.shop;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.example.routtoproject.model.entity.shop.Order;
+import org.example.routtoproject.service.payment.PaymentService;
 import org.example.routtoproject.service.shop.AdminRefundService;
 import org.example.routtoproject.service.shop.OrderService;
 import org.springframework.http.HttpStatus;
@@ -33,6 +34,7 @@ import java.util.*;
 public class AdminRefundController {
 
     private final AdminRefundService adminRefundService;
+    private final PaymentService paymentService;
 
     // OrderId로 주문 찾기
     @GetMapping("/refund/by-order-id/{orderId}")
@@ -82,17 +84,17 @@ public class AdminRefundController {
         }
     }
 
-    // 주문의 환불 상태를 '환불 완료'로 변경하는 메소드
-//    @PutMapping("/refund/{orderId}/complete")
-//    public ResponseEntity<?> completeRefund(@PathVariable int orderId) {
-//        boolean result = adminRefundService.completeRefund(orderId);
-//
-//        if(result) {
-//            return ResponseEntity.ok().body("환불이 완료되었습니다.");
-//        } else {
-//            return ResponseEntity.notFound().build();
-//        }
-//    }
+//  TODO: 전체 조회
+    @GetMapping("/refund/get-all/order-status/{orderStatus}")
+    public ResponseEntity<Object> findAllByOrderStatus(@PathVariable String orderStatus) {
+        try {
+            List<Order> orders = adminRefundService.findAllByOrderStatus(orderStatus);
+            return new ResponseEntity<>(orders, HttpStatus.OK);
+        } catch (Exception e) {
+            log.debug(e.getMessage());
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
 
 //  TODO: 상세 조회
     @GetMapping("/refund/{orderId}")
@@ -125,6 +127,31 @@ public class AdminRefundController {
         } catch (Exception e) {
             log.debug("error" + e.getMessage());
 //          DB 에러 (서버 에러) -> 500 신호 (INTERNAL_SERVER_ERROR)
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    //  TODO: orderId로 paymentCode 조회
+    @GetMapping("/payment/by-od/{orderId}")
+    public int findPaymentCodeByOrderId(@PathVariable int orderId) {
+        return adminRefundService.findPaymentCodeByOrderId(orderId);
+    }
+
+    // 삭제함수
+    @DeleteMapping("/payment/deletion/{paymentCode}")
+    public ResponseEntity<Object> delete(@PathVariable Integer paymentCode) {
+
+        try {
+            boolean bSuccess = paymentService.removeByPaymentCode(paymentCode);
+
+            if (bSuccess == true) {
+//                delete 문이 성공했을 경우
+                return new ResponseEntity<>(HttpStatus.OK);
+            }
+//            delete 실패했을 경우( 0건 삭제가 될경우 )
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        } catch (Exception e) {
+//            DB 에러가 날경우
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }

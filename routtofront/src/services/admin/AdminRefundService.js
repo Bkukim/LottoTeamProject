@@ -32,8 +32,21 @@ class AdminRefundService {
     }
 
     // OrderId로 상세조회
-    get(orderId) {
+    getDetail(orderId) {
         return http.get(`/admin/shop/refund/${orderId}`,{
+            headers: AuthHeader()
+          })
+    }
+
+    // orderId로 paymentCode 조회
+    getPayCode(orderId) {
+        return http.get(`/admin/shop/payment/by-od/${orderId}` ,{
+            headers: AuthHeader()
+          })
+    }
+
+    findAllByOrderStatus(orderStatus) {
+        return http.get(`/admin/shop/refund/get-all/order-status/${orderStatus}`,{
             headers: AuthHeader()
           })
     }
@@ -41,6 +54,13 @@ class AdminRefundService {
     // OrderId를 기준으로 주문상태를 환불완료로 변경하기
     completeRefund(orderId, data) {
         return http.put(`/admin/shop/refund/${orderId}/complete`, data,{
+            headers: AuthHeader()
+          });
+    }
+
+    // paymentCode로 결제 테이블 삭제하기
+    remove(paymentCode) {
+        return http.delete(`/admin/shop/payment/deletion/${paymentCode}`,{
             headers: AuthHeader()
           });
     }

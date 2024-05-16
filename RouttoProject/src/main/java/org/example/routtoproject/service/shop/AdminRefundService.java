@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.example.routtoproject.model.entity.shop.Order;
 import org.example.routtoproject.repository.admin.AdminRefundRepository;
+import org.example.routtoproject.repository.payment.PaymentRepository;
 import org.example.routtoproject.repository.shop.OrderProdRepository;
 import org.example.routtoproject.repository.shop.OrderRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,6 +32,7 @@ import java.util.Optional;
 public class AdminRefundService {
 
     private final AdminRefundRepository adminRefundRepository;
+    private final PaymentRepository paymentRepository;
 
 //  주문 번호로 조회하기
     public List<Order> findByOrderId(int orderId) {
@@ -66,6 +68,12 @@ public class AdminRefundService {
 //        }
 //    }
 
+//  TODO: 전체 조회 함수
+    public List<Order> findAllByOrderStatus(String orderStatus) {
+        List<Order> orders = adminRefundRepository.findAllByOrderStatus(orderStatus);
+        return orders;
+    }
+
 //  TODO: 상세조회 함수
     public Optional<Order> findById(int orderId) {
         Optional<Order> optionalOrder = adminRefundRepository.findById(orderId);
@@ -85,4 +93,10 @@ public class AdminRefundService {
 
         return order3;
     }
+
+    //  TODO: orderId로 paymentCode 조회
+    public int findPaymentCodeByOrderId(int orderId) {
+        return paymentRepository.findPaymentCodeByOrderId(orderId);
+    }
+
 }
