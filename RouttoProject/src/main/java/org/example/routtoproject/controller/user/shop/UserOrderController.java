@@ -104,9 +104,7 @@ public class UserOrderController {
     @GetMapping("/order-all/{userId}")
     public ResponseEntity<Object> findAllByUserId(@PathVariable String userId){
         try {
-            log.debug("여긴 컨트롤러 1");
             List<Order> orders = orderService.findAllByUserId(userId);
-            log.debug("여긴 컨트롤러 2");
             if (orders != null) {
                 return new ResponseEntity<>(orders, HttpStatus.OK);
             }else {
