@@ -63,7 +63,7 @@
           </td>
           <td class="col mapage_b2">
             <br /><br />
-            {{ data.orderTime.split(" ")[0] }}
+            {{ data.orderTime }}
           </td>
           <td class="col">
             <br /><br />
