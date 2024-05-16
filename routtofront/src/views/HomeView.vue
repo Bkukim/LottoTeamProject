@@ -81,13 +81,13 @@
         <img
           class="div4_img"
           :src="banner[1]?.bannerImg1Url"
-          style="max-width: 400px; max-height: 300px"
+          style="max-width: 400px; max-height: 400px"
         />
         <div class="abcdefgefghijk22">{{ banner[1]?.bannerTitle }}</div>
         <div class="div4_in">{{ banner[1]?.bannerContent }}</div>
         <div class="shop-more">
           <router-link :to="'/product/' + banner[1]?.prodId"
-            >SHOP MORE &gt;</router-link
+          class="router-link">SHOP MORE &gt;</router-link
           >
         </div>
       </div>
@@ -96,13 +96,13 @@
         <img
           class="div4_img"
           :src="banner[2]?.bannerImg1Url"
-          style="max-width: 400px; max-height: 300px"
+          style="max-width: 400px; max-height: 400px"
         />
         <div class="abcdefgefghijk22">{{ banner[2]?.bannerTitle }}</div>
         <div class="div4_in">{{ banner[2]?.bannerContent }}</div>
         <div class="shop-more">
           <router-link :to="'/product/' + banner[2]?.prodId"
-            >SHOP MORE &gt;</router-link
+          class="router-link">SHOP MORE &gt;</router-link
           >
         </div>
       </div>
@@ -111,13 +111,13 @@
         <img
           class="div4_img"
           :src="banner[3]?.bannerImg1Url"
-          style="max-width: 400px; max-height: 300px"
+          style="max-width: 400px; max-height: 400px"
         />
         <div class="abcdefgefghijk22">{{ banner[3]?.bannerTitle }}</div>
         <div class="div4_in">{{ banner[3]?.bannerContent }}</div>
         <div class="shop-more">
           <router-link :to="'/product/' + banner[3]?.prodId"
-            >SHOP MORE &gt;</router-link
+          class="router-link" >SHOP MORE &gt;</router-link
           >
         </div>
       </div>
@@ -350,8 +350,22 @@ export default {
   display: flex;
   gap: 30px;
 }
+/* best 상품 반복문 글씨 꾸미기 */
+.abcdefghijklm{
+  color: #535353;
+  font-family: "Inter-Light", sans-serif;
+  font-size: 17px;
+  font-weight: 700;
+  letter-spacing: -1.5px;
+}
 
-
+.abcdef{
+  color: #535353;
+  font-family: "Inter-Light", sans-serif;
+  font-size: 17px;
+  font-weight: 300;
+  letter-spacing: -1.5px;
+}
 
 
 /* ---------------------------------- */
@@ -401,6 +415,40 @@ export default {
 .abcdefgefghijk22, .div4_in, .shop-more {
   text-align: center; 
 }
+
+/* 제일 밑 세로나열 상품 글씨 꾸미기 */
+.abcdefgefghijk22{
+  color: #535353;
+  font-family: "Inter-Bold", sans-serif;
+  font-size: 25px;
+  font-weight: 700;
+  margin: 10px 0 7px 0 ;
+}
+
+.div4_in{
+  color: #535353;
+  font-family: "Inter-Light", sans-serif;
+  font-size: 17px;
+  font-weight: 300;
+}
+
+.shop-more{
+  color: #535353;
+  font-family: "Inter-Light", sans-serif;
+  font-size: 20px;
+  font-weight: 300;
+  margin: 20px 0 20px 0;
+}
+
+.router-link{
+  color: #535353;
+  text-decoration: none; /* 언더라인 제거 */
+}
+.router-link:hover {
+  color: rgb(166, 166, 166); /* 원하는 호버 색상으로 변경 */
+}
+/* ------- */
+
 
 .img-container {
   display: flex;

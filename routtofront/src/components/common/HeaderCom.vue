@@ -13,13 +13,22 @@
 
       <!-- 메뉴 바 -->
       <div class="kim-navbar">
-        <router-link :to="'/product/category/' + 0" class="kim-div3">BEST</router-link>
-        <router-link :to="'/product/category/' + 1" class="kim-div3">SKIN</router-link>
-        <router-link :to="'/product/category/' + 2"  class="kim-div3">HAIR</router-link>
-        <router-link :to="'/product/category/' + 3" class="kim-div3">MAKE UP</router-link>
-        <router-link :to="'/product/category/' + 4"  class="kim-div3">BODY</router-link>
+        <router-link :to="'/product/category/' + 0" class="kim-div3"
+          >BEST</router-link
+        >
+        <router-link :to="'/product/category/' + 1" class="kim-div3"
+          >SKIN</router-link
+        >
+        <router-link :to="'/product/category/' + 2" class="kim-div3"
+          >HAIR</router-link
+        >
+        <router-link :to="'/product/category/' + 3" class="kim-div3"
+          >MAKE UP</router-link
+        >
+        <router-link :to="'/product/category/' + 4" class="kim-div3"
+          >BODY</router-link
+        >
         <router-link to="/shop/notice" class="kim-div3">NOTICE</router-link>
-
       </div>
 
       <!-- 왼쪽 박스 -->
@@ -29,30 +38,35 @@
       </div>
 
       <!-- 오른쪽 박스 -->
-      <div>
+      <div class="kim-frame-15_all">
         <div class="kim-frame-15" v-if="!this.$store.state.loggedIn">
           <router-link to="/member/login" class="kim-login">LOGIN</router-link>
           <router-link to="/member/join" class="kim-join">JOIN</router-link>
+          <div class="search_header">
+            <router-link to="/member/searchproductview" class="se_button">
+              <img src="../../../src/assets/images/se.png" />
+            </router-link>
+          </div>
         </div>
         <div class="kim-frame-15" v-else>
           <li>
-            <router-link to="#" class="kim-login" @click.prevent="handleLogout"> LOGOUT </router-link>
+            <router-link to="#" class="kim-login" @click.prevent="handleLogout">
+              LOGOUT
+            </router-link>
           </li>
           <router-link to="/order/cart" class="kim-cart">CART</router-link>
           <router-link to="/member/mypage" class="kim-my-page"
             >MY PAGE</router-link
           >
         </div>
-
       </div>
 
       <!-- 검색창 -->
       <div class="search_header">
-        <input type="text" 
+        <!-- <input type="text" 
         v-model="searchQuery" 
-        placeholder="" />
+        placeholder="" /> -->
         <router-link to="/member/searchproductview" class="se_button">
-
           <img src="../../../src/assets/images/se.png" />
         </router-link>
       </div>
@@ -76,7 +90,7 @@
 </template>
 
 <script>
-import AuthService from '@/services/auth/AuthService';
+import AuthService from "@/services/auth/AuthService";
 export default {
   data() {
     return {
@@ -135,12 +149,11 @@ export default {
       let result = confirm("정말로 로그아웃 하시겠습니까?");
       if (result) {
         AuthService.logout(); // LOCAL저장소에서 USER객체 삭제해주기
-      this.$store.commit("logout"); //
-      this.$router.push("/member/login");
+        this.$store.commit("logout"); //
+        this.$router.push("/member/login");
       } else {
         return;
       }
-      
     },
   },
 };
