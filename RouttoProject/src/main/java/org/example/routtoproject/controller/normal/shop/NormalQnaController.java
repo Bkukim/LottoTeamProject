@@ -61,9 +61,11 @@ public class NormalQnaController {
 //            전체 조회 서비스 실행
             Page<Qna> qna
 
+
                     = qnaservice
 
                     .findByProdId(prodId, pageable);
+
 
 
 
