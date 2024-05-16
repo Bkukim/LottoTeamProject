@@ -61,13 +61,11 @@ public class AnnouncementService {
             Pageable pageable
     ) {
 
-        log.debug("여기는 서비스 1");
         Page<Announcement> page1
                 = announcementRepository.findAllByTitleSearch(
                 title,
                 pageable
         );
-        log.debug("여기는 서비스2");
         return page1;
     }
 

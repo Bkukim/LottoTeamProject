@@ -177,7 +177,7 @@
           type="button"
           id="button2"
           class="btn"
-          @click="deleteAllCart(cart)"
+          @click="deleteAllCart(this.$store.state.user.userId)"
         >
           전체상품 삭제하기
         </button>
@@ -295,14 +295,9 @@ export default {
     },
     // TODO: 전체조회(장바구니) 함수 : 검색어 버튼, 화면이뜰때 자동 실행
     async retrieveCart() {
-      console.log("실행이 됐는지확인");
 
       try {
-        // todo: 공통 장바구니 전체 조회 서비스 함수 실행
-        //   todo: 비동기 코딩 : async~await
-        console.log(this.page);
-        console.log(this.$store.state.user.userId);
-        console.log(this.pageSize);
+
         let response = await CartService.getAll(
           this.$store.state.user.userId,
           this.page - 1,
@@ -330,17 +325,14 @@ export default {
       }
     },
     // TODO: 장바구니 전체 삭제 함수 : delete 버튼 태그 ::전체상품
-    async deleteAllCart(cart) {
+    async deleteAllCart(userId) {
       try {
         // todo: 공통 장바구니 삭제 서비스 함수 실행
-        let response = await CartService.removeAll(cart);
+        let response = await CartService.removeAll(userId);
         // 로깅
         console.log(response.data);
         // alert 대화상자
         alert("삭제되었습니다");
-
-        // this.cartProdCount = 0; //카트카운트 초기화 해주기
-
         // 삭제후 재조회
         this.retrieveCart();
       } catch (e) {
@@ -359,7 +351,6 @@ export default {
           userId,
           prodId
         );
-        console.log(response.data);
 
         // 로깅
         console.log(response.data);
