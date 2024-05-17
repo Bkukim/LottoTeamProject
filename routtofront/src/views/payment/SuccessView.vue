@@ -11,7 +11,7 @@
       <div class="p-grid typography--p" style="margin-top: 50px">
         <div class="p-grid-col text--left"><b>결제금액</b></div>
         <div class="p-grid-col text--right" id="price">
-          {{ jsonData.totalAmount }}원
+          {{ formatCurrency(jsonData.totalAmount) }}원
         </div>
       </div>
       <div class="p-grid typography--p" style="margin-top: 10px">
@@ -52,6 +52,11 @@ export default {
     };
   },
   methods: {
+    // TODO: 금액에 쉼표 찍어주는 함수
+    formatCurrency(value) {
+      if (!value) return "";
+      return value.toLocaleString("ko-KR");
+    },
     // TODO: 토스 결제 함수
     async confirm() {
       try {
@@ -86,15 +91,14 @@ export default {
           payTime: this.jsonData.requestedAt, // 결제일
         };
 
-
         // 1) 결제테이블 생성
         let response = await PaymentService.create(data);
         this.payment = response.data;
 
         // 2) 주문 상태를 '결제완료'로 변경
-    data.orderStatus = "결제완료"
-    let payResponse = await OrderService.change(data.orderId, data); // orderId와 data를 전달
-    console.log(payResponse.data);
+        data.orderStatus = "결제완료";
+        let payResponse = await OrderService.change(data.orderId, data); // orderId와 data를 전달
+        console.log(payResponse.data);
 
         alert("결제가 완료되었습니다.");
       } catch (e) {
