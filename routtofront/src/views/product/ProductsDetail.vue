@@ -559,8 +559,7 @@ export default {
         // TODO: async ~ await
         await ReviewService.createReview(data);
         alert("리뷰가 성공적으로 등록되었습니다.");
- 
-        this.$router.push('/product/262');
+        this.retrieveReview();
       } catch (e) {
         console.log(e);
       }
