@@ -595,7 +595,12 @@ export default {
 
     // 상품문의 글 작성 페이지로 넘어가는 함수
     writeInquiry() {
-      this.$router.push("/product/inquiry/" + this.$route.params.prodId);
+      
+      if(!this.$store.state.user?.userId){
+        alert("로그인이 필요합니다");
+        this.$router.push("/member/login");
+      }
+      else{this.$router.push("/product/inquiry/" + this.$route.params.prodId);}
     },
 
     // TODO: 상품 개수 증가 함수
