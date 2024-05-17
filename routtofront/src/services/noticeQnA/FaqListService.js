@@ -15,10 +15,21 @@ class FaqListService {
     }
     );  
   }
-  
+
+  // 상세조회
+  getFaqId(faqId) {
+    // TODO: 사용법 : http.get(`/컨트롤러함수url/${부서번호}`)
+    return http.get(`/normal/member/faq/${faqId}`,
+    {
+      headers: AuthHeader()
+    }
+    );
+  }
+
+  // 아래로 권한은 user로 변경  
   // 유저아이디로 전체조회 내글찾기
   getAllUserId(userId, page, size) {
-    return http.get(`/normal/member/userid/faq?userId=${userId}&page=${page}&size=${size}`,
+    return http.get(`/user/member/userid/faq?userId=${userId}&page=${page}&size=${size}`,
     {
       headers: AuthHeader()
     }
@@ -30,33 +41,26 @@ class FaqListService {
   create(data) {
     console.log(data);
 
-    return http.post("/normal/member/faq/save", data,
+    return http.post("/user/member/faq/save", data,
     {
       headers: AuthHeader()
     }
     );
 } 
-  getFaqId(faqId) {
-    // TODO: 사용법 : http.get(`/컨트롤러함수url/${부서번호}`)
-    return http.get(`/normal/member/faq/${faqId}`,
-    {
-      headers: AuthHeader()
-    }
-    );
-  }
-
 
   // TODO: 수정함수 : qnaId, 
   update(faqId, data) {
     // TODO: 수정(update) -> put 방식 -> @PutMapping
     // TODO: 사용법 : http.put(`/컨트롤러함수url/${dno}`, 수정할객체)
-    return http.put(`/normal/member/faq/update/${faqId}`, data,
+    return http.put(`/user/member/faq/update/${faqId}`, data,
     {
       headers: AuthHeader()
     }
     );
   }
   
+
+
   // TODO: 관리자 :: 답변으로 수정함수 : qnaId, 
   updateAnswer(faqId, data) {
     return http.put(`/admin/faq/updateanswer/${faqId}`, data,
@@ -68,7 +72,7 @@ class FaqListService {
 
   delete(faqId) {
     console.log(faqId)
-    return http.delete(`/normal/member/faq/deletion/${faqId}`,
+    return http.delete(`/user/member/faq/deletion/${faqId}`,
     {
       headers: AuthHeader()
     }
@@ -76,16 +80,6 @@ class FaqListService {
   }
 
   
-  // 상세조회 비밀번호 함수
-  // getPass(faqId, password) {
-  //   // TODO: 사용법 : http.get(`/컨트롤러함수url/${부서번호}`)
-  //   return http.get(`/shop/faq/${faqId}?password=${password}`);
-  // }
-
-
-  
 }
 
-// 내보내기 : 다른 js 에서 사용하기 위해
-// 사용법 : 자바 같음 : 객체.함수명()
 export default new FaqListService();
