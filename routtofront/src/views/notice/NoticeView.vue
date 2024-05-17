@@ -77,7 +77,7 @@
       <div class="row justify-content-center mt-4">
         <div class="col-auto">
           <b-pagination
-            class="col-12 mb-3"
+            class="col-12 mb-3 custom-pagination"
             v-model="page"
             :total-rows="count"
             :per-page="pageSize"
@@ -178,4 +178,20 @@ export default {
 
 <style>
 @import "@/assets/css/Button.css";
+.custom-pagination .page-item.active .page-link {
+  background-color: #342a26; 
+  border-color: #342a26;
+  color: white; 
+}
+
+.custom-pagination .page-link {
+  color: #342a26;
+}
+
+.custom-pagination .page-link:hover,
+.custom-pagination .page-link:focus {
+  background-color: #342a26; 
+  border-color: #342a26;
+  color: white;
+}
 </style>
