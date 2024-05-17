@@ -63,8 +63,15 @@ class CartService {
   updateProdCount(cartProdCount, userId, prodId) {
     // TODO: 수정(update) -> put 방식 -> @PutMapping
     // TODO: 사용법 : http.put(`/컨트롤러함수url/${dno}`, 수정할객체)
+    // TODO: 수정될 객체를 전송해야 스프링시큐리티에서 정상 통과됨(사용하지 않더라도 보낼것 : Rest API 약속(규칙))
+    let data = {
+      cartId: 0,
+      userId: "",
+      prodId: 0,
+      cartProdCount: 0
+    }
     return http.put(
-      `/user/order/cart/update-prodcount/${cartProdCount}/${userId}/${prodId}`,
+      `/user/order/cart/update-prodcount/${cartProdCount}/${userId}/${prodId}`,data,
       {
         headers: AuthHeader(),
       }
