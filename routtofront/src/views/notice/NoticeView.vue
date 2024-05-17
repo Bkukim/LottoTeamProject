@@ -14,7 +14,7 @@
     </div>
     <div class="mt-5 text-center">
       <!-- 서치::보류 -->
-      <div class="row justify-content-end">
+      <!-- <div class="row justify-content-end">
         <form class="d-flex mt-3 col-5" role="search">
           <input
             class="form-control me-2"
@@ -31,7 +31,7 @@
             검색
           </button>
         </form>
-      </div>
+      </div> -->
 
       <!-- 테이블 시작 -->
       <table class="table mt-5">

@@ -97,98 +97,98 @@ public class NormalFaqController {
         }
     }
 
-    //    todo: UserId 내글보기 전체조회 만들기
-//    조회(select) -> get 방식 -> @GetMapping
-    @GetMapping("/userid/faq")
-    public ResponseEntity<Object> findUserId(
-            @RequestParam(defaultValue = "") String userId,
-            @RequestParam(defaultValue = "0") int page,
-            @RequestParam(defaultValue = "3") int size
-    ) {
-        try {
-            log.debug("userID"+userId);
-//            페이징 객체 생성
-            Pageable pageable = PageRequest.of(page, size);
-
-//            전체 조회 서비스 실행
-            Page<Faq> faq
-                    = faqService
-                    .selectByUserIdContaining(userId, pageable);
-
-//            공통 페이징 객체 생성 : 자료구조 맵 사용
-            Map<String, Object> response = new HashMap<>();
-            response.put("faqList", faq.getContent());       // faq 배열
-            response.put("currentPage", faq.getNumber());       // 현재페이지번호
-            response.put("totalItems", faq.getTotalElements()); // 총건수(개수)
-            response.put("totalPages", faq.getTotalPages());    // 총페이지수
-
-            if (faq.isEmpty() == false) {
-//                조회 성공
-                return new ResponseEntity<>(response, HttpStatus.OK);
-            } else {
-//                데이터 없음
-                return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-            }
-
-        } catch (Exception e) {
-            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
-        }
-    }
-
-    //    todo: 저장함수
-    @PostMapping("/faq/save")
-    public ResponseEntity<Object> createFaq(
-            @RequestBody Faq faq
-    ) {
-        try {
-//            DB 서비스 저장 함수 실행
-            Faq faq1 = faqService.save(faq);
-//            성공(OK) 메세지 + 저장된객체
-            return new ResponseEntity<>(faq1, HttpStatus.OK);
-        } catch (Exception e) {
-//            500 전송
-            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
-        }
-    }
-
-    //    TODO: 수정 함수 : 수정 버튼 클릭시 실행될 함수
-//       수정(update) -> put 방식 -> @PutMapping
-    @PutMapping("/faq/update/{faqId}")
-    public ResponseEntity<Object> update(
-            @PathVariable int faqId,
-            @RequestBody Faq faq
-    ) {
-        try {
-//            수정함수 잘되다가 0513 404에러남
-            log.debug("오류나용 컨트롤 들어오니?");
-            Faq faq1 = faqService.save(faq);  // 수정
-            return new ResponseEntity<>(faq1, HttpStatus.OK);
-        } catch (Exception e) {
-//            DB 에러 (서버 에러) -> 500 신호(INTERNAL_SERVER_ERROR)
-            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
-        }
-    }
-
-    //    TODO: 삭제 함수
-    @DeleteMapping("/faq/deletion/{faqId}")
-    public ResponseEntity<Object> delete(
-            @PathVariable int faqId
-    ) {
-        try {
-//            DB 서비스 삭제 함수 실행
-            boolean success = faqService.removeById(faqId);
-
-            if (success == true) {
-                return new ResponseEntity<>(HttpStatus.OK);
-            } else {
-                // 삭제 실행 : 0건 삭제(삭제할 데이터 없음)
-                return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-            }
-
-        } catch (Exception e) {
-//            서버(DB) 에러
-            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
-        }
-    }
+//    //    todo: UserId 내글보기 전체조회 만들기  아래로 user권한 변경
+////    조회(select) -> get 방식 -> @GetMapping
+//    @GetMapping("/userid/faq")
+//    public ResponseEntity<Object> findUserId(
+//            @RequestParam(defaultValue = "") String userId,
+//            @RequestParam(defaultValue = "0") int page,
+//            @RequestParam(defaultValue = "3") int size
+//    ) {
+//        try {
+//            log.debug("userID"+userId);
+////            페이징 객체 생성
+//            Pageable pageable = PageRequest.of(page, size);
+//
+////            전체 조회 서비스 실행
+//            Page<Faq> faq
+//                    = faqService
+//                    .selectByUserIdContaining(userId, pageable);
+//
+////            공통 페이징 객체 생성 : 자료구조 맵 사용
+//            Map<String, Object> response = new HashMap<>();
+//            response.put("faqList", faq.getContent());       // faq 배열
+//            response.put("currentPage", faq.getNumber());       // 현재페이지번호
+//            response.put("totalItems", faq.getTotalElements()); // 총건수(개수)
+//            response.put("totalPages", faq.getTotalPages());    // 총페이지수
+//
+//            if (faq.isEmpty() == false) {
+////                조회 성공
+//                return new ResponseEntity<>(response, HttpStatus.OK);
+//            } else {
+////                데이터 없음
+//                return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+//            }
+//
+//        } catch (Exception e) {
+//            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+//        }
+//    }
+//
+//    //    todo: 저장함수
+//    @PostMapping("/faq/save")
+//    public ResponseEntity<Object> createFaq(
+//            @RequestBody Faq faq
+//    ) {
+//        try {
+////            DB 서비스 저장 함수 실행
+//            Faq faq1 = faqService.save(faq);
+////            성공(OK) 메세지 + 저장된객체
+//            return new ResponseEntity<>(faq1, HttpStatus.OK);
+//        } catch (Exception e) {
+////            500 전송
+//            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+//        }
+//    }
+//
+//    //    TODO: 수정 함수 : 수정 버튼 클릭시 실행될 함수
+////       수정(update) -> put 방식 -> @PutMapping
+//    @PutMapping("/faq/update/{faqId}")
+//    public ResponseEntity<Object> update(
+//            @PathVariable int faqId,
+//            @RequestBody Faq faq
+//    ) {
+//        try {
+////            수정함수 잘되다가 0513 404에러남
+//            log.debug("오류나용 컨트롤 들어오니?");
+//            Faq faq1 = faqService.save(faq);  // 수정
+//            return new ResponseEntity<>(faq1, HttpStatus.OK);
+//        } catch (Exception e) {
+////            DB 에러 (서버 에러) -> 500 신호(INTERNAL_SERVER_ERROR)
+//            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+//        }
+//    }
+//
+//    //    TODO: 삭제 함수
+//    @DeleteMapping("/faq/deletion/{faqId}")
+//    public ResponseEntity<Object> delete(
+//            @PathVariable int faqId
+//    ) {
+//        try {
+////            DB 서비스 삭제 함수 실행
+//            boolean success = faqService.removeById(faqId);
+//
+//            if (success == true) {
+//                return new ResponseEntity<>(HttpStatus.OK);
+//            } else {
+//                // 삭제 실행 : 0건 삭제(삭제할 데이터 없음)
+//                return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+//            }
+//
+//        } catch (Exception e) {
+////            서버(DB) 에러
+//            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+//        }
+//    }
 
 }

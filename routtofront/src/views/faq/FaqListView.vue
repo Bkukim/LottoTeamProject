@@ -15,7 +15,9 @@
     <div class="mt-5 text-center">
       <!-- 테이블 시작 -->
       <!-- 내가쓴글 확인하기 : v-if="faqList.userId === this.$store.state.user?.userId"-->
-      <div class="row mt-5">
+      <div
+        class="row mt-5"
+      >
         <button type="button" id="button3" class="btn" @click="goUserId">
           내가쓴글 확인하기
         </button>
@@ -78,10 +80,8 @@
 
       <!-- 질문하기 등록-->
       <div class="row justify-content-end">
-        <button type="button" id="button1" class="mt-5 btn">
-          <router-link to="/shop/inquiry" class="router-link-exact-active"
-            >질문하기</router-link
-          >
+        <button type="button" id="button1" class="mt-5 btn" @click="goInquiry">
+          질문하기
         </button>
       </div>
     </div>
@@ -124,8 +124,21 @@ export default {
       }
     },
     goUserId() {
-      // '/shop/notice-check/' + data.announcementId
-      this.$router.push("/shop/faqList/userId");
+      if (!this.$store.state.user?.userId) {
+        alert("로그인페이지로 이동합니다");
+        this.$router.push("/member/login");
+      } else{
+        this.$router.push("/shop/faqList/userId");
+      }
+    },
+    goInquiry() {
+      if (!this.$store.state.user?.userId) {
+        alert("로그인페이지로 이동합니다");
+        this.$router.push("/member/login");
+      } else{
+        this.$router.push("/shop/inquiry");
+
+      }
     },
   },
   mounted() {
