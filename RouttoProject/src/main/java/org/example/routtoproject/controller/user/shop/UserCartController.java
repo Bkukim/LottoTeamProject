@@ -1,6 +1,7 @@
 package org.example.routtoproject.controller.user.shop;
 
 import lombok.extern.slf4j.Slf4j;
+import org.example.routtoproject.model.dto.shop.CartProdCountDto;
 import org.example.routtoproject.model.dto.shop.ICartDto;
 import org.example.routtoproject.model.entity.shop.Announcement;
 import org.example.routtoproject.model.entity.shop.Cart;
@@ -130,12 +131,14 @@ public class UserCartController {
         }
     }
 
-//   TODO: 수량확정 함수
+    //   TODO: 수량확정 함수
+//   TODO: put (update) 시 정확하기 기본키, 수정될객체를 전송해 줄것, 아니면 스프링 시큐리티에서 권한에러 발생함
     @PutMapping("/cart/update-prodcount/{cartProdCount}/{userId}/{prodId}")
     public ResponseEntity<Object> updateProdCount(
             @PathVariable Integer cartProdCount,
             @PathVariable String userId,
-            @PathVariable Integer prodId
+            @PathVariable Integer prodId,
+            @RequestBody Cart cart
     ) {
         try {
             cartService.updateProdCount(cartProdCount, userId, prodId);

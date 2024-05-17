@@ -146,7 +146,7 @@ public class NormalProductController {
 
 //            공통 페이징 객체 생성 : 자료구조 맵 사용
             Map<String, Object> response = new HashMap<>();
-            response.put("product", products.getContent());    // simpleProduct 배열
+            response.put("products", products.getContent());    // simpleProduct 배열
             response.put("currentPage", products.getNumber());       // 현재페이지번호
             response.put("totalItems", products.getTotalElements()); // 총건수(개수)
             response.put("totalPages", products.getTotalPages());    // 총페이지수

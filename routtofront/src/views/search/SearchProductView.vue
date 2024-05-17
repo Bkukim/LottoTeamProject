@@ -44,11 +44,6 @@
           <p>{{ data.prodName }}</p>
         </div>
 
-        <div class="abcdefghijklm2">
-          <p>완벽밀착! 자연스럽고 매끄러운 피부</p>
-        </div>
-
-        <div class="_24">★ ★ ★ ★ ★</div>
 
         <div class="abcdef">
           {{ (data.defaultPrice * (100 - data.discountRate)) / 100 + " won" }}
@@ -82,9 +77,9 @@ export default {
       pageSize: 3, // 화면에 보여질 개수
     }
   },methods: {
-    retrieveProduct(){
+   async retrieveProduct(){
       try {
-        let response = ProductService.getSearchProductAll(this.searchProduct,this.page-1,this.pageSize)
+         let response = await ProductService.getSearchProductAll(this.searchProduct,this.page-1,this.pageSize)
         console.log(response.data);
         this.products = response.data.products;
         this.count = response.data.totalItems;

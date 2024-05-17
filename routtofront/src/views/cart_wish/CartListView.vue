@@ -316,9 +316,7 @@ export default {
     async deleteCart(cartId) {
       try {
         // todo: 공통 장바구니 삭제 서비스 함수 실행
-        let response = await CartService.remove(cartId);
-        // 로깅
-        console.log(response.data);
+         await CartService.remove(cartId);
         alert("삭제되었습니다.");
         this.retrieveCart();
       } catch (e) {
@@ -329,9 +327,8 @@ export default {
     async deleteAllCart(userId) {
       try {
         // todo: 공통 장바구니 삭제 서비스 함수 실행
-        let response = await CartService.removeAll(userId);
-        // 로깅
-        console.log(response.data);
+        await CartService.removeAll(userId);
+        
         // alert 대화상자
         alert("삭제되었습니다");
         // 삭제후 재조회
@@ -344,19 +341,14 @@ export default {
     //count수정요청함수
     async updateProdCount(cartProdCount, userId, prodId) {
       try {
-        // TODO: 공통 수정함수 : DeptService.update()
-        // TODO: 비동기 코딩 : async ~ await
-
-        let response = await CartService.updateProdCount(
+         await CartService.updateProdCount(
           cartProdCount,
           userId,
           prodId
         );
 
-        // 로깅
-        console.log(response.data);
         // 화면에 성공메세지 출력 : message
-        this.message = "수정이 성공했습니다.";
+        alert("수량이 변경되었습니다")
       } catch (e) {
         console.log(e);
       }
