@@ -73,9 +73,10 @@ public class WebSecurityConfig {
                 .requestMatchers("/api/admin/**").hasRole("ADMIN")       // 관리자의 모든 함수
                 .requestMatchers("/api/normal/**").permitAll()       // 관리자의 모든 함수
 
+
                 .anyRequest()
-                .authenticated());
-//        .permitAll());
+//                .authenticated());
+        .permitAll());
 //
 
 

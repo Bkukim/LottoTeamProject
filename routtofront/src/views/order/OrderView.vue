@@ -713,7 +713,7 @@ export default {
     // });
     this.retrieveUser(this.$store.state.user.userId);
     this.retrieveProduct(this.$route.params.prodId);
-    console.log(this.product); // console로 찍기
+    // console.log(this.product); // console로 찍기
 
     // TODO: 배송 요청 사항 : 직접 입력 옵션을 선택했을 때 텍스트 상자
     document

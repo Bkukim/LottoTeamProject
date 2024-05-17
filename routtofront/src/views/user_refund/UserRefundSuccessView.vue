@@ -24,7 +24,7 @@
         <div class="product-details ml-3">
           <h5>{{data.prodName}}</h5>
           <p>{{data.orderAmount}}개</p>
-          <p>금액: {{data.prodPrice * data.orderAmount}}원</p>
+          <p>금액: {{formatCurrency(data.prodPrice * data.orderAmount)}}원</p>
         </div>
       </div>
 
@@ -70,6 +70,11 @@ export default {
     };
   },
   methods: {
+    // TODO: 금액에 쉼표 찍어주는 함수
+    formatCurrency(value) {
+      if (!value) return "";
+      return value.toLocaleString("ko-KR");
+    },
     // TODO: orderId로 상세조회하는 함수
     async retrieveOrder(orderId) {
       try {
