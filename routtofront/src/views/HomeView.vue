@@ -63,7 +63,7 @@
 
         
         <div class="abcdef">
-          {{ (data.defaultPrice * (100 - data.discountRate)) / 100 + " won" }}
+          {{ ((data.defaultPrice * (100 - data.discountRate)) / 100).toLocaleString() + " won" }}
         </div>
         <!-- </div> -->
       </div>
