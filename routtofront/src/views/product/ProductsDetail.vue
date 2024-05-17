@@ -654,8 +654,12 @@ export default {
     },
     // TODO: 주문하기 이동함수
     goOrder() {
-      this.$router.push("/order/" + this.$route.params.prodId);
-      this.$store.state.orderAmount = this.productCount;
+      if(!this.$store.state.user?.userId){
+        alert("로그인 페이지로 이동합니다.");
+        this.$router.push("/member/login");
+      }
+      else{this.$router.push("/order/" + this.$route.params.prodId);
+      this.$store.state.orderAmount = this.productCount;}
     },
 
     // 스크롤 함수

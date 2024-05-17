@@ -1,4 +1,5 @@
 <template>
+  <AdminHeaderCom />
   <br />
   <br />
   <br />
@@ -65,8 +66,12 @@
 
 <script>
 import OrderService from "@/services/product/OrderService";
+import AdminHeaderCom from "@/components/common/AdminHeaderCom.vue";
 
 export default {
+    components: {
+    AdminHeaderCom
+  },
   data() {
     return {
       orderProds: [],

@@ -39,7 +39,7 @@
                 <!-- <router-link :to="'/product/inquiry/' + data.qnaId">
                 {{ data.qnaTitle }}</router-link> -->
                 <!-- </router-link> -->
-                <router-link :to="`/product/inquiry/detail/${data.qnaId}`">{{
+                <router-link :to="`/product/admin/inquiry/detail/${data.qnaId}`">{{
                   data.qnaTitle
                 }}</router-link>
               </td>
