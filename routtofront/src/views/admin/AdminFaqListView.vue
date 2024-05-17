@@ -1,8 +1,7 @@
 <!-- 고객센터 faq view -->
 <template>
   <AdminHeaderCom />
-  <br />
-  <br />
+
   <div class="container">
     <div class="main_text">
       <router-link
@@ -73,13 +72,7 @@
         </div>
       </div>
 
-      <!-- 질문하기 등록-->
-      <div class="row justify-content-end">
-        <button type="button" id="button1" class="mt-5 btn">
-          <router-link to="/shop/inquiry" class="router-link-exact-active"
-            >질문하기</router-link>
-        </button>
-      </div>
+      <!-- 질문하기 등록버튼은 관리자 모드에서 보이지 않음-->
     </div>
   </div>
 </template>

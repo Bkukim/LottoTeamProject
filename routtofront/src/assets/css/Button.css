@@ -51,6 +51,7 @@
 }
 .main_text {
   font-weight: 700;
+  color: #342a26 !important;
   margin-bottom: 3vh;
 }
 
@@ -105,7 +106,7 @@
 #button2 {
   width: 180px;
   height: 40px;
-  color: #342a26 !important;
+  color: #342a26;
   /* margin-left: 1vw; */
   /* right: 22.2917vw; */
   /* top: calc(50% - 3.8194vw/2 + 13.9236vw); */
@@ -122,7 +123,7 @@
 #button3 {
   width: 150px;
   height: 30px;
-  color: #342a26 !important;
+  color: #342a26;
   /* margin-left: 1vw; */
   /* right: 22.2917vw; */
   /* top: calc(50% - 3.8194vw/2 + 13.9236vw); */
@@ -138,11 +139,11 @@
 }
 
 #button3:hover{
-  color: #fff !important;
+  color: #fff;
   background: #342a26;
 
 }
 
 #bg {
-  background-color: #342a26 !important;
+  background-color: #342a26;
 }

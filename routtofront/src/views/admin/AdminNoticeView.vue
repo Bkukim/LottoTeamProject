@@ -37,7 +37,7 @@
                 :to="'/admin/admin-noticeCheck/' + data.announcementId"
                 class="router-link-exact-active cencle"
               >
-                {{ data.announcementId }}</router-link
+                {{  index+1  }}</router-link
               >
             </th>
 
