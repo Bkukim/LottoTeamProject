@@ -474,7 +474,6 @@ import ProductService from "@/services/product/ProductService";
 import ReviewService from "@/services/product/ReviewService";
 import QnaService from "@/services/product/QnaService";
 import CartService from '@/services/cart/CartService';
-
 export default {
   data() {
     return {
@@ -558,15 +557,15 @@ export default {
         };
         // TODO: 공통 저장 서비스 함수 실행
         // TODO: async ~ await
-        let response = await ReviewService.createReview(data);
-        console.log(response.data);
+        await ReviewService.createReview(data);
         alert("리뷰가 성공적으로 등록되었습니다.");
-        this.retrieveReview(this.prodId);
+ 
+        this.$router.push('/product/262');
       } catch (e) {
         console.log(e);
       }
     },
-
+ 
     // 리뷰 이미지 추가
     previewReviewImage: function () {
       this.review.reviewImage = this.$refs.file01.files[0]; // 첨부파일은 여러개 선택할수있어서 배열로 되어있다 우리는 처음선택한게 0번
