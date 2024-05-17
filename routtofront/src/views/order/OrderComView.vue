@@ -29,7 +29,8 @@
             style="
               display: flex;
               flex-direction: column;
-              justify-content: space-between;"
+              justify-content: space-between;
+            "
           >
             <div class="row amount">
               <label class="col-md-3 col-form-label">주문번호 :</label>
@@ -47,7 +48,7 @@
                 style="text-align: right; color: blue; font-weight: bold"
                 id="amount"
               >
-                {{ order.orderPrice + order.shoppingFee }} 원
+                {{ formatCurrency(order.orderPrice + order.shoppingFee) }} 원
               </label>
             </div>
           </div>
@@ -112,8 +113,14 @@
             >
               <label class="col-md-2 col-form-label">주소</label>
               <label class="col-md-10 col-form-label">{{
-                "(" + order.zipCode + ")" + " " +
-                order.orderAddress + " " + order.orderDetailAddress }}</label>
+                "(" +
+                order.zipCode +
+                ")" +
+                " " +
+                order.orderAddress +
+                " " +
+                order.orderDetailAddress
+              }}</label>
             </div>
             <!-- 연락처 -->
             <div
@@ -134,16 +141,11 @@
             >
               <label class="col-md-2 col-form-label">배송 요청</label>
               <!-- 배송 요청 사항이 있으면 출력 -->
-              <label
-                class="col-md-10 col-form-label"
-                
-                >{{ order.orderRequest }}</label
-              >
+              <label class="col-md-10 col-form-label">{{
+                order.orderRequest
+              }}</label>
               <!-- 배송 요청 사항이 없으면 출력 -->
-              <label
-                class="col-md-10 col-form-label"
-
-              ></label>
+              <label class="col-md-10 col-form-label"></label>
             </div>
           </div>
           <!-- 배송지 박스 끝 -->
@@ -163,7 +165,8 @@
             <div
               class="product-info"
               style="display: flex; align-items: center"
-              v-for="(data, index) in prodInfoList" :key="index"
+              v-for="(data, index) in prodInfoList"
+              :key="index"
             >
               <div class="col-md-2 col-form-label" style="min-width: 100px">
                 <img
@@ -174,9 +177,10 @@
               </div>
               <div
                 class="col-md-10 col-form-label"
-                style="border-bottom: 1px solid rgba(0, 0, 0, 0.1);
-                       margin-left: 10px;"
-                
+                style="
+                  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+                  margin-left: 10px;
+                "
               >
                 상품 정보
                 <br />
@@ -184,12 +188,16 @@
                 <br />
                 <label>수량 : {{ data.orderAmount }} 개</label>
                 <br />
-                <label>금액 : {{ data.prodPrice * data.orderAmount }}원</label>
+                <label
+                  >금액 :
+                  {{
+                    formatCurrency(data.prodPrice * data.orderAmount)
+                  }}원</label
+                >
                 <br />
               </div>
             </div>
-            <div>
-            </div>
+            <div></div>
           </div>
           <!-- 주문 상품 정보 박스 끝 -->
 
@@ -208,7 +216,7 @@
             <div class="amount">
               <label class="col-md-2 col-form-label">주문 상품</label>
               <label class="col-md-10 col-form-label" style="text-align: right"
-                >{{ order.orderPrice }} 원</label
+                >{{ formatCurrency(order.orderPrice) }} 원</label
               >
             </div>
             <!-- 배송비 금액 -->
@@ -219,7 +227,7 @@
                 >배송비</label
               >
               <label class="col-md-10 col-form-label" style="text-align: right"
-                >{{order.shoppingFee}} 원</label
+                >{{ formatCurrency(order.shoppingFee) }} 원</label
               >
             </div>
             <!-- 총 결제금액 -->
@@ -228,7 +236,10 @@
                 >결제금액</label
               >
               <label class="col-md-10 col-form-label" style="text-align: right"
-                >{{order.orderPrice + order.shoppingFee}} 원</label
+                >{{
+                  formatCurrency(order.orderPrice + order.shoppingFee)
+                }}
+                원</label
               >
             </div>
           </div>
@@ -267,14 +278,9 @@
 </template>
 
 <script>
-import OrderService from '@/services/product/OrderService';
-import CheckoutView from '../payment/CheckoutView.vue';
+import OrderService from "@/services/product/OrderService";
 
 export default {
-  
-  computed: {
-    CheckoutView,
-  },
   data() {
     return {
       order: null,
@@ -282,10 +288,14 @@ export default {
       prodInfoList: [],
       // 주문완료 이미지 경로
       ordercompleteimg: require("@/assets/images/ordercomplete_icon.png"),
-
     };
   },
   methods: {
+    // TODO: 금액에 쉼표 찍어주는 함수
+    formatCurrency(value) {
+      if (!value) return "";
+      return value.toLocaleString("ko-KR");
+    },
     // TODO: orderId로 상세조회하는 함수
     async retrieveOrder(orderId) {
       try {
@@ -305,28 +315,28 @@ export default {
       }
     },
     // TODO: orderId로 prodId 받아오는 함수
-async getProdId(orderId) {
-  try {
-    let response = await OrderService.getOrderProduct(orderId);
-    this.prodId = response.data;
+    async getProdId(orderId) {
+      try {
+        let response = await OrderService.getOrderProduct(orderId);
+        this.prodId = response.data;
 
-    let promises = this.prodId.map(id => this.getProductInfo(id));
-    
-    await Promise.all(promises);
-  } catch (e) {
-    console.log(e);
-  }
-},
-// TODO: orderProdId로 상품 정보 받아오는 함수
-async getProductInfo(orderProdId) {
-  try {
-    let response = await OrderService.getProductInfo(orderProdId);
-    
-    this.prodInfoList.push(...response.data);
-  } catch (e) {
-    console.log(e);
-  }
-},
+        let promises = this.prodId.map((id) => this.getProductInfo(id));
+
+        await Promise.all(promises);
+      } catch (e) {
+        console.log(e);
+      }
+    },
+    // TODO: orderProdId로 상품 정보 받아오는 함수
+    async getProductInfo(orderProdId) {
+      try {
+        let response = await OrderService.getProductInfo(orderProdId);
+
+        this.prodInfoList.push(...response.data);
+      } catch (e) {
+        console.log(e);
+      }
+    },
     // TODO: 주문 확인하기 버튼 클릭시 실행될 함수
     goToMyPage() {
       this.$router.push("/member/mypage");
@@ -343,7 +353,6 @@ async getProductInfo(orderProdId) {
     this.getProductInfo(this.$route.params.orderProdId);
 
     window.scrollTo(0, 0);
-
   },
 };
 </script>
@@ -382,7 +391,7 @@ async getProductInfo(orderProdId) {
 
 @media (max-width: 991.98px) {
   .col-md-8 {
-    max-width: 100%; 
+    max-width: 100%;
   }
 }
 </style>

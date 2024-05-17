@@ -25,26 +25,26 @@ import java.util.List;
 public interface AdminRefundRepository extends JpaRepository<Order, Integer> {
     @Query(value = "SELECT * FROM LOTTO_ORDER\n" +
             "WHERE ORDER_ID = :orderId\n" +
-            "AND ORDER_STAUTS = '환불신청'"
+            "AND ORDER_STATUS = '환불신청'"
             , nativeQuery = true)
     List<Order> findByOrderId(@Param("orderId") int orderId);
 
     @Query(value = "SELECT * FROM LOTTO_ORDER\n" +
             "WHERE ORDER_TIME LIKE '%' || :orderTime || '%'\n" +
-            "AND ORDER_STAUTS = '환불신청'"
+            "AND ORDER_STATUS = '환불신청'"
 
             , nativeQuery = true)
     List<Order> findByOrderTime(@Param("orderTime") String orderTime);
 
     @Query(value = "SELECT * FROM LOTTO_ORDER\n" +
             "WHERE ORDER_STATUS LIKE '%' || :orderStatus || '%'\n" +
-            "AND ORDER_STAUTS = '환불신청'"
+            "AND ORDER_STATUS = '환불신청'"
             , nativeQuery = true)
     List<Order> findByOrderStatus(@Param("orderStatus") String orderStatus);
 
     @Query(value = "SELECT * FROM LOTTO_ORDER\n" +
             "WHERE ORDER_PRICE = :orderPrice\n" +
-            "AND ORDER_STAUTS = '환불신청'"
+            "AND ORDER_STATUS = '환불신청'"
             , nativeQuery = true)
     List<Order> findByOrderPrice(@Param("orderPrice") int orderPrice);
 

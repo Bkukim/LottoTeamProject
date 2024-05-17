@@ -4,7 +4,16 @@
   <div class="container">
     <!-- 반품관리 배너 시작 -->
     <h2 class="mb-3">환불 관리</h2>
-    <div class="container mt-5 RWD" style="border: 1px solid black; display: flex; justify-content: space-between; align-items: center; height: 50px;">
+    <div
+      class="container mt-5 RWD"
+      style="
+        border: 1px solid black;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        height: 50px;
+      "
+    >
       <label><b>반품관리</b></label>
       <label style="display: flex; align-items: center; height: 100%">
         <select v-model="searchType" style="margin-right: 10px">
@@ -13,14 +22,30 @@
           <option value="orderStatus">주문 상태</option>
           <option value="orderPrice">주문 가격</option>
         </select>
-        <input type="text" placeholder="상세조회 내용" v-model="searchQuery" class="input-box" />
-        <button type="button" class="btn RBtn" @click="searchOrders">주문조회</button>
+        <input
+          type="text"
+          placeholder="상세조회 내용"
+          v-model="searchQuery"
+          class="input-box"
+        />
+        <button type="button" class="btn RBtn" @click="searchOrders">
+          주문조회
+        </button>
       </label>
     </div>
     <!-- 반품관리 배너 끝 -->
 
     <!-- 목록 박스 시작 -->
-    <div class="container mt-4 RWD" style="border: 1px solid black; display: flex; flex-direction: column; align-items: flex-start; padding: 10px;">
+    <div
+      class="container mt-4 RWD"
+      style="
+        border: 1px solid black;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 10px;
+      "
+    >
       <b style="align-self: flex-start">목록</b>
       <!-- 왼쪽 정렬을 위해 수정 -->
       <hr style="width: 100%" />
@@ -47,10 +72,15 @@
               <td class="datalist">{{ data.orderTime }}</td>
               <td class="datalist">{{ data.orderName }}</td>
               <td class="datalist">{{ data.receiver }}</td>
-              <td class="datalist">{{ data.orderPrice }}</td>
+              <td class="datalist">{{ formatCurrency(data.orderPrice) }}</td>
               <td class="datalist">{{ data.orderStatus }}</td>
               <td class="datalist">
-                <button class="button-style" @click="handleRefund(data.orderId,data)">환불 처리</button>
+                <button
+                  class="button-style"
+                  @click="handleRefund(data.orderId, data)"
+                >
+                  환불 처리
+                </button>
               </td>
             </tr>
           </tbody>
@@ -64,9 +94,8 @@
 </template>
 
 <script>
-import AdminHeaderCom from "@/components/common/AdminHeaderCom.vue"
+import AdminHeaderCom from "@/components/common/AdminHeaderCom.vue";
 import AdminRefundService from "@/services/admin/AdminRefundService";
-
 
 export default {
   components: {
@@ -85,6 +114,11 @@ export default {
     };
   },
   methods: {
+    // TODO: 금액에 쉼표 찍어주는 함수
+    formatCurrency(value) {
+      if (!value) return "";
+      return value.toLocaleString("ko-KR");
+    },
     async searchOrders() {
       let response;
       // 검색 유형에 따라 적절한 함수 호출
@@ -130,37 +164,42 @@ export default {
       }
     },
     // TODO: 환불 처리 함수
-async handleRefund(orderId,data) {
-  try {
-    // retrievePayco 함수 실행
-    await this.retrievePayco(orderId);
-    // paymentCode를 사용하여 주문 테이블 삭제
-    let response = await AdminRefundService.remove(this.paymentCode);
-    
-    console.log(response.data);
+    async handleRefund(orderId, data) {
+      try {
+        // retrievePayco 함수 실행
+        await this.retrievePayco(orderId);
+        // paymentCode를 사용하여 주문 테이블 삭제
+        let response = await AdminRefundService.remove(this.paymentCode);
 
-    // orderId에 해당하는 주문의 상태를 환불 완료로 변경
-    data.orderStatus = "환불완료"
-    let refundResponse = await AdminRefundService.completeRefund(orderId, data);
-    console.log(refundResponse.data);
+        console.log(response.data);
 
-    this.message = "환불 처리되었습니다.";
-    alert("환불 처리가 완료되었습니다.");
+        // orderId에 해당하는 주문의 상태를 환불 완료로 변경
+        data.orderStatus = "환불완료";
+        let refundResponse = await AdminRefundService.completeRefund(
+          orderId,
+          data
+        );
+        console.log(refundResponse.data);
 
-    this.getAllRefund(); // 환불 처리가 완료된 후 getAllRefund() 함수 호출하여 화면 새로고침
-  } catch (e) {
-    console.log(e);
-  }
-},
-// TODO: 환불신청으로 되어있는 주문 정보 건 모두 확인
-async getAllRefund() {
-  try {
-    let response = await AdminRefundService.findAllByOrderStatus("환불신청");
-    this.filteredOrders = response.data;
-  } catch (e) {
-    console.log(e);
-  }
-},
+        this.message = "환불 처리되었습니다.";
+        alert("환불 처리가 완료되었습니다.");
+
+        this.getAllRefund(); // 환불 처리가 완료된 후 getAllRefund() 함수 호출하여 화면 새로고침
+      } catch (e) {
+        console.log(e);
+      }
+    },
+    // TODO: 환불신청으로 되어있는 주문 정보 건 모두 확인
+    async getAllRefund() {
+      try {
+        let response = await AdminRefundService.findAllByOrderStatus(
+          "환불신청"
+        );
+        this.filteredOrders = response.data;
+      } catch (e) {
+        console.log(e);
+      }
+    },
   },
   mounted() {
     this.message = "";
@@ -230,7 +269,6 @@ async getAllRefund() {
     align-items: flex-start;
   }
 
-
   .period-btn,
   .datepicker-container {
     margin-bottom: 10px;
@@ -238,7 +276,7 @@ async getAllRefund() {
 
   .datepicker-container {
     width: auto;
-    margin-bottom: 10px; 
+    margin-bottom: 10px;
   }
 
   .datepicker-container {

@@ -517,30 +517,15 @@
       </button>
     </div> -->
   </div>
-
-  <div>
-    <div>
-      <!-- 결제 모달 -->
-      <CheckoutViewVue
-        v-if="isModalVisible"
-        @close="isModalVisible = false"
-      ></CheckoutViewVue>
-    </div>
-    <br />
-  </div>
 </template>
 
 <script>
-import CheckoutViewVue from "../payment/CheckoutView.vue";
 import UserService from "@/services/user/UserService";
 import ProductService from "@/services/product/ProductService";
 import OrderService from "@/services/product/OrderService";
 import CartService from '@/services/cart/CartService';
 
 export default {
-  components: {
-    CheckoutViewVue,
-  },
   data() {
     return {
       cartList: [
