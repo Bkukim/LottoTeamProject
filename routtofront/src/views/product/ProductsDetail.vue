@@ -167,7 +167,6 @@
           <div
             id="mysave"
             class="col"
-            @click="scrollToSection('detail')"
             button
             type="button"
           >
