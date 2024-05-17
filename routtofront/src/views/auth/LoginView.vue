@@ -213,6 +213,7 @@ export default {
   font-size: 20px;
 }
 .naver img{
-  width: 25px; /* 이미지의 너비를 원하는 크기로 조절합니다. */
+  width: 25px !important; /* 이미지의 너비를 원하는 크기로 조절합니다. */
+  height: 30px !important;
 }
 </style>

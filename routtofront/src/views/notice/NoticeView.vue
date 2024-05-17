@@ -46,6 +46,7 @@
           <!-- 반복문 시작할 행 -->
 
           <tr
+          class="thcencle"
             v-for="(data, index) in notice"
             :key="index"
             @click="goNoticeCheck"
@@ -55,7 +56,7 @@
                 :to="'/shop/notice-check/' + data.announcementId"
                 class="router-link-exact-active cencle"
               >
-                {{ index+1 }}</router-link
+                {{ (page - 1) * pageSize + index + 1 }}</router-link
               >
             </th>
 

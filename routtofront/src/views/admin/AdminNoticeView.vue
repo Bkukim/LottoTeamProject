@@ -35,16 +35,16 @@
             <th scope="col">
               <router-link
                 :to="'/admin/admin-noticeCheck/' + data.announcementId"
-                class="router-link-exact-active cencle"
+                class="alltext router-link-exact-active "
               >
-                {{  index+1  }}</router-link
+                {{  (page - 1) * pageSize + index + 1  }}</router-link
               >
             </th>
 
-            <th scope="col">
+            <th scope="col" class="alltext">
               <router-link
                 :to="'/admin/admin-noticeCheck/' + data.announcementId"
-                class="router-link-exact-active cencle"
+                class="alltext router-link-exact-active cencle"
               >
                 {{ data.title }}
               </router-link>

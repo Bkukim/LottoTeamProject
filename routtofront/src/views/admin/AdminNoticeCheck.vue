@@ -114,7 +114,7 @@ export default {
         let response = await NoticeListService.delete(
           this.announcement.announcementId
         );
-        this.$router.push("/shop/notice");
+        this.$router.push("/admin/notice");
         // 로깅
         console.log(response.data);
         // alert 대화상자

@@ -31,7 +31,7 @@
             <th scope="row">
               <router-link
                 :to="'/admin/admin-inquriCheck/' + data.faqId"
-                class="router-link-exact-active cencle"
+                class="router-link-exact-active alltext"
               >
                 {{ data.faqId }}
               </router-link>
@@ -39,7 +39,7 @@
             <td class="col-8">
               <router-link
                 :to="'/admin/admin-inquriCheck/' + data.faqId"
-                class="router-link-exact-active cencle"
+                class="router-link-exact-active alltext"
               >
                 {{ data.faqTitle }}
               </router-link>
@@ -47,7 +47,7 @@
             <td>
               <router-link
                 :to="'/admin/admin-inquriCheck/' + data.faqId"
-                class="router-link-exact-active cencle"
+                class="router-link-exact-active alltext"
               >
                 {{ data.userId }}
               </router-link>

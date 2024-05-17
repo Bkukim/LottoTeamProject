@@ -71,7 +71,7 @@
           </td>
            <td class="col">
             <br /><br />
-            <button @click="goToRefundPage(data.orderId)">환불</button>
+            <button class="btn" @click="goToRefundPage(data.orderId)">환불</button>
           </td>
 
           <!-- <div class="col mapage_b2">
@@ -241,7 +241,8 @@ button:hover{
 
 .btn:hover {
   background-color: #342a26bd;
-  border-color: #ffffff;
+  color: #ffffff;
+  border-color: #ffffff ;
 }
 
 .col {
