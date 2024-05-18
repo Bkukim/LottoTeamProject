@@ -15,7 +15,7 @@
                 type="text"
                 class="form-control"
                 id="prodName"
-                placeholder="prodName"
+                placeholder="상품이름"
                 name="prodName"
                 v-model="searchProduct"
               />

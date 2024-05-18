@@ -58,7 +58,7 @@
         <!-- 등록시 공지사항 목록으로 재이동 -->
         <button
           id="button1"
-          class="btn btn-primary"
+          class="btn"
           type="button"
           @click="createNotice"
         >

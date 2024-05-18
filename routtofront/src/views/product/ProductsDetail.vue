@@ -419,7 +419,7 @@
               <!-- <router-link :to="'/product/inquiry/' + data.qnaId">
                 {{ data.qnaTitle }}</router-link> -->
                 <!-- </router-link> -->
-                <router-link :to="`/product/inquiry/detail/${data.qnaId}`">{{ data.qnaTitle }}</router-link>
+                <router-link :to="`/product/inquiry/detail/${data.qnaId}`" class="alltext router-link-exact-active">{{ data.qnaTitle }}</router-link>
 
             </td>
             <td scope="col">
@@ -699,6 +699,7 @@ this.$router.push("/product/inquiry/mypage");
 </script>
 
 <style>
+@import "@/assets/css/Button.css";
 /* 페이징 번호 디자인 */
 .custom-pagination .page-item.active .page-link {
   background-color: #342a26;
