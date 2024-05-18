@@ -154,3 +154,9 @@
 #bg {
   background-color: #342a26;
 }
+
+.custom-pagination .page-item.active .page-link {
+  background-color: #342a26;
+  border-color: #342a26;
+  color: white;
+}
