@@ -40,9 +40,7 @@
         <div v-if="faqList && this.$store.state.user && faqList.userId === this.$store.state.user.userId"> -->
       <div v-if="faqList.userId === this.$store.state.user?.userId">
         <router-link :to="'/shop/inquiry-update/' + faqList.faqId">
-          <button id="button1" class="btn" type="button">
-            수정
-          </button>
+          <button id="button1" class="btn" type="button">수정</button>
         </router-link>
         <button id="button1" class="btn" type="button" @click="deleteFaq">
           삭제
@@ -155,17 +153,17 @@ export default {
       }
     },
 
-    // 답변저장
-    //  저장함수
+    // 답변저장(put)함수
     async updateFaqAnswer() {
       try {
-        // TODO: 객체가 전체가넘어가야함 수정이어도 하나만 수정하기 불가능 한듯?
+        // TODO: 객체가 전체가넘어가야함 수정이어도 하나만 수정하기 불가능 하다.
         let response = await FaqListService.updateAnswer(
           this.faqList.faqId,
           this.faqList
         );
-
         this.$router.push("/admin/admin-inquriCheck/" + this.faqList.faqId);
+        window.scrollTo(0, 0);
+        alert("답변이 등록되었습니다.");
         // 로깅
         console.log(response.data);
       } catch (e) {
