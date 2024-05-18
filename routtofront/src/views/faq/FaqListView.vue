@@ -4,7 +4,7 @@
     <div class="main_text">
       <router-link
         class="top_notice router-link-exact-active fs-5"
-        to="/faqList"
+        to="/shop/faqList"
         >FAQ</router-link
       >
       |
