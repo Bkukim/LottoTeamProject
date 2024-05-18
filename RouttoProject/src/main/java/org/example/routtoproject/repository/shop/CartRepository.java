@@ -67,9 +67,9 @@ public interface CartRepository extends JpaRepository<Cart, Integer> {
     List<ICartDto> findByUserIdContaining(@Param("userId") String userId);
 
     @Query(value = "SELECT CART_ID FROM LOTTO_CART\n" +
-            "WHERE PROD_ID = :prodId"
+            "WHERE PROD_ID = :prodId AND USER_ID = :userId"
             , nativeQuery = true)
-    public Integer existsByProdId(@Param("prodId") int prodId);
+    public Integer existsByProdId(@Param("prodId") int prodId, @Param("userId") String userId);
 
 
     //    TODO: 카트 프로드 카운트 업데이트 ::수량수정용

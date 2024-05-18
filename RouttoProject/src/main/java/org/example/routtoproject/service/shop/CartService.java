@@ -93,8 +93,8 @@ public void deleteByUserId(String userId) {
 
 
     // todo: id가 존재하는지 확인
-    public boolean existById(int prodId) {
-        if (cartRepository.existsByProdId(prodId) != null) {
+    public boolean existById(int prodId, String userId) {
+        if (cartRepository.existsByProdId(prodId, userId) != null) {
             return true;    // 상품이 이미 존재하면
         } else {
             return false;   // 상품이 없으면
