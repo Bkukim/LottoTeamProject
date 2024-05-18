@@ -130,7 +130,7 @@
 #button3 {
   width: 150px;
   height: 30px;
-  color: #342a26;
+  color: #342a26 !important;
   /* margin-left: 1vw; */
   /* right: 22.2917vw; */
   /* top: calc(50% - 3.8194vw/2 + 13.9236vw); */
@@ -138,7 +138,7 @@
   font-size: 14px; /* 부모 요소의 폰트 크기를 상속 */
   font-weight: 2vw; /* 부모 요소의 폰트 두께를 상속 */
   text-decoration: none; /* 밑줄 제거 */
-  background: #fff;
+  background: #fff !important;
   border: 0.1vw solid #342a26;
   padding: 0.3vw;
   margin-bottom: 5vh;

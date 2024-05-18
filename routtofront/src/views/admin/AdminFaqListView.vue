@@ -33,7 +33,7 @@
                 :to="'/admin/admin-inquriCheck/' + data.faqId"
                 class="router-link-exact-active alltext"
               >
-                {{ data.faqId }}
+                {{ (page - 1) * pageSize + index + 1   }}
               </router-link>
             </th>
             <td class="col-8">
@@ -63,7 +63,7 @@
       <div class="row justify-content-center mt-4">
         <div class="col-auto">
           <b-pagination
-            class="col-12 mb-3"
+            class="col-12 mb-3 custom-pagination"
             v-model="page"
             :total-rows="count"
             :per-page="pageSize"
