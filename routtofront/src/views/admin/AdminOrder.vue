@@ -282,7 +282,7 @@
     <div class="row justify-content-center mt-4">
       <div class="col-auto">
         <b-pagination
-          class="col-12 mb-3"
+          class="col-12 mb-3 custom-pagination"
           v-model="page"
           :total-rows="count"
           :per-page="pageSize"
@@ -465,5 +465,10 @@ export default {
 }
 #orderStatus {
   width: 11vw;
+}
+.custom-pagination .page-item.active .page-link {
+  background-color: #342a26;
+  border-color: #342a26;
+  color: white;
 }
 </style>

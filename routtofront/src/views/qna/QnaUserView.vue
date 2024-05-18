@@ -18,7 +18,7 @@
             {{ data.qnaId }}
           </th>
           <td class="col-8">
-            <router-link :to="`/product/inquiry/detail/${data.qnaId}`" style="text-decoration: none;">{{
+            <router-link :to="`/product/inquiry/detail/${data.qnaId}`" style="text-decoration: none;" class="alltext router-link-exact-active custom-pagination">{{
               data.qnaTitle
             }}</router-link>
           </td>
