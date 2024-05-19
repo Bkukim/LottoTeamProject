@@ -3,7 +3,7 @@ package org.example.routtoproject.model.entity.payment;
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.DynamicInsert;
-import org.hibernate.annotations.DynamicUpdate;
+import org.hibernate.annotations.DynamicUpdate; 
 
 import java.util.Date;
 
