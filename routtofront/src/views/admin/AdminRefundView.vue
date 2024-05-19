@@ -28,7 +28,7 @@
           v-model="searchQuery"
           class="input-box"
         />
-        <button type="button" class="btn RBtn" @click="searchOrders">
+        <button type="button" class="btnrr RBtn" @click="searchOrders">
           주문조회
         </button>
       </label>
@@ -292,6 +292,10 @@ export default {
   width: 100%;
   max-width: 400px;
   margin: 0 auto;
+}
+
+.btnrr {
+  border-radius: 5px;
 }
 
 .RBtn {
