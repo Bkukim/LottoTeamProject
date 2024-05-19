@@ -5,10 +5,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.example.routtoproject.model.dto.member.AnnouncementAllDto;
 import org.example.routtoproject.model.dto.shop.IReviewDto;
 import org.example.routtoproject.model.dto.shop.OrderProductDetailDto;
-import org.example.routtoproject.model.entity.shop.Faq;
-import org.example.routtoproject.model.entity.shop.Order;
-import org.example.routtoproject.model.entity.shop.Product;
-import org.example.routtoproject.model.entity.shop.Review;
+import org.example.routtoproject.model.entity.shop.*;
 import org.example.routtoproject.repository.shop.ReviewRepository;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -40,6 +37,14 @@ import java.util.UUID;
 @RequiredArgsConstructor
 public class ReviewService {
     private final ReviewRepository reviewRepository;
+
+    //    todo : userId가 작성한 글 전체조회
+    public Page<Review> findReviewsByUserIdContaining(String userId, Pageable pageable)
+    {
+        Page<Review> page
+                = reviewRepository.findReviewsByUserIdContaining(userId, pageable);
+        return page;
+    }
 
 
 //    todo: review 전체 조회 + 페이징

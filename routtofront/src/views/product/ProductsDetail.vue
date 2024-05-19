@@ -291,6 +291,7 @@
       >
         리뷰 작성
       </button>
+
       <!-- 리뷰 작성 모달 -->
       <div
         class="modal fade"
@@ -368,6 +369,18 @@
           </div>
         </div>
       </div>
+
+                  <!-- 리뷰 내가 쓴 글 버튼 -->
+      <button
+        type="button"
+        class="btn"
+        id="reviewMyWrite"
+        style="float: right"
+        @click="goReviewUserDetail"
+      >
+        내가 쓴 글 보기
+      </button>
+
     </div>
     <!-- 상세 페이지 끝 -->
   </div>
@@ -447,7 +460,7 @@
       </div>
     </div>
 
-      <!-- 리뷰 작성 버튼 -->
+      <!-- 상품문의 내가 쓴 글 버튼 -->
       <button
         type="button"
         class="btn"
@@ -686,6 +699,10 @@ export default {
 // 내가 쓴 글 보기
     goUserDetail(){
 this.$router.push("/product/inquiry/mypage");
+    },
+
+    goReviewUserDetail(){
+      this.$router.push("/product/review/mypage");
     }
   },
   mounted() {
@@ -1022,8 +1039,9 @@ h4 {
   color: white;
 }
 
-#reviewWrite {
+#reviewMyWrite {
   background-color: #342a26;
   color: white;
+  margin-right: 10px;
 }
 </style>

@@ -51,4 +51,13 @@ public interface ReviewRepository extends JpaRepository<Review, Integer> {
             ,nativeQuery = true)
     Page<Review> findReviewByTitleContaining(Pageable pageable);
 
+    //    userId가 작성한 글 보기
+    @Query(value = "SELECT * FROM LOTTO_REVIEW\n" +
+            "WHERE USER_ID LIKE '%'||:userId||'%'"
+            ,countQuery = "SELECT count (*) FROM LOTTO_REVIEW\n" +
+            "WHERE USER_ID LIKE '%'|| :userId ||'%'"
+            ,nativeQuery = true)
+    Page<Review> findReviewsByUserIdContaining(@Param("userId") String userId,
+                                          Pageable pageable);
+
 }
