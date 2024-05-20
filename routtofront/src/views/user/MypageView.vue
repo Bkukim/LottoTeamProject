@@ -232,7 +232,7 @@ button:hover{
 
 
 .btn {
-  width: 50px;
+  width: 80px;
   height: 30px;
   font-size: 12px;
   margin-left: 30px;
