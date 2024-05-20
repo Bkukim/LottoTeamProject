@@ -1,21 +1,34 @@
 <template>
   <div class="container text-center">
-    <h3 class="search_title">Routto Search</h3>
+    <div>
+      <h3 class="search_title mt-5 container text-center">Routto Search</h3>
 
-    <div class="search_input mt-5 ">
-      <input
-        type="text"
-        class="form-control"
-        id="prodName"
-        placeholder="prodName"
-        name="prodName"
-        v-model="searchProduct"
-      />
-      <div @click="retrieveProduct">
-        <img class="search" src="@/assets/images/search.png" />
+      <div class="container text-center">
+        <!-- Stack the columns on mobile by making one full-width and the other half-width -->
+        <div class="container text-center">
+          <div cclass="container text-center">
+            <!-- <h5>SEARCH</h5> -->
+            <P class="mt-5 mb-5 container text-center"
+              >키워드를 입력하여 원하시는 상품을 찾아보세요.</P
+            >
+            <div class="search_input mt-5 mb-5 container text-center">
+              <input
+                type="text"
+                class="form-control"
+                id="prodName"
+                placeholder="prodName"
+                name="prodName"
+                v-model="searchProduct"
+              />
+
+              <div @click="retrieveProduct">
+                <img class="search" src="@/assets/images/search.png" />
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
-    <p class="mt-3 mb-5">키워드를 입력하여 원하시는 상품을 찾아보세요.</p>
 
     <!-- 메인페이지 상품바로가기 반복문 -->
     <div class="product-wrapper">
@@ -116,7 +129,7 @@ h3 {
   margin-top: 10px;
 }
 
-.product-name > p{
+.product-name > p {
   color: #535353;
   font-family: "Inter-Light", sans-serif;
   font-size: 17px;
@@ -124,7 +137,7 @@ h3 {
   letter-spacing: -1.5px;
 }
 
-.product-price{
+.product-price {
   color: #535353;
   font-family: "Inter-Light", sans-serif;
   font-size: 17px;
