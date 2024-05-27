@@ -43,7 +43,7 @@ public class JwtUtils {
     //    함수 정의
 //    1) JWT(웹토큰) 생성 함수
     public String generateJwtToken(Authentication authentication) {
-//        1) id : email 사용
+
         UserDto userDto = (UserDto) authentication.getPrincipal();
 
         //    Json Web Token 구조 : 헤더(header).내용(payload).서명(signature)
@@ -60,6 +60,14 @@ public class JwtUtils {
 //                4) 만료일자 적용 : 현재시간(new Date()).getTime()) + 10분
                 .setExpiration(new Date((new Date()).getTime() + jwtExpirationMs))
 //                5) 디지털서명 : 암호화 적용(HS512 사용 , 비밀키 넣기)
+                .signWith(SignatureAlgorithm.HS512, jwtSecret) // 암호화 적용 서명
+                .compact(); // 토큰 생성
+    }
+    public String generateJwtTokenForKakao(String userId) {
+        return Jwts.builder()
+                .setSubject(userId)
+                .setIssuedAt(new Date())
+                .setExpiration(new Date((new Date()).getTime() + jwtExpirationMs))
                 .signWith(SignatureAlgorithm.HS512, jwtSecret) // 암호화 적용 서명
                 .compact(); // 토큰 생성
     }

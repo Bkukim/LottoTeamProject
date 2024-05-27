@@ -42,6 +42,8 @@ dependencies {
     implementation 'org.thymeleaf.extras:thymeleaf-extras-springsecurity6'
     implementation 'org.springframework.boot:spring-boot-starter-security'
     testImplementation 'org.springframework.security:spring-security-test'
+    implementation 'org.springframework.boot:spring-boot-starter-oauth2-resource-server'
+    implementation 'org.springframework.security:spring-security-oauth2-client' // 현재 사용 중인 Spring Security 버전에 맞게 수정
 
     //  todo: jwt 토큰(웹토큰) 설정 라이브러리
     implementation 'io.jsonwebtoken:jjwt-api:0.11.5'

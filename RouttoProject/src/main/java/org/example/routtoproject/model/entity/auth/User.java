@@ -49,6 +49,9 @@ public class User extends BaseTimeEntity2 {
     private String pwUpdateTime;
     private String pwQuestion;
     private String pwAnswer;
+    private String isSocial;
+    private String accessToken;
+    private String refreshToken;
 
     // todo 회원가입시 값 넣을 생성자 : 비밀번호를 인코딩 해줘야해서 생성자를 한개 만들어줘야한다.
     public User(String userId, String password, String userName, int birthday, String phoneNum, String callNum, String email, String role, String normalAddress, String detailAddress, String pwQuestion, String pwAnswer) {
@@ -64,6 +67,15 @@ public class User extends BaseTimeEntity2 {
         this.detailAddress = detailAddress;
         this.pwQuestion = pwQuestion;
         this.pwAnswer = pwAnswer;
+    }
+
+    // todo 소셜 로그인을 위한 생성자
+
+
+    public User(String userId, String password, String role) {
+        this.password = password;
+        this.userId = userId;
+        this.role = role;
     }
 
     // User와 Order 사이의 일대다 관계를 설정

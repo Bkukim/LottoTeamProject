@@ -1,18 +1,28 @@
 package org.example.routtoproject.config;
 
 import jakarta.servlet.DispatcherType;
+import jakarta.servlet.ServletException;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
+import org.example.routtoproject.handler.OAuth2SuccessHandler;
 import org.example.routtoproject.security.jwt.AuthTokenFilter;
+import org.example.routtoproject.security.services.auth.SocialLoginServiceCustom;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityCustomizer;
 import org.springframework.security.config.http.SessionCreationPolicy;
+import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.oauth2.client.userinfo.DefaultOAuth2UserService;
+import org.springframework.security.web.AuthenticationEntryPoint;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+
+import java.io.IOException;
 
 /**
  * packageName : org.example.simpledms.config
@@ -30,6 +40,9 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 @RequiredArgsConstructor
 @Configuration
 public class WebSecurityConfig {
+
+    private final OAuth2SuccessHandler oAuth2SuccessHandler;
+    private final SocialLoginServiceCustom socialLoginServiceCustom;
     //    1) DB 인증을 하는 클래스    :
 //    2) TODO: 패스워드 암호화 함수     : 필수 정의
 //        @Bean : IOC (스프링이 객체를 생성해주는 것), 함수의 리턴객체를 생성함
@@ -72,13 +85,18 @@ public class WebSecurityConfig {
                 .requestMatchers("/api/user/**").hasRole("USER")       // user관련 모든 함수
                 .requestMatchers("/api/admin/**").hasRole("ADMIN")       // 관리자의 모든 함수
                 .requestMatchers("/api/normal/**").permitAll()       // 관리자의 모든 함수
-
-
                 .anyRequest()
-//                .authenticated());
-        .permitAll());
-//
+                .authenticated()
+                )
+                .exceptionHandling(exceptionHandling -> exceptionHandling
+                        .authenticationEntryPoint(new FailedAuthenticationEntrypoint())
+                ); // 권한없는 사용자가 요청할 경우 실행될 코드
 
+
+        http.oauth2Login(req -> req
+                .successHandler(oAuth2SuccessHandler)                                    // 6-1)
+                .userInfoEndpoint(arg -> arg.userService(socialLoginServiceCustom))    // 6-2)
+        );
 
 //        TODO: 웹토큰 클래스를 스프링시큐리티 설정에 끼워넣기 : 모든 조회(CRUD)에서 아래 인증을 실행함
 //         웹토큰 인증필터를 UsernamePasswordAuthenticationFilter(id/암호 인증필터) 앞에 끼워넣기
@@ -87,3 +105,16 @@ public class WebSecurityConfig {
         return http.build();
     }
 }
+
+// todo chainfilter에서 막힐경울 처리해주는 클래스
+class FailedAuthenticationEntrypoint implements AuthenticationEntryPoint{
+    @Override
+    public void commence(HttpServletRequest request, HttpServletResponse response, AuthenticationException authException) throws IOException, ServletException {
+         response.setContentType("application/json"); // 반환할 타입
+         response.setStatus(HttpServletResponse.SC_FORBIDDEN); // 권한없음 신호 보내기
+        // {"code":"NP","message": "No Permission"}
+         response.getWriter().write("{\"code\":\"NP\",\"message\": \"No Permission\"}"); // 실패시 실제로 변경될 메세지
+
+    }
+}
+

@@ -74,16 +74,18 @@
       <!-- 소셜로그인 -->
       <div class="row text-center mt-5">
         <div>
-          <button class="btn btn-custom naver mt-4 mb-3" id="naver-login-btn" type="submit">
+          <button class="btn btn-custom naver mt-4 mb-3" id="naver-login-btn" type="submit" >
             <img src="@/assets/img/N.png">     &nbsp;&nbsp;        네이버 로그인 / 회원가입
           </button>
         </div>
       </div>
       <div class="row text-center">
         <div>
-          <button class="btn btn-custom naver mt-4 " id="kakao-login-btn" type="submit">
+          
+          <button class="btn btn-custom naver mt-4 " id="kakao-login-btn" type="submit" @click="goToKakaoAuth" >
             <img src="@/assets/img/K.png">     &nbsp;&nbsp;        카카오 로그인 / 회원가입
           </button>
+       
         </div>
       </div>
     </div>
@@ -135,8 +137,16 @@ export default {
           this.$store.commit("loginFailure"); // 공유함수의 mutation함수는commit으로 실행한다.
           console.log(e);
         }
-      }
+      },
+      goToKakaoAuth() {
+      const client_id =    "fd3c55534346fd61bb768e9a7d396e36";         // Rest API 키
+      const redirect_uri =    "http://localhost:8080/auth-redirect";   // Redirect URi
+      const kakaoAuthUrl = `https://kauth.kakao.com/oauth/authorize?client_id=${client_id}&redirect_uri=${redirect_uri}&response_type=code`; // response_type=code는 고정
+      window.location.href = kakaoAuthUrl;  // 이 페이지는 카카오에서 제공하는 페이지라 따로 페이지 만들 필요 없음
+    },
+     
   },
+  
   created() {
     
       // dept와 emp사이에서는 서로 접근이 불가능하여서(의존성을 낮추기 위해) 속성을 공유해서 사용할 수 없다. 그래서 풀옵스와 공유저장소를 이용해서 통신해야한다.
