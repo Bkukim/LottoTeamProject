@@ -10,6 +10,12 @@ class AuthService {
     };
     return http.post("/auth/login", data);
   }
+  // 카카오 로그인
+  socialLogin(code) {
+    // 임시 객체 만들기,보안을 위해 post로 이것을 백엔드로전달한다.
+   
+    return http.post(`/auth/kakao-login/${code}`);
+  }
 
   logout() {
     // 로컬 스토리지의 값을 삭제

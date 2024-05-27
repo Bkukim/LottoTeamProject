@@ -8,8 +8,12 @@ import org.example.routtoproject.model.dto.auth.UserRes;
 import org.example.routtoproject.model.dto.member.FindId;
 import org.example.routtoproject.model.dto.member.NewPw;
 import org.example.routtoproject.model.entity.auth.User;
+import org.example.routtoproject.repository.member.UserRepository;
 import org.example.routtoproject.security.jwt.JwtUtils;
+import org.example.routtoproject.service.member.social.KakaoUserService;
 import org.example.routtoproject.service.member.UserService;
+import org.example.routtoproject.service.member.social.SocialLoginService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -41,10 +45,54 @@ import java.util.ArrayList;
 public class AuthController {
 
     private final UserService userService;
+
+    private SocialLoginService socialLoginService;
+    @Autowired
+    public void setSocialLoginService(SocialLoginService socialLoginService) {
+        this.socialLoginService = socialLoginService;
+    }
+
     private final PasswordEncoder passwordEncoder;
     private final JwtUtils jwtUtils;
     private final AuthenticationManagerBuilder authenticationManagerBuilder;
 
+//    // todo 소셜로그인 함수
+//    @PostMapping("/kakao-login/{code}/{type}")
+//    public ResponseEntity<Object> kakaoLogin(@PathVariable String code,
+//                                             @PathVariable String type){
+//        try {
+//            if (type.equals("kakao")) {
+//                socialLoginService = new KakaoUserService();
+//                String accessToken = socialLoginService.getAccessToken(code);
+//                UserRes userRes = socialLoginService.getUserInfo(accessToken);
+//                return new ResponseEntity<>(userRes,HttpStatus.OK);
+//            } else if (type.equals("naver")) {
+//                socialLoginService = new KakaoUserService();
+//                String accessToken = socialLoginService.getAccessToken(code);
+//                UserRes userRes = socialLoginService.getUserInfo(accessToken);
+//                return new ResponseEntity<>(userRes,HttpStatus.OK);
+//            }else {
+//                return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+//            }
+//
+//        }catch (Exception e){
+//            log.debug(e.getMessage());
+//            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+//        }
+//
+//    }
+    @PostMapping("/kakao-login/{code}")
+    public ResponseEntity<Object> kakaoLogin(@PathVariable String code){
+        try {
+            String accessToken = socialLoginService.getAccessToken(code);
+            UserRes userRes = socialLoginService.getUserInfo(accessToken);
+            return new ResponseEntity<>(userRes,HttpStatus.OK);
+        }catch (Exception e){
+            log.debug(e.getMessage());
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+
+    }
 
     @PostMapping("/login")
     public ResponseEntity<Object> login(
@@ -79,6 +127,7 @@ public class AuthController {
             return new ResponseEntity<>(userRes, HttpStatus.OK);
 
         } catch (Exception e) {
+
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
