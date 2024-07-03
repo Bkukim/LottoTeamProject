@@ -21,7 +21,7 @@ Spring boot와 Vue.js를 활용한 웹 쇼핑몰 서비스 입니다.
 
 ## 📌주요 기능
 #### 1. 로그인 기능
- - JWT와 Spring Security를 이용하여 로그인 
+ - JWT와 Spring Security를 이용한 로그인 
 #### 2. 카테고리별 상품 검색 및 조회 기능
  - 검색창을 활용한 상품 검색
  - 카테고리별 상품 정렬
