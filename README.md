@@ -81,12 +81,8 @@ Spring boot와 Vue.js를 활용한 웹 쇼핑몰 서비스 입니다.
  + 서비스 문의 CRUD
  + 장바구니
 
- +
-
 ### 🐬김지영
-* 
- +
-
+* Frontend
 
 <br>
 
