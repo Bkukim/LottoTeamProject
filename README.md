@@ -77,9 +77,10 @@ Spring boot와 Vue.js를 활용한 웹 쇼핑몰 서비스 입니다.
 ### 🐬김동주
 * 요구사항 정의서 작성
 * Frontend, Backend
-  + 공지사항 CRUD
+  + 공지사항 CRUD(이미지파일 첨부 가능)
   + 서비스 문의 CRUD
-  + 장바구니
+  + 장바구니(삭제 및 수량변경)
+* 자세히 보기 : https://velog.io/@ehdwn0622/쇼핑몰만들기프로젝트의-처음부터-끝까지
 
 ### 🐬김지영
 * Frontend
